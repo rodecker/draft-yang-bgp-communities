@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
+
+<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!ENTITY RFC1997 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1997.xml">
+<!ENTITY RFC2119 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
+<!ENTITY RFC3688 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3688.xml">
+<!ENTITY RFC4360 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4360.xml">
+<!ENTITY RFC4384 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4384.xml">
+<!ENTITY RFC6020 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6020.xml">
+<!ENTITY RFC7950 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7950.xml">
+<!ENTITY RFC7951 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7951.xml">
+<!ENTITY RFC8092 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8092.xml">
+<!ENTITY RFC8174 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml">
+<!ENTITY RFC8195 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8195.xml">
+<!ENTITY RFC8792 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8792.xml">
+]>
+
+<?rfc strict="yes" ?>
+<?rfc compact="yes" ?>
+<?rfc subcompact="no" ?>
+<?rfc toc="yes"?>
+<?rfc tocdepth="4"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes" ?>
+
+<rfc category="info" docName="draft-yang-bgp-communities-00" ipr="none">
+
+  <front>
+
+    <title abbrev="BGP Community YANG">YANG Module for BGP Communities</title>
+
+    <author fullname="Martin Pels" initials="M" surname="Pels">
+      <organization>RIPE NCC</organization>
+      <address>
+        <email>mpels@ripe.net</email>
+      </address>
+    </author>
+
+    <author fullname="Jeffrey Haas" initials="J" surname="Haas">
+      <organization>Juniper Networks</organization>
+      <address>
+        <email>jhaas@juniper.net</email>
+      </address>
+    </author>
+
+    <date year="2022" />
+
+    <abstract>
+      <t>
+        This document provides a YANG module for describing BGP communities.
+      </t>
+    </abstract>
+  </front>
+
+  <middle>
+
+    <section title="Terminology" anchor="terminology">
+       <t>
+         The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+         NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+         "MAY", and "OPTIONAL" in this document are to be interpreted as
+         described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/>
+         when, and only when, they appear in all capitals, as shown here.
+      </t>
+    </section>
+
+    <section title="Introduction" anchor="intro">
+
+      <t>
+        ISPs use BGP communities<xref target="RFC1997"/><xref target="RFC4360"/><xref target="RFC8092"/> to 
+        add information to prefix announcements or to let customers influence routing behaviour inside the network of the ISP.
+        Each ISP defines for itself which BGP communities to support and how the structure of these communities should be interpreted.
+        This document provides a YANG<xref target="RFC7950"/> module for specifying BGP communities, Extended BGP communities and Large BGP communities.
+        The purpose of this is to provide a standardized way for publishing community definitions.
+        It also helps applications such as looking glasses to interpret communities seen in BGP announcements.
+      </t>
+
+    </section>
+
+    <section title="Tree view" anchor="tree">
+
+      <t>
+        The following tree diagram provides an overview of the ietf-bgp-communities.yang data model.
+      </t>
+      <t>
+        <figure>
+          <artwork align="left"><![CDATA[
+module: draft-yang-bgp-communities
+  +--rw bgp-communities
+     +--rw description?   string
+     +--rw contact?       string
+     +--rw url?           string
+     +--rw regular* [name]
+     |  +--rw name           stringtemplate
+     |  +--rw description?   stringtemplate
+     |  +--rw asn            uint16
+     |  +--rw fields* [name]
+     |     +--rw name            string
+     |     +--rw length          uint8
+     |     +--rw (valuetype)
+     |        +--:(decimal)
+     |        |  +--rw value?    decimalstring
+     |        +--:(decimalrange)
+     |        |  +--rw range?    decimalrange
+     |        +--:(binary)
+     |        |  +--rw bvalue?   bitstring
+     |        +--:(binaryrange)
+     |           +--rw brange?   bitrange
+     +--rw large* [name]
+        +--rw name           stringtemplate
+        +--rw description?   stringtemplate
+        +--rw asn            uint32
+        +--rw fields* [name]
+           +--rw name            string
+           +--rw length          uint8
+           +--rw (valuetype)
+              +--:(decimal)
+              |  +--rw value?    decimalstring
+              +--:(decimalrange)
+              |  +--rw range?    decimalrange
+              +--:(binary)
+              |  +--rw bvalue?   bitstring
+              +--:(binaryrange)
+                 +--rw brange?   bitrange
+           ]]></artwork>
+        </figure>
+      </t>
+    </section>
+
+    <section title="Data elements" anchor="elements">
+      <t>
+        The BGP Communities YANG Module contains the elements described in this section.
+        The full contents of the module can be found in <xref target="module"/>.
+      </t>
+
+      <section title="The &quot;description&quot; leaf" anchor="elements.description">
+        <t>
+          A value of type "string", describing a set of communities.
+        </t>
+      </section>
+
+      <section title="The &quot;contact&quot; leaf" anchor="elements.contact">
+        <t>
+          A value of type "string", decribing the contact address for the maintainer of the community set.
+        </t>
+      </section>
+
+      <section title="The &quot;url&quot; leaf" anchor="elements.url">
+        <t>
+          A value of type "string", describing the publication point for the datamodel.
+        </t>
+      </section>
+
+      <section title="The &quot;regular&quot; list" anchor="elements.regular">
+        <t>
+          A list of objects defining regular (<xref target="RFC1997"/>) BGP communities.
+          Each object contains the following elements.
+        </t>
+      
+        <section title="The &quot;name&quot; leaf" anchor="elements.regular.name">
+          <t>
+            A value of type "stringtemplate", containing the name of this community.
+          </t>
+          <t>
+            The structure of the "stringtemplate" type is defined in <xref target="types.stringtemplate"/>.
+          </t>
+        </section>
+        
+        <section title="The &quot;description&quot; leaf" anchor="elements.regular.description">
+          <t>
+            A value of type "stringtemplate", providing a description of the community.
+          </t>
+          <t>
+            The structure of the "stringtemplate" type is defined in <xref target="types.stringtemplate"/>.
+          </t>
+        </section>
+
+        <section title="The &quot;asn&quot; leaf" anchor="elements.regular.asn">
+          <t>
+            A value of type "uint16", containing the Autonomous Sytem Number set in the Global Administrator part of this community.
+          </t>
+        </section>
+
+        <section title="The &quot;fields&quot; list" anchor="elements.regular.fields">
+          <t>
+            A list of objects that together form the Local Administrator part of the community.
+          </t>
+          <t>
+            Each field contains a "name" and "length" leaf, plus a content-specific leaf.
+            The combined length values of all fields MUST be equal to the length of the Local Administrator part of the community.
+          </t>
+
+          <section title="The &quot;name&quot; leaf" anchor="elements.regular.fields.name">
+            <t>
+              A value of type "string", containing the name of the field.
+            </t>
+          </section>
+
+          <section title="The &quot;length&quot; leaf" anchor="elements.regular.fields.length">
+            <t>
+              A value of type "uint8", containing the length in bits of the field.
+            </t>
+          </section>
+
+          <section title="The &quot;value&quot; leaf" anchor="elements.regular.fields.value">
+            <t>
+              A value of type "decimalstring", used for matching the field's contents using a decimal pattern.
+            </t>
+            <t>
+              The structure of the "decimalstring" type is defined in <xref target="types.decimalstring"/>.
+            </t>
+          </section>
+
+          <section title="The &quot;range&quot; leaf" anchor="elements.regular.fields.range">
+            <t>
+              A value of type "decimalrange", used for matching the field's contents using a decimal range.
+            </t>
+            <t>
+              The structure of the "decimalrange" type is defined in <xref target="types.decimalrange"/>.
+            </t>
+          </section>
+
+          <section title="The &quot;bvalue&quot; leaf" anchor="elements.regular.fields.bvalue">
+            <t>
+              A value of type "bitstring", used for matching the field's contents using a bit pattern.
+            </t>
+            <t>
+              The structure of the "bitstring" type is defined in <xref target="types.bitstring"/>.
+            </t>
+          </section>
+
+          <section title="The &quot;brange&quot; leaf" anchor="elements.regular.fields.brange">
+            <t>
+              A value of type "bitrange", used for matching the field's contents using a bit range.
+            </t>
+            <t>
+              The structure of the "bitrange" type is defined in <xref target="types.bitrange"/>.
+            </t>
+          </section>
+
+        </section>
+
+      </section>
+
+      <section title="The &quot;extended&quot; list" anchor="elements.extended">
+        <t>
+          A list of objects defining extended (<xref target="RFC4360"/>) BGP communities.
+          Each object contains the following elements.
+        </t>
+
+        <t>
+          TODO: define further. add type and subtype elements
+        </t>
+
+      </section>
+
+      <section title="The &quot;large&quot; list" anchor="elements.large">
+        <t>
+          A list of objects defining large (<xref target="RFC8092"/>) BGP communities.
+          Each object contains the following elements.
+        </t>
+      
+        <section title="The &quot;name&quot; leaf" anchor="elements.large.name">
+          <t>
+            A value of type "stringtemplate", containing the name of this community.
+          </t>
+          <t>
+            The structure of the "stringtemplate" type is defined in <xref target="types.stringtemplate"/>.
+          </t>
+        </section>
+        
+        <section title="The &quot;description&quot; leaf" anchor="elements.large.description">
+          <t>
+            A value of type "stringtemplate", providing a description of the community.
+          </t>
+          <t>
+            The structure of the "stringtemplate" type is defined in <xref target="types.stringtemplate"/>.
+          </t>
+        </section>
+
+        <section title="The &quot;asn&quot; leaf" anchor="elements.large.asn">
+          <t>
+            A value of type "uint32", containing the Autonomous Sytem Number set in the Global Administrator part of this community.
+          </t>
+        </section>
+
+        <section title="The &quot;fields&quot; list" anchor="elements.large.fields">
+          <t>
+            A list of objects that together form the Local Administrator part of the community.
+            The supported leafs in this list are identical to those described in <xref target="elements.regular.fields"/>.
+          </t>
+        </section>
+
+      </section>
+
+    </section>
+
+    <section title="Type definitions" anchor="types">
+
+      <t>
+        Several of the elements defined in <xref target="elements"/> use custom data types. These datatypes are defined here.
+      </t>
+
+      <section title="The &quot;stringtemplate&quot; datatype" anchor="types.stringtemplate">
+        <t>
+          A freeform string template. Variables are defined using "$\d+" (e.g. $0).
+          Parsers SHOULD(TODO: MAY?) replace variables with the decimal representation of the
+          matched value at the corresponding field index.
+        </t>
+        <t>
+          See <xref target="examples.rfc8195"/> for an example use of variable replacements.
+        </t>
+      </section>
+      
+      <section title="The &quot;decimalstring&quot; datatype" anchor="types.decimalstring">
+        <t>
+          A string representation of a decimal number (e.g. "1234") or number pattern (e.g. "12*").
+          Wildcards are "?" (single character) and "*" (one or more characters).
+        </t>
+      </section>
+
+      <section title="The &quot;decimalrange&quot; datatype" anchor="types.decimalrange">
+        <t>
+          A string representation of a range of decimal numbers (e.g. "120-130").
+        </t>
+      </section>
+
+      <section title="The &quot;bitstring&quot; datatype" anchor="types.bitstring">
+        <t>
+          A bitstring (e.g. "0101") or bit pattern (e.g. "010?").
+          Wildcards are "?" (single character) and "*" (one or more characters).
+        </t>
+      </section>
+
+      <section title="The &quot;bitrange&quot; datatype" anchor="types.bitrange">
+        <t>
+          A range of bitstrings (e.g. "0100-0101").
+        </t>
+      </section>
+
+    </section>
+
+    <section title="IANA considerations" anchor="iana">
+
+      <section title="YANG Namespace Registration" anchor="iana.xml">
+        <t>
+          This document registers the following XML namespace URN in the "IETF
+          XML Registry", following the format defined in <xref target="RFC3688"/>:
+        </t>
+        <t>
+          <figure>
+            <artwork>
+TODO
+            </artwork>
+          </figure>
+        </t>
+      </section>
+
+      <section title="YANG Module Registration" anchor="iana.yang">
+        <t>
+          This document registers the following YANG module in the "YANG Module Names" registry <xref target="RFC6020"/>:
+        </t>
+        <t>
+          <figure>
+            <artwork>
+TODO
+             </artwork>
+           </figure>
+         </t>
+      </section>
+
+      <section title="YANG SID Allocation" anchor="iana.sid">
+         <t>
+           TODO - requests SIDs for use with CBOR?
+         </t>
+      </section>
+
+    </section>
+    
+    <section title="Security considerations" anchor="security">
+
+      <t>
+        The YANG module described in this document may be used to specify BGP community definitions in different encoding formats,
+        such as XML, JSON or CBOR. Applications that parse these community definitions SHOULD reject objects that do not comply 
+        with the rules described in this document. Furthermore, parsers SHOULD check that the sum of the specified Local Administrator
+        field lengths in each community is identical to the Local Administrator part of the specified community type.
+      </t>
+      <t>
+        Applications that support the variable replacements described in <xref target="types.stringtemplate"/> SHOULD perform
+        input validation on field names where appropriate.
+      </t>
+
+      <t>
+        TODO: something about invalid combination of extended community types/subtypes/fields.
+      </t>
+
+    </section>
+
+  </middle>
+
+  <back>
+
+    <references title="Normative References" anchor="normative">
+
+      &RFC1997;
+      &RFC4360;
+      &RFC7950;
+      &RFC8092;
+
+    </references>
+
+    <references title="Informative References" anchor="informative">
+
+      &RFC2119;
+      &RFC3688;
+      &RFC4384;
+      &RFC6020;
+      &RFC7951;
+      &RFC8174;
+      &RFC8195;
+      &RFC8792;
+
+    </references>
+
+    <section title="YANG Module" anchor="module">
+
+      <t>
+        <figure>
+          <artwork align="left"><![CDATA[
+
+module draft-yang-bgp-communities {
+
+  TODO
+
+}
+           ]]></artwork>
+        </figure>
+      </t>
+
+    </section>
+
+    <section title="JSON Examples" anchor="examples">
+
+      <t>
+        This section shows example use cases for the YANG module defined in this document, using JSON<xref target="RFC7951"/> encoding.
+      </t>
+
+      <section title="RFC4384 Data Collection definition" anchor="examples.rfc4384">
+        <t>
+          A JSON definition for the example regular BGP community described in <xref target="RFC4384"/>, section 4 looks as follows.
+        </t>
+        <t>
+          NOTE: '\' line wrapping per <xref target="RFC8792"/>
+        </t>
+        <t>
+          <figure>
+            <artwork align="left"><![CDATA[
+{
+  "draft-yang-bgp-communities:bgp-communities": {
+    "description": "BGP Communities for Data Collection",
+    "contact": "noc@example.net",
+    "url": "http://example.net/peering/communities",
+    "regular": [
+      {
+        "name": "Origin OC/FJ",
+        "description": "A national route over a terrestrial link from \
+the Fiji Islands",
+        "asn": 10876,
+        "fields": [
+          {
+            "name": "Region",
+            "length": 5,
+            "bvalue": "00010"
+          },
+          {
+            "name": "Satellite",
+            "length": 1,
+            "brange": "0"
+          },
+          {
+            "name": "Country",
+            "length": 10,
+            "bvalue": "0011110010"
+          }
+        ]
+      }
+    ]
+  }
+}
+            ]]></artwork>
+          </figure>
+        </t>
+      </section>
+
+      <section title="RFC8195 Selective NO_EXPORT definition" anchor="examples.rfc8195">
+        <t>
+          A JSON definition for the example large BGP communities described in <xref target="RFC8195"/>, section 4.1.1 looks as follows.
+        </t>
+        <t>
+          <figure>
+            <artwork align="left"><![CDATA[
+{
+  "draft-yang-bgp-communities:bgp-communities": {
+    "description": "BGP Communities for ASN-Based Selective NO_EXPORT",
+    "contact": "noc@example.net",
+    "url": "http://example.net/peering/communities",
+    "large": [
+      {
+        "name": "No Export to AS$1",
+        "description": "Do not export route to AS $1",
+        "asn": 64497,
+        "fields": [
+          {
+            "name": "Function",
+            "length": 32,
+            "value": "4"
+          },
+          {
+            "name": "Peer AS",
+            "length": 32,
+            "value": "*"
+          }
+        }
+      }
+    ]
+  }
+}
+            ]]></artwork>
+          </figure>
+        </t>
+      </section>
+
+    </section>
+
+    <section title="Acknowledgements" anchor="acknowledgements">
+
+      <t>
+        The datatypes defined in <xref target="types"/> are based on those used by the NLNOG Looking Glass, written by Teun Vink.
+      </t>
+
+    </section>
+
+  </back>
+
+</rfc>

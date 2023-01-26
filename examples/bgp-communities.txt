@@ -1,0 +1,11 @@
+65010:1234 # Regular: Unmatched ASN
+65001:1234 # Regular: Unmatched Fields
+65001:10768 # Regular: rfc4384 - origin, EU (5-bits), no-sat (1 bit), Netherlands (10-bit)
+
+65010:1234:1234 # Large: Unmatched ASN
+65001:1234:1234 # Large: Unmatched Fields
+65001:1:528 # Large: rfc8195 - origin, continent, country
+65001:4:64498 # Large: rfc8195 - origin, no-export, peer as
+
+0x00:0x08:65001:10768 # Extended: type, subtype, origin, EU (5-bits), no-sat (1 bit), Netherlands (10-bit)
+

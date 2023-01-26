@@ -1,0 +1,200 @@
+module draft-yang-bgp-communities {
+
+  yang-version 1.1;
+
+  namespace "urn:to-be-defined";
+
+  prefix bgp-comm;
+
+  organization "To be defined";
+
+  contact
+    "Example Contact: contact@example.net";
+
+  description
+    "This module describes a structure for BGP Communities.";
+
+  revision "2022-11-22" {
+    description
+      "Initial version.";
+    reference "0.0.1";
+  }
+  
+  typedef decimalstring {
+    type string {
+      pattern
+        '([0-9*?]+)';
+    }
+    description
+      "A decimal number (e.g. 1234).
+      Wildcards are '?' (single character) and '*' (one or more characters)";
+  }
+  
+  typedef decimalrange {
+    type string {
+      pattern
+        '([0-9]+)[-]([0-9]+)';
+    }
+    description
+      "A range of numbers (e.g. 120-130).";
+  }
+
+  typedef bitstring {
+    type string {
+      pattern
+        '([01*?]+)';
+    }
+    description
+      "A bitstring (e.g. 0101).
+      Wildcards are '?' (single character) and '*' (one or more characters)";
+  }
+  
+  typedef bitrange {
+    type string {
+      pattern
+        '([0-1]+)[-]([0-1]+)';
+    }
+    description
+      "A range of bitstrings (e.g. 0100-0101).";
+  }
+
+  typedef stringtemplate {
+    type string {
+      pattern
+        '.*';
+    }
+    description
+      "A freeform string template. Variables are defined using '$\\d+' (e.g. $0).
+      Parsers should replace variables with the decimal representation of the 
+      matched value at the corresponding field index";
+  }
+
+  grouping field-list {
+    list fields {
+      ordered-by user;
+      key "name";
+
+      leaf name {
+        type string;
+        mandatory "true";
+        description
+          "A name of a field";
+      }
+
+      leaf length {
+        type uint8;
+        mandatory "true";
+        description
+          "Length of the field in bits";
+      }
+
+      choice valuetype {
+        mandatory "true";
+        case decimal {
+          leaf value {
+            type decimalstring;
+            description
+              "Contents in decimal representation.";
+          }
+        }
+
+        case decimalrange {
+          leaf range {
+            type decimalrange;
+            description
+              "Contents as decimal range.";
+          }
+        }
+
+        case binary {
+          leaf bvalue {
+            type bitstring;
+            description
+              "Contents in bit representation.";
+          }
+        }
+
+        case binaryrange {
+          leaf brange {
+            type bitrange;
+            description
+              "Contents as bit range.";
+          }
+        }
+      }
+    }
+  }
+
+  container bgp-communities { 
+
+    leaf description {
+      type string;
+      description
+        "A description for the community set.";
+    }
+
+    leaf contact {
+      type string;
+      description
+        "Maintainer contact details.";
+    }
+
+    leaf url {
+      type string;
+      description
+        "Publication point for the community set.";
+    }
+
+    list regular {
+      key "name";
+
+      leaf name {
+        type stringtemplate;
+        mandatory "true";
+        description
+          "Community name.";
+      }
+
+      leaf description {
+        type stringtemplate;
+        description
+          "Description for the community.";
+      }
+
+      leaf asn {
+        type "uint16";
+        mandatory "true";
+        description
+          "Global Administrator";
+      }
+
+      uses field-list;
+    }
+
+    list large {
+      key "name";
+
+      leaf name {
+        type stringtemplate;
+        mandatory "true";
+        description
+          "Community name";
+      }
+
+      leaf description {
+        type stringtemplate;
+        description
+          "Description for the community";
+      }
+
+      leaf asn {
+        type "uint32";
+        mandatory "true";
+        description
+          "Global Administrator";
+      }
+
+      uses field-list;
+    }
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "draft-yang-bgp-communities:bgp-communities": {
+    "description": "BGP Communities for Example.net",
+    "contact": "noc@example.net",
+    "url": "http://example.net/peering/",
+    "regular": [
+      {
+        "name": "RFC4384 Origin EU/NL ($0/$2)",
+        "description": "Example for RFC4384",
+        "asn": 65001,
+        "fields": [
+          {
+            "name": "Region",
+            "length": 5,
+            "bvalue": "00101"
+          },
+          {
+            "name": "Satellite",
+            "length": 1,
+            "brange": "0-1"
+          },
+          {
+            "name": "Country",
+            "length": 10,
+            "bvalue": "1000010000"
+          }
+        ]
+      }
+    ],
+    "large": [
+      {
+        "name": "RFC8195 Origin EU/NL",
+        "description": "Example for RFC8195",
+        "asn": 65001,
+        "fields": [
+          {
+            "name": "Function",
+            "length": 32,
+            "value": "1"
+          },
+          {
+            "name": "Country",
+            "length": 32,
+            "value": "528"
+          }
+        ]
+      },
+      {
+        "name": "RFC8195 No Export to AS$1",
+        "description": "Example for RFC8195",
+        "asn": 65001,
+        "fields": [
+          {
+            "name": "Function",
+            "length": 32,
+            "value": "4"
+          },
+          {
+            "name": "Peer AS",
+            "length": 32,
+            "value": "*"
+          }
+        ]
+      }
+    ]
+  }
+}
