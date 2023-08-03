@@ -175,7 +175,6 @@ def _candidate2fields(contentbits,clocaladmin):
 def _candidate2fields_lc(contentbits1,contentbits2,
                          clocaldatapart1,clocaldatapart2):
     fields = {}
-    pos = 0
     if 'format' in clocaldatapart1:
         if clocaldatapart1['format'] == 'binary':
             contentbits1 = _decimal2bits(contentbits1,32)
@@ -183,6 +182,7 @@ def _candidate2fields_lc(contentbits1,contentbits2,
         if clocaldatapart2['format'] == 'binary':
             contentbits2 = _decimal2bits(contentbits2,32)
 
+    pos = 0
     foffset = 0
     for fid, f in enumerate(clocaldatapart1['fields']):
         if 'length' in f:
@@ -191,6 +191,8 @@ def _candidate2fields_lc(contentbits1,contentbits2,
           l = len(contentbits1)
         fields[foffset + fid] = contentbits1[pos:pos+l]
         pos = pos + l
+
+    pos = 0
     foffset = len(clocaldatapart1['fields'])
     for fid, f in enumerate(clocaldatapart2['fields']):
         if 'length' in f:
