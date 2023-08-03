@@ -1,66 +1,162 @@
 {
   "draft-yang-bgp-communities:bgp-communities": {
     "description": "BGP Communities for Example.net",
-    "contact": "noc@example.net",
-    "url": "http://example.net/peering/",
+    "contacts": [
+      {
+        "emailaddress": "noc@example.net",
+        "name": "Example.net contact",
+        "role": "Administrative contact",
+        "organization": "Example.net",
+        "organizationalunit": "NOC"
+      }
+    ],
+    "uri": "http://example.net/peering/",
+    "serial": 2023080101,
     "regular": [
       {
-        "name": "RFC4384 Origin EU/NL ($0/$2)",
-        "description": "Example for RFC4384",
-        "asn": 65001,
-        "fields": [
-          {
-            "name": "Region",
-            "length": 5,
-            "bvalue": "00101"
-          },
-          {
-            "name": "Satellite",
-            "length": 1,
-            "brange": "0-1"
-          },
-          {
-            "name": "Country",
-            "length": 10,
-            "bvalue": "1000010000"
-          }
-        ]
+        "name": "NO-ANNOUNCE",
+        "description": "Example Regular: Do not announce to peers",
+        "globaladmin": 65001,
+        "localadmin": {
+          "fields": [
+            {
+              "name": "Action",
+              "pattern": "3000",
+              "description": "No announce to peers"
+            }
+          ]
+        }
+      },
+      {
+        "name": "PREPEND-TO-NA",
+        "description": "Example Regular: Prepend X times to North American peers",
+        "globaladmin": 65001,
+        "localadmin": {
+          "fields": [
+            {
+              "name": "Continent",
+              "length": 3,
+              "pattern": "200",
+              "description": "North America"
+            },
+            {
+              "name": "Prepend-count",
+              "length": 1,
+              "pattern": "[1-5]"
+            }
+          ]
+        }
+      },
+      {
+        "name": "PREPEND-TO-EU",
+        "description": "Example Regular: Prepend X times to European peers",
+        "globaladmin": 65001,
+        "localadmin": {
+          "fields": [
+            {
+              "name": "Continent",
+              "length": 3,
+              "pattern": "210",
+              "description": "Europe"
+            },
+            {
+              "name": "Prepend-count",
+              "length": 1,
+              "pattern": "[1-5]"
+            }
+          ]
+        }
+      },
+      {
+        "name": "RFC4384-EU-NL",
+        "description": "Example Regular: RFC4384 - Origin EU/NL",
+        "globaladmin": 65001,
+        "localadmin": {
+          "format": "binary",
+          "fields": [
+            {
+              "name": "Region",
+              "length": 5,
+              "pattern": "00101",
+              "description": "EU"
+            },
+            {
+              "name": "Satellite",
+              "length": 1,
+              "pattern": "[0-1]"
+            },
+            {
+              "name": "Country",
+              "length": 10,
+              "pattern": "1000010000",
+              "description": "NL"
+            }
+          ]
+        }
       }
     ],
     "large": [
       {
-        "name": "RFC8195 Origin EU/NL",
-        "description": "Example for RFC8195",
-        "asn": 65001,
-        "fields": [
-          {
-            "name": "Function",
-            "length": 32,
-            "value": "1"
-          },
-          {
-            "name": "Country",
-            "length": 32,
-            "value": "528"
-          }
-        ]
+        "name": "RFC8195-ORIGIN-NL",
+        "description": "Example Large: RFC8195 - Origin NL",
+        "globaladmin": 65001,
+        "localdatapart1": {
+          "fields": [
+            {
+              "name": "Function",
+              "pattern": "1",
+              "description": "Origin"
+            }
+          ]
+        },
+        "localdatapart2": {
+          "fields": [
+            {
+              "name": "Country",
+              "pattern": "528",
+              "description": "NL"
+            }
+          ]
+        }
       },
       {
-        "name": "RFC8195 No Export to AS$1",
-        "description": "Example for RFC8195",
+        "name": "RFC8195-NOEXPORT-ASN",
+        "description": "Example Large: RFC8195 - No-export to ASN",
+        "globaladmin": 65001,
+        "localdatapart1": {
+          "fields": [
+            {
+              "name": "Function",
+              "pattern": "4",
+              "description": "ASN-No-Export"
+            }
+          ]
+        },
+        "localdatapart2": {
+          "fields": [
+            {
+              "name": "ASN",
+              "pattern": ".*"
+            }
+          ]
+        }
+      }
+    ],
+    "extended": [
+      {
+        "name": "ANNOUNCE-TO-PEER",
+        "description": "Example Extended: Announce to Peer AS",
+        "type": 0,
+        "subtype": 2,
         "asn": 65001,
-        "fields": [
-          {
-            "name": "Function",
-            "length": 32,
-            "value": "4"
-          },
-          {
-            "name": "Peer AS",
-            "length": 32,
-            "value": "*"
-          }
-        ]
+        "localadmin": {
+          "fields": [
+            {
+              "name": "Peer-AS",
+              "pattern": ".*"
+            }
+          ]
+        }
       }
     ]
   }

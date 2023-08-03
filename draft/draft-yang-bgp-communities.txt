@@ -6,7 +6,7 @@
                                                                 RIPE NCC
                                                                  J. Haas
                                                         Juniper Networks
-                                                        30 November 2022
+                                                           3 August 2023
 
 
                     YANG Module for BGP Communities
@@ -20,56 +20,70 @@ Table of Contents
 
    1.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   2
    2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   3.  Tree view . . . . . . . . . . . . . . . . . . . . . . . . . .   2
-   4.  Data elements . . . . . . . . . . . . . . . . . . . . . . . .   3
-     4.1.  The "description" leaf  . . . . . . . . . . . . . . . . .   3
-     4.2.  The "contact" leaf  . . . . . . . . . . . . . . . . . . .   4
-     4.3.  The "url" leaf  . . . . . . . . . . . . . . . . . . . . .   4
-     4.4.  The "regular" list  . . . . . . . . . . . . . . . . . . .   4
-       4.4.1.  The "name" leaf . . . . . . . . . . . . . . . . . . .   4
-       4.4.2.  The "description" leaf  . . . . . . . . . . . . . . .   4
-       4.4.3.  The "asn" leaf  . . . . . . . . . . . . . . . . . . .   4
-       4.4.4.  The "fields" list . . . . . . . . . . . . . . . . . .   4
-         4.4.4.1.  The "name" leaf . . . . . . . . . . . . . . . . .   4
-         4.4.4.2.  The "length" leaf . . . . . . . . . . . . . . . .   5
-         4.4.4.3.  The "value" leaf  . . . . . . . . . . . . . . . .   5
-         4.4.4.4.  The "range" leaf  . . . . . . . . . . . . . . . .   5
-         4.4.4.5.  The "bvalue" leaf . . . . . . . . . . . . . . . .   5
-         4.4.4.6.  The "brange" leaf . . . . . . . . . . . . . . . .   5
-     4.5.  The "extended" list . . . . . . . . . . . . . . . . . . .   5
-     4.6.  The "large" list  . . . . . . . . . . . . . . . . . . . .   5
+   3.  Tree view . . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   4.  Data elements . . . . . . . . . . . . . . . . . . . . . . . .   4
+     4.1.  The "serial" leaf . . . . . . . . . . . . . . . . . . . .   4
+     4.2.  The "uri" leaf  . . . . . . . . . . . . . . . . . . . . .   4
+     4.3.  The "description" leaf  . . . . . . . . . . . . . . . . .   4
+     4.4.  The "contacturl" leaf . . . . . . . . . . . . . . . . . .   4
+     4.5.  The "contacts" list . . . . . . . . . . . . . . . . . . .   4
+       4.5.1.  The "emailaddress" leaf . . . . . . . . . . . . . . .   5
+       4.5.2.  The "name" leaf . . . . . . . . . . . . . . . . . . .   5
+       4.5.3.  The "role" leaf . . . . . . . . . . . . . . . . . . .   5
+       4.5.4.  The "organization" leaf . . . . . . . . . . . . . . .   5
+       4.5.5.  The "organizationalunit" leaf . . . . . . . . . . . .   5
+     4.6.  The "regular" list  . . . . . . . . . . . . . . . . . . .   5
        4.6.1.  The "name" leaf . . . . . . . . . . . . . . . . . . .   5
-       4.6.2.  The "description" leaf  . . . . . . . . . . . . . . .   6
-       4.6.3.  The "asn" leaf  . . . . . . . . . . . . . . . . . . .   6
-       4.6.4.  The "fields" list . . . . . . . . . . . . . . . . . .   6
-   5.  Type definitions  . . . . . . . . . . . . . . . . . . . . . .   6
-     5.1.  The "stringtemplate" datatype . . . . . . . . . . . . . .   6
-     5.2.  The "decimalstring" datatype  . . . . . . . . . . . . . .   6
-     5.3.  The "decimalrange" datatype . . . . . . . . . . . . . . .   6
-     5.4.  The "bitstring" datatype  . . . . . . . . . . . . . . . .   6
-     5.5.  The "bitrange" datatype . . . . . . . . . . . . . . . . .   7
-   6.  IANA considerations . . . . . . . . . . . . . . . . . . . . .   7
-     6.1.  YANG Namespace Registration . . . . . . . . . . . . . . .   7
+       4.6.2.  The "description" leaf  . . . . . . . . . . . . . . .   5
+       4.6.3.  The "globaladmin" leaf  . . . . . . . . . . . . . . .   5
+       4.6.4.  The "localadmin" container  . . . . . . . . . . . . .   6
+         4.6.4.1.  The "format" leaf . . . . . . . . . . . . . . . .   6
+         4.6.4.2.  The "fields" list . . . . . . . . . . . . . . . .   6
+     4.7.  The "extended" list . . . . . . . . . . . . . . . . . . .   7
+       4.7.1.  The "name" leaf . . . . . . . . . . . . . . . . . . .   7
+       4.7.2.  The "description" leaf  . . . . . . . . . . . . . . .   7
+       4.7.3.  The "type" leaf . . . . . . . . . . . . . . . . . . .   7
+       4.7.4.  The "subtype" leaf  . . . . . . . . . . . . . . . . .   7
+       4.7.5.  The "asn" leaf  . . . . . . . . . . . . . . . . . . .   7
+       4.7.6.  The "asn4" leaf . . . . . . . . . . . . . . . . . . .   7
+       4.7.7.  The "localadmin" container  . . . . . . . . . . . . .   7
+         4.7.7.1.  The "format" leaf . . . . . . . . . . . . . . . .   8
+         4.7.7.2.  The "fields" list . . . . . . . . . . . . . . . .   8
+     4.8.  The "large" list  . . . . . . . . . . . . . . . . . . . .   8
 
 
 
 Pels & Haas                   Informational                     [Page 1]
 
-                           BGP Community YANG              November 2022
+                           BGP Community YANG                August 2023
 
 
-     6.2.  YANG Module Registration  . . . . . . . . . . . . . . . .   7
-     6.3.  YANG SID Allocation . . . . . . . . . . . . . . . . . . .   7
-   7.  Security considerations . . . . . . . . . . . . . . . . . . .   7
-   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .   7
-     8.1.  Normative References  . . . . . . . . . . . . . . . . . .   7
-     8.2.  Informative References  . . . . . . . . . . . . . . . . .   8
-   Appendix A.  YANG Module  . . . . . . . . . . . . . . . . . . . .   9
-   Appendix B.  JSON Examples  . . . . . . . . . . . . . . . . . . .   9
-     B.1.  RFC4384 Data Collection definition  . . . . . . . . . . .   9
-     B.2.  RFC8195 Selective NO_EXPORT definition  . . . . . . . . .  10
-   Appendix C.  Acknowledgements . . . . . . . . . . . . . . . . . .  11
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  11
+       4.8.1.  The "name" leaf . . . . . . . . . . . . . . . . . . .   8
+       4.8.2.  The "description" leaf  . . . . . . . . . . . . . . .   8
+       4.8.3.  The "globaladmin" leaf  . . . . . . . . . . . . . . .   8
+       4.8.4.  The "localdatapart1" container  . . . . . . . . . . .   8
+         4.8.4.1.  The "format" leaf . . . . . . . . . . . . . . . .   9
+         4.8.4.2.  The "fields" list . . . . . . . . . . . . . . . .   9
+       4.8.5.  The "localdatapart2" container  . . . . . . . . . . .   9
+         4.8.5.1.  The "format" leaf . . . . . . . . . . . . . . . .   9
+         4.8.5.2.  The "fields" list . . . . . . . . . . . . . . . .   9
+   5.  Operational guidelines  . . . . . . . . . . . . . . . . . . .   9
+     5.1.  Publishing guidelines . . . . . . . . . . . . . . . . . .   9
+     5.2.  Parsing guidelines  . . . . . . . . . . . . . . . . . . .  10
+   6.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  10
+     6.1.  YANG Namespace Registration . . . . . . . . . . . . . . .  10
+     6.2.  YANG Module Registration  . . . . . . . . . . . . . . . .  10
+     6.3.  YANG SID Allocation . . . . . . . . . . . . . . . . . . .  11
+   7.  Security considerations . . . . . . . . . . . . . . . . . . .  11
+   8.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  11
+     8.1.  Normative References  . . . . . . . . . . . . . . . . . .  11
+     8.2.  Informative References  . . . . . . . . . . . . . . . . .  11
+   Appendix A.  YANG Module  . . . . . . . . . . . . . . . . . . . .  12
+   Appendix B.  JSON Examples  . . . . . . . . . . . . . . . . . . .  13
+     B.1.  RFC8195 Selective NO_EXPORT definition  . . . . . . . . .  13
+     B.2.  RFC4384 Data Collection definition  . . . . . . . . . . .  14
+   Appendix C.  Acknowledgements . . . . . . . . . . . . . . . . . .  15
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  15
 
 1.  Terminology
 
@@ -92,65 +106,85 @@ Pels & Haas                   Informational                     [Page 1]
    also helps applications such as looking glasses to interpret
    communities seen in BGP announcements.
 
-3.  Tree view
-
-   The following tree diagram provides an overview of the ietf-bgp-
-   communities.yang data model.
-
-
-
-
-
-
-
-
-
-
 
 
 
 Pels & Haas                   Informational                     [Page 2]
 
-                           BGP Community YANG              November 2022
+                           BGP Community YANG                August 2023
 
+
+3.  Tree view
+
+   The following tree diagram provides an overview of the ietf-bgp-
+   communities.yang data model.
 
    module: draft-yang-bgp-communities
      +--rw bgp-communities
+        +--rw serial         uint32
+        +--rw uri?           string
         +--rw description?   string
-        +--rw contact?       string
-        +--rw url?           string
+        +--rw contacturl?    string
+        +--rw contacts* [emailaddress]
+        |  +--rw emailaddress          string
+        |  +--rw name?                 string
+        |  +--rw role?                 string
+        |  +--rw organization?         string
+        |  +--rw organizationalunit?   string
         +--rw regular* [name]
-        |  +--rw name           stringtemplate
-        |  +--rw description?   stringtemplate
-        |  +--rw asn            uint16
-        |  +--rw fields* [name]
-        |     +--rw name            string
-        |     +--rw length          uint8
-        |     +--rw (valuetype)
-        |        +--:(decimal)
-        |        |  +--rw value?    decimalstring
-        |        +--:(decimalrange)
-        |        |  +--rw range?    decimalrange
-        |        +--:(binary)
-        |        |  +--rw bvalue?   bitstring
-        |        +--:(binaryrange)
-        |           +--rw brange?   bitrange
+        |  +--rw name           string
+        |  +--rw description?   string
+        |  +--rw globaladmin    uint16
+        |  +--rw localadmin
+        |     +--rw format?   string
+        |     +--rw fields* [name]
+        |        +--rw name           string
+        |        +--rw length?        uint8
+        |        +--rw pattern        string
+        |        +--rw description?   string
+        +--rw extended* [name]
+        |  +--rw name             string
+        |  +--rw description?     string
+        |  +--rw type             uint8
+        |  +--rw subtype          uint8
+        |  +--rw (globaladmin)
+        |  |  +--:(asn)
+        |  |  |  +--rw asn?   uint16
+        |  |  +--:(asn4)
+        |  |     +--rw asn4?   uint32
+        |  +--rw localadmin
+        |     +--rw format?   string
+        |     +--rw fields* [name]
+        |        +--rw name           string
+        |        +--rw length?        uint8
+        |        +--rw pattern        string
+        |        +--rw description?   string
         +--rw large* [name]
-           +--rw name           stringtemplate
-           +--rw description?   stringtemplate
-           +--rw asn            uint32
-           +--rw fields* [name]
-              +--rw name            string
-              +--rw length          uint8
-              +--rw (valuetype)
-                 +--:(decimal)
-                 |  +--rw value?    decimalstring
-                 +--:(decimalrange)
-                 |  +--rw range?    decimalrange
-                 +--:(binary)
-                 |  +--rw bvalue?   bitstring
-                 +--:(binaryrange)
-                    +--rw brange?   bitrange
+           +--rw name              string
+           +--rw description?      string
+
+
+
+Pels & Haas                   Informational                     [Page 3]
+
+                           BGP Community YANG                August 2023
+
+
+           +--rw globaladmin       uint32
+           +--rw localdatapart1
+           |  +--rw format?   string
+           |  +--rw fields* [name]
+           |     +--rw name           string
+           |     +--rw length?        uint8
+           |     +--rw pattern        string
+           |     +--rw description?   string
+           +--rw localdatapart2
+              +--rw format?   string
+              +--rw fields* [name]
+                 +--rw name           string
+                 +--rw length?        uint8
+                 +--rw pattern        string
+                 +--rw description?   string
 
 4.  Data elements
 
@@ -158,189 +192,349 @@ Pels & Haas                   Informational                     [Page 2]
    this section.  The full contents of the module can be found in
    Appendix A.
 
-4.1.  The "description" leaf
+4.1.  The "serial" leaf
 
-   A value of type "string", describing a set of communities.
+   A required value of type "uint32", containing the version number for
+   the community set.  This value wraps and should be compared using
+   sequence space arithmetic.
 
+4.2.  The "uri" leaf
 
+   An optional value of type "string", describing the publication point
+   for the community set.
 
+4.3.  The "description" leaf
 
-Pels & Haas                   Informational                     [Page 3]
-
-                           BGP Community YANG              November 2022
+   An optional value of type "string", providing information about the
+   specified set of communities.
 
+4.4.  The "contacturl" leaf
 
-4.2.  The "contact" leaf
+   An optional value of type "string", describing a webpage where
+   maintainer contact information may be found.
 
-   A value of type "string", decribing the contact address for the
-   maintainer of the community set.
+4.5.  The "contacts" list
 
-4.3.  The "url" leaf
-
-   A value of type "string", describing the publication point for the
-   datamodel.
-
-4.4.  The "regular" list
-
-   A list of objects defining regular ([RFC1997]) BGP communities.  Each
-   object contains the following elements.
-
-4.4.1.  The "name" leaf
-
-   A value of type "stringtemplate", containing the name of this
-   community.
-
-   The structure of the "stringtemplate" type is defined in Section 5.1.
-
-4.4.2.  The "description" leaf
-
-   A value of type "stringtemplate", providing a description of the
-   community.
-
-   The structure of the "stringtemplate" type is defined in Section 5.1.
-
-4.4.3.  The "asn" leaf
-
-   A value of type "uint16", containing the Autonomous Sytem Number set
-   in the Global Administrator part of this community.
-
-4.4.4.  The "fields" list
-
-   A list of objects that together form the Local Administrator part of
-   the community.
-
-   Each field contains a "name" and "length" leaf, plus a content-
-   specific leaf.  The combined length values of all fields MUST be
-   equal to the length of the Local Administrator part of the community.
-
-4.4.4.1.  The "name" leaf
-
-   A value of type "string", containing the name of the field.
-
+   A list of objects defining contact information for the maintainer(s)
+   of the community set.  Each object contains the following elements.
 
 
 
 
 Pels & Haas                   Informational                     [Page 4]
 
-                           BGP Community YANG              November 2022
+                           BGP Community YANG                August 2023
 
 
-4.4.4.2.  The "length" leaf
+4.5.1.  The "emailaddress" leaf
 
-   A value of type "uint8", containing the length in bits of the field.
+   A required value of type "string", containing the e-mail address of
+   the contact.
 
-4.4.4.3.  The "value" leaf
+4.5.2.  The "name" leaf
 
-   A value of type "decimalstring", used for matching the field's
-   contents using a decimal pattern.
+   An optional value of type "string", containing the name of the
+   contact.
 
-   The structure of the "decimalstring" type is defined in Section 5.2.
+4.5.3.  The "role" leaf
 
-4.4.4.4.  The "range" leaf
+   An optional value of type "string", describing the role of the
+   contact.
 
-   A value of type "decimalrange", used for matching the field's
-   contents using a decimal range.
+4.5.4.  The "organization" leaf
 
-   The structure of the "decimalrange" type is defined in Section 5.3.
+   An optional value of type "string", containing the organization of
+   the contact.
 
-4.4.4.5.  The "bvalue" leaf
+4.5.5.  The "organizationalunit" leaf
 
-   A value of type "bitstring", used for matching the field's contents
-   using a bit pattern.
+   An optional value of type "string", containing the organizational
+   unit of the contact.
 
-   The structure of the "bitstring" type is defined in Section 5.4.
+4.6.  The "regular" list
 
-4.4.4.6.  The "brange" leaf
-
-   A value of type "bitrange", used for matching the field's contents
-   using a bit range.
-
-   The structure of the "bitrange" type is defined in Section 5.5.
-
-4.5.  The "extended" list
-
-   A list of objects defining extended ([RFC4360]) BGP communities.
-   Each object contains the following elements.
-
-   TODO: define further. add type and subtype elements
-
-4.6.  The "large" list
-
-   A list of objects defining large ([RFC8092]) BGP communities.  Each
+   A list of objects defining Regular ([RFC1997]) BGP communities.  Each
    object contains the following elements.
 
 4.6.1.  The "name" leaf
 
-   A value of type "stringtemplate", containing the name of this
+   A required value of type "string", containing the name of this
+   community.  Names may be up to 255 characters long and MUST NOT
+   contain spaces or tabs.
+
+4.6.2.  The "description" leaf
+
+   An optional value of type "string", providing a description of the
    community.
+
+4.6.3.  The "globaladmin" leaf
+
+   A required value of type "uint16", containing the Autonomous Sytem
+   Number set in the Global Administrator part of this community.
+
+
+
 
 
 
 Pels & Haas                   Informational                     [Page 5]
 
-                           BGP Community YANG              November 2022
+                           BGP Community YANG                August 2023
 
 
-   The structure of the "stringtemplate" type is defined in Section 5.1.
+4.6.4.  The "localadmin" container
 
-4.6.2.  The "description" leaf
+   A group of elements that describe the Local Administrator part of the
+   community.  This object contains the following elements.
 
-   A value of type "stringtemplate", providing a description of the
-   community.
+4.6.4.1.  The "format" leaf
 
-   The structure of the "stringtemplate" type is defined in Section 5.1.
+   An optional value of type "string", describing the format in which
+   fields are encoded.  Possible encodings are "decimal" for decimal
+   numbers and "binary" for bit strings.  If this leaf is not defined,
+   the default "decimal" encoding is assumed.
 
-4.6.3.  The "asn" leaf
-
-   A value of type "uint32", containing the Autonomous Sytem Number set
-   in the Global Administrator part of this community.
-
-4.6.4.  The "fields" list
+4.6.4.2.  The "fields" list
 
    A list of objects that together form the Local Administrator part of
-   the community.  The supported leafs in this list are identical to
-   those described in Section 4.4.4.
+   the community.  The combined length values of all fields MUST not
+   exceed the maximum length of the Local Administrator part of the
+   community.
 
-5.  Type definitions
+4.6.4.2.1.  The "name" leaf
 
-   Several of the elements defined in Section 4 use custom data types.
-   These datatypes are defined here.
+   A required value of type "string", containing the name of the field.
+   Names may be up to 255 characters long and MUST NOT contain spaces or
+   tabs.
 
-5.1.  The "stringtemplate" datatype
+4.6.4.2.2.  The "length" leaf
 
-   A freeform string template.  Variables are defined using "$\d+" (e.g.
-   $0).  Parsers SHOULD(TODO: MAY?) replace variables with the decimal
-   representation of the matched value at the corresponding field index.
+   An optional value of type "uint8", containing the length of the
+   field.  If the expected field format (Section 4.6.4.1) is "decimal",
+   this is a number of digits.  In case the expected field format is
+   "binary", this is a number of bits.
 
-   See Appendix B.2 for an example use of variable replacements.
+   If this leaf is not defined, the length is assumed to be the maximum
+   allowed length of the entire field list.  In this case the field list
+   MUST NOT contain more than one element.
 
-5.2.  The "decimalstring" datatype
+4.6.4.2.3.  The "pattern" leaf
 
-   A string representation of a decimal number (e.g. "1234") or number
-   pattern (e.g. "12*").  Wildcards are "?" (single character) and "*"
-   (one or more characters).
+   A required value of type "string", containing a pattern used for
+   matching the field's contents.  Patterns are described as POSIX
+   Extended Regular Expressions (see [IEEE.1003-2.1992], section 2.8.4).
 
-5.3.  The "decimalrange" datatype
+4.6.4.2.4.  The "description" leaf
 
-   A string representation of a range of decimal numbers (e.g.
-   "120-130").
+   An optional value of type "string", containing a description of the
+   pattern.  This description can be used to provide meaning to specific
+   values for a field.
 
-5.4.  The "bitstring" datatype
-
-   A bitstring (e.g. "0101") or bit pattern (e.g. "010?").  Wildcards
-   are "?" (single character) and "*" (one or more characters).
 
 
 
 Pels & Haas                   Informational                     [Page 6]
 
-                           BGP Community YANG              November 2022
+                           BGP Community YANG                August 2023
 
 
-5.5.  The "bitrange" datatype
+4.7.  The "extended" list
 
-   A range of bitstrings (e.g. "0100-0101").
+   A list of objects defining Extended ([RFC4360]) BGP communities.
+   Two-Octet and Four-Octet AS Specific communities are supported by
+   this specification.  Each object contains the following elements.
+
+4.7.1.  The "name" leaf
+
+   A required value of type "string", containing the name of this
+   community.  Names may be up to 255 characters long and MUST NOT
+   contain spaces or tabs.
+
+4.7.2.  The "description" leaf
+
+   An optional value of type "string", providing a description of the
+   community.
+
+4.7.3.  The "type" leaf
+
+   A required value of type "uint8", containing the high-order Type of
+   the community.
+
+4.7.4.  The "subtype" leaf
+
+   A required value of type "uint8", containing the low-order Sub-Type
+   of the community.
+
+4.7.5.  The "asn" leaf
+
+   For Two-Octet AS Specific communities: A required value of type
+   "uint16", containing the Autonomous Sytem Number set in the Global
+   Administrator part of this community.
+
+4.7.6.  The "asn4" leaf
+
+   For Four-Octet AS Specific communities: A required value of type
+   "uint32", containing the Autonomous Sytem Number set in the Global
+   Administrator part of this community.
+
+4.7.7.  The "localadmin" container
+
+   A group of elements that describe the Local Administrator part of the
+   community.  This object contains the following elements.
+
+
+
+
+
+
+
+
+Pels & Haas                   Informational                     [Page 7]
+
+                           BGP Community YANG                August 2023
+
+
+4.7.7.1.  The "format" leaf
+
+   An optional value of type "string", describing the format in which
+   fields are to be parsed (see Section 5.2).  Possible encodings are
+   "decimal" for decimal numbers and "binary" for strings of zeros and
+   ones.  If this leaf is not defined, the default "decimal" encoding is
+   assumed.
+
+4.7.7.2.  The "fields" list
+
+   A list of objects that together form the Local Administrator part of
+   the community.  The combined length values of all fields MUST not
+   exceed the maximum length of the Local Administrator part of the
+   community.
+
+   The supported leafs in this list are identical to those described in
+   Section 4.6.4.2.
+
+4.8.  The "large" list
+
+   A list of objects defining Large ([RFC8092]) BGP communities.  Each
+   object contains the following elements.
+
+4.8.1.  The "name" leaf
+
+   A required value of type "string", containing the name of this
+   community.  Names may be up to 255 characters long and MUST NOT
+   contain spaces or tabs.
+
+4.8.2.  The "description" leaf
+
+   An optional value of type "string", providing a description of the
+   community.
+
+4.8.3.  The "globaladmin" leaf
+
+   A required value of type "uint32", containing the Autonomous Sytem
+   Number set in the Global Administrator part of this community.
+
+4.8.4.  The "localdatapart1" container
+
+   A group of elements that describe the Local Data Part 1 section of
+   the community.  This object contains the following elements.
+
+
+
+
+
+
+
+
+Pels & Haas                   Informational                     [Page 8]
+
+                           BGP Community YANG                August 2023
+
+
+4.8.4.1.  The "format" leaf
+
+   An optional value of type "string", describing the format in which
+   fields are encoded.  Possible encodings are "decimal" for decimal
+   numbers and "binary" for bit strings.  If this leaf is not defined,
+   the default "decimal" encoding is assumed.
+
+4.8.4.2.  The "fields" list
+
+   A list of objects that together form the Local Data Part 1 section of
+   the community.  The combined length values of all fields MUST not
+   exceed the maximum length of the "Local Data Part 1" section of the
+   community.
+
+   The supported leafs in this list are identical to those described in
+   Section 4.6.4.2.
+
+4.8.5.  The "localdatapart2" container
+
+   A group of elements that describe the Local Data Part 2 section of
+   the community.  This object contains the following elements.
+
+4.8.5.1.  The "format" leaf
+
+   An optional value of type "string", describing the format in which
+   fields are encoded.  Possible encodings are "decimal" for decimal
+   numbers and "binary" for bit strings.  If this leaf is not defined,
+   the default "decimal" encoding is assumed.
+
+4.8.5.2.  The "fields" list
+
+   A list of objects that together form the Local Data Part 2 section of
+   the community.  The combined length values of all fields MUST not
+   exceed the maximum length of the "Local Data Part 2" section of the
+   community.
+
+   The supported leafs in this list are identical to those described in
+   Section 4.6.4.2.
+
+5.  Operational guidelines
+
+5.1.  Publishing guidelines
+
+   Operators SHOULD only publish BGP community definitions for networks
+   they control.  This may include communities where the Global
+   Administrator field contains a private ASN, if this community has a
+   local meaning inside the network of the publisher.
+
+
+
+
+Pels & Haas                   Informational                     [Page 9]
+
+                           BGP Community YANG                August 2023
+
+
+   When publishing community definitions with overlapping field patterns
+   these MUST be ordered from most to least specific, to ensure parsers
+   can perform deterministic matching.
+
+   Note that this document only describes a model for the publishing
+   format of community definitions.  The location and publishing
+   mechanism used are outside the scope of this specification.
+
+5.2.  Parsing guidelines
+
+   A published BGP community definition can be used by parsers to
+   display information about a received community.  If a received
+   community matches multiple published community definitions, the first
+   community in the published order takes precedence.
+
+   By default, communities are compared using the decimal representation
+   of the fields.  If "format" for a Local Administrator or Local Data
+   Part is set to "binary", the fields in the received community are
+   converted to strings of zeros and ones before comparison.
+
+   Applications that parse these community definitions SHOULD reject
+   objects that do not comply with the rules described in this document.
+   Furthermore, parsers SHOULD check that the sum of the specified Local
+   Administrator or Local Data Part field lengths in each community does
+   not exceed the local part size of the specified community type.  For
+   example: A Regular BGP community definition with format "decimal"
+   containing a field of length 4 and a field of length 2 would be
+   illegal, as the Local Administrator field has a maximum length of
+   65535 (5 digits).
 
 6.  IANA considerations
 
@@ -358,9 +552,22 @@ Pels & Haas                   Informational                     [Page 6]
 
    TODO
 
+
+
+
+
+
+Pels & Haas                   Informational                    [Page 10]
+
+                           BGP Community YANG                August 2023
+
+
 6.3.  YANG SID Allocation
 
-   TODO - requests SIDs for use with CBOR?
+   This document registers the following entry in the "IETF YANG SID"
+   registry [I-D.ietf-core-sid]:
+
+   TODO
 
 7.  Security considerations
 
@@ -369,30 +576,20 @@ Pels & Haas                   Informational                     [Page 6]
    JSON or CBOR.  Applications that parse these community definitions
    SHOULD reject objects that do not comply with the rules described in
    this document.  Furthermore, parsers SHOULD check that the sum of the
-   specified Local Administrator field lengths in each community is
-   identical to the Local Administrator part of the specified community
-   type.
-
-   Applications that support the variable replacements described in
-   Section 5.1 SHOULD perform input validation on field names where
-   appropriate.
-
-   TODO: something about invalid combination of extended community
-   types/subtypes/fields.
+   specified Local Administrator or Local Data Part field lengths in
+   each community definition does not exceed the local part size of the
+   specified community type.
 
 8.  References
 
 8.1.  Normative References
 
-
-
-
-
-
-Pels & Haas                   Informational                     [Page 7]
-
-                           BGP Community YANG              November 2022
-
+   [I-D.ietf-core-sid]
+              Veillette, M., Pelov, A., Petrov, I., Bormann, C., and M.
+              Richardson, "YANG Schema Item iDentifier (YANG SID)", Work
+              in Progress, Internet-Draft, draft-ietf-core-sid-20, 1
+              March 2023, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-core-sid-20>.
 
    [RFC1997]  Chandra, R., Traina, P., and T. Li, "BGP Communities
               Attribute", RFC 1997, DOI 10.17487/RFC1997, August 1996,
@@ -412,6 +609,21 @@ Pels & Haas                   Informational                     [Page 7]
               <https://www.rfc-editor.org/info/rfc8092>.
 
 8.2.  Informative References
+
+
+
+
+Pels & Haas                   Informational                    [Page 11]
+
+                           BGP Community YANG                August 2023
+
+
+   [IEEE.1003-2.1992]
+              Institute of Electrical and Electronics Engineers,
+              "Information Technology - Portable Operating System
+              Interface (POSIX) - Part 2: Shell and Utilities (Vol. 1)",
+              IEEE Standard 1003.2, IEEE 1003.2-1992, IEEE ieee-1003-2,
+              1992.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -443,13 +655,6 @@ Pels & Haas                   Informational                     [Page 7]
               Large Communities", RFC 8195, DOI 10.17487/RFC8195, June
               2017, <https://www.rfc-editor.org/info/rfc8195>.
 
-
-
-Pels & Haas                   Informational                     [Page 8]
-
-                           BGP Community YANG              November 2022
-
-
    [RFC8792]  Watsen, K., Auerswald, E., Farrel, A., and Q. Wu,
               "Handling Long Lines in Content of Internet-Drafts and
               RFCs", RFC 8792, DOI 10.17487/RFC8792, June 2020,
@@ -457,91 +662,32 @@ Pels & Haas                   Informational                     [Page 8]
 
 Appendix A.  YANG Module
 
-   module draft-yang-bgp-communities {
 
-     TODO
 
-   }
+
+
+
+
+
+Pels & Haas                   Informational                    [Page 12]
+
+                           BGP Community YANG                August 2023
+
+
+ module draft-yang-bgp-communities {
+
+   TODO: see draft-yang-bgp-communities.yang. Include before submission.
+
+ }
 
 Appendix B.  JSON Examples
 
    This section shows example use cases for the YANG module defined in
    this document, using JSON[RFC7951] encoding.
 
-B.1.  RFC4384 Data Collection definition
+B.1.  RFC8195 Selective NO_EXPORT definition
 
-   A JSON definition for the example regular BGP community described in
-   [RFC4384], section 4 looks as follows.
-
-   NOTE: '\' line wrapping per [RFC8792]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Pels & Haas                   Informational                     [Page 9]
-
-                           BGP Community YANG              November 2022
-
-
- {
-   "draft-yang-bgp-communities:bgp-communities": {
-     "description": "BGP Communities for Data Collection",
-     "contact": "noc@example.net",
-     "url": "http://example.net/peering/communities",
-     "regular": [
-       {
-         "name": "Origin OC/FJ",
-         "description": "A national route over a terrestrial link from \
- the Fiji Islands",
-         "asn": 10876,
-         "fields": [
-           {
-             "name": "Region",
-             "length": 5,
-             "bvalue": "00010"
-           },
-           {
-             "name": "Satellite",
-             "length": 1,
-             "brange": "0"
-           },
-           {
-             "name": "Country",
-             "length": 10,
-             "bvalue": "0011110010"
-           }
-         ]
-       }
-     ]
-   }
- }
-
-B.2.  RFC8195 Selective NO_EXPORT definition
-
-   A JSON definition for the example large BGP communities described in
+   A JSON definition for the example Large BGP community described in
    [RFC8195], section 4.1.1 looks as follows.
 
 
@@ -557,32 +703,122 @@ B.2.  RFC8195 Selective NO_EXPORT definition
 
 
 
-Pels & Haas                   Informational                    [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Pels & Haas                   Informational                    [Page 13]
 
-                           BGP Community YANG              November 2022
+                           BGP Community YANG                August 2023
+
+
+   {
+     "draft-yang-bgp-communities:bgp-communities": {
+       "serial": 2023080101,
+       "uri": "http://example.net/peering/communities",
+       "description": "BGP Community example for ASN-Based Selective \
+   NO_EXPORT",
+       "contacts": [
+         {
+           "emailaddress": "noc@example.net",
+           "name": "Example.net contact",
+           "role": "Administrative contact",
+           "organization": "Example.net",
+           "organizationalunit": "NOC"
+         }
+       ],
+       "large": [
+         {
+           "name": "RFC8195-NOEXPORT-ASN",
+           "description": "Do not export route to ASN",
+           "globaladmin": 64497,
+           "localdatapart1": {
+             "fields": [
+               {
+                 "name": "Function",
+                 "pattern": "4",
+                 "description": "ASN-No-Export"
+               }
+             ]
+           },
+           "localdatapart2": {
+             "fields": [
+               {
+                 "name": "ASN",
+                 "pattern": ".*"
+               }
+             ]
+           }
+         }
+       ]
+     }
+   }
+
+B.2.  RFC4384 Data Collection definition
+
+   A JSON definition for the example Regular BGP community described in
+   [RFC4384], section 4 looks as follows.
+
+   NOTE: '\' line wrapping per [RFC8792]
+
+
+
+Pels & Haas                   Informational                    [Page 14]
+
+                           BGP Community YANG                August 2023
 
 
  {
    "draft-yang-bgp-communities:bgp-communities": {
-     "description": "BGP Communities for ASN-Based Selective NO_EXPORT",
-     "contact": "noc@example.net",
-     "url": "http://example.net/peering/communities",
-     "large": [
+     "serial": 2023080101,
+     "uri": "http://example.net/peering/communities",
+     "description": "BGP Community example for Data Collection",
+     "contacturl": "https://example.net/contact",
+     "regular": [
        {
-         "name": "No Export to AS$1",
-         "description": "Do not export route to AS $1",
-         "asn": 64497,
-         "fields": [
-           {
-             "name": "Function",
-             "length": 32,
-             "value": "4"
-           },
-           {
-             "name": "Peer AS",
-             "length": 32,
-             "value": "*"
-           }
+         "name": "RFC4384-ORIGIN-OC/FJ",
+         "description": "A national route over a terrestrial link from \
+ the Fiji Islands",
+         "globaladmin": 10876,
+         "localadmin": {
+           "format": "binary",
+           "fields": [
+             {
+               "name": "Region",
+               "length": 5,
+               "pattern": "00010",
+               "description": "OC"
+             },
+             {
+               "name": "Satellite",
+               "length": 1,
+               "pattern": "0"
+             },
+             {
+               "name": "Country",
+               "length": 10,
+               "pattern": "0011110010",
+               "description": "FJ"
+             }
+           ]
          }
        }
      ]
@@ -591,13 +827,21 @@ Pels & Haas                   Informational                    [Page 10]
 
 Appendix C.  Acknowledgements
 
-   The datatypes defined in Section 5 are based on those used by the
-   NLNOG Looking Glass, written by Teun Vink.
+   The authors would like to thank Luuk Hendriks, Jasper den Hertog and
+   Teun Vink for contributing ideas and feedback to this document.
 
 Authors' Addresses
 
    Martin Pels
    RIPE NCC
+
+
+
+Pels & Haas                   Informational                    [Page 15]
+
+                           BGP Community YANG                August 2023
+
+
    Email: mpels@ripe.net
 
 
@@ -613,4 +857,40 @@ Authors' Addresses
 
 
 
-Pels & Haas                   Informational                    [Page 11]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Pels & Haas                   Informational                    [Page 16]
