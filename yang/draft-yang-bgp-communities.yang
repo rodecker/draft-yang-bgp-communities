@@ -4,197 +4,279 @@ module draft-yang-bgp-communities {
 
   namespace "urn:to-be-defined";
 
-  prefix bgp-comm;
+  prefix bgpcomm;
 
-  organization "To be defined";
+  organization
+    "To be defined";
 
   contact
-    "Example Contact: contact@example.net";
+    "To be defined";
 
   description
-    "This module describes a structure for BGP Communities.";
+    "This module describes a structure for BGP Communities";
 
-  revision "2022-11-22" {
+  revision "2023-08-01" {
     description
       "Initial version.";
-    reference "0.0.1";
-  }
-  
-  typedef decimalstring {
-    type string {
-      pattern
-        '([0-9*?]+)';
-    }
-    description
-      "A decimal number (e.g. 1234).
-      Wildcards are '?' (single character) and '*' (one or more characters)";
-  }
-  
-  typedef decimalrange {
-    type string {
-      pattern
-        '([0-9]+)[-]([0-9]+)';
-    }
-    description
-      "A range of numbers (e.g. 120-130).";
+    reference "0.0.2";
   }
 
-  typedef bitstring {
-    type string {
-      pattern
-        '([01*?]+)';
-    }
-    description
-      "A bitstring (e.g. 0101).
-      Wildcards are '?' (single character) and '*' (one or more characters)";
-  }
-  
-  typedef bitrange {
-    type string {
-      pattern
-        '([0-1]+)[-]([0-1]+)';
-    }
-    description
-      "A range of bitstrings (e.g. 0100-0101).";
-  }
-
-  typedef stringtemplate {
-    type string {
-      pattern
-        '.*';
-    }
-    description
-      "A freeform string template. Variables are defined using '$\\d+' (e.g. $0).
-      Parsers should replace variables with the decimal representation of the 
-      matched value at the corresponding field index";
-  }
-
-  grouping field-list {
+  grouping localadmin-fields {
     list fields {
       ordered-by user;
       key "name";
 
       leaf name {
-        type string;
+        type string {
+          length "1..255";
+          pattern "[^ \t\n]+";
+        }
         mandatory "true";
         description
-          "A name of a field";
+          "The name of the field";
       }
 
       leaf length {
         type uint8;
-        mandatory "true";
         description
-          "Length of the field in bits";
+          "Length of the field";
       }
 
-      choice valuetype {
+      leaf pattern {
+        type string;
         mandatory "true";
-        case decimal {
-          leaf value {
-            type decimalstring;
-            description
-              "Contents in decimal representation.";
-          }
-        }
+        description
+          "Regular Expression describing the expected contents of the field";
+      }
 
-        case decimalrange {
-          leaf range {
-            type decimalrange;
-            description
-              "Contents as decimal range.";
-          }
-        }
-
-        case binary {
-          leaf bvalue {
-            type bitstring;
-            description
-              "Contents in bit representation.";
-          }
-        }
-
-        case binaryrange {
-          leaf brange {
-            type bitrange;
-            description
-              "Contents as bit range.";
-          }
-        }
+      leaf description {
+        type string;
+        description
+          "A text description of the field contents";
       }
     }
   }
 
   container bgp-communities { 
 
+    leaf serial {
+      type "uint32";
+      mandatory "true";
+      description
+        "Version number of the community set.";
+    }
+
+    leaf uri {
+      type string;
+      description
+        "Publication point for the community set";
+    }
+
     leaf description {
       type string;
       description
-        "A description for the community set.";
+        "A description for the community set";
     }
 
-    leaf contact {
+    leaf contacturl {
       type string;
       description
-        "Maintainer contact details.";
+        "A reference to a webpage with maintainer contact information";
     }
 
-    leaf url {
-      type string;
-      description
-        "Publication point for the community set.";
+    list contacts {
+      key "emailaddress";
+
+      leaf emailaddress {
+        type string;
+        description
+          "Maintainer contact e-mail address";
+      }
+
+      leaf name {
+        type string;
+        description
+          "Maintainer contact name";
+      }
+
+      leaf role {
+        type string;
+        description
+          "Maintainer contact role";
+      }
+
+      leaf organization {
+        type string;
+        description
+          "Maintainer contact organization";
+      }
+
+      leaf organizationalunit {
+        type string;
+        description
+          "Maintainer contact organizational unit";
+      }
     }
 
     list regular {
       key "name";
 
       leaf name {
-        type stringtemplate;
+        type string {
+          length 1..255;
+          pattern "[^ \t\n]+";
+        }
         mandatory "true";
         description
           "Community name.";
       }
 
       leaf description {
-        type stringtemplate;
+        type string;
         description
-          "Description for the community.";
+          "Description for the community";
       }
 
-      leaf asn {
+      leaf globaladmin {
         type "uint16";
         mandatory "true";
         description
-          "Global Administrator";
+          "Global Administrator field";
       }
 
-      uses field-list;
+      container localadmin {
+        leaf format {
+          type "string" {
+            pattern
+              'decimal|binary';
+          }
+          default "decimal";
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
     }
 
-    list large {
+    list extended {
       key "name";
 
       leaf name {
-        type stringtemplate;
+        type string {
+          length 1..255;
+          pattern "[^ \t\n]+";
+        }
         mandatory "true";
         description
           "Community name";
       }
 
       leaf description {
-        type stringtemplate;
+        type string;
         description
           "Description for the community";
       }
 
-      leaf asn {
+      leaf type {
+        type uint8;
+        mandatory "true";
+        description
+          "Type Field";
+      }
+      leaf subtype {
+        type uint8;
+        mandatory "true";
+        description
+          "Sub-Type Field";
+      }
+
+      choice globaladmin {
+        mandatory "true";
+        case asn {
+          leaf asn {
+            type "uint16";
+            description
+              "Two-Octet AS";
+          }
+        }
+        case asn4 {
+          leaf asn4 {
+            type "uint32";
+            description
+              "Four-Octet AS";
+          }
+        }
+      }
+
+      container localadmin {
+        leaf format {
+          type "string" {
+            pattern
+              'decimal|binary';
+          }
+          default "decimal";
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
+    }
+
+    list large {
+      key "name";
+
+      leaf name {
+        type string {
+          length 1..255;
+          pattern "[^ \t\n]+";
+        }
+        mandatory "true";
+        description
+          "Community name.";
+      }
+
+      leaf description {
+        type string;
+        description
+          "Description for the community";
+      }
+
+      leaf globaladmin {
         type "uint32";
         mandatory "true";
         description
-          "Global Administrator";
+          "Global Administrator field";
       }
 
-      uses field-list;
+      container localdatapart1 {
+        leaf format {
+          type "string" {
+            pattern
+              'decimal|binary';
+          }
+          default "decimal";
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
+
+      container localdatapart2 {
+        leaf format {
+          type "string" {
+            pattern
+              'decimal|binary';
+          }
+          default "decimal";
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
     }
   }
 }
