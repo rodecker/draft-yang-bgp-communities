@@ -11,9 +11,10 @@ This repository contains the following files:
 * `draft/draft-yang-bgp-communities.xml` - XML specification of the draft
 * `draft/draft-yang-bgp-communities.txt` - The draft, generated using [xml2rfc](https://pypi.org/project/xml2rfc/)
 * `yang/draft-yang-bgp-communities.yang` - The YANG model, verified using [yanglint](https://pypi.org/project/libyang/)
+* `scripts/parser.py` - An example parser
 * `examples/bgp-communities.json` - An example JSON specification conforming to the YANG model
 * `examples/bgp-communities.txt` - Example communities to match using the JSON specification
-* `scripts/parser.py` - An example parser
+* `examples/bgp-communities.out` - Example output of the parser
 
 ## Usage
 
