@@ -1,126 +1,149 @@
 #!/usr/bin/env python3
-#
-# Derive meaning of BGP communities from JSON definitions
+"""
+Derive meaning of BGP communities from JSON definitions
+"""
 
 import json
 import re
 import sys
 
-def main(values_file,struct_file):
+
+def main(values_file: str, struct_file: str):
+    """
+    Main function.
+    """
     bgprc = []
     bgplc = []
     bgpec = []
 
-    f = open(values_file)
-    for line in f.readlines():
-        line = line.rstrip()
-        line = re.sub('\s*#.*','',line)
-        if re.match('^(\s*)$',line):
-            continue
-        if re.match('^\d+:\d+$',line):
-            bgprc.append(line)
-        elif re.match('^\d+:\d+:\d+$',line):
-            bgplc.append(line)
-        elif re.match('^0x\d\d:0x\d\d:\d+:\d+$',line):
-            bgpec.append(line)
-        else:
-            sys.stderr.write("Could not determine community type for '{}'\n".format(line))
+    with open(values_file, "r", encoding="utf-8") as filehandle:
+        for line in filehandle.readlines():
+            line = line.rstrip()
+            line = re.sub(r'\s*#.*', '', line)
+            if re.match(r'^(\s*)$', line):
+                continue
+            if re.match(r'^\d+:\d+$', line):
+                bgprc.append(line)
+            elif re.match(r'^\d+:\d+:\d+$', line):
+                bgplc.append(line)
+            elif re.match(r'^0x\d\d:0x\d\d:\d+:\d+$', line):
+                bgpec.append(line)
+            else:
+                sys.stderr.write(f"Could not determine community type for '{line}'\n")
 
-    j = open(struct_file)
-    jdata = json.load(j)
-    candidates_rc = jdata['draft-yang-bgp-communities:bgp-communities']['regular']
-    candidates_lc = jdata['draft-yang-bgp-communities:bgp-communities']['large']
-    candidates_ec = jdata['draft-yang-bgp-communities:bgp-communities']['extended']
+    with open(struct_file, "r", encoding="utf-8") as filehandle:
+        jdata = json.load(filehandle)
+        candidates_rc = jdata['draft-yang-bgp-communities:bgp-communities']['regular']
+        candidates_lc = jdata['draft-yang-bgp-communities:bgp-communities']['large']
+        candidates_ec = jdata['draft-yang-bgp-communities:bgp-communities']['extended']
 
-    for rc in bgprc:
-      parse_regular_community(rc,candidates_rc)
-    for lc in bgplc:
-      parse_large_community(lc,candidates_lc)
-    for ec in bgpec:
-      parse_extended_community(ec,candidates_ec)
+    for regular_community in bgprc:
+        parse_regular_community(regular_community, candidates_rc)
+    for large_community in bgplc:
+        parse_large_community(large_community, candidates_lc)
+    for extended_community in bgpec:
+        parse_extended_community(extended_community, candidates_ec)
 
-# Process RFC1997 community
-# Input is a regular community and a list of JSON candidate definitions
-# Returns the matched candidate or None
-def parse_regular_community(rc,candidates):
-    asn,content = rc.split(':')
 
-    found = _try_candidates_rc(asn,content,candidates)
+def parse_regular_community(regular_community, candidates):
+    """
+    Process RFC1997 community
+    Input is a regular community and a list of JSON candidate definitions
+    Returns the matched candidate or None
+    """
+    asn, content = regular_community.split(':', 1)
+
+    found = _try_candidates_rc(asn, content, candidates)
     if found:
-        fieldvals = _candidate2fields(content,found['localadmin'])
-        _print_match(rc,found,fieldvals)
+        fieldvals = _candidate2fields(content, found['localadmin'])
+        _print_match(regular_community, found, fieldvals)
         return found
-    else:
-        _print_unknown(rc)
-        return None
 
-# Process RFC8092 community
-# Input is a large community and a list of JSON candidate definitions
-# Returns the matched candidate or None
-def parse_large_community(lc,candidates):
-    asn,content1,content2 = lc.split(':')
+    _print_unknown(regular_community)
+    return None
 
-    found = _try_candidates_lc(asn,content1,content2,candidates)
+
+def parse_large_community(large_community, candidates):
+    """
+    Process RFC8092 community
+    Input is a large community and a list of JSON candidate definitions
+    Returns the matched candidate or None
+    """
+    asn, content1, content2 = large_community.split(':', 2)
+
+    found = _try_candidates_lc(asn, content1, content2, candidates)
     if found:
-        fieldvals = _candidate2fields_lc(content1,content2,
+        fieldvals = _candidate2fields_lc(content1, content2,
                                          found['localdatapart1'],
                                          found['localdatapart2'])
-        _print_match(lc,found,fieldvals)
+        _print_match(large_community, found, fieldvals)
         return found
-    else:
-        _print_unknown(lc)
-        return None
 
-# Process RFC4360 community
-# Input is an extended community and a list of JSON candidate definitions
-# Returns the matched candidate or None
-def parse_extended_community(ec,candidates):
-    extype,exsubtype,asn,content = ec.split(':')
+    _print_unknown(large_community)
+    return None
 
-    found = _try_candidates_ec(extype,exsubtype,asn,content,candidates)
+
+def parse_extended_community(extended_community, candidates):
+    """
+    Process RFC4360 community
+    Input is an extended community and a list of JSON candidate definitions
+    Returns the matched candidate or None
+    """
+    extype, exsubtype, asn, content = extended_community.split(':', 3)
+
+    found = _try_candidates_ec(extype, exsubtype, asn, content, candidates)
     if found:
-        fieldvals = _candidate2fields(content,found['localadmin'])
-        _print_match(ec,found,fieldvals)
+        fieldvals = _candidate2fields(content, found['localadmin'])
+        _print_match(extended_community, found, fieldvals)
         return found
-    else:
-        _print_unknown(ec)
-        return None
 
-# Try to find a matching Regular Community amongst candidate JSON definitions
-def _try_candidates_rc(asn,content,candidates):
+    _print_unknown(extended_community)
+    return None
+
+
+def _try_candidates_rc(asn, content, candidates):
+    """
+    Try to find a matching Regular Community amongst candidate JSON definitions
+    """
     for candidate in candidates:
         if asn != str(candidate['globaladmin']):
             continue
         if 'format' in candidate['localadmin']:
             if candidate['localadmin']['format'] == 'binary':
-                content = _decimal2bits(content,16)
-        if _try_candidate_fields(content,candidate['localadmin']['fields']):
+                content = _decimal2bits(content, 16)
+        if _try_candidate_fields(content, candidate['localadmin']['fields']):
             return candidate
     return False
 
-# Try to find a matching Large Community amongst candidate JSON definitions
-def _try_candidates_lc(asn,content1,content2,candidates):
+
+def _try_candidates_lc(asn, content1, content2, candidates):
+    """
+    Try to find a matching Large Community amongst candidate JSON definitions
+    """
     for candidate in candidates:
         if asn != str(candidate['globaladmin']):
             continue
         if 'format' in candidate['localdatapart1']:
             if candidate['localdatapart1']['format'] == 'binary':
-                content1 = _decimal2bits(content1,32)
+                content1 = _decimal2bits(content1, 32)
         if 'format' in candidate['localdatapart2']:
             if candidate['localdatapart2']['format'] == 'binary':
-                content2 = _decimal2bits(content2,32)
-        if _try_candidate_fields(content1,candidate['localdatapart1']['fields']) \
-           and _try_candidate_fields(content2,candidate['localdatapart2']['fields']):
+                content2 = _decimal2bits(content2, 32)
+        if _try_candidate_fields(content1, candidate['localdatapart1']['fields']) \
+           and _try_candidate_fields(content2, candidate['localdatapart2']['fields']):
             return candidate
     return False
 
-# Try to find a matching Extended Community amongst candidate JSON definitions
-def _try_candidates_ec(extype,exsubtype,asn,content,candidates):
+
+def _try_candidates_ec(extype, exsubtype, asn, content, candidates):
+    """
+    Try to find a matching Extended Community amongst candidate JSON definitions
+    """
     for candidate in candidates:
         contentstring = content
-        if int(extype,16) != candidate['type']:
+        if int(extype, 16) != candidate['type']:
             continue
-        if int(exsubtype,16) != candidate['subtype']:
+        if int(exsubtype, 16) != candidate['subtype']:
             continue
         if candidate['asn']:
             if asn != str(candidate['asn']):
@@ -131,126 +154,141 @@ def _try_candidates_ec(extype,exsubtype,asn,content,candidates):
         if 'format' in candidate['localadmin']:
             if candidate['localadmin']['format'] == 'binary':
                 if 'asn4' in candidate:
-                    contentstring = _decimal2bits(content,16)
+                    contentstring = _decimal2bits(content, 16)
                 else:
-                    contentstring = _decimal2bits(content,32)
-        if _try_candidate_fields(contentstring,candidate['localadmin']['fields']):
+                    contentstring = _decimal2bits(content, 32)
+        if _try_candidate_fields(contentstring, candidate['localadmin']['fields']):
             return candidate
     return False
 
-# Try to match fields from a single candidate JSON definition
-def _try_candidate_fields(content,cfields):
-        pos = 0
-        for cfield in cfields:
-            if 'length' in cfield:
-                value = content[pos:pos+cfield['length']]
-            else:
-                value = content
 
-            if not re.match(cfield['pattern'],value):
-                #print('{} != {}'.format(cfield['pattern'],value))
-                return False
+def _try_candidate_fields(content, cfields):
+    """
+    Try to match fields from a single candidate JSON definition
+    """
+    pos = 0
+    for cfield in cfields:
+        if 'length' in cfield:
+            value = content[pos:pos + cfield['length']]
+        else:
+            value = content
 
-            if 'length' in cfield:
-                pos = pos + cfield['length']
-        return True
+        if not re.match(cfield['pattern'], value):
+            # print('{} != {}'.format(cfield['pattern'],value))
+            return False
 
-# Link values from tested community to field names in matched candidate
-def _candidate2fields(contentbits,clocaladmin):
+        if 'length' in cfield:
+            pos = pos + cfield['length']
+    return True
+
+
+def _candidate2fields(contentbits, clocaladmin):
+    """
+    Link values from tested community to field names in matched candidate
+    """
     fields = {}
     pos = 0
     if 'format' in clocaladmin:
         if clocaladmin['format'] == 'binary':
-            contentbits = _decimal2bits(contentbits,16)
-    for fid, f in enumerate(clocaladmin['fields']):
-        if 'length' in f:
-          l = f['length']
+            contentbits = _decimal2bits(contentbits, 16)
+    for fid, field in enumerate(clocaladmin['fields']):
+        if 'length' in field:
+            length = field['length']
         else:
-          l = len(contentbits)
-        fields[fid] = contentbits[pos:pos+l]
-        pos = pos + l
+            length = len(contentbits)
+        fields[fid] = contentbits[pos:pos + length]
+        pos = pos + length
     return fields
 
-# Link values from tested large community to field names in matched candidate
-def _candidate2fields_lc(contentbits1,contentbits2,
-                         clocaldatapart1,clocaldatapart2):
+
+def _candidate2fields_lc(contentbits1,
+                         contentbits2,
+                         clocaldatapart1,
+                         clocaldatapart2):
+    """
+    Link values from tested large community to field names in matched candidate
+    """
     fields = {}
     if 'format' in clocaldatapart1:
         if clocaldatapart1['format'] == 'binary':
-            contentbits1 = _decimal2bits(contentbits1,32)
+            contentbits1 = _decimal2bits(contentbits1, 32)
     if 'format' in clocaldatapart2:
         if clocaldatapart2['format'] == 'binary':
-            contentbits2 = _decimal2bits(contentbits2,32)
+            contentbits2 = _decimal2bits(contentbits2, 32)
 
     pos = 0
     foffset = 0
-    for fid, f in enumerate(clocaldatapart1['fields']):
-        if 'length' in f:
-          l = f['length']
+    for fid, field in enumerate(clocaldatapart1['fields']):
+        if 'length' in field:
+            length = field['length']
         else:
-          l = len(contentbits1)
-        fields[foffset + fid] = contentbits1[pos:pos+l]
-        pos = pos + l
+            length = len(contentbits1)
+        fields[foffset + fid] = contentbits1[pos:pos + length]
+        pos = pos + length
 
     pos = 0
     foffset = len(clocaldatapart1['fields'])
-    for fid, f in enumerate(clocaldatapart2['fields']):
-        if 'length' in f:
-          l = f['length']
+    for fid, field in enumerate(clocaldatapart2['fields']):
+        if 'length' in field:
+            length = field['length']
         else:
-          l = len(contentbits2)
-        fields[foffset + fid] = contentbits2[pos:pos+l]
-        pos = pos + l
+            length = len(contentbits2)
+        fields[foffset + fid] = contentbits2[pos:pos + length]
+        pos = pos + length
     return fields
 
-# Convert decimal value to bit string
-def _decimal2bits(decimal,length):
-    return "{0:b}".format(int(decimal)).zfill(length)
 
-# Print out a matched community
-def _print_match(community,candidate,fieldvals):
+def _decimal2bits(decimal, length):
+    """
+    Convert decimal value to bit string
+    """
+    return f"{int(decimal):0{length}b}"
+
+
+def _print_match(community, candidate, fieldvals):
+    """
+    Print out a matched community
+    """
     output_sections = []
     output_fields = []
     if 'localadmin' in candidate:
-        for fid, f in enumerate(candidate['localadmin']['fields']):
-             if 'description' in f:
-                 output_fields.append('{}={}'.format(f['name'],f['description']))
-             else:
-                 output_fields.append('{}={}'.format(f['name'],fieldvals[fid]))
+        for fid, field in enumerate(candidate['localadmin']['fields']):
+            if 'description' in field:
+                output_fields.append(f'{field["name"]}={field["description"]}')
+            else:
+                output_fields.append(f'{field["name"]}={fieldvals[fid]}')
         output_sections.append(','.join(output_fields))
     elif 'localdatapart1' in candidate:
         offset = 0
         output_fields = []
-        for fid, f in enumerate(candidate['localdatapart1']['fields']):
-             if 'description' in f:
-                 output_fields.append('{}={}'.format(f['name'],
-                                                     f['description']))
-             else:
-                 output_fields.append('{}={}'.format(f['name'],
-                                                     fieldvals[offset + fid]))
+        for fid, field in enumerate(candidate['localdatapart1']['fields']):
+            if 'description' in field:
+                output_fields.append(f"{field['name']}={field['description']}")
+            else:
+                output_fields.append(f"{field['name']}={fieldvals[offset + fid]}")
         output_sections.append(','.join(output_fields))
 
         offset = len(candidate['localdatapart1']['fields'])
         output_fields = []
-        for fid, f in enumerate(candidate['localdatapart2']['fields']):
-             if 'description' in f:
-                 output_fields.append('{}={}'.format(f['name'],
-                                                     f['description']))
-             else:
-                 output_fields.append('{}={}'.format(f['name'],
-                                                     fieldvals[offset + fid]))
+        for fid, field in enumerate(candidate['localdatapart2']['fields']):
+            if 'description' in field:
+                output_fields.append(f'{field["name"]}={field["description"]}')
+            else:
+                output_fields.append(f'{field["name"]}={fieldvals[offset + fid]}')
         output_sections.append(','.join(output_fields))
-    output = '{} - {} ({})'.format(community,
-                                    candidate['name'],
-                                    ':'.join(output_sections))
+    output = f'{community} - {candidate["name"]} ({":".join(output_sections)})'
     print(output)
 
-# Print out an unmatched community
+
 def _print_unknown(community):
-    print("{} - Unknown".format(community))
+    """
+    Print out an unmatched community
+    """
+    print(f"{community} - Unknown")
+
 
 if __name__ == '__main__':
     if len(sys.argv) < 3:
-        sys.stderr.write("{} <txt> <json>\n".format(sys.argv[0]))
+        sys.stderr.write(f"{sys.argv[0]} <textfile> <jsonfile>\n")
         sys.exit(2)
-    main(sys.argv[1],sys.argv[2])
+    main(sys.argv[1], sys.argv[2])
