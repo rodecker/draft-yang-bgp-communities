@@ -669,7 +669,7 @@ NO_EXPORT",
         "name": "RFC4384-ORIGIN-OC/FJ",
         "description": "A national route over a terrestrial link from \
 the Fiji Islands",
-        "globaladmin": 10876,
+        "globaladmin": 65539,
         "localadmin": {
           "format": "binary",
           "fields": [
