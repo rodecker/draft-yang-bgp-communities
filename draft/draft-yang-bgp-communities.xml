@@ -70,12 +70,37 @@
     <section title="Introduction" anchor="intro">
 
       <t>
-        ISP operators use BGP communities<xref target="RFC1997"/><xref target="RFC4360"/><xref target="RFC8092"/> to 
-        add information to prefix announcements or to let customers influence routing behaviour inside the network of the ISP.
+        ISP operators use BGP communities<xref target="RFC1997"/><xref target="RFC4360"/><xref target="RFC8092"/> to add information to prefix announcements or to let customers influence routing behaviour inside the network of the ISP.
         Each ISP defines for itself which BGP communities to support and how the structure of these communities should be interpreted.
-        This document provides a YANG<xref target="RFC7950"/> module for specifying BGP communities, Extended BGP communities and Large BGP communities.
-        The purpose of this is to provide a standardized way for publishing community definitions.
-        It also helps applications such as looking glasses to interpret communities seen in BGP announcements.
+        This document provides a YANG<xref target="RFC7950"/> module for describing the structure and meaning of BGP communities, Extended BGP communities and Large BGP communities.
+        ISP operators can use this to publish their community definitions in a well-defined format.
+      </t>
+
+    </section>
+
+    <section title="Rationale" anchor="rationale">
+
+      <t>
+        ISP operators may define various BGP communities that have local significance inside of their network.
+        These communities could be used to add miscellaneous information to a prefix announcement.
+        For example, a community "64501:1:528" may signify that AS64501 is originating a prefix from a point of presence in The Netherlands (ISO 3166-1 code 528).
+        Alternatively, communities could be used to allow customers of an ISP to control routing behavior of their prefixes inside the ISP.
+        For example, a community "64501:4:64498" attached to a prefix advertised to AS64501 by a customer may be interpreted by AS64501 to mean that this prefix must not be propagated to AS64498.
+      </t>
+      <t>
+        For both use cases it is necessary for the ISP to communicate the meaning of their locally defined communities to others.
+        Currently this is typically done by publishing a list of communities on a web page, or as a remark inside an autnum object in the Internet Routing Registry.
+        This makes it cumbersome to determine if and where an ISP publishes community information.
+        The lack of a well-defined structure makes it hard to develop tools for parsing community information.
+      </t>
+      <t>
+        The purpose of the YANG model defined in this document is to provide a standardized format for publishing community definitions.
+        These definitions help applications to interpret the structure and purpose of BGP communities.
+        For example, looking glasses may use the published definitions to parse communities seen in BGP announcements and display their meaning.
+      </t>
+      <t>
+        Note that this document only describes a model for the publishing format of community definitions.
+        The publishing location and publishing mechanism used are outside the scope of this specification.
       </t>
 
     </section>
@@ -467,10 +492,6 @@ module: draft-yang-bgp-communities
         <t>
           When publishing community definitions with overlapping field patterns these MUST be ordered from most to least specific, to ensure parsers can perform deterministic matching.
         </t>
-        <t>
-          Note that this document only describes a model for the publishing format of community definitions.
-          The location and publishing mechanism used are outside the scope of this specification.
-        </t>
       </section>
 
       <section title="Parsing guidelines" anchor="recommendations.parsing">
@@ -621,7 +642,7 @@ NO_EXPORT",
       {
         "name": "RFC8195-NOEXPORT-ASN",
         "description": "Do not export route to ASN",
-        "globaladmin": 64497,
+        "globaladmin": 65539,
         "localdatapart1": {
           "fields": [
             {
@@ -669,7 +690,7 @@ NO_EXPORT",
         "name": "RFC4384-ORIGIN-OC/FJ",
         "description": "A national route over a terrestrial link from \
 the Fiji Islands",
-        "globaladmin": 65539,
+        "globaladmin": 64497,
         "localadmin": {
           "format": "binary",
           "fields": [
