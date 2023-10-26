@@ -9,7 +9,8 @@ It also helps applications such as looking glasses to interpret communities seen
 This repository contains the following files:
 
 * `draft/draft-yang-bgp-communities.xml` - XML specification of the draft
-* `draft/draft-yang-bgp-communities.txt` - The draft, generated using [xml2rfc](https://pypi.org/project/xml2rfc/)
+* `draft/draft-yang-bgp-communities.txt` - The draft in plain text format, generated using [xml2rfc](https://pypi.org/project/xml2rfc/)
+* `draft/draft-yang-bgp-communities.html` - The draft in html format, generated using [xml2rfc](https://pypi.org/project/xml2rfc/)
 * `yang/draft-yang-bgp-communities.yang` - The YANG model, verified using [yanglint](https://pypi.org/project/libyang/)
 * `scripts/parser.py` - An example parser
 * `examples/bgp-communities.json` - An example JSON specification conforming to the YANG model
