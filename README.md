@@ -20,7 +20,7 @@ This repository contains the following files:
 
 Generate the draft:
 ```
-xml2rfc draft/draft-yang-bgp-communities.xml
+xml2rfc --v3 --text --html draft/draft-yang-bgp-communities.xml
 ```
 
 Display the YANG module tree:
