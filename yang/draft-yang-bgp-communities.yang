@@ -57,7 +57,7 @@ module draft-yang-bgp-communities {
     }
   }
 
-  container bgp-communities { 
+  container bgp-communities {
 
     leaf serial {
       type "uint32";
