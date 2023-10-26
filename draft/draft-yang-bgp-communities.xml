@@ -39,13 +39,6 @@
       </address>
     </author>
 
-    <author fullname="Jeffrey Haas" initials="J" surname="Haas">
-      <organization>Juniper Networks</organization>
-      <address>
-        <email>jhaas@juniper.net</email>
-      </address>
-    </author>
-
     <date year="2023" />
 
     <abstract>
@@ -729,7 +722,7 @@ the Fiji Islands",
     <section title="Acknowledgements" anchor="acknowledgements">
 
       <t>
-        The authors would like to thank Luuk Hendriks, Jasper den Hertog and Teun Vink for contributing ideas and feedback to this document.
+        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog and Teun Vink for contributing ideas and feedback to this document.
       </t>
 
     </section>
