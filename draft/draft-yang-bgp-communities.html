@@ -1,0 +1,2600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta content="Common,Latin" name="scripts">
+<meta content="initial-scale=1.0" name="viewport">
+<title>YANG Module for BGP Communities</title>
+<meta content="Martin Pels" name="author">
+<meta content="
+       
+        This document provides a YANG module for describing BGP communities.
+       
+    " name="description">
+<meta content="xml2rfc 3.15.2" name="generator">
+<meta content="draft-yang-bgp-communities-00" name="ietf.draft">
+<!-- Generator version information:
+  xml2rfc 3.15.2
+    Python 3.10.13
+    appdirs 1.4.4
+    ConfigArgParse 1.5.3
+    google-i18n-address 2.5.2
+    html5lib 1.1
+    intervaltree 3.1.0
+    Jinja2 3.1.2
+    lxml 4.9.1
+    MarkupSafe 2.1.1
+    pycountry 22.3.5
+    PyYAML 6.0
+    requests 2.28.1
+    setuptools 68.1.2
+    six 1.16.0
+    wcwidth 0.2.5
+-->
+<link href="draft-yang-bgp-communities.xml" rel="alternate" type="application/rfc+xml">
+<link href="#copyright" rel="license">
+<style type="text/css">/*
+
+  NOTE: Changes at the bottom of this file overrides some earlier settings.
+
+  Once the style has stabilized and has been adopted as an official RFC style,
+  this can be consolidated so that style settings occur only in one place, but
+  for now the contents of this file consists first of the initial CSS work as
+  provided to the RFC Formatter (xml2rfc) work, followed by itemized and
+  commented changes found necessary during the development of the v3
+  formatters.
+
+*/
+
+/* fonts */
+@import url('https://fonts.googleapis.com/css?family=Noto+Sans'); /* Sans-serif */
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif'); /* Serif (print) */
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono'); /* Monospace */
+
+@viewport {
+  zoom: 1.0;
+  width: extend-to-zoom;
+}
+@-ms-viewport {
+  width: extend-to-zoom;
+  zoom: 1.0;
+}
+/* general and mobile first */
+html {
+}
+body {
+  max-width: 90%;
+  margin: 1.5em auto;
+  color: #222;
+  background-color: #fff;
+  font-size: 14px;
+  font-family: 'Noto Sans', Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+.ears {
+  display: none;
+}
+
+/* headings */
+#title, h1, h2, h3, h4, h5, h6 {
+  margin: 1em 0 0.5em;
+  font-weight: bold;
+  line-height: 1.3;
+}
+#title {
+  clear: both;
+  border-bottom: 1px solid #ddd;
+  margin: 0 0 0.5em 0;
+  padding: 1em 0 0.5em;
+}
+.author {
+  padding-bottom: 4px;
+}
+h1 {
+  font-size: 26px;
+  margin: 1em 0;
+}
+h2 {
+  font-size: 22px;
+  margin-top: -20px;  /* provide offset for in-page anchors */
+  padding-top: 33px;
+}
+h3 {
+  font-size: 18px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h4 {
+  font-size: 16px;
+  margin-top: -36px;  /* provide offset for in-page anchors */
+  padding-top: 42px;
+}
+h5, h6 {
+  font-size: 14px;
+}
+#n-copyright-notice {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+/* general structure */
+p {
+  padding: 0;
+  margin: 0 0 1em 0;
+  text-align: left;
+}
+div, span {
+  position: relative;
+}
+div {
+  margin: 0;
+}
+.alignRight.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignRight.art-text pre {
+  padding: 0;
+}
+.alignRight {
+  margin: 1em 0;
+}
+.alignRight > *:first-child {
+  border: none;
+  margin: 0;
+  float: right;
+  clear: both;
+}
+.alignRight > *:nth-child(2) {
+  clear: both;
+  display: block;
+  border: none;
+}
+svg {
+  display: block;
+}
+.alignCenter.art-text {
+  background-color: #f9f9f9;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 1em 1em 0;
+  margin-bottom: 1.5em;
+}
+.alignCenter.art-text pre {
+  padding: 0;
+}
+.alignCenter {
+  margin: 1em 0;
+}
+.alignCenter > *:first-child {
+  display: table;
+  border: none;
+  margin: 0 auto;
+}
+
+/* lists */
+ol, ul {
+  padding: 0;
+  margin: 0 0 1em 2em;
+}
+ol ol, ul ul, ol ul, ul ol {
+  margin-left: 1em;
+}
+li {
+  margin: 0 0 0.25em 0;
+}
+.ulCompact li {
+  margin: 0;
+}
+ul.empty, .ulEmpty {
+  list-style-type: none;
+}
+ul.empty li, .ulEmpty li {
+  margin-top: 0.5em;
+}
+ul.ulBare, li.ulBare {
+  margin-left: 0em !important;
+}
+ul.compact, .ulCompact,
+ol.compact, .olCompact {
+  line-height: 100%;
+  margin: 0 0 0 2em;
+}
+
+/* definition lists */
+dl {
+}
+dl > dt {
+  float: left;
+  margin-right: 1em;
+}
+/* 
+dl.nohang > dt {
+  float: none;
+}
+*/
+dl > dd {
+  margin-bottom: .8em;
+  min-height: 1.3em;
+}
+dl.compact > dd, .dlCompact > dd {
+  margin-bottom: 0em;
+}
+dl > dd > dl {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+}
+
+/* links */
+a {
+  text-decoration: none;
+}
+a[href] {
+  color: #22e; /* Arlen: WCAG 2019 */
+}
+a[href]:hover {
+  background-color: #f2f2f2;
+}
+figcaption a[href],
+a[href].selfRef {
+  color: #222;
+}
+/* XXX probably not this:
+a.selfRef:hover {
+  background-color: transparent;
+  cursor: default;
+} */
+
+/* Figures */
+tt, code, pre {
+  background-color: #f9f9f9;
+  font-family: 'Roboto Mono', monospace;
+}
+pre {
+  border: 1px solid #eee;
+  margin: 0;
+  padding: 1em;
+}
+img {
+  max-width: 100%;
+}
+figure {
+  margin: 0;
+}
+figure blockquote {
+  margin: 0.8em 0.4em 0.4em;
+}
+figcaption {
+  font-style: italic;
+  margin: 0 0 1em 0;
+}
+@media screen {
+  pre {
+    overflow-x: auto;
+    max-width: 100%;
+    max-width: calc(100% - 22px);
+  }
+}
+
+/* aside, blockquote */
+aside, blockquote {
+  margin-left: 0;
+  padding: 1.2em 2em;
+}
+blockquote {
+  background-color: #f9f9f9;
+  color: #111; /* Arlen: WCAG 2019 */
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  margin: 1em 0;
+}
+cite {
+  display: block;
+  text-align: right;
+  font-style: italic;
+}
+
+/* tables */
+table {
+  width: 100%;
+  margin: 0 0 1em;
+  border-collapse: collapse;
+  border: 1px solid #eee;
+}
+th, td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.5em 0.75em;
+}
+th {
+  text-align: left;
+  background-color: #e9e9e9;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f5f5f5;
+}
+table caption {
+  font-style: italic;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+table p {
+  /* XXX to avoid bottom margin on table row signifiers. If paragraphs should
+     be allowed within tables more generally, it would be far better to select on a class. */
+  margin: 0;
+}
+
+/* pilcrow */
+a.pilcrow {
+  color: #666; /* Arlen: AHDJ 2019 */
+  text-decoration: none;
+  visibility: hidden;
+  user-select: none;
+  -ms-user-select: none;
+  -o-user-select:none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+@media screen {
+  aside:hover > a.pilcrow,
+  p:hover > a.pilcrow,
+  blockquote:hover > a.pilcrow,
+  div:hover > a.pilcrow,
+  li:hover > a.pilcrow,
+  pre:hover > a.pilcrow {
+    visibility: visible;
+  }
+  a.pilcrow:hover {
+    background-color: transparent;
+  }
+}
+
+/* misc */
+hr {
+  border: 0;
+  border-top: 1px solid #eee;
+}
+.bcp14 {
+  font-variant: small-caps;
+}
+
+.role {
+  font-variant: all-small-caps;
+}
+
+/* info block */
+#identifiers {
+  margin: 0;
+  font-size: 0.9em;
+}
+#identifiers dt {
+  width: 3em;
+  clear: left;
+}
+#identifiers dd {
+  float: left;
+  margin-bottom: 0;
+}
+/* Fix PDF info block run off issue */
+@media print {
+  #identifiers dd {
+    float: none;
+  }
+}
+#identifiers .authors .author {
+  display: inline-block;
+  margin-right: 1.5em;
+}
+#identifiers .authors .org {
+  font-style: italic;
+}
+
+/* The prepared/rendered info at the very bottom of the page */
+.docInfo {
+  color: #666; /* Arlen: WCAG 2019 */
+  font-size: 0.9em;
+  font-style: italic;
+  margin-top: 2em;
+}
+.docInfo .prepared {
+  float: left;
+}
+.docInfo .prepared {
+  float: right;
+}
+
+/* table of contents */
+#toc  {
+  padding: 0.75em 0 2em 0;
+  margin-bottom: 1em;
+}
+nav.toc ul {
+  margin: 0 0.5em 0 0;
+  padding: 0;
+  list-style: none;
+}
+nav.toc li {
+  line-height: 1.3em;
+  margin: 0.75em 0;
+  padding-left: 1.2em;
+  text-indent: -1.2em;
+}
+/* references */
+.references dt {
+  text-align: right;
+  font-weight: bold;
+  min-width: 7em;
+}
+.references dd {
+  margin-left: 8em;
+  overflow: auto;
+}
+
+.refInstance {
+  margin-bottom: 1.25em;
+}
+
+.references .ascii {
+  margin-bottom: 0.25em;
+}
+
+/* index */
+.index ul {
+  margin: 0 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+.index ul ul {
+  margin: 0;
+}
+.index li {
+  margin: 0;
+  text-indent: -2em;
+  padding-left: 2em;
+  padding-bottom: 5px;
+}
+.indexIndex {
+  margin: 0.5em 0 1em;
+}
+.index a {
+  font-weight: 700;
+}
+/* make the index two-column on all but the smallest screens */
+@media (min-width: 600px) {
+  .index ul {
+    -moz-column-count: 2;
+    -moz-column-gap: 20px;
+  }
+  .index ul ul {
+    -moz-column-count: 1;
+    -moz-column-gap: 0;
+  }
+}
+
+/* authors */
+address.vcard {
+  font-style: normal;
+  margin: 1em 0;
+}
+
+address.vcard .nameRole {
+  font-weight: 700;
+  margin-left: 0;
+}
+address.vcard .label {
+  font-family: "Noto Sans",Arial,Helvetica,sans-serif;
+  margin: 0.5em 0;
+}
+address.vcard .type {
+  display: none;
+}
+.alternative-contact {
+  margin: 1.5em 0 1em;
+}
+hr.addr {
+  border-top: 1px dashed;
+  margin: 0;
+  color: #ddd;
+  max-width: calc(100% - 16px);
+}
+
+/* temporary notes */
+.rfcEditorRemove::before {
+  position: absolute;
+  top: 0.2em;
+  right: 0.2em;
+  padding: 0.2em;
+  content: "The RFC Editor will remove this note";
+  color: #9e2a00; /* Arlen: WCAG 2019 */
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+}
+.rfcEditorRemove {
+  position: relative;
+  padding-top: 1.8em;
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  border-radius: 3px;
+}
+.cref {
+  background-color: #ffd; /* Arlen: WCAG 2019 */
+  padding: 2px 4px;
+}
+.crefSource {
+  font-style: italic;
+}
+/* alternative layout for smaller screens */
+@media screen and (max-width: 1023px) {
+  body {
+    padding-top: 2em;
+  }
+  #title {
+    padding: 1em 0;
+  }
+  h1 {
+    font-size: 24px;
+  }
+  h2 {
+    font-size: 20px;
+    margin-top: -18px;  /* provide offset for in-page anchors */
+    padding-top: 38px;
+  }
+  #identifiers dd {
+    max-width: 60%;
+  }
+  #toc {
+    position: fixed;
+    z-index: 2;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    background-color: inherit;
+    border-bottom: 1px solid #ccc;
+  }
+  #toc h2 {
+    margin: -1px 0 0 0;
+    padding: 4px 0 4px 6px;
+    padding-right: 1em;
+    min-width: 190px;
+    font-size: 1.1em;
+    text-align: right;
+    background-color: #444;
+    color: white;
+    cursor: pointer;
+  }
+  #toc h2::before { /* css hamburger */
+    float: right;
+    position: relative;
+    width: 1em;
+    height: 1px;
+    left: -164px;
+    margin: 6px 0 0 0;
+    background: white none repeat scroll 0 0;
+    box-shadow: 0 4px 0 0 white, 0 8px 0 0 white;
+    content: "";
+  }
+  #toc nav {
+    display: none;
+    padding: 0.5em 1em 1em;
+    overflow: auto;
+    height: calc(100vh - 48px);
+    border-left: 1px solid #ddd;
+  }
+}
+
+/* alternative layout for wide screens */
+@media screen and (min-width: 1024px) {
+  body {
+    max-width: 724px;
+    margin: 42px auto;
+    padding-left: 1.5em;
+    padding-right: 29em;
+  }
+  #toc {
+    position: fixed;
+    top: 42px;
+    right: 42px;
+    width: 25%;
+    margin: 0;
+    padding: 0 1em;
+    z-index: 1;
+  }
+  #toc h2 {
+    border-top: none;
+    border-bottom: 1px solid #ddd;
+    font-size: 1em;
+    font-weight: normal;
+    margin: 0;
+    padding: 0.25em 1em 1em 0;
+  }
+  #toc nav {
+    display: block;
+    height: calc(90vh - 84px);
+    bottom: 0;
+    padding: 0.5em 0 0;
+    overflow: auto;
+  }
+  img { /* future proofing */
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* pagination */
+@media print {
+  body {
+
+    width: 100%;
+  }
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+  #n-copyright-notice {
+    border-bottom: none;
+  }
+  #toc, #n-introduction {
+    page-break-before: always;
+  }
+  #toc {
+    border-top: none;
+    padding-top: 0;
+  }
+  figure, pre {
+    page-break-inside: avoid;
+  }
+  figure {
+    overflow: scroll;
+  }
+  pre.breakable {
+    break-inside: auto;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  h2+*, h3+*, h4+*, h5+*, h6+* {
+    page-break-before: avoid;
+  }
+  pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-size: 10pt;
+  }
+  table {
+    border: 1px solid #ddd;
+  }
+  td {
+    border-top: 1px solid #ddd;
+  }
+}
+
+/* This is commented out here, as the string-set: doesn't
+   pass W3C validation currently */
+/*
+.ears thead .left {
+  string-set: ears-top-left content();
+}
+
+.ears thead .center {
+  string-set: ears-top-center content();
+}
+
+.ears thead .right {
+  string-set: ears-top-right content();
+}
+
+.ears tfoot .left {
+  string-set: ears-bottom-left content();
+}
+
+.ears tfoot .center {
+  string-set: ears-bottom-center content();
+}
+
+.ears tfoot .right {
+  string-set: ears-bottom-right content();
+}
+*/
+
+@page :first {
+  padding-top: 0;
+  @top-left {
+    content: normal;
+    border: none;
+  }
+  @top-center {
+    content: normal;
+    border: none;
+  }
+  @top-right {
+    content: normal;
+    border: none;
+  }
+}
+
+@page {
+  size: A4;
+  margin-bottom: 45mm;
+  padding-top: 20px;
+  /* The following is commented out here, but set appropriately by in code, as
+     the content depends on the document */
+  /*
+  @top-left {
+    content: 'Internet-Draft';
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-left {
+    content: string(ears-top-left);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-center {
+    content: string(ears-top-center);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @top-right {
+    content: string(ears-top-right);
+    vertical-align: bottom;
+    border-bottom: solid 1px #ccc;
+  }
+  @bottom-left {
+    content: string(ears-bottom-left);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-center {
+    content: string(ears-bottom-center);
+    vertical-align: top;
+    border-top: solid 1px #ccc;
+  }
+  @bottom-right {
+      content: '[Page ' counter(page) ']';
+      vertical-align: top;
+      border-top: solid 1px #ccc;
+  }
+  */
+
+}
+
+/* Changes introduced to fix issues found during implementation */
+/* Make sure links are clickable even if overlapped by following H* */
+a {
+  z-index: 2;
+}
+/* Separate body from document info even without intervening H1 */
+section {
+  clear: both;
+}
+
+
+/* Top align author divs, to avoid names without organization dropping level with org names */
+.author {
+  vertical-align: top;
+}
+
+/* Leave room in document info to show Internet-Draft on one line */
+#identifiers dt {
+  width: 8em;
+}
+
+/* Don't waste quite as much whitespace between label and value in doc info */
+#identifiers dd {
+  margin-left: 1em;
+}
+
+/* Give floating toc a background color (needed when it's a div inside section */
+#toc {
+  background-color: white;
+}
+
+/* Make the collapsed ToC header render white on gray also when it's a link */
+@media screen and (max-width: 1023px) {
+  #toc h2 a,
+  #toc h2 a:link,
+  #toc h2 a:focus,
+  #toc h2 a:hover,
+  #toc a.toplink,
+  #toc a.toplink:hover {
+    color: white;
+    background-color: #444;
+    text-decoration: none;
+  }
+}
+
+/* Give the bottom of the ToC some whitespace */
+@media screen and (min-width: 1024px) {
+  #toc {
+    padding: 0 0 1em 1em;
+  }
+}
+
+/* Style section numbers with more space between number and title */
+.section-number {
+  padding-right: 0.5em;
+}
+
+/* prevent monospace from becoming overly large */
+tt, code, pre {
+  font-size: 95%;
+}
+
+/* Fix the height/width aspect for ascii art*/
+pre.sourcecode,
+.art-text pre {
+  line-height: 1.12;
+}
+
+
+/* Add styling for a link in the ToC that points to the top of the document */
+a.toplink {
+  float: right;
+  margin-right: 0.5em;
+}
+
+/* Fix the dl styling to match the RFC 7992 attributes */
+dl > dt,
+dl.dlParallel > dt {
+  float: left;
+  margin-right: 1em;
+}
+dl.dlNewline > dt {
+  float: none;
+}
+
+/* Provide styling for table cell text alignment */
+table td.text-left,
+table th.text-left {
+  text-align: left;
+}
+table td.text-center,
+table th.text-center {
+  text-align: center;
+}
+table td.text-right,
+table th.text-right {
+  text-align: right;
+}
+
+/* Make the alternative author contact information look less like just another
+   author, and group it closer with the primary author contact information */
+.alternative-contact {
+  margin: 0.5em 0 0.25em 0;
+}
+address .non-ascii {
+  margin: 0 0 0 2em;
+}
+
+/* With it being possible to set tables with alignment
+  left, center, and right, { width: 100%; } does not make sense */
+table {
+  width: auto;
+}
+
+/* Avoid reference text that sits in a block with very wide left margin,
+   because of a long floating dt label.*/
+.references dd {
+  overflow: visible;
+}
+
+/* Control caption placement */
+caption {
+  caption-side: bottom;
+}
+
+/* Limit the width of the author address vcard, so names in right-to-left
+   script don't end up on the other side of the page. */
+
+address.vcard {
+  max-width: 30em;
+  margin-right: auto;
+}
+
+/* For address alignment dependent on LTR or RTL scripts */
+address div.left {
+  text-align: left;
+}
+address div.right {
+  text-align: right;
+}
+
+/* Provide table alignment support.  We can't use the alignX classes above
+   since they do unwanted things with caption and other styling. */
+table.right {
+ margin-left: auto;
+ margin-right: 0;
+}
+table.center {
+ margin-left: auto;
+ margin-right: auto;
+}
+table.left {
+ margin-left: 0;
+ margin-right: auto;
+}
+
+/* Give the table caption label the same styling as the figcaption */
+caption a[href] {
+  color: #222;
+}
+
+@media print {
+  .toplink {
+    display: none;
+  }
+
+  /* avoid overwriting the top border line with the ToC header */
+  #toc {
+    padding-top: 1px;
+  }
+
+  /* Avoid page breaks inside dl and author address entries */
+  .vcard {
+    page-break-inside: avoid;
+  }
+
+}
+/* Tweak the bcp14 keyword presentation */
+.bcp14 {
+  font-variant: small-caps;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+/* Tweak the invisible space above H* in order not to overlay links in text above */
+ h2 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 31px;
+ }
+ h3 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+ h4 {
+  margin-top: -18px;  /* provide offset for in-page anchors */
+  padding-top: 24px;
+ }
+/* Float artwork pilcrow to the right */
+@media screen {
+  .artwork a.pilcrow {
+    display: block;
+    line-height: 0.7;
+    margin-top: 0.15em;
+  }
+}
+/* Make pilcrows on dd visible */
+@media screen {
+  dd:hover > a.pilcrow {
+    visibility: visible;
+  }
+}
+/* Make the placement of figcaption match that of a table's caption
+   by removing the figure's added bottom margin */
+.alignLeft.art-text,
+.alignCenter.art-text,
+.alignRight.art-text {
+   margin-bottom: 0;
+}
+.alignLeft,
+.alignCenter,
+.alignRight {
+  margin: 1em 0 0 0;
+}
+/* In print, the pilcrow won't show on hover, so prevent it from taking up space,
+   possibly even requiring a new line */
+@media print {
+  a.pilcrow {
+    display: none;
+  }
+}
+/* Styling for the external metadata */
+div#external-metadata {
+  background-color: #eee;
+  padding: 0.5em;
+  margin-bottom: 0.5em;
+  display: none;
+}
+div#internal-metadata {
+  padding: 0.5em;                       /* to match the external-metadata padding */
+}
+/* Styling for title RFC Number */
+h1#rfcnum {
+  clear: both;
+  margin: 0 0 -1em;
+  padding: 1em 0 0 0;
+}
+/* Make .olPercent look the same as <ol><li> */
+dl.olPercent > dd {
+  margin-bottom: 0.25em;
+  min-height: initial;
+}
+/* Give aside some styling to set it apart */
+aside {
+  border-left: 1px solid #ddd;
+  margin: 1em 0 1em 2em;
+  padding: 0.2em 2em;
+}
+aside > dl,
+aside > ol,
+aside > ul,
+aside > table,
+aside > p {
+  margin-bottom: 0.5em;
+}
+/* Additional page break settings */
+@media print {
+  figcaption, table caption {
+    page-break-before: avoid;
+  }
+}
+/* Font size adjustments for print */
+@media print {
+  body  { font-size: 10pt;      line-height: normal; max-width: 96%; }
+  h1    { font-size: 1.72em;    padding-top: 1.5em; } /* 1*1.2*1.2*1.2 */
+  h2    { font-size: 1.44em;    padding-top: 1.5em; } /* 1*1.2*1.2 */
+  h3    { font-size: 1.2em;     padding-top: 1.5em; } /* 1*1.2 */
+  h4    { font-size: 1em;       padding-top: 1.5em; }
+  h5, h6 { font-size: 1em;      margin: initial; padding: 0.5em 0 0.3em; }
+}
+/* Sourcecode margin in print, when there's no pilcrow */
+@media print {
+  .artwork,
+  .artwork > pre,
+  .sourcecode {
+    margin-bottom: 1em;
+  }
+}
+/* Avoid narrow tables forcing too narrow table captions, which may render badly */
+table {
+  min-width: 20em;
+}
+/* ol type a */
+ol.type-a { list-style-type: lower-alpha; }
+ol.type-A { list-style-type: upper-alpha; }
+ol.type-i { list-style-type: lower-roman; }
+ol.type-I { list-style-type: lower-roman; }
+/* Apply the print table and row borders in general, on request from the RPC,
+and increase the contrast between border and odd row background slightly */
+table {
+  border: 1px solid #ddd;
+}
+td {
+  border-top: 1px solid #ddd;
+}
+tr {
+  break-inside: avoid;
+}
+tr:nth-child(2n+1) > td {
+  background-color: #f8f8f8;
+}
+/* Use style rules to govern display of the TOC. */
+@media screen and (max-width: 1023px) {
+  #toc nav { display: none; }
+  #toc.active nav { display: block; }
+}
+/* Add support for keepWithNext */
+.keepWithNext {
+  break-after: avoid-page;
+  break-after: avoid-page;
+}
+/* Add support for keepWithPrevious */
+.keepWithPrevious {
+  break-before: avoid-page;
+}
+/* Change the approach to avoiding breaks inside artwork etc. */
+figure, pre, table, .artwork, .sourcecode  {
+  break-before: auto;
+  break-after: auto;
+}
+/* Avoid breaks between <dt> and <dd> */
+dl {
+  break-before: auto;
+  break-inside: auto;
+}
+dt {
+  break-before: auto;
+  break-after: avoid-page;
+}
+dd {
+  break-before: avoid-page;
+  break-after: auto;
+  orphans: 3;
+  widows: 3
+}
+span.break, dd.break {
+  margin-bottom: 0;
+  min-height: 0;
+  break-before: auto;
+  break-inside: auto;
+  break-after: auto;
+}
+/* Undo break-before ToC */
+@media print {
+  #toc {
+    break-before: auto;
+  }
+}
+/* Text in compact lists should not get extra bottom margin space,
+   since that would makes the list not compact */
+ul.compact p, .ulCompact p,
+ol.compact p, .olCompact p {
+ margin: 0;
+}
+/* But the list as a whole needs the extra space at the end */
+section ul.compact,
+section .ulCompact,
+section ol.compact,
+section .olCompact {
+  margin-bottom: 1em;                    /* same as p not within ul.compact etc. */
+}
+/* The tt and code background above interferes with for instance table cell
+   backgrounds.  Changed to something a bit more selective. */
+tt, code {
+  background-color: transparent;
+}
+p tt, p code, li tt, li code {
+  background-color: #f8f8f8;
+}
+/* Tweak the pre margin -- 0px doesn't come out well */
+pre {
+   margin-top: 0.5px;
+}
+/* Tweak the compact list text */
+ul.compact, .ulCompact,
+ol.compact, .olCompact,
+dl.compact, .dlCompact {
+  line-height: normal;
+}
+/* Don't add top margin for nested lists */
+li > ul, li > ol, li > dl,
+dd > ul, dd > ol, dd > dl,
+dl > dd > dl {
+  margin-top: initial;
+}
+/* Elements that should not be rendered on the same line as a <dt> */
+/* This should match the element list in writer.text.TextWriter.render_dl() */
+dd > div.artwork:first-child,
+dd > aside:first-child,
+dd > figure:first-child,
+dd > ol:first-child,
+dd > div:first-child > pre.sourcecode,
+dd > table:first-child,
+dd > ul:first-child {
+  clear: left;
+}
+/* fix for weird browser behaviour when <dd/> is empty */
+dt+dd:empty::before{
+  content: "\00a0";
+}
+/* Make paragraph spacing inside <li> smaller than in body text, to fit better within the list */
+li > p {
+  margin-bottom: 0.5em
+}
+/* Don't let p margin spill out from inside list items */
+li > p:last-of-type {
+  margin-bottom: 0;
+}
+</style>
+<link href="rfc-local.css" rel="stylesheet" type="text/css">
+<script type="application/javascript">async function addMetadata(){try{const e=document.styleSheets[0].cssRules;for(let t=0;t<e.length;t++)if(/#identifiers/.exec(e[t].selectorText)){const a=e[t].cssText.replace("#identifiers","#external-updates");document.styleSheets[0].insertRule(a,document.styleSheets[0].cssRules.length)}}catch(e){console.log(e)}const e=document.getElementById("external-metadata");if(e)try{var t,a="",o=function(e){const t=document.getElementsByTagName("meta");for(let a=0;a<t.length;a++)if(t[a].getAttribute("name")===e)return t[a].getAttribute("content");return""}("rfc.number");if(o){t="https://www.rfc-editor.org/rfc/rfc"+o+".json";try{const e=await fetch(t);a=await e.json()}catch(e){t=document.URL.indexOf("html")>=0?document.URL.replace(/html$/,"json"):document.URL+".json";const o=await fetch(t);a=await o.json()}}if(!a)return;e.style.display="block";const s="",d="https://datatracker.ietf.org/doc",n="https://datatracker.ietf.org/ipr/search",c="https://www.rfc-editor.org/info",l=a.doc_id.toLowerCase(),i=a.doc_id.slice(0,3).toLowerCase(),f=a.doc_id.slice(3).replace(/^0+/,""),u={status:"Status",obsoletes:"Obsoletes",obsoleted_by:"Obsoleted By",updates:"Updates",updated_by:"Updated By",see_also:"See Also",errata_url:"Errata"};let h="<dl style='overflow:hidden' id='external-updates'>";["status","obsoletes","obsoleted_by","updates","updated_by","see_also","errata_url"].forEach(e=>{if("status"==e){a[e]=a[e].toLowerCase();var t=a[e].split(" "),o=t.length,w="",p=1;for(let e=0;e<o;e++)p<o?w=w+r(t[e])+" ":w+=r(t[e]),p++;a[e]=w}else if("obsoletes"==e||"obsoleted_by"==e||"updates"==e||"updated_by"==e){var g,m="",b=1;g=a[e].length;for(let t=0;t<g;t++)a[e][t]&&(a[e][t]=String(a[e][t]).toLowerCase(),m=b<g?m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>, ":m+"<a href='"+s+"/rfc/".concat(a[e][t])+"'>"+a[e][t].slice(3)+"</a>",b++);a[e]=m}else if("see_also"==e){var y,L="",C=1;y=a[e].length;for(let t=0;t<y;t++)if(a[e][t]){a[e][t]=String(a[e][t]);var _=a[e][t].slice(0,3),v=a[e][t].slice(3).replace(/^0+/,"");L=C<y?"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>, ":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>, ":"RFC"!=_?L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+_+" "+v+"</a>":L+"<a href='"+s+"/info/"+_.toLowerCase().concat(v.toLowerCase())+"'>"+v+"</a>",C++}a[e]=L}else if("errata_url"==e){var R="";R=a[e]?R+"<a href='"+a[e]+"'>Errata exist</a> | <a href='"+d+"/"+l+"'>Datatracker</a>| <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>":"<a href='"+d+"/"+l+"'>Datatracker</a> | <a href='"+n+"/?"+i+"="+f+"&submit="+i+"'>IPR</a> | <a href='"+c+"/"+l+"'>Info page</a>",a[e]=R}""!=a[e]?"Errata"==u[e]?h+=`<dt>More info:</dt><dd>${a[e]}</dd>`:h+=`<dt>${u[e]}:</dt><dd>${a[e]}</dd>`:"Errata"==u[e]&&(h+=`<dt>More info:</dt><dd>${a[e]}</dd>`)}),h+="</dl>",e.innerHTML=h}catch(e){console.log(e)}else console.log("Could not locate metadata <div> element");function r(e){return e.charAt(0).toUpperCase()+e.slice(1)}}window.removeEventListener("load",addMetadata),window.addEventListener("load",addMetadata);</script>
+</head>
+<body class="xml2rfc">
+<script src="metadata.min.js"></script>
+<table class="ears">
+<thead><tr>
+<td class="left"></td>
+<td class="center">BGP Community YANG</td>
+<td class="right">October 2023</td>
+</tr></thead>
+<tfoot><tr>
+<td class="left">Pels</td>
+<td class="center">Informational</td>
+<td class="right">[Page]</td>
+</tr></tfoot>
+</table>
+<div id="external-metadata" class="document-information"></div>
+<div id="internal-metadata" class="document-information">
+<dl id="identifiers">
+<dt class="label-published">Published:</dt>
+<dd class="published">
+<time datetime="2023-10-26" class="published">26 October 2023</time>
+    </dd>
+<dt class="label-authors">Author:</dt>
+<dd class="authors">
+<div class="author">
+      <div class="author-name">M. Pels</div>
+<div class="org">RIPE NCC</div>
+</div>
+</dd>
+</dl>
+</div>
+<h1 id="title">YANG Module for BGP Communities</h1>
+<section id="section-abstract">
+      <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
+<p id="section-abstract-1">
+        This document provides a YANG module for describing BGP communities.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+</section>
+<div id="toc">
+<section id="section-toc.1">
+        <a href="#" onclick="scroll(0,0)" class="toplink">▲</a><h2 id="name-table-of-contents-2">
+<a href="#name-table-of-contents-2" class="section-name selfRef">Table of Contents</a>
+        </h2>
+<nav class="toc"><ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-terminology-2" class="internal xref">Terminology</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-introduction-2" class="internal xref">Introduction</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
+            <p id="section-toc.1-1.3.1" class="keepWithNext"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-rationale-2" class="internal xref">Rationale</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
+            <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-tree-view-2" class="internal xref">Tree view</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
+            <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-data-elements-2" class="internal xref">Data elements</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-the-serial-leaf-2" class="internal xref">The "serial" leaf</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-the-uri-leaf-2" class="internal xref">The "uri" leaf</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-the-description-leaf-6" class="internal xref">The "description" leaf</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.4">
+                <p id="section-toc.1-1.5.2.4.1"><a href="#section-5.4" class="auto internal xref">5.4</a>.  <a href="#name-the-contacturl-leaf-2" class="internal xref">The "contacturl" leaf</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5">
+                <p id="section-toc.1-1.5.2.5.1"><a href="#section-5.5" class="auto internal xref">5.5</a>.  <a href="#name-the-contacts-list-2" class="internal xref">The "contacts" list</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.1">
+                    <p id="section-toc.1-1.5.2.5.2.1.1"><a href="#section-5.5.1" class="auto internal xref">5.5.1</a>.  <a href="#name-the-emailaddress-leaf-2" class="internal xref">The "emailaddress" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.2">
+                    <p id="section-toc.1-1.5.2.5.2.2.1"><a href="#section-5.5.2" class="auto internal xref">5.5.2</a>.  <a href="#name-the-name-leaf-6" class="internal xref">The "name" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.3">
+                    <p id="section-toc.1-1.5.2.5.2.3.1"><a href="#section-5.5.3" class="auto internal xref">5.5.3</a>.  <a href="#name-the-role-leaf-2" class="internal xref">The "role" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.4">
+                    <p id="section-toc.1-1.5.2.5.2.4.1"><a href="#section-5.5.4" class="auto internal xref">5.5.4</a>.  <a href="#name-the-organization-leaf-2" class="internal xref">The "organization" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.5.2.5">
+                    <p id="section-toc.1-1.5.2.5.2.5.1"><a href="#section-5.5.5" class="auto internal xref">5.5.5</a>.  <a href="#name-the-organizationalunit-leaf-2" class="internal xref">The "organizationalunit" leaf</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6">
+                <p id="section-toc.1-1.5.2.6.1"><a href="#section-5.6" class="auto internal xref">5.6</a>.  <a href="#name-the-regular-list-2" class="internal xref">The "regular" list</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.1">
+                    <p id="section-toc.1-1.5.2.6.2.1.1"><a href="#section-5.6.1" class="auto internal xref">5.6.1</a>.  <a href="#name-the-name-leaf-7" class="internal xref">The "name" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.2">
+                    <p id="section-toc.1-1.5.2.6.2.2.1"><a href="#section-5.6.2" class="auto internal xref">5.6.2</a>.  <a href="#name-the-description-leaf-7" class="internal xref">The "description" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.3">
+                    <p id="section-toc.1-1.5.2.6.2.3.1"><a href="#section-5.6.3" class="auto internal xref">5.6.3</a>.  <a href="#name-the-globaladmin-leaf-3" class="internal xref">The "globaladmin" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.4">
+                    <p id="section-toc.1-1.5.2.6.2.4.1"><a href="#section-5.6.4" class="auto internal xref">5.6.4</a>.  <a href="#name-the-localadmin-container-3" class="internal xref">The "localadmin" container</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.4.2.1">
+                        <p id="section-toc.1-1.5.2.6.2.4.2.1.1"><a href="#section-5.6.4.1" class="auto internal xref">5.6.4.1</a>.  <a href="#name-the-format-leaf-5" class="internal xref">The "format" leaf</a></p>
+</li>
+                      <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.6.2.4.2.2">
+                        <p id="section-toc.1-1.5.2.6.2.4.2.2.1"><a href="#section-5.6.4.2" class="auto internal xref">5.6.4.2</a>.  <a href="#name-the-fields-list-5" class="internal xref">The "fields" list</a></p>
+</li>
+                    </ul>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7">
+                <p id="section-toc.1-1.5.2.7.1"><a href="#section-5.7" class="auto internal xref">5.7</a>.  <a href="#name-the-extended-list-2" class="internal xref">The "extended" list</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.1">
+                    <p id="section-toc.1-1.5.2.7.2.1.1"><a href="#section-5.7.1" class="auto internal xref">5.7.1</a>.  <a href="#name-the-name-leaf-9" class="internal xref">The "name" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.2">
+                    <p id="section-toc.1-1.5.2.7.2.2.1"><a href="#section-5.7.2" class="auto internal xref">5.7.2</a>.  <a href="#name-the-description-leaf-9" class="internal xref">The "description" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.3">
+                    <p id="section-toc.1-1.5.2.7.2.3.1"><a href="#section-5.7.3" class="auto internal xref">5.7.3</a>.  <a href="#name-the-type-leaf-2" class="internal xref">The "type" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.4">
+                    <p id="section-toc.1-1.5.2.7.2.4.1"><a href="#section-5.7.4" class="auto internal xref">5.7.4</a>.  <a href="#name-the-subtype-leaf-2" class="internal xref">The "subtype" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.5">
+                    <p id="section-toc.1-1.5.2.7.2.5.1"><a href="#section-5.7.5" class="auto internal xref">5.7.5</a>.  <a href="#name-the-asn-leaf-2" class="internal xref">The "asn" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.6">
+                    <p id="section-toc.1-1.5.2.7.2.6.1"><a href="#section-5.7.6" class="auto internal xref">5.7.6</a>.  <a href="#name-the-asn4-leaf-2" class="internal xref">The "asn4" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.7">
+                    <p id="section-toc.1-1.5.2.7.2.7.1"><a href="#section-5.7.7" class="auto internal xref">5.7.7</a>.  <a href="#name-the-localadmin-container-4" class="internal xref">The "localadmin" container</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.7.2.1">
+                        <p id="section-toc.1-1.5.2.7.2.7.2.1.1"><a href="#section-5.7.7.1" class="auto internal xref">5.7.7.1</a>.  <a href="#name-the-format-leaf-6" class="internal xref">The "format" leaf</a></p>
+</li>
+                      <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.7.2.7.2.2">
+                        <p id="section-toc.1-1.5.2.7.2.7.2.2.1"><a href="#section-5.7.7.2" class="auto internal xref">5.7.7.2</a>.  <a href="#name-the-fields-list-6" class="internal xref">The "fields" list</a></p>
+</li>
+                    </ul>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8">
+                <p id="section-toc.1-1.5.2.8.1"><a href="#section-5.8" class="auto internal xref">5.8</a>.  <a href="#name-the-large-list-2" class="internal xref">The "large" list</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8.2.1">
+                    <p id="section-toc.1-1.5.2.8.2.1.1"><a href="#section-5.8.1" class="auto internal xref">5.8.1</a>.  <a href="#name-the-name-leaf-10" class="internal xref">The "name" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8.2.2">
+                    <p id="section-toc.1-1.5.2.8.2.2.1"><a href="#section-5.8.2" class="auto internal xref">5.8.2</a>.  <a href="#name-the-description-leaf-10" class="internal xref">The "description" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8.2.3">
+                    <p id="section-toc.1-1.5.2.8.2.3.1"><a href="#section-5.8.3" class="auto internal xref">5.8.3</a>.  <a href="#name-the-globaladmin-leaf-4" class="internal xref">The "globaladmin" leaf</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8.2.4">
+                    <p id="section-toc.1-1.5.2.8.2.4.1"><a href="#section-5.8.4" class="auto internal xref">5.8.4</a>.  <a href="#name-the-localdatapart1-container" class="internal xref">The "localdatapart1" container</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8.2.4.2.1">
+                        <p id="section-toc.1-1.5.2.8.2.4.2.1.1"><a href="#section-5.8.4.1" class="auto internal xref">5.8.4.1</a>.  <a href="#name-the-format-leaf-7" class="internal xref">The "format" leaf</a></p>
+</li>
+                      <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8.2.4.2.2">
+                        <p id="section-toc.1-1.5.2.8.2.4.2.2.1"><a href="#section-5.8.4.2" class="auto internal xref">5.8.4.2</a>.  <a href="#name-the-fields-list-7" class="internal xref">The "fields" list</a></p>
+</li>
+                    </ul>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8.2.5">
+                    <p id="section-toc.1-1.5.2.8.2.5.1"><a href="#section-5.8.5" class="auto internal xref">5.8.5</a>.  <a href="#name-the-localdatapart2-container" class="internal xref">The "localdatapart2" container</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8.2.5.2.1">
+                        <p id="section-toc.1-1.5.2.8.2.5.2.1.1"><a href="#section-5.8.5.1" class="auto internal xref">5.8.5.1</a>.  <a href="#name-the-format-leaf-8" class="internal xref">The "format" leaf</a></p>
+</li>
+                      <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.8.2.5.2.2">
+                        <p id="section-toc.1-1.5.2.8.2.5.2.2.1"><a href="#section-5.8.5.2" class="auto internal xref">5.8.5.2</a>.  <a href="#name-the-fields-list-8" class="internal xref">The "fields" list</a></p>
+</li>
+                    </ul>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-operational-guidelines-2" class="internal xref">Operational guidelines</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-publishing-guidelines-2" class="internal xref">Publishing guidelines</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-parsing-guidelines-2" class="internal xref">Parsing guidelines</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-iana-considerations-2" class="internal xref">IANA considerations</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-yang-namespace-registration-2" class="internal xref">YANG Namespace Registration</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-yang-module-registration-2" class="internal xref">YANG Module Registration</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-yang-sid-allocation-2" class="internal xref">YANG SID Allocation</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-security-considerations-2" class="internal xref">Security considerations</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-references-2" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-normative-references-2" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-informative-references-2" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
+            <p id="section-toc.1-1.10.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-yang-module-2" class="internal xref">YANG Module</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
+            <p id="section-toc.1-1.11.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-json-examples-2" class="internal xref">JSON Examples</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#appendix-B.1" class="auto internal xref">B.1</a>.  <a href="#name-rfc8195-selective-no_export-" class="internal xref">RFC8195 Selective NO_EXPORT definition</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#appendix-B.2" class="auto internal xref">B.2</a>.  <a href="#name-rfc4384-data-collection-defi" class="internal xref">RFC4384 Data Collection definition</a></p>
+</li>
+            </ul>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#appendix-C" class="auto internal xref">Appendix C</a>.  <a href="#name-acknowledgements-2" class="internal xref">Acknowledgements</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-D" class="auto internal xref"></a><a href="#name-authors-address-2" class="internal xref">Author's Address</a></p>
+</li>
+        </ul>
+</nav>
+</section>
+</div>
+<div id="terminology">
+<section id="section-1">
+      <h2 id="name-terminology-2">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-terminology-2" class="section-name selfRef">Terminology</a>
+      </h2>
+<p id="section-1-1">
+         The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
+         NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
+         "MAY", and "OPTIONAL" in this document are to be interpreted as
+         described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span>
+         when, and only when, they appear in all capitals, as shown here.<a href="#section-1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="intro">
+<section id="section-2">
+      <h2 id="name-introduction-2">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-introduction-2" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-2-1">
+        ISP operators use BGP communities<span>[<a href="#RFC1997" class="cite xref">RFC1997</a>]</span><span>[<a href="#RFC4360" class="cite xref">RFC4360</a>]</span><span>[<a href="#RFC8092" class="cite xref">RFC8092</a>]</span> to add information to prefix announcements or to let customers influence routing behaviour inside the network of the ISP.
+        Each ISP defines for itself which BGP communities to support and how the structure of these communities should be interpreted.
+        This document provides a YANG<span>[<a href="#RFC7950" class="cite xref">RFC7950</a>]</span> module for describing the structure and meaning of BGP communities, Extended BGP communities and Large BGP communities.
+        ISP operators can use this to publish their community definitions in a well-defined format.<a href="#section-2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="rationale">
+<section id="section-3">
+      <h2 id="name-rationale-2">
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-rationale-2" class="section-name selfRef">Rationale</a>
+      </h2>
+<p id="section-3-1">
+        ISP operators may define various BGP communities that have local significance inside of their network.
+        These communities could be used to add miscellaneous information to a prefix announcement.
+        For example, a community "64501:1:528" may signify that AS64501 is originating a prefix from a point of presence in The Netherlands (ISO 3166-1 code 528).
+        Alternatively, communities could be used to allow customers of an ISP to control routing behavior of their prefixes inside the ISP.
+        For example, a community "64501:4:64498" attached to a prefix advertised to AS64501 by a customer may be interpreted by AS64501 to mean that this prefix must not be propagated to AS64498.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<p id="section-3-2">
+        For both use cases it is necessary for the ISP to communicate the meaning of their locally defined communities to others.
+        Currently this is typically done by publishing a list of communities on a web page, or as a remark inside an autnum object in the Internet Routing Registry.
+        This makes it cumbersome to determine if and where an ISP publishes community information.
+        The lack of a well-defined structure makes it hard to develop tools for parsing community information.<a href="#section-3-2" class="pilcrow">¶</a></p>
+<p id="section-3-3">
+        The purpose of the YANG model defined in this document is to provide a standardized format for publishing community definitions.
+        These definitions help applications to interpret the structure and purpose of BGP communities.
+        For example, looking glasses may use the published definitions to parse communities seen in BGP announcements and display their meaning.
+        Another potential use case is in generating routing policy configurations based on community definitions published by an upstream ASN.
+        This could be done automatically using external tooling to generate router configurations, or inside a router's command-line interface by importing the definitions and providing the CLI-user with available choices for manual configuration.<a href="#section-3-3" class="pilcrow">¶</a></p>
+<p id="section-3-4">
+        Note that this document only describes a model for the publishing format of community definitions.
+        The publishing location and publishing mechanism used are outside the scope of this specification.<a href="#section-3-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="tree">
+<section id="section-4">
+      <h2 id="name-tree-view-2">
+<a href="#section-4" class="section-number selfRef">4. </a><a href="#name-tree-view-2" class="section-name selfRef">Tree view</a>
+      </h2>
+<p id="section-4-1">
+        The following tree diagram provides an overview of the ietf-bgp-communities.yang data model.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4-2">
+<pre>
+module: draft-yang-bgp-communities
+  +--rw bgp-communities
+     +--rw serial         uint32
+     +--rw uri?           string
+     +--rw description?   string
+     +--rw contacturl?    string
+     +--rw contacts* [emailaddress]
+     |  +--rw emailaddress          string
+     |  +--rw name?                 string
+     |  +--rw role?                 string
+     |  +--rw organization?         string
+     |  +--rw organizationalunit?   string
+     +--rw regular* [name]
+     |  +--rw name           string
+     |  +--rw description?   string
+     |  +--rw globaladmin    uint16
+     |  +--rw localadmin
+     |     +--rw format?   string
+     |     +--rw fields* [name]
+     |        +--rw name           string
+     |        +--rw length?        uint8
+     |        +--rw pattern        string
+     |        +--rw description?   string
+     +--rw extended* [name]
+     |  +--rw name             string
+     |  +--rw description?     string
+     |  +--rw type             uint8
+     |  +--rw subtype          uint8
+     |  +--rw (globaladmin)
+     |  |  +--:(asn)
+     |  |  |  +--rw asn?   uint16
+     |  |  +--:(asn4)
+     |  |     +--rw asn4?   uint32
+     |  +--rw localadmin
+     |     +--rw format?   string
+     |     +--rw fields* [name]
+     |        +--rw name           string
+     |        +--rw length?        uint8
+     |        +--rw pattern        string
+     |        +--rw description?   string
+     +--rw large* [name]
+        +--rw name              string
+        +--rw description?      string
+        +--rw globaladmin       uint32
+        +--rw localdatapart1
+        |  +--rw format?   string
+        |  +--rw fields* [name]
+        |     +--rw name           string
+        |     +--rw length?        uint8
+        |     +--rw pattern        string
+        |     +--rw description?   string
+        +--rw localdatapart2
+           +--rw format?   string
+           +--rw fields* [name]
+              +--rw name           string
+              +--rw length?        uint8
+              +--rw pattern        string
+              +--rw description?   string
+</pre><a href="#section-4-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="elements">
+<section id="section-5">
+      <h2 id="name-data-elements-2">
+<a href="#section-5" class="section-number selfRef">5. </a><a href="#name-data-elements-2" class="section-name selfRef">Data elements</a>
+      </h2>
+<p id="section-5-1">
+        The BGP Communities YANG Module contains the elements described in this section.
+        The full contents of the module can be found in <a href="#module" class="auto internal xref">Appendix A</a>.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<div id="elements.serial">
+<section id="section-5.1">
+        <h3 id="name-the-serial-leaf-2">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-the-serial-leaf-2" class="section-name selfRef">The "serial" leaf</a>
+        </h3>
+<p id="section-5.1-1">
+          A required value of type "uint32", containing the version number for the community set.
+          This value wraps and should be compared using sequence space arithmetic.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.uri">
+<section id="section-5.2">
+        <h3 id="name-the-uri-leaf-2">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-the-uri-leaf-2" class="section-name selfRef">The "uri" leaf</a>
+        </h3>
+<p id="section-5.2-1">
+          An optional value of type "string", describing the publication point for the community set.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.description">
+<section id="section-5.3">
+        <h3 id="name-the-description-leaf-6">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-the-description-leaf-6" class="section-name selfRef">The "description" leaf</a>
+        </h3>
+<p id="section-5.3-1">
+          An optional value of type "string", providing information about the specified set of communities.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.contacturl">
+<section id="section-5.4">
+        <h3 id="name-the-contacturl-leaf-2">
+<a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-the-contacturl-leaf-2" class="section-name selfRef">The "contacturl" leaf</a>
+        </h3>
+<p id="section-5.4-1">
+          An optional value of type "string", describing a webpage where maintainer contact information may be found.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.contacts">
+<section id="section-5.5">
+        <h3 id="name-the-contacts-list-2">
+<a href="#section-5.5" class="section-number selfRef">5.5. </a><a href="#name-the-contacts-list-2" class="section-name selfRef">The "contacts" list</a>
+        </h3>
+<p id="section-5.5-1">
+          A list of objects defining contact information for the maintainer(s) of the community set.
+          Each object contains the following elements.<a href="#section-5.5-1" class="pilcrow">¶</a></p>
+<div id="elements.contacts.emailaddress">
+<section id="section-5.5.1">
+          <h4 id="name-the-emailaddress-leaf-2">
+<a href="#section-5.5.1" class="section-number selfRef">5.5.1. </a><a href="#name-the-emailaddress-leaf-2" class="section-name selfRef">The "emailaddress" leaf</a>
+          </h4>
+<p id="section-5.5.1-1">
+            A required value of type "string", containing the e-mail address of the contact.<a href="#section-5.5.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.contacts.name">
+<section id="section-5.5.2">
+          <h4 id="name-the-name-leaf-6">
+<a href="#section-5.5.2" class="section-number selfRef">5.5.2. </a><a href="#name-the-name-leaf-6" class="section-name selfRef">The "name" leaf</a>
+          </h4>
+<p id="section-5.5.2-1">
+            An optional value of type "string", containing the name of the contact.<a href="#section-5.5.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.contacts.role">
+<section id="section-5.5.3">
+          <h4 id="name-the-role-leaf-2">
+<a href="#section-5.5.3" class="section-number selfRef">5.5.3. </a><a href="#name-the-role-leaf-2" class="section-name selfRef">The "role" leaf</a>
+          </h4>
+<p id="section-5.5.3-1">
+            An optional value of type "string", describing the role of the contact.<a href="#section-5.5.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.contacts.organization">
+<section id="section-5.5.4">
+          <h4 id="name-the-organization-leaf-2">
+<a href="#section-5.5.4" class="section-number selfRef">5.5.4. </a><a href="#name-the-organization-leaf-2" class="section-name selfRef">The "organization" leaf</a>
+          </h4>
+<p id="section-5.5.4-1">
+            An optional value of type "string", containing the organization of the contact.<a href="#section-5.5.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.contacts.organizationalunit">
+<section id="section-5.5.5">
+          <h4 id="name-the-organizationalunit-leaf-2">
+<a href="#section-5.5.5" class="section-number selfRef">5.5.5. </a><a href="#name-the-organizationalunit-leaf-2" class="section-name selfRef">The "organizationalunit" leaf</a>
+          </h4>
+<p id="section-5.5.5-1">
+            An optional value of type "string", containing the organizational unit of the contact.<a href="#section-5.5.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="elements.regular">
+<section id="section-5.6">
+        <h3 id="name-the-regular-list-2">
+<a href="#section-5.6" class="section-number selfRef">5.6. </a><a href="#name-the-regular-list-2" class="section-name selfRef">The "regular" list</a>
+        </h3>
+<p id="section-5.6-1">
+          A list of objects defining Regular (<span>[<a href="#RFC1997" class="cite xref">RFC1997</a>]</span>) BGP communities.
+          Each object contains the following elements.<a href="#section-5.6-1" class="pilcrow">¶</a></p>
+<div id="elements.regular.name">
+<section id="section-5.6.1">
+          <h4 id="name-the-name-leaf-7">
+<a href="#section-5.6.1" class="section-number selfRef">5.6.1. </a><a href="#name-the-name-leaf-7" class="section-name selfRef">The "name" leaf</a>
+          </h4>
+<p id="section-5.6.1-1">
+            A required value of type "string", containing the name of this community.
+            Names may be up to 255 characters long and MUST NOT contain spaces or tabs.<a href="#section-5.6.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.regular.description">
+<section id="section-5.6.2">
+          <h4 id="name-the-description-leaf-7">
+<a href="#section-5.6.2" class="section-number selfRef">5.6.2. </a><a href="#name-the-description-leaf-7" class="section-name selfRef">The "description" leaf</a>
+          </h4>
+<p id="section-5.6.2-1">
+            An optional value of type "string", providing a description of the community.<a href="#section-5.6.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.regular.globaladmin">
+<section id="section-5.6.3">
+          <h4 id="name-the-globaladmin-leaf-3">
+<a href="#section-5.6.3" class="section-number selfRef">5.6.3. </a><a href="#name-the-globaladmin-leaf-3" class="section-name selfRef">The "globaladmin" leaf</a>
+          </h4>
+<p id="section-5.6.3-1">
+            A required value of type "uint16", containing the Autonomous Sytem Number set in the Global Administrator part of this community.<a href="#section-5.6.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.regular.localadmin">
+<section id="section-5.6.4">
+          <h4 id="name-the-localadmin-container-3">
+<a href="#section-5.6.4" class="section-number selfRef">5.6.4. </a><a href="#name-the-localadmin-container-3" class="section-name selfRef">The "localadmin" container</a>
+          </h4>
+<p id="section-5.6.4-1">
+            A group of elements that describe the Local Administrator part of the community.
+            This object contains the following elements.<a href="#section-5.6.4-1" class="pilcrow">¶</a></p>
+<div id="elements.regular.localadmin.format">
+<section id="section-5.6.4.1">
+            <h5 id="name-the-format-leaf-5">
+<a href="#section-5.6.4.1" class="section-number selfRef">5.6.4.1. </a><a href="#name-the-format-leaf-5" class="section-name selfRef">The "format" leaf</a>
+            </h5>
+<p id="section-5.6.4.1-1">
+              An optional value of type "string", describing the format in which fields are encoded.
+              Possible encodings are "decimal" for decimal numbers and "binary" for bit strings.
+              If this leaf is not defined, the default "decimal" encoding is assumed.<a href="#section-5.6.4.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.regular.localadmin.fields">
+<section id="section-5.6.4.2">
+            <h5 id="name-the-fields-list-5">
+<a href="#section-5.6.4.2" class="section-number selfRef">5.6.4.2. </a><a href="#name-the-fields-list-5" class="section-name selfRef">The "fields" list</a>
+            </h5>
+<p id="section-5.6.4.2-1">
+              A list of objects that together form the Local Administrator part of the community.
+              The combined length values of all fields MUST not exceed the maximum length of the Local Administrator part of the community.<a href="#section-5.6.4.2-1" class="pilcrow">¶</a></p>
+<div id="elements.regular.localadmin.fields.name">
+<section id="section-5.6.4.2.1">
+              <h6 id="name-the-name-leaf-8">
+<a href="#section-5.6.4.2.1" class="section-number selfRef">5.6.4.2.1. </a><a href="#name-the-name-leaf-8" class="section-name selfRef">The "name" leaf</a>
+              </h6>
+<p id="section-5.6.4.2.1-1">
+                A required value of type "string", containing the name of the field.
+                Names may be up to 255 characters long and MUST NOT contain spaces or tabs.<a href="#section-5.6.4.2.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.regular.localadmin.fields.length">
+<section id="section-5.6.4.2.2">
+              <h6 id="name-the-length-leaf-2">
+<a href="#section-5.6.4.2.2" class="section-number selfRef">5.6.4.2.2. </a><a href="#name-the-length-leaf-2" class="section-name selfRef">The "length" leaf</a>
+              </h6>
+<p id="section-5.6.4.2.2-1">
+                An optional value of type "uint8", containing the length of the field.
+                If the expected field format (<a href="#elements.regular.localadmin.format" class="auto internal xref">Section 5.6.4.1</a>) is "decimal", this is a number of digits.
+                In case the expected field format is "binary", this is a number of bits.<a href="#section-5.6.4.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.6.4.2.2-2">
+                If this leaf is not defined, the length is assumed to be the maximum allowed length of the entire field list.
+                In this case the field list MUST NOT contain more than one element.<a href="#section-5.6.4.2.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.regular.localadmin.fields.pattern">
+<section id="section-5.6.4.2.3">
+              <h6 id="name-the-pattern-leaf-2">
+<a href="#section-5.6.4.2.3" class="section-number selfRef">5.6.4.2.3. </a><a href="#name-the-pattern-leaf-2" class="section-name selfRef">The "pattern" leaf</a>
+              </h6>
+<p id="section-5.6.4.2.3-1">
+                A required value of type "string", containing a pattern used for matching the field's contents. 
+                Patterns are described as POSIX Extended Regular Expressions (see <span>[<a href="#IEEE.1003-2.1992" class="cite xref">IEEE.1003-2.1992</a>]</span>, section 2.8.4).<a href="#section-5.6.4.2.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.regular.localadmin.fields.description">
+<section id="section-5.6.4.2.4">
+              <h6 id="name-the-description-leaf-8">
+<a href="#section-5.6.4.2.4" class="section-number selfRef">5.6.4.2.4. </a><a href="#name-the-description-leaf-8" class="section-name selfRef">The "description" leaf</a>
+              </h6>
+<p id="section-5.6.4.2.4-1">
+                An optional value of type "string", containing a description of the pattern.
+                This description can be used to provide meaning to specific values for a field.<a href="#section-5.6.4.2.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="elements.extended">
+<section id="section-5.7">
+        <h3 id="name-the-extended-list-2">
+<a href="#section-5.7" class="section-number selfRef">5.7. </a><a href="#name-the-extended-list-2" class="section-name selfRef">The "extended" list</a>
+        </h3>
+<p id="section-5.7-1">
+          A list of objects defining Extended (<span>[<a href="#RFC4360" class="cite xref">RFC4360</a>]</span>) BGP communities.
+          Two-Octet and Four-Octet AS Specific communities are supported by this specification.
+          Each object contains the following elements.<a href="#section-5.7-1" class="pilcrow">¶</a></p>
+<div id="elements.extended.name">
+<section id="section-5.7.1">
+          <h4 id="name-the-name-leaf-9">
+<a href="#section-5.7.1" class="section-number selfRef">5.7.1. </a><a href="#name-the-name-leaf-9" class="section-name selfRef">The "name" leaf</a>
+          </h4>
+<p id="section-5.7.1-1">
+            A required value of type "string", containing the name of this community.
+            Names may be up to 255 characters long and MUST NOT contain spaces or tabs.<a href="#section-5.7.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.extended.description">
+<section id="section-5.7.2">
+          <h4 id="name-the-description-leaf-9">
+<a href="#section-5.7.2" class="section-number selfRef">5.7.2. </a><a href="#name-the-description-leaf-9" class="section-name selfRef">The "description" leaf</a>
+          </h4>
+<p id="section-5.7.2-1">
+            An optional value of type "string", providing a description of the community.<a href="#section-5.7.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.extended.type">
+<section id="section-5.7.3">
+          <h4 id="name-the-type-leaf-2">
+<a href="#section-5.7.3" class="section-number selfRef">5.7.3. </a><a href="#name-the-type-leaf-2" class="section-name selfRef">The "type" leaf</a>
+          </h4>
+<p id="section-5.7.3-1">
+            A required value of type "uint8", containing the high-order Type of the community.<a href="#section-5.7.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.extended.subtype">
+<section id="section-5.7.4">
+          <h4 id="name-the-subtype-leaf-2">
+<a href="#section-5.7.4" class="section-number selfRef">5.7.4. </a><a href="#name-the-subtype-leaf-2" class="section-name selfRef">The "subtype" leaf</a>
+          </h4>
+<p id="section-5.7.4-1">
+            A required value of type "uint8", containing the low-order Sub-Type of the community.<a href="#section-5.7.4-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.extended.asn">
+<section id="section-5.7.5">
+          <h4 id="name-the-asn-leaf-2">
+<a href="#section-5.7.5" class="section-number selfRef">5.7.5. </a><a href="#name-the-asn-leaf-2" class="section-name selfRef">The "asn" leaf</a>
+          </h4>
+<p id="section-5.7.5-1">
+            For Two-Octet AS Specific communities: A required value of type "uint16", containing the Autonomous Sytem Number set in the Global Administrator part of this community.<a href="#section-5.7.5-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.extended.asn4">
+<section id="section-5.7.6">
+          <h4 id="name-the-asn4-leaf-2">
+<a href="#section-5.7.6" class="section-number selfRef">5.7.6. </a><a href="#name-the-asn4-leaf-2" class="section-name selfRef">The "asn4" leaf</a>
+          </h4>
+<p id="section-5.7.6-1">
+            For Four-Octet AS Specific communities: A required value of type "uint32", containing the Autonomous Sytem Number set in the Global Administrator part of this community.<a href="#section-5.7.6-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.extended.localadmin">
+<section id="section-5.7.7">
+          <h4 id="name-the-localadmin-container-4">
+<a href="#section-5.7.7" class="section-number selfRef">5.7.7. </a><a href="#name-the-localadmin-container-4" class="section-name selfRef">The "localadmin" container</a>
+          </h4>
+<p id="section-5.7.7-1">
+            A group of elements that describe the Local Administrator part of the community.
+            This object contains the following elements.<a href="#section-5.7.7-1" class="pilcrow">¶</a></p>
+<div id="elements.extended.localadmin.format">
+<section id="section-5.7.7.1">
+            <h5 id="name-the-format-leaf-6">
+<a href="#section-5.7.7.1" class="section-number selfRef">5.7.7.1. </a><a href="#name-the-format-leaf-6" class="section-name selfRef">The "format" leaf</a>
+            </h5>
+<p id="section-5.7.7.1-1">
+              An optional value of type "string", describing the format in which fields are to be parsed (see <a href="#recommendations.parsing" class="auto internal xref">Section 6.2</a>).
+              Possible encodings are "decimal" for decimal numbers and "binary" for strings of zeros and ones.
+              If this leaf is not defined, the default "decimal" encoding is assumed.<a href="#section-5.7.7.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.extended.localadmin.fields">
+<section id="section-5.7.7.2">
+            <h5 id="name-the-fields-list-6">
+<a href="#section-5.7.7.2" class="section-number selfRef">5.7.7.2. </a><a href="#name-the-fields-list-6" class="section-name selfRef">The "fields" list</a>
+            </h5>
+<p id="section-5.7.7.2-1">
+              A list of objects that together form the Local Administrator part of the community.
+              The combined length values of all fields MUST not exceed the maximum length of the Local Administrator part of the community.<a href="#section-5.7.7.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.7.7.2-2">
+              The supported leafs in this list are identical to those described in <a href="#elements.regular.localadmin.fields" class="auto internal xref">Section 5.6.4.2</a>.<a href="#section-5.7.7.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="elements.large">
+<section id="section-5.8">
+        <h3 id="name-the-large-list-2">
+<a href="#section-5.8" class="section-number selfRef">5.8. </a><a href="#name-the-large-list-2" class="section-name selfRef">The "large" list</a>
+        </h3>
+<p id="section-5.8-1">
+          A list of objects defining Large (<span>[<a href="#RFC8092" class="cite xref">RFC8092</a>]</span>) BGP communities.
+          Each object contains the following elements.<a href="#section-5.8-1" class="pilcrow">¶</a></p>
+<div id="elements.large.name">
+<section id="section-5.8.1">
+          <h4 id="name-the-name-leaf-10">
+<a href="#section-5.8.1" class="section-number selfRef">5.8.1. </a><a href="#name-the-name-leaf-10" class="section-name selfRef">The "name" leaf</a>
+          </h4>
+<p id="section-5.8.1-1">
+            A required value of type "string", containing the name of this community.
+            Names may be up to 255 characters long and MUST NOT contain spaces or tabs.<a href="#section-5.8.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.large.description">
+<section id="section-5.8.2">
+          <h4 id="name-the-description-leaf-10">
+<a href="#section-5.8.2" class="section-number selfRef">5.8.2. </a><a href="#name-the-description-leaf-10" class="section-name selfRef">The "description" leaf</a>
+          </h4>
+<p id="section-5.8.2-1">
+            An optional value of type "string", providing a description of the community.<a href="#section-5.8.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.large.globaladmin">
+<section id="section-5.8.3">
+          <h4 id="name-the-globaladmin-leaf-4">
+<a href="#section-5.8.3" class="section-number selfRef">5.8.3. </a><a href="#name-the-globaladmin-leaf-4" class="section-name selfRef">The "globaladmin" leaf</a>
+          </h4>
+<p id="section-5.8.3-1">
+            A required value of type "uint32", containing the Autonomous Sytem Number set in the Global Administrator part of this community.<a href="#section-5.8.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.large.localdatapart1">
+<section id="section-5.8.4">
+          <h4 id="name-the-localdatapart1-container">
+<a href="#section-5.8.4" class="section-number selfRef">5.8.4. </a><a href="#name-the-localdatapart1-container" class="section-name selfRef">The "localdatapart1" container</a>
+          </h4>
+<p id="section-5.8.4-1">
+            A group of elements that describe the Local Data Part 1 section of the community.
+            This object contains the following elements.<a href="#section-5.8.4-1" class="pilcrow">¶</a></p>
+<div id="elements.large.localdatapart1.format">
+<section id="section-5.8.4.1">
+            <h5 id="name-the-format-leaf-7">
+<a href="#section-5.8.4.1" class="section-number selfRef">5.8.4.1. </a><a href="#name-the-format-leaf-7" class="section-name selfRef">The "format" leaf</a>
+            </h5>
+<p id="section-5.8.4.1-1">
+              An optional value of type "string", describing the format in which fields are encoded.
+              Possible encodings are "decimal" for decimal numbers and "binary" for bit strings.
+              If this leaf is not defined, the default "decimal" encoding is assumed.<a href="#section-5.8.4.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.large.localdatapart1.fields">
+<section id="section-5.8.4.2">
+            <h5 id="name-the-fields-list-7">
+<a href="#section-5.8.4.2" class="section-number selfRef">5.8.4.2. </a><a href="#name-the-fields-list-7" class="section-name selfRef">The "fields" list</a>
+            </h5>
+<p id="section-5.8.4.2-1">
+              A list of objects that together form the Local Data Part 1 section of the community.
+              The combined length values of all fields MUST not exceed the maximum length of the "Local Data Part 1" section of the community.<a href="#section-5.8.4.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.8.4.2-2">
+              The supported leafs in this list are identical to those described in <a href="#elements.regular.localadmin.fields" class="auto internal xref">Section 5.6.4.2</a>.<a href="#section-5.8.4.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="elements.large.localdatapart2">
+<section id="section-5.8.5">
+          <h4 id="name-the-localdatapart2-container">
+<a href="#section-5.8.5" class="section-number selfRef">5.8.5. </a><a href="#name-the-localdatapart2-container" class="section-name selfRef">The "localdatapart2" container</a>
+          </h4>
+<p id="section-5.8.5-1">
+            A group of elements that describe the Local Data Part 2 section of the community.
+            This object contains the following elements.<a href="#section-5.8.5-1" class="pilcrow">¶</a></p>
+<div id="elements.large.localdatapart2.format">
+<section id="section-5.8.5.1">
+            <h5 id="name-the-format-leaf-8">
+<a href="#section-5.8.5.1" class="section-number selfRef">5.8.5.1. </a><a href="#name-the-format-leaf-8" class="section-name selfRef">The "format" leaf</a>
+            </h5>
+<p id="section-5.8.5.1-1">
+              An optional value of type "string", describing the format in which fields are encoded.
+              Possible encodings are "decimal" for decimal numbers and "binary" for bit strings.
+              If this leaf is not defined, the default "decimal" encoding is assumed.<a href="#section-5.8.5.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="elements.large.localdatapart2.fields">
+<section id="section-5.8.5.2">
+            <h5 id="name-the-fields-list-8">
+<a href="#section-5.8.5.2" class="section-number selfRef">5.8.5.2. </a><a href="#name-the-fields-list-8" class="section-name selfRef">The "fields" list</a>
+            </h5>
+<p id="section-5.8.5.2-1">
+              A list of objects that together form the Local Data Part 2 section of the community.
+              The combined length values of all fields MUST not exceed the maximum length of the "Local Data Part 2" section of the community.<a href="#section-5.8.5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.8.5.2-2">
+              The supported leafs in this list are identical to those described in <a href="#elements.regular.localadmin.fields" class="auto internal xref">Section 5.6.4.2</a>.<a href="#section-5.8.5.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="recommendations">
+<section id="section-6">
+      <h2 id="name-operational-guidelines-2">
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-operational-guidelines-2" class="section-name selfRef">Operational guidelines</a>
+      </h2>
+<div id="recommendations.publishing">
+<section id="section-6.1">
+        <h3 id="name-publishing-guidelines-2">
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-publishing-guidelines-2" class="section-name selfRef">Publishing guidelines</a>
+        </h3>
+<p id="section-6.1-1">
+          Operators SHOULD only publish BGP community definitions for networks they control.
+          This may include communities where the Global Administrator field contains a private ASN, if this community has a local meaning inside the network of the publisher.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">
+          When publishing community definitions with overlapping field patterns these MUST be ordered from most to least specific, to ensure parsers can perform deterministic matching.<a href="#section-6.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="recommendations.parsing">
+<section id="section-6.2">
+        <h3 id="name-parsing-guidelines-2">
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-parsing-guidelines-2" class="section-name selfRef">Parsing guidelines</a>
+        </h3>
+<p id="section-6.2-1">
+          A published BGP community definition can be used by parsers to display information about a received community.
+          If a received community matches multiple published community definitions, the first community in the published order takes precedence.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">
+          By default, communities are compared using the decimal representation of the fields. If "format" for a Local Administrator or Local Data Part is set to "binary", the fields in the received community are converted to strings of zeros and ones before comparison.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-3">
+          Applications that parse these community definitions SHOULD reject objects that do not comply with the rules described in this document.
+          Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
+          For example: A Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="iana">
+<section id="section-7">
+      <h2 id="name-iana-considerations-2">
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations-2" class="section-name selfRef">IANA considerations</a>
+      </h2>
+<div id="iana.xml">
+<section id="section-7.1">
+        <h3 id="name-yang-namespace-registration-2">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-yang-namespace-registration-2" class="section-name selfRef">YANG Namespace Registration</a>
+        </h3>
+<p id="section-7.1-1">
+          This document registers the following XML namespace URN in the "IETF
+          XML Registry", following the format defined in <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.1-2">
+<pre>
+TODO
+</pre><a href="#section-7.1-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="iana.yang">
+<section id="section-7.2">
+        <h3 id="name-yang-module-registration-2">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-yang-module-registration-2" class="section-name selfRef">YANG Module Registration</a>
+        </h3>
+<p id="section-7.2-1">
+          This document registers the following YANG module in the "YANG Module Names" registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>:<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.2-2">
+<pre>
+TODO
+</pre><a href="#section-7.2-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="iana.sid">
+<section id="section-7.3">
+        <h3 id="name-yang-sid-allocation-2">
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-yang-sid-allocation-2" class="section-name selfRef">YANG SID Allocation</a>
+        </h3>
+<p id="section-7.3-1">
+          This document registers the following entry in the "IETF YANG SID" registry <span>[<a href="#I-D.ietf-core-sid" class="cite xref">I-D.ietf-core-sid</a>]</span>:<a href="#section-7.3-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-7.3-2">
+<pre>
+TODO
+</pre><a href="#section-7.3-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="security">
+<section id="section-8">
+      <h2 id="name-security-considerations-2">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-security-considerations-2" class="section-name selfRef">Security considerations</a>
+      </h2>
+<p id="section-8-1">
+        The YANG module described in this document may be used to specify BGP community definitions in different encoding formats, such as XML, JSON or CBOR.
+        Applications that parse these community definitions SHOULD reject objects that do not comply with the rules described in this document.
+        Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.<a href="#section-8-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<section id="section-9">
+      <h2 id="name-references-2">
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-references-2" class="section-name selfRef">References</a>
+      </h2>
+<div id="normative">
+<section id="section-9.1">
+        <h3 id="name-normative-references-2">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
+        </h3>
+<dl class="references">
+<dt id="I-D.ietf-core-sid">[I-D.ietf-core-sid]</dt>
+        <dd>
+<span class="refAuthor">Veillette, M.</span>, <span class="refAuthor">Pelov, A.</span>, <span class="refAuthor">Petrov, I.</span>, <span class="refAuthor">Bormann, C.</span>, and <span class="refAuthor">M. Richardson</span>, <span class="refTitle">"YANG Schema Item iDentifier (YANG SID)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-core-sid-20</span>, <time datetime="2023-03-01" class="refDate">1 March 2023</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-core-sid-20">https://datatracker.ietf.org/doc/html/draft-ietf-core-sid-20</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC1997">[RFC1997]</dt>
+        <dd>
+<span class="refAuthor">Chandra, R.</span>, <span class="refAuthor">Traina, P.</span>, and <span class="refAuthor">T. Li</span>, <span class="refTitle">"BGP Communities Attribute"</span>, <span class="seriesInfo">RFC 1997</span>, <span class="seriesInfo">DOI 10.17487/RFC1997</span>, <time datetime="1996-08" class="refDate">August 1996</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc1997">https://www.rfc-editor.org/info/rfc1997</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4360">[RFC4360]</dt>
+        <dd>
+<span class="refAuthor">Sangli, S.</span>, <span class="refAuthor">Tappan, D.</span>, and <span class="refAuthor">Y. Rekhter</span>, <span class="refTitle">"BGP Extended Communities Attribute"</span>, <span class="seriesInfo">RFC 4360</span>, <span class="seriesInfo">DOI 10.17487/RFC4360</span>, <time datetime="2006-02" class="refDate">February 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4360">https://www.rfc-editor.org/info/rfc4360</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7950">[RFC7950]</dt>
+        <dd>
+<span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refTitle">"The YANG 1.1 Data Modeling Language"</span>, <span class="seriesInfo">RFC 7950</span>, <span class="seriesInfo">DOI 10.17487/RFC7950</span>, <time datetime="2016-08" class="refDate">August 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7950">https://www.rfc-editor.org/info/rfc7950</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8092">[RFC8092]</dt>
+      <dd>
+<span class="refAuthor">Heitz, J., Ed.</span>, <span class="refAuthor">Snijders, J., Ed.</span>, <span class="refAuthor">Patel, K.</span>, <span class="refAuthor">Bagdonas, I.</span>, and <span class="refAuthor">N. Hilliard</span>, <span class="refTitle">"BGP Large Communities Attribute"</span>, <span class="seriesInfo">RFC 8092</span>, <span class="seriesInfo">DOI 10.17487/RFC8092</span>, <time datetime="2017-02" class="refDate">February 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8092">https://www.rfc-editor.org/info/rfc8092</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+<div id="informative">
+<section id="section-9.2">
+        <h3 id="name-informative-references-2">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-informative-references-2" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="IEEE.1003-2.1992">[IEEE.1003-2.1992]</dt>
+        <dd>
+<span class="refAuthor">Institute of Electrical and Electronics Engineers</span>, <span class="refTitle">"Information Technology - Portable Operating System Interface (POSIX) - Part 2: Shell and Utilities (Vol. 1)"</span>, <span class="seriesInfo">IEEE Standard 1003.2</span>, <span class="seriesInfo">IEEE 1003.2-1992</span>, <span class="seriesInfo">IEEE ieee-1003-2</span>, <time datetime="1992" class="refDate">1992</time>. </dd>
+<dd class="break"></dd>
+<dt id="RFC2119">[RFC2119]</dt>
+        <dd>
+<span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc2119">https://www.rfc-editor.org/info/rfc2119</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC3688">[RFC3688]</dt>
+        <dd>
+<span class="refAuthor">Mealling, M.</span>, <span class="refTitle">"The IETF XML Registry"</span>, <span class="seriesInfo">BCP 81</span>, <span class="seriesInfo">RFC 3688</span>, <span class="seriesInfo">DOI 10.17487/RFC3688</span>, <time datetime="2004-01" class="refDate">January 2004</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3688">https://www.rfc-editor.org/info/rfc3688</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4384">[RFC4384]</dt>
+        <dd>
+<span class="refAuthor">Meyer, D.</span>, <span class="refTitle">"BGP Communities for Data Collection"</span>, <span class="seriesInfo">BCP 114</span>, <span class="seriesInfo">RFC 4384</span>, <span class="seriesInfo">DOI 10.17487/RFC4384</span>, <time datetime="2006-02" class="refDate">February 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4384">https://www.rfc-editor.org/info/rfc4384</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6020">[RFC6020]</dt>
+        <dd>
+<span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refTitle">"YANG - A Data Modeling Language for the Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6020</span>, <span class="seriesInfo">DOI 10.17487/RFC6020</span>, <time datetime="2010-10" class="refDate">October 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6020">https://www.rfc-editor.org/info/rfc6020</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7951">[RFC7951]</dt>
+        <dd>
+<span class="refAuthor">Lhotka, L.</span>, <span class="refTitle">"JSON Encoding of Data Modeled with YANG"</span>, <span class="seriesInfo">RFC 7951</span>, <span class="seriesInfo">DOI 10.17487/RFC7951</span>, <time datetime="2016-08" class="refDate">August 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7951">https://www.rfc-editor.org/info/rfc7951</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8174">[RFC8174]</dt>
+        <dd>
+<span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8174">https://www.rfc-editor.org/info/rfc8174</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8195">[RFC8195]</dt>
+        <dd>
+<span class="refAuthor">Snijders, J.</span>, <span class="refAuthor">Heasley, J.</span>, and <span class="refAuthor">M. Schmidt</span>, <span class="refTitle">"Use of BGP Large Communities"</span>, <span class="seriesInfo">RFC 8195</span>, <span class="seriesInfo">DOI 10.17487/RFC8195</span>, <time datetime="2017-06" class="refDate">June 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8195">https://www.rfc-editor.org/info/rfc8195</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8792">[RFC8792]</dt>
+      <dd>
+<span class="refAuthor">Watsen, K.</span>, <span class="refAuthor">Auerswald, E.</span>, <span class="refAuthor">Farrel, A.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Handling Long Lines in Content of Internet-Drafts and RFCs"</span>, <span class="seriesInfo">RFC 8792</span>, <span class="seriesInfo">DOI 10.17487/RFC8792</span>, <time datetime="2020-06" class="refDate">June 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8792">https://www.rfc-editor.org/info/rfc8792</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
+</section>
+<div id="module">
+<section id="appendix-A">
+      <h2 id="name-yang-module-2">
+<a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-yang-module-2" class="section-name selfRef">YANG Module</a>
+      </h2>
+<p id="appendix-A-1">
+        This section contains the complete YANG module defined in this document.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-2">
+        NOTE: '\' line wrapping per <span>[<a href="#RFC8792" class="cite xref">RFC8792</a>]</span><a href="#appendix-A-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-A-3">
+<pre>
+
+module draft-yang-bgp-communities {
+
+  yang-version 1.1;
+
+  namespace "urn:to-be-defined";
+
+  prefix bgpcomm;
+
+  organization
+    "To be defined";
+
+  contact
+    "To be defined";
+
+  description
+    "This module describes a structure for BGP Communities";
+
+  revision "2023-08-01" {
+    description
+      "Initial version.";
+    reference "0.0.2";
+  }
+
+  grouping localadmin-fields {
+    list fields {
+      ordered-by user;
+      key "name";
+
+      leaf name {
+        type string {
+          length "1..255";
+          pattern "[^ \t\n]+";
+        }
+        mandatory "true";
+        description
+          "The name of the field";
+      }
+
+      leaf length {
+        type uint8;
+        description
+          "Length of the field";
+      }
+
+      leaf pattern {
+        type string;
+        mandatory "true";
+        description
+          "Regular Expression describing the expected contents of the \
+field";
+      }
+
+      leaf description {
+        type string;
+        description
+          "A text description of the field contents";
+      }
+    }
+  }
+
+  container bgp-communities {
+
+    leaf serial {
+      type "uint32";
+      mandatory "true";
+      description
+        "Version number of the community set.";
+    }
+
+    leaf uri {
+      type string;
+      description
+        "Publication point for the community set";
+    }
+
+    leaf description {
+      type string;
+      description
+        "A description for the community set";
+    }
+
+    leaf contacturl {
+      type string;
+      description
+        "A reference to a webpage with maintainer contact information";
+    }
+
+    list contacts {
+      key "emailaddress";
+
+      leaf emailaddress {
+        type string;
+        description
+          "Maintainer contact e-mail address";
+      }
+
+      leaf name {
+        type string;
+        description
+          "Maintainer contact name";
+      }
+
+      leaf role {
+        type string;
+        description
+          "Maintainer contact role";
+      }
+
+      leaf organization {
+        type string;
+        description
+          "Maintainer contact organization";
+      }
+
+      leaf organizationalunit {
+        type string;
+        description
+          "Maintainer contact organizational unit";
+      }
+    }
+
+    list regular {
+      key "name";
+
+      leaf name {
+        type string {
+          length 1..255;
+          pattern "[^ \t\n]+";
+        }
+        mandatory "true";
+        description
+          "Community name.";
+      }
+
+      leaf description {
+        type string;
+        description
+          "Description for the community";
+      }
+
+      leaf globaladmin {
+        type "uint16";
+        mandatory "true";
+        description
+          "Global Administrator field";
+      }
+
+      container localadmin {
+        leaf format {
+          type "string" {
+            pattern
+              'decimal|binary';
+          }
+          default "decimal";
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
+    }
+
+    list extended {
+      key "name";
+
+      leaf name {
+        type string {
+          length 1..255;
+          pattern "[^ \t\n]+";
+        }
+        mandatory "true";
+        description
+          "Community name";
+      }
+
+      leaf description {
+        type string;
+        description
+          "Description for the community";
+      }
+
+      leaf type {
+        type uint8;
+        mandatory "true";
+        description
+          "Type Field";
+      }
+      leaf subtype {
+        type uint8;
+        mandatory "true";
+        description
+          "Sub-Type Field";
+      }
+
+      choice globaladmin {
+        mandatory "true";
+        case asn {
+          leaf asn {
+            type "uint16";
+            description
+              "Two-Octet AS";
+          }
+        }
+        case asn4 {
+          leaf asn4 {
+            type "uint32";
+            description
+              "Four-Octet AS";
+          }
+        }
+      }
+
+      container localadmin {
+        leaf format {
+          type "string" {
+            pattern
+              'decimal|binary';
+          }
+          default "decimal";
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
+    }
+
+    list large {
+      key "name";
+
+      leaf name {
+        type string {
+          length 1..255;
+          pattern "[^ \t\n]+";
+        }
+        mandatory "true";
+        description
+          "Community name.";
+      }
+
+      leaf description {
+        type string;
+        description
+          "Description for the community";
+      }
+
+      leaf globaladmin {
+        type "uint32";
+        mandatory "true";
+        description
+          "Global Administrator field";
+      }
+
+      container localdatapart1 {
+        leaf format {
+          type "string" {
+            pattern
+              'decimal|binary';
+          }
+          default "decimal";
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
+
+      container localdatapart2 {
+        leaf format {
+          type "string" {
+            pattern
+              'decimal|binary';
+          }
+          default "decimal";
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
+    }
+  }
+}
+</pre><a href="#appendix-A-3" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="examples">
+<section id="appendix-B">
+      <h2 id="name-json-examples-2">
+<a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-json-examples-2" class="section-name selfRef">JSON Examples</a>
+      </h2>
+<p id="appendix-B-1">
+        This section shows example use cases for the YANG module defined in this document, using JSON<span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span> encoding.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<div id="examples.rfc8195">
+<section id="appendix-B.1">
+        <h3 id="name-rfc8195-selective-no_export-">
+<a href="#appendix-B.1" class="section-number selfRef">B.1. </a><a href="#name-rfc8195-selective-no_export-" class="section-name selfRef">RFC8195 Selective NO_EXPORT definition</a>
+        </h3>
+<p id="appendix-B.1-1">
+          A JSON definition for the example Large BGP community described in <span>[<a href="#RFC8195" class="cite xref">RFC8195</a>]</span>, section 4.1.1 looks as follows.<a href="#appendix-B.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.1-2">
+<pre>
+{
+  "draft-yang-bgp-communities:bgp-communities": {
+    "serial": 2023080101,
+    "uri": "http://example.net/peering/communities",
+    "description": "BGP Community example for ASN-Based Selective \
+NO_EXPORT",
+    "contacts": [
+      {
+        "emailaddress": "noc@example.net",
+        "name": "Example.net contact",
+        "role": "Administrative contact",
+        "organization": "Example.net",
+        "organizationalunit": "NOC"
+      }
+    ],
+    "large": [
+      {
+        "name": "RFC8195-NOEXPORT-ASN",
+        "description": "Do not export route to ASN",
+        "globaladmin": 65539,
+        "localdatapart1": {
+          "fields": [
+            {
+              "name": "Function",
+              "pattern": "4",
+              "description": "ASN-No-Export"
+            }
+          ]
+        },
+        "localdatapart2": {
+          "fields": [
+            {
+              "name": "ASN",
+              "pattern": ".*"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+</pre><a href="#appendix-B.1-2" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="examples.rfc4384">
+<section id="appendix-B.2">
+        <h3 id="name-rfc4384-data-collection-defi">
+<a href="#appendix-B.2" class="section-number selfRef">B.2. </a><a href="#name-rfc4384-data-collection-defi" class="section-name selfRef">RFC4384 Data Collection definition</a>
+        </h3>
+<p id="appendix-B.2-1">
+          A JSON definition for the example Regular BGP community described in <span>[<a href="#RFC4384" class="cite xref">RFC4384</a>]</span>, section 4 looks as follows.<a href="#appendix-B.2-1" class="pilcrow">¶</a></p>
+<p id="appendix-B.2-2">
+          NOTE: '\' line wrapping per <span>[<a href="#RFC8792" class="cite xref">RFC8792</a>]</span><a href="#appendix-B.2-2" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="appendix-B.2-3">
+<pre>
+{
+  "draft-yang-bgp-communities:bgp-communities": {
+    "serial": 2023080101,
+    "uri": "http://example.net/peering/communities",
+    "description": "BGP Community example for Data Collection",
+    "contacturl": "https://example.net/contact",
+    "regular": [
+      {
+        "name": "RFC4384-ORIGIN-OC/FJ",
+        "description": "A national route over a terrestrial link from \
+the Fiji Islands",
+        "globaladmin": 64497,
+        "localadmin": {
+          "format": "binary",
+          "fields": [
+            {
+              "name": "Region",
+              "length": 5,
+              "pattern": "00010",
+              "description": "OC"
+            },
+            {
+              "name": "Satellite",
+              "length": 1,
+              "pattern": "0"
+            },
+            {
+              "name": "Country",
+              "length": 10,
+              "pattern": "0011110010",
+              "description": "FJ"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+</pre><a href="#appendix-B.2-3" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+</section>
+</div>
+<div id="acknowledgements">
+<section id="appendix-C">
+      <h2 id="name-acknowledgements-2">
+<a href="#appendix-C" class="section-number selfRef">Appendix C. </a><a href="#name-acknowledgements-2" class="section-name selfRef">Acknowledgements</a>
+      </h2>
+<p id="appendix-C-1">
+        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog and Teun Vink for contributing ideas and feedback to this document.<a href="#appendix-C-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="authors-addresses">
+<section id="appendix-D">
+      <h2 id="name-authors-address-2">
+<a href="#name-authors-address-2" class="section-name selfRef">Author's Address</a>
+      </h2>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Martin Pels</span></div>
+<div dir="auto" class="left"><span class="org">RIPE NCC</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:mpels@ripe.net" class="email">mpels@ripe.net</a>
+</div>
+</address>
+</section>
+</div>
+<script>const toc = document.getElementById("toc");
+toc.querySelector("h2").addEventListener("click", e => {
+  toc.classList.toggle("active");
+});
+toc.querySelector("nav").addEventListener("click", e => {
+  toc.classList.remove("active");
+});
+</script>
+</body>
+</html>
