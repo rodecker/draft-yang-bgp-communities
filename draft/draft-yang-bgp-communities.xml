@@ -97,6 +97,8 @@
         The purpose of the YANG model defined in this document is to provide a standardized format for publishing community definitions.
         These definitions help applications to interpret the structure and purpose of BGP communities.
         For example, looking glasses may use the published definitions to parse communities seen in BGP announcements and display their meaning.
+        Another potential use case is in generating routing policy configurations based on community definitions published by an upstream ASN.
+        This could be done automatically using external tooling to generate router configurations, or inside a router's command-line interface by importing the definitions and providing the CLI-user with available choices for manual configuration.
       </t>
       <t>
         Note that this document only describes a model for the publishing format of community definitions.
