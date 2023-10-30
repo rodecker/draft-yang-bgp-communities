@@ -16,6 +16,7 @@ This repository contains the following files:
 * `examples/bgp-communities.json` - An example JSON specification conforming to the YANG model
 * `examples/bgp-communities.txt` - Example communities to match using the JSON specification
 * `examples/bgp-communities.out` - Example output of the parser
+* `resources/inventory.md` - A non-exhaustive list of BGP community definitions found on the web
 
 ## Usage
 
