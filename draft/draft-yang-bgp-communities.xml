@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="US-ASCII"?>
-<?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 
-<!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
+<!DOCTYPE rfc [
 <!ENTITY I-D.ietf-core-sid PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-core-sid-20.xml">
 <!ENTITY IEEE.1003-2.1992 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml6/reference.R.IEEE.1003-2.1992.xml">
 <!ENTITY RFC1997 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1997.xml">
@@ -26,20 +25,31 @@
 <?rfc symrefs="yes"?>
 <?rfc sortrefs="yes" ?>
 
-<rfc category="info" docName="draft-yang-bgp-communities-00" ipr="none">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude"
+     category="info"
+     docName="draft-pels-grow-yang-bgp-communities-00"
+     ipr="trust200902"
+     xml:lang="en"
+     submissionType="independent"
+     version="3">
 
   <front>
 
     <title abbrev="BGP Community YANG">YANG Module for BGP Communities</title>
 
+    <seriesInfo name="Internet-Draft" value="draft-pels-grow-yang-bgp-communities-00"/>
+
     <author fullname="Martin Pels" initials="M" surname="Pels">
       <organization>RIPE NCC</organization>
       <address>
+        <postal>
+          <country>Netherlands</country>
+        </postal>
         <email>mpels@ripe.net</email>
       </address>
     </author>
 
-    <date year="2023" />
+    <date />
 
     <abstract>
       <t>
@@ -105,10 +115,9 @@
       <t>
         The following tree diagram provides an overview of the ietf-bgp-communities.yang data model.
       </t>
-      <t>
-        <figure>
-          <artwork align="left"><![CDATA[
-module: draft-yang-bgp-communities
+      <figure>
+        <artwork align="left"><![CDATA[
+module: draft-pels-grow-yang-bgp-communities
   +--rw bgp-communities
      +--rw serial         uint32
      +--rw uri?           string
@@ -167,8 +176,7 @@ module: draft-yang-bgp-communities
               +--rw pattern        string
               +--rw description?   string
            ]]></artwork>
-        </figure>
-      </t>
+      </figure>
     </section>
 
     <section title="Data elements" anchor="elements">
@@ -514,11 +522,7 @@ module: draft-yang-bgp-communities
           XML Registry", following the format defined in <xref target="RFC3688"/>:
         </t>
         <t>
-          <figure>
-            <artwork>
-TODO
-            </artwork>
-          </figure>
+          TODO
         </t>
       </section>
 
@@ -527,12 +531,8 @@ TODO
           This document registers the following YANG module in the "YANG Module Names" registry <xref target="RFC6020"/>:
         </t>
         <t>
-          <figure>
-            <artwork>
-TODO
-             </artwork>
-           </figure>
-         </t>
+          TODO
+        </t>
       </section>
 
       <section title="YANG SID Allocation" anchor="iana.sid">
@@ -540,12 +540,8 @@ TODO
           This document registers the following entry in the "IETF YANG SID" registry <xref target="I-D.ietf-core-sid"/>:
         </t>
         <t>
-          <figure>
-            <artwork>
-TODO
-             </artwork>
-           </figure>
-         </t>
+          TODO
+        </t>
       </section>
 
     </section>
@@ -595,11 +591,10 @@ TODO
       <t>
         NOTE: '\' line wrapping per <xref target="RFC8792"/>
       </t>
-      <t>
-        <figure>
-          <artwork align="left"><![CDATA[
+      <figure>
+        <artwork align="left"><![CDATA[
 
-module draft-yang-bgp-communities {
+module draft-pels-grow-yang-bgp-communities {
 
   yang-version 1.1;
 
@@ -882,9 +877,8 @@ field";
     }
   }
 }
-           ]]></artwork>
-        </figure>
-      </t>
+        ]]></artwork>
+      </figure>
 
     </section>
 
@@ -898,11 +892,10 @@ field";
         <t>
           A JSON definition for the example Large BGP community described in <xref target="RFC8195"/>, section 4.1.1 looks as follows.
         </t>
-        <t>
-          <figure>
-            <artwork align="left"><![CDATA[
+        <figure>
+          <artwork align="left"><![CDATA[
 {
-  "draft-yang-bgp-communities:bgp-communities": {
+  "draft-pels-grow-yang-bgp-communities:bgp-communities": {
     "serial": 2023080101,
     "uri": "http://example.net/peering/communities",
     "description": "BGP Community example for ASN-Based Selective \
@@ -942,9 +935,8 @@ NO_EXPORT",
     ]
   }
 }
-            ]]></artwork>
-          </figure>
-        </t>
+          ]]></artwork>
+        </figure>
       </section>
 
       <section title="RFC4384 Data Collection definition" anchor="examples.rfc4384">
@@ -954,11 +946,10 @@ NO_EXPORT",
         <t>
           NOTE: '\' line wrapping per <xref target="RFC8792"/>
         </t>
-        <t>
-          <figure>
-            <artwork align="left"><![CDATA[
+        <figure>
+          <artwork align="left"><![CDATA[
 {
-  "draft-yang-bgp-communities:bgp-communities": {
+  "draft-pels-grow-yang-bgp-communities:bgp-communities": {
     "serial": 2023080101,
     "uri": "http://example.net/peering/communities",
     "description": "BGP Community example for Data Collection",
@@ -995,9 +986,8 @@ the Fiji Islands",
     ]
   }
 }
-            ]]></artwork>
-          </figure>
-        </t>
+          ]]></artwork>
+        </figure>
       </section>
 
     </section>
