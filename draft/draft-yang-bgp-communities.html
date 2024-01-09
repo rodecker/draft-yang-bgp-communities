@@ -12,7 +12,7 @@
        
     " name="description">
 <meta content="xml2rfc 3.15.2" name="generator">
-<meta content="draft-pels-grow-yang-bgp-communities-00" name="ietf.draft">
+<meta content="draft-ietf-grow-yang-bgp-communities-00" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.15.2
     Python 3.10.13
@@ -1190,11 +1190,11 @@ li > p:last-of-type {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">BGP Community YANG</td>
-<td class="right">November 2023</td>
+<td class="right">January 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Pels</td>
-<td class="center">Expires 8 May 2024</td>
+<td class="center">Expires 12 July 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1204,15 +1204,15 @@ li > p:last-of-type {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Network Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-pels-grow-yang-bgp-communities-00</dd>
+<dd class="internet-draft">draft-ietf-grow-yang-bgp-communities-00</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-11-05" class="published">5 November 2023</time>
+<time datetime="2024-01-09" class="published">9 January 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-05-08">8 May 2024</time></dd>
+<dd class="expires"><time datetime="2024-07-12">12 July 2024</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1247,7 +1247,7 @@ li > p:last-of-type {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 8 May 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 12 July 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1256,7 +1256,7 @@ li > p:last-of-type {
 <a href="#name-copyright-notice-2" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2023 IETF Trust and the persons identified as the
+            Copyright (c) 2024 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1264,7 +1264,10 @@ li > p:last-of-type {
             (<span><a href="https://trustee.ietf.org/license-info">https://trustee.ietf.org/license-info</a></span>) in effect on the date of
             publication of this document. Please review these documents
             carefully, as they describe your rights and restrictions with
-            respect to this document.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
+            respect to this document. Code Components extracted from this
+            document must include Revised BSD License text as described in
+            Section 4.e of the Trust Legal Provisions and are provided without
+            warranty as described in the Revised BSD License.<a href="#section-boilerplate.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="toc">
@@ -1505,7 +1508,7 @@ li > p:last-of-type {
 <figure id="figure-1">
         <div class="alignLeft art-text artwork" id="section-4-2.1">
 <pre>
-module: draft-pels-grow-yang-bgp-communities
+module: draft-ietf-grow-yang-bgp-communities
   +--rw bgp-communities
      +--rw serial         uint32
      +--rw uri?           string
@@ -2110,7 +2113,7 @@ module: draft-pels-grow-yang-bgp-communities
 <dl class="references">
 <dt id="IEEE.1003-2.1992">[IEEE.1003-2.1992]</dt>
       <dd>
-<span class="refAuthor">Institute of Electrical and Electronics Engineers</span>, <span class="refTitle">"Information Technology - Portable Operating System Interface (POSIX) - Part 2: Shell and Utilities (Vol. 1)"</span>, <span class="seriesInfo">IEEE Standard 1003.2</span>, <span class="seriesInfo">IEEE 1003.2-1992</span>, <span class="seriesInfo">IEEE ieee-1003-2</span>, <time datetime="1992" class="refDate">1992</time>. </dd>
+<span class="refAuthor">Institute of Electrical and Electronics Engineers</span>, <span class="refTitle">"Information Technology - Portable Operating System Interface (POSIX) - Part 2: Shell and Utilities (Vol. 1)"</span>, <span class="seriesInfo">IEEE 1003.2-1992</span>, <time datetime="1992" class="refDate">1992</time>. </dd>
 <dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
       <dd>
@@ -2160,7 +2163,7 @@ module: draft-pels-grow-yang-bgp-communities
         <div class="alignLeft art-text artwork" id="appendix-A-3.1">
 <pre>
 
-module draft-pels-grow-yang-bgp-communities {
+module draft-ietf-grow-yang-bgp-communities {
 
   yang-version 1.1;
 
@@ -2466,7 +2469,7 @@ field";
           <div class="alignLeft art-text artwork" id="appendix-B.1-2.1">
 <pre>
 {
-  "draft-pels-grow-yang-bgp-communities:bgp-communities": {
+  "draft-ietf-grow-yang-bgp-communities:bgp-communities": {
     "serial": 2023080101,
     "uri": "http://example.net/peering/communities",
     "description": "BGP Community example for ASN-Based Selective \
@@ -2524,7 +2527,7 @@ NO_EXPORT",
           <div class="alignLeft art-text artwork" id="appendix-B.2-3.1">
 <pre>
 {
-  "draft-pels-grow-yang-bgp-communities:bgp-communities": {
+  "draft-ietf-grow-yang-bgp-communities:bgp-communities": {
     "serial": 2023080101,
     "uri": "http://example.net/peering/communities",
     "description": "BGP Community example for Data Collection",
