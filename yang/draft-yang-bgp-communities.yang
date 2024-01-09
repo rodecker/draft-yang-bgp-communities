@@ -1,4 +1,4 @@
-module draft-pels-grow-yang-bgp-communities {
+module draft-ietf-grow-yang-bgp-communities {
 
   yang-version 1.1;
 
