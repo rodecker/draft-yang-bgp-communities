@@ -27,7 +27,7 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
      category="info"
-     docName="draft-ietf-grow-yang-bgp-communities-00"
+     docName="draft-ietf-grow-yang-bgp-communities-01"
      ipr="trust200902"
      xml:lang="en"
      submissionType="IETF"
@@ -37,7 +37,7 @@
 
     <title abbrev="BGP Community YANG">YANG Module for BGP Communities</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-00"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-01"/>
 
     <author fullname="Martin Pels" initials="M" surname="Pels">
       <organization>RIPE NCC</organization>
@@ -1007,7 +1007,7 @@ the Fiji Islands",
     <section title="Acknowledgements" anchor="acknowledgements">
 
       <t>
-        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog and Teun Vink for contributing ideas and feedback to this document.
+        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog, Teun Vink and Tom Petch for contributing ideas and feedback to this document.
       </t>
 
     </section>
