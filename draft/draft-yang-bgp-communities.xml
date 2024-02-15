@@ -510,7 +510,7 @@ module: draft-ietf-grow-yang-bgp-communities
         <t>
           Applications that parse these community definitions SHOULD reject objects that do not comply with the rules described in this document.
           Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
-          For example: A Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).
+          For example, a Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).
         </t>
       </section>
 
