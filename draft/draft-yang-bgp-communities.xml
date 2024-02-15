@@ -493,14 +493,16 @@ module: draft-ietf-grow-yang-bgp-communities
           This may include communities where the Global Administrator field contains a private ASN, if this community has a local meaning inside the network of the publisher.
         </t>
         <t>
-          When publishing community definitions with overlapping field patterns these MUST be ordered from most to least specific, to ensure parsers can perform deterministic matching.
+          When publishing community definitions with overlapping field patterns, these definitions MUST be ordered from most to least preferred.
+          This ensures parsers can perform deterministic matching (see <xref target="recommendations.parsing"/>).
+          For example, a definition for a single community "64500:123" needs to be specified before a definition that matches a covering range of communities "64500:*".
         </t>
       </section>
 
       <section title="Parsing guidelines" anchor="recommendations.parsing">
         <t>
           A published BGP community definition can be used by parsers to display information about a received community.
-          If a received community matches multiple published community definitions, the first community in the published order takes precedence.
+          If a received community matches multiple published community definitions, the first matching definition in the published order takes precedence.
         </t>
         <t>
           By default, communities are compared using the decimal representation of the fields. If "format" for a Local Administrator or Local Data Part is set to "binary", the fields in the received community are converted to strings of zeros and ones before comparison.
