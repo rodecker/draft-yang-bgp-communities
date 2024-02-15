@@ -506,6 +506,9 @@ module: draft-ietf-grow-yang-bgp-communities
           If a received community matches multiple published community definitions, the first matching definition in the published order takes precedence.
         </t>
         <t>
+          Parsers that use published community definitions from multiple operators SHOULD NOT attempt to match received communities where the Global Administrator field contains a private ASN, unless they have some method to determine which published definition is the authoritative one.
+        </t>
+        <t>
           By default, communities are compared using the decimal representation of the fields. If "format" for a Local Administrator or Local Data Part is set to "binary", the fields in the received community are converted to strings of zeros and ones before comparison.
         </t>
         <t>
