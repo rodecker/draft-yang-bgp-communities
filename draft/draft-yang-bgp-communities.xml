@@ -53,7 +53,8 @@
 
     <abstract>
       <t>
-        This document provides a YANG module for describing BGP communities.
+        This document defines a YANG data model for the structured specification of BGP communities.
+        The model provides operators with a way to publish their locally defined BGP communities in a standardised format.
       </t>
     </abstract>
   </front>
@@ -66,7 +67,7 @@
         ISP operators use BGP communities<xref target="RFC1997"/><xref target="RFC4360"/><xref target="RFC8092"/> to add information to prefix announcements or to let customers influence routing behaviour inside the network of the ISP.
         Each ISP defines for itself which BGP communities to support and how the structure of these communities should be interpreted.
         This document provides a YANG<xref target="RFC7950"/> module for describing the structure and meaning of BGP communities, Extended BGP communities and Large BGP communities.
-        ISP operators can use this to publish their community definitions in a well-defined format.
+        ISP operators can use this to publish their community definitions in a standardised format.
       </t>
 
     </section>
