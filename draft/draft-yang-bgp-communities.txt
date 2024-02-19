@@ -4,16 +4,19 @@
 
 Network Working Group                                            M. Pels
 Internet-Draft                                                  RIPE NCC
-Intended status: Informational                            9 January 2024
-Expires: 12 July 2024
+Intended status: Informational                          19 February 2024
+Expires: 22 August 2024
 
 
                     YANG Module for BGP Communities
-                draft-ietf-grow-yang-bgp-communities-00
+                draft-ietf-grow-yang-bgp-communities-01
 
 Abstract
 
-   This document provides a YANG module for describing BGP communities.
+   This document defines a YANG data model for the structured
+   specification of BGP communities.  The model provides operators with
+   a way to publish their locally defined BGP communities in a
+   standardised format.
 
 Status of This Memo
 
@@ -30,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 July 2024.
+   This Internet-Draft will expire on 22 August 2024.
 
 Copyright Notice
 
@@ -50,18 +53,15 @@ Copyright Notice
 
 
 
-
-
-
-Pels                      Expires 12 July 2024                  [Page 1]
+Pels                     Expires 22 August 2024                 [Page 1]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
 Table of Contents
 
-   1.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
+   1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
+   2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
    3.  Rationale . . . . . . . . . . . . . . . . . . . . . . . . . .   3
    4.  Tree view . . . . . . . . . . . . . . . . . . . . . . . . . .   4
    5.  Data elements . . . . . . . . . . . . . . . . . . . . . . . .   5
@@ -102,16 +102,16 @@ Table of Contents
      7.2.  YANG Module Registration  . . . . . . . . . . . . . . . .  12
      7.3.  YANG SID Allocation . . . . . . . . . . . . . . . . . . .  12
    8.  Security considerations . . . . . . . . . . . . . . . . . . .  12
-   9.  Normative References  . . . . . . . . . . . . . . . . . . . .  12
+   9.  Normative References  . . . . . . . . . . . . . . . . . . . .  13
    10. Informative References  . . . . . . . . . . . . . . . . . . .  13
    Appendix A.  YANG Module  . . . . . . . . . . . . . . . . . . . .  14
    Appendix B.  JSON Examples  . . . . . . . . . . . . . . . . . . .  20
 
 
 
-Pels                      Expires 12 July 2024                  [Page 2]
+Pels                     Expires 22 August 2024                 [Page 2]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
      B.1.  RFC8195 Selective NO_EXPORT definition  . . . . . . . . .  20
@@ -119,15 +119,7 @@ Internet-Draft             BGP Community YANG               January 2024
    Appendix C.  Acknowledgements . . . . . . . . . . . . . . . . . .  22
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  23
 
-1.  Terminology
-
-   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
-   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
-   "OPTIONAL" in this document are to be interpreted as described in BCP
-   14 [RFC2119] [RFC8174] when, and only when, they appear in all
-   capitals, as shown here.
-
-2.  Introduction
+1.  Introduction
 
    ISP operators use BGP communities[RFC1997][RFC4360][RFC8092] to add
    information to prefix announcements or to let customers influence
@@ -137,7 +129,15 @@ Internet-Draft             BGP Community YANG               January 2024
    YANG[RFC7950] module for describing the structure and meaning of BGP
    communities, Extended BGP communities and Large BGP communities.  ISP
    operators can use this to publish their community definitions in a
-   well-defined format.
+   standardised format.
+
+2.  Terminology
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in BCP
+   14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
 
 3.  Rationale
 
@@ -165,9 +165,9 @@ Internet-Draft             BGP Community YANG               January 2024
 
 
 
-Pels                      Expires 12 July 2024                  [Page 3]
+Pels                     Expires 22 August 2024                 [Page 3]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
    The purpose of the YANG model defined in this document is to provide
@@ -221,9 +221,9 @@ Internet-Draft             BGP Community YANG               January 2024
 
 
 
-Pels                      Expires 12 July 2024                  [Page 4]
+Pels                     Expires 22 August 2024                 [Page 4]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
         |  +--rw description?     string
@@ -277,9 +277,9 @@ Internet-Draft             BGP Community YANG               January 2024
 
 
 
-Pels                      Expires 12 July 2024                  [Page 5]
+Pels                     Expires 22 August 2024                 [Page 5]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
 5.2.  The "uri" leaf
@@ -333,9 +333,9 @@ Internet-Draft             BGP Community YANG               January 2024
 
 
 
-Pels                      Expires 12 July 2024                  [Page 6]
+Pels                     Expires 22 August 2024                 [Page 6]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
 5.6.  The "regular" list
@@ -389,9 +389,9 @@ Internet-Draft             BGP Community YANG               January 2024
 
 
 
-Pels                      Expires 12 July 2024                  [Page 7]
+Pels                     Expires 22 August 2024                 [Page 7]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
 5.6.4.2.2.  The "length" leaf
@@ -445,9 +445,9 @@ Internet-Draft             BGP Community YANG               January 2024
 
 
 
-Pels                      Expires 12 July 2024                  [Page 8]
+Pels                     Expires 22 August 2024                 [Page 8]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
 5.7.4.  The "subtype" leaf
@@ -501,9 +501,9 @@ Internet-Draft             BGP Community YANG               January 2024
 
 
 
-Pels                      Expires 12 July 2024                  [Page 9]
+Pels                     Expires 22 August 2024                 [Page 9]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
 5.8.1.  The "name" leaf
@@ -557,9 +557,9 @@ Internet-Draft             BGP Community YANG               January 2024
 
 
 
-Pels                      Expires 12 July 2024                 [Page 10]
+Pels                     Expires 22 August 2024                [Page 10]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
 5.8.5.1.  The "format" leaf
@@ -588,16 +588,35 @@ Internet-Draft             BGP Community YANG               January 2024
    Administrator field contains a private ASN, if this community has a
    local meaning inside the network of the publisher.
 
-   When publishing community definitions with overlapping field patterns
-   these MUST be ordered from most to least specific, to ensure parsers
-   can perform deterministic matching.
+   When publishing community definitions with overlapping field
+   patterns, these definitions MUST be ordered from most to least
+   preferred.  This ensures parsers can perform deterministic matching
+   (see Section 6.2).  For example, a definition for a single community
+   "64500:123" needs to be specified before a definition that matches a
+   covering range of communities "64500:*".
 
 6.2.  Parsing guidelines
 
    A published BGP community definition can be used by parsers to
    display information about a received community.  If a received
    community matches multiple published community definitions, the first
-   community in the published order takes precedence.
+   matching definition in the published order takes precedence.
+
+   Parsers that use published community definitions from multiple
+   operators SHOULD NOT attempt to match received communities where the
+   Global Administrator field contains a private ASN, unless they have
+   some method to determine which published definition is the
+   authoritative one.
+
+
+
+
+
+
+Pels                     Expires 22 August 2024                [Page 11]
+
+Internet-Draft             BGP Community YANG              February 2024
+
 
    By default, communities are compared using the decimal representation
    of the fields.  If "format" for a Local Administrator or Local Data
@@ -609,15 +628,7 @@ Internet-Draft             BGP Community YANG               January 2024
    Furthermore, parsers SHOULD check that the sum of the specified Local
    Administrator or Local Data Part field lengths in each community
    definition does not exceed the local part size of the specified
-   community type.  For example: A Regular BGP community definition with
-
-
-
-Pels                      Expires 12 July 2024                 [Page 11]
-
-Internet-Draft             BGP Community YANG               January 2024
-
-
+   community type.  For example, a Regular BGP community definition with
    format "decimal" containing a field of length 4 and a field of length
    2 would be illegal, as the Local Administrator field has a maximum
    length of 65535 (5 digits).
@@ -656,6 +667,13 @@ Internet-Draft             BGP Community YANG               January 2024
    each community definition does not exceed the local part size of the
    specified community type.
 
+
+
+Pels                     Expires 22 August 2024                [Page 12]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
 9.  Normative References
 
    [I-D.ietf-core-sid]
@@ -664,15 +682,6 @@ Internet-Draft             BGP Community YANG               January 2024
               in Progress, Internet-Draft, draft-ietf-core-sid-20, 1
               March 2023, <https://datatracker.ietf.org/doc/html/draft-
               ietf-core-sid-20>.
-
-
-
-
-
-Pels                      Expires 12 July 2024                 [Page 12]
-
-Internet-Draft             BGP Community YANG               January 2024
-
 
    [RFC1997]  Chandra, R., Traina, P., and T. Li, "BGP Communities
               Attribute", RFC 1997, DOI 10.17487/RFC1997, August 1996,
@@ -697,7 +706,8 @@ Internet-Draft             BGP Community YANG               January 2024
               Institute of Electrical and Electronics Engineers,
               "Information Technology - Portable Operating System
               Interface (POSIX) - Part 2: Shell and Utilities (Vol. 1)",
-              IEEE 1003.2-1992, 1992.
+              IEEE Standard 1003.2, IEEE 1003.2-1992, IEEE ieee-1003-2,
+              1992.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -712,6 +722,14 @@ Internet-Draft             BGP Community YANG               January 2024
               RFC 4384, DOI 10.17487/RFC4384, February 2006,
               <https://www.rfc-editor.org/info/rfc4384>.
 
+
+
+
+Pels                     Expires 22 August 2024                [Page 13]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
    [RFC6020]  Bjorklund, M., Ed., "YANG - A Data Modeling Language for
               the Network Configuration Protocol (NETCONF)", RFC 6020,
               DOI 10.17487/RFC6020, October 2010,
@@ -720,15 +738,6 @@ Internet-Draft             BGP Community YANG               January 2024
    [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
               RFC 7951, DOI 10.17487/RFC7951, August 2016,
               <https://www.rfc-editor.org/info/rfc7951>.
-
-
-
-
-
-Pels                      Expires 12 July 2024                 [Page 13]
-
-Internet-Draft             BGP Community YANG               January 2024
-
 
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
@@ -769,6 +778,14 @@ Appendix A.  YANG Module
 
    revision "2023-08-01" {
      description
+
+
+
+Pels                     Expires 22 August 2024                [Page 14]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
        "Initial version.";
      reference "0.0.2";
    }
@@ -777,14 +794,6 @@ Appendix A.  YANG Module
      list fields {
        ordered-by user;
        key "name";
-
-
-
-
-Pels                      Expires 12 July 2024                 [Page 14]
-
-Internet-Draft             BGP Community YANG               January 2024
-
 
        leaf name {
          type string {
@@ -825,6 +834,14 @@ Internet-Draft             BGP Community YANG               January 2024
        mandatory "true";
        description
          "Version number of the community set.";
+
+
+
+Pels                     Expires 22 August 2024                [Page 15]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
      }
 
      leaf uri {
@@ -834,14 +851,6 @@ Internet-Draft             BGP Community YANG               January 2024
      }
 
      leaf description {
-
-
-
-Pels                      Expires 12 July 2024                 [Page 15]
-
-Internet-Draft             BGP Community YANG               January 2024
-
-
        type string;
        description
          "A description for the community set";
@@ -881,6 +890,14 @@ Internet-Draft             BGP Community YANG               January 2024
        }
 
        leaf organizationalunit {
+
+
+
+Pels                     Expires 22 August 2024                [Page 16]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
          type string;
          description
            "Maintainer contact organizational unit";
@@ -889,14 +906,6 @@ Internet-Draft             BGP Community YANG               January 2024
 
      list regular {
        key "name";
-
-
-
-
-Pels                      Expires 12 July 2024                 [Page 16]
-
-Internet-Draft             BGP Community YANG               January 2024
-
 
        leaf name {
          type string {
@@ -937,6 +946,14 @@ Internet-Draft             BGP Community YANG               January 2024
      }
 
      list extended {
+
+
+
+Pels                     Expires 22 August 2024                [Page 17]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
        key "name";
 
        leaf name {
@@ -946,14 +963,6 @@ Internet-Draft             BGP Community YANG               January 2024
          }
          mandatory "true";
          description
-
-
-
-Pels                      Expires 12 July 2024                 [Page 17]
-
-Internet-Draft             BGP Community YANG               January 2024
-
-
            "Community name";
        }
 
@@ -994,6 +1003,13 @@ Internet-Draft             BGP Community YANG               January 2024
          }
        }
 
+
+
+Pels                     Expires 22 August 2024                [Page 18]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
        container localadmin {
          leaf format {
            type "string" {
@@ -1002,14 +1018,6 @@ Internet-Draft             BGP Community YANG               January 2024
            }
            default "decimal";
            description
-
-
-
-Pels                      Expires 12 July 2024                 [Page 18]
-
-Internet-Draft             BGP Community YANG               January 2024
-
-
              "Format used for parsing localadmin fields";
          }
 
@@ -1050,6 +1058,14 @@ Internet-Draft             BGP Community YANG               January 2024
                'decimal|binary';
            }
            default "decimal";
+
+
+
+Pels                     Expires 22 August 2024                [Page 19]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
            description
              "Format used for parsing localadmin fields";
          }
@@ -1058,14 +1074,6 @@ Internet-Draft             BGP Community YANG               January 2024
        }
 
        container localdatapart2 {
-
-
-
-Pels                      Expires 12 July 2024                 [Page 19]
-
-Internet-Draft             BGP Community YANG               January 2024
-
-
          leaf format {
            type "string" {
              pattern
@@ -1109,17 +1117,9 @@ B.1.  RFC8195 Selective NO_EXPORT definition
 
 
 
-
-
-
-
-
-
-
-
-Pels                      Expires 12 July 2024                 [Page 20]
+Pels                     Expires 22 August 2024                [Page 20]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
    {
@@ -1173,9 +1173,9 @@ B.2.  RFC4384 Data Collection definition
 
 
 
-Pels                      Expires 12 July 2024                 [Page 21]
+Pels                     Expires 22 August 2024                [Page 21]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
    NOTE: '\' line wrapping per [RFC8792]
@@ -1224,14 +1224,14 @@ Internet-Draft             BGP Community YANG               January 2024
 Appendix C.  Acknowledgements
 
    The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper
-   den Hertog and Teun Vink for contributing ideas and feedback to this
-   document.
+   den Hertog, Teun Vink and Tom Petch for contributing ideas and
+   feedback to this document.
 
 
 
-Pels                      Expires 12 July 2024                 [Page 22]
+Pels                     Expires 22 August 2024                [Page 22]
 
-Internet-Draft             BGP Community YANG               January 2024
+Internet-Draft             BGP Community YANG              February 2024
 
 
 Author's Address
@@ -1285,4 +1285,4 @@ Author's Address
 
 
 
-Pels                      Expires 12 July 2024                 [Page 23]
+Pels                     Expires 22 August 2024                [Page 23]

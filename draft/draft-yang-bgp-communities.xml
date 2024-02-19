@@ -2,7 +2,7 @@
 
 <!DOCTYPE rfc [
 <!ENTITY I-D.ietf-core-sid PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-core-sid-20.xml">
-<!-- <!ENTITY IEEE.1003-2.1992 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml6/reference.R.IEEE.1003-2.1992.xml"> -->
+<!ENTITY IEEE.1003-2.1992 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml6/reference.R.IEEE.1003-2.1992.xml">
 <!ENTITY RFC1997 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1997.xml">
 <!ENTITY RFC2119 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC3688 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3688.xml">
@@ -578,17 +578,7 @@ module: draft-ietf-grow-yang-bgp-communities
 
     <references title="Informative References" anchor="informative">
 
-      <!-- &IEEE.1003-2.1992; -->
-      <reference anchor="IEEE.1003-2.1992">
-        <front>
-          <title>Information Technology - Portable Operating System Interface (POSIX) - Part 2: Shell and Utilities (Vol. 1)</title>
-          <author>
-            <organization>Institute of Electrical and Electronics Engineers</organization>
-          </author>
-          <date year="1992"/>
-        </front>
-        <seriesInfo name="IEEE" value="1003.2-1992"/>
-      </reference>
+      &IEEE.1003-2.1992;
       &RFC2119;
       &RFC3688;
       &RFC4384;
