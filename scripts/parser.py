@@ -33,9 +33,9 @@ def main(values_file: str, struct_file: str):
 
     with open(struct_file, "r", encoding="utf-8") as filehandle:
         jdata = json.load(filehandle)
-        candidates_rc = jdata['draft-yang-bgp-communities:bgp-communities']['regular']
-        candidates_lc = jdata['draft-yang-bgp-communities:bgp-communities']['large']
-        candidates_ec = jdata['draft-yang-bgp-communities:bgp-communities']['extended']
+        candidates_rc = jdata['draft-ietf-grow-yang-bgp-communities:bgp-communities']['regular']
+        candidates_lc = jdata['draft-ietf-grow-yang-bgp-communities:bgp-communities']['large']
+        candidates_ec = jdata['draft-ietf-grow-yang-bgp-communities:bgp-communities']['extended']
 
     for regular_community in bgprc:
         parse_regular_community(regular_community, candidates_rc)
