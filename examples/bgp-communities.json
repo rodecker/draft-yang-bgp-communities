@@ -98,6 +98,7 @@
     "large": [
       {
         "name": "RFC8195-ORIGIN-NL",
+        "category": "informational",
         "description": "Example Large: RFC8195 - Origin NL",
         "globaladmin": 65001,
         "localdatapart1": {
@@ -121,6 +122,7 @@
       },
       {
         "name": "RFC8195-NOEXPORT-ASN",
+        "category": "action",
         "description": "Example Large: RFC8195 - No-export to ASN",
         "globaladmin": 65001,
         "localdatapart1": {

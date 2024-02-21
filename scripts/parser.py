@@ -276,7 +276,11 @@ def _print_match(community, candidate, fieldvals):
             else:
                 output_fields.append(f'{field["name"]}={fieldvals[offset + fid]}')
         output_sections.append(','.join(output_fields))
-    output = f'{community} - {candidate["name"]} ({":".join(output_sections)})'
+    if 'category' in candidate:
+        output = f'{community} - {candidate["name"]}/{candidate["category"]} ' \
+                 + f'({":".join(output_sections)})'
+    else:
+        output = f'{community} - {candidate["name"]} ({":".join(output_sections)})'
     print(output)
 
 

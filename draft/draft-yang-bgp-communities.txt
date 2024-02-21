@@ -4,8 +4,8 @@
 
 Network Working Group                                            M. Pels
 Internet-Draft                                                  RIPE NCC
-Intended status: Informational                          20 February 2024
-Expires: 23 August 2024
+Intended status: Informational                          21 February 2024
+Expires: 24 August 2024
 
 
                     YANG Module for BGP Communities
@@ -33,7 +33,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 August 2024.
+   This Internet-Draft will expire on 24 August 2024.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Pels                     Expires 23 August 2024                 [Page 1]
+Pels                     Expires 24 August 2024                 [Page 1]
 
 Internet-Draft             BGP Community YANG              February 2024
 
@@ -72,60 +72,64 @@ Table of Contents
      5.5.  The "contacts" list . . . . . . . . . . . . . . . . . . .   6
        5.5.1.  The "emailaddress" leaf . . . . . . . . . . . . . . .   6
        5.5.2.  The "name" leaf . . . . . . . . . . . . . . . . . . .   6
-       5.5.3.  The "role" leaf . . . . . . . . . . . . . . . . . . .   6
+       5.5.3.  The "role" leaf . . . . . . . . . . . . . . . . . . .   7
        5.5.4.  The "organization" leaf . . . . . . . . . . . . . . .   7
        5.5.5.  The "organizationalunit" leaf . . . . . . . . . . . .   7
      5.6.  The "regular" list  . . . . . . . . . . . . . . . . . . .   7
        5.6.1.  The "name" leaf . . . . . . . . . . . . . . . . . . .   7
-       5.6.2.  The "description" leaf  . . . . . . . . . . . . . . .   7
-       5.6.3.  The "globaladmin" leaf  . . . . . . . . . . . . . . .   7
-       5.6.4.  The "localadmin" container  . . . . . . . . . . . . .   7
+       5.6.2.  The "category" leaf . . . . . . . . . . . . . . . . .   7
+       5.6.3.  The "description" leaf  . . . . . . . . . . . . . . .   7
+       5.6.4.  The "globaladmin" leaf  . . . . . . . . . . . . . . .   7
+       5.6.5.  The "localadmin" container  . . . . . . . . . . . . .   8
      5.7.  The "extended" list . . . . . . . . . . . . . . . . . . .   9
        5.7.1.  The "name" leaf . . . . . . . . . . . . . . . . . . .   9
-       5.7.2.  The "description" leaf  . . . . . . . . . . . . . . .   9
-       5.7.3.  The "type" leaf . . . . . . . . . . . . . . . . . . .   9
-       5.7.4.  The "subtype" leaf  . . . . . . . . . . . . . . . . .   9
-       5.7.5.  The "asn" leaf  . . . . . . . . . . . . . . . . . . .   9
-       5.7.6.  The "asn4" leaf . . . . . . . . . . . . . . . . . . .   9
-       5.7.7.  The "localadmin" container  . . . . . . . . . . . . .  10
+       5.7.2.  The "category" leaf . . . . . . . . . . . . . . . . .   9
+       5.7.3.  The "description" leaf  . . . . . . . . . . . . . . .   9
+       5.7.4.  The "type" leaf . . . . . . . . . . . . . . . . . . .   9
+       5.7.5.  The "subtype" leaf  . . . . . . . . . . . . . . . . .   9
+       5.7.6.  The "asn" leaf  . . . . . . . . . . . . . . . . . . .  10
+       5.7.7.  The "asn4" leaf . . . . . . . . . . . . . . . . . . .  10
+       5.7.8.  The "localadmin" container  . . . . . . . . . . . . .  10
      5.8.  The "large" list  . . . . . . . . . . . . . . . . . . . .  10
        5.8.1.  The "name" leaf . . . . . . . . . . . . . . . . . . .  10
-       5.8.2.  The "description" leaf  . . . . . . . . . . . . . . .  10
-       5.8.3.  The "globaladmin" leaf  . . . . . . . . . . . . . . .  10
-       5.8.4.  The "localdatapart1" container  . . . . . . . . . . .  11
-       5.8.5.  The "localdatapart2" container  . . . . . . . . . . .  11
+       5.8.2.  The "category" leaf . . . . . . . . . . . . . . . . .  11
+       5.8.3.  The "description" leaf  . . . . . . . . . . . . . . .  11
+       5.8.4.  The "globaladmin" leaf  . . . . . . . . . . . . . . .  11
+       5.8.5.  The "localdatapart1" container  . . . . . . . . . . .  11
+       5.8.6.  The "localdatapart2" container  . . . . . . . . . . .  12
    6.  Type definitions  . . . . . . . . . . . . . . . . . . . . . .  12
      6.1.  The "two-octet-as-number" data type . . . . . . . . . . .  12
      6.2.  The "community-name" data type  . . . . . . . . . . . . .  12
-     6.3.  The "community-description" data type . . . . . . . . . .  12
-     6.4.  The "localadmin-format" data type . . . . . . . . . . . .  12
-     6.5.  The "field-name" data type  . . . . . . . . . . . . . . .  12
-     6.6.  The "field-pattern" data type . . . . . . . . . . . . . .  12
-     6.7.  The "field-description" data type . . . . . . . . . . . .  12
-   7.  Operational guidelines  . . . . . . . . . . . . . . . . . . .  12
-     7.1.  Publishing guidelines . . . . . . . . . . . . . . . . . .  13
-     7.2.  Parsing guidelines  . . . . . . . . . . . . . . . . . . .  13
-   8.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  13
+     6.3.  The "community-category" data type  . . . . . . . . . . .  12
+     6.4.  The "community-description" data type . . . . . . . . . .  12
+     6.5.  The "localadmin-format" data type . . . . . . . . . . . .  13
+     6.6.  The "field-name" data type  . . . . . . . . . . . . . . .  13
+     6.7.  The "field-pattern" data type . . . . . . . . . . . . . .  13
+     6.8.  The "field-description" data type . . . . . . . . . . . .  13
 
 
 
-Pels                     Expires 23 August 2024                 [Page 2]
+Pels                     Expires 24 August 2024                 [Page 2]
 
 Internet-Draft             BGP Community YANG              February 2024
 
 
-     8.1.  YANG Namespace Registration . . . . . . . . . . . . . . .  13
+   7.  Operational guidelines  . . . . . . . . . . . . . . . . . . .  13
+     7.1.  Publishing guidelines . . . . . . . . . . . . . . . . . .  13
+     7.2.  Parsing guidelines  . . . . . . . . . . . . . . . . . . .  13
+   8.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  14
+     8.1.  YANG Namespace Registration . . . . . . . . . . . . . . .  14
      8.2.  YANG Module Registration  . . . . . . . . . . . . . . . .  14
      8.3.  YANG SID Allocation . . . . . . . . . . . . . . . . . . .  14
-   9.  Security considerations . . . . . . . . . . . . . . . . . . .  14
-   10. Normative References  . . . . . . . . . . . . . . . . . . . .  14
-   11. Informative References  . . . . . . . . . . . . . . . . . . .  15
+   9.  Security considerations . . . . . . . . . . . . . . . . . . .  15
+   10. Normative References  . . . . . . . . . . . . . . . . . . . .  15
+   11. Informative References  . . . . . . . . . . . . . . . . . . .  16
    Appendix A.  YANG Module  . . . . . . . . . . . . . . . . . . . .  16
-   Appendix B.  JSON Examples  . . . . . . . . . . . . . . . . . . .  24
-     B.1.  RFC8195 Selective NO_EXPORT definition  . . . . . . . . .  24
-     B.2.  RFC4384 Data Collection definition  . . . . . . . . . . .  25
-   Appendix C.  Acknowledgements . . . . . . . . . . . . . . . . . .  26
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  27
+   Appendix B.  JSON Examples  . . . . . . . . . . . . . . . . . . .  26
+     B.1.  RFC8195 Selective NO_EXPORT definition  . . . . . . . . .  26
+     B.2.  RFC4384 Data Collection definition  . . . . . . . . . . .  28
+   Appendix C.  Acknowledgements . . . . . . . . . . . . . . . . . .  29
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  29
 
 1.  Introduction
 
@@ -158,17 +162,15 @@ Internet-Draft             BGP Community YANG              February 2024
    customers of an ISP to control routing behavior of their prefixes
    inside the ISP.  For example, a community "64501:4:64498" attached to
    a prefix advertised to AS64501 by a customer may be interpreted by
-   AS64501 to mean that this prefix must not be propagated to AS64498.
 
 
 
-
-
-
-Pels                     Expires 23 August 2024                 [Page 3]
+Pels                     Expires 24 August 2024                 [Page 3]
 
 Internet-Draft             BGP Community YANG              February 2024
 
+
+   AS64501 to mean that this prefix must not be propagated to AS64498.
 
    For both use cases it is necessary for the ISP to communicate the
    meaning of their locally defined communities to others.  Currently
@@ -216,16 +218,17 @@ Internet-Draft             BGP Community YANG              February 2024
         |  +--rw organizationalunit?   string
         +--rw regular* [name]
         |  +--rw name           community-name
-        |  +--rw description?   community-description
-        |  +--rw globaladmin    two-octet-as-number
 
 
 
-Pels                     Expires 23 August 2024                 [Page 4]
+Pels                     Expires 24 August 2024                 [Page 4]
 
 Internet-Draft             BGP Community YANG              February 2024
 
 
+        |  +--rw category?      community-category
+        |  +--rw description?   community-description
+        |  +--rw globaladmin    two-octet-as-number
         |  +--rw localadmin
         |     +--rw format?   localadmin-format
         |     +--rw fields* [name]
@@ -235,6 +238,7 @@ Internet-Draft             BGP Community YANG              February 2024
         |        +--rw description?   field-description
         +--rw extended* [name]
         |  +--rw name             community-name
+        |  +--rw category?        community-category
         |  +--rw description?     community-description
         |  +--rw type             uint8
         |  +--rw subtype          uint8
@@ -252,6 +256,7 @@ Internet-Draft             BGP Community YANG              February 2024
         |        +--rw description?   field-description
         +--rw large* [name]
            +--rw name              community-name
+           +--rw category?         community-category
            +--rw description?      community-description
            +--rw globaladmin       inet:as-number
            +--rw localdatapart1
@@ -269,18 +274,15 @@ Internet-Draft             BGP Community YANG              February 2024
                  +--rw pattern        field-pattern
                  +--rw description?   field-description
 
-                                  Figure 1
 
 
 
-
-
-
-
-Pels                     Expires 23 August 2024                 [Page 5]
+Pels                     Expires 24 August 2024                 [Page 5]
 
 Internet-Draft             BGP Community YANG              February 2024
 
+
+                                  Figure 1
 
 5.  Data elements
 
@@ -326,17 +328,20 @@ Internet-Draft             BGP Community YANG              February 2024
    An optional value of type "string" with a maximum length of 255,
    containing the name of the contact.
 
+
+
+
+
+
+Pels                     Expires 24 August 2024                 [Page 6]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
 5.5.3.  The "role" leaf
 
    An optional value of type "string" with a maximum length of 255,
    describing the role of the contact.
-
-
-
-Pels                     Expires 23 August 2024                 [Page 6]
-
-Internet-Draft             BGP Community YANG              February 2024
-
 
 5.5.4.  The "organization" leaf
 
@@ -360,62 +365,70 @@ Internet-Draft             BGP Community YANG              February 2024
 
    The structure of the "community-name" type is defined in Section 6.2.
 
-5.6.2.  The "description" leaf
+5.6.2.  The "category" leaf
+
+   An optional value of type "community-category", containing the
+   category of this community.
+
+   The structure of the "community-category" type is defined in
+   Section 6.3.
+
+5.6.3.  The "description" leaf
 
    An optional value of type "community-description", containing a
    description of this community.
 
    The structure of the "community-description" type is defined in
-   Section 6.3.
+   Section 6.4.
 
-5.6.3.  The "globaladmin" leaf
+5.6.4.  The "globaladmin" leaf
 
    A required value of type "two-octet-as-number", containing the
    Autonomous Sytem Number set in the Global Administrator part of this
    community.
 
-   The structure of the "two-octet-as-number" type is defined in
-   Section 6.1.
-
-5.6.4.  The "localadmin" container
-
-   A group of elements that describe the Local Administrator part of the
-   community.  This object contains the following elements.
-
-5.6.4.1.  The "format" leaf
-
-   An optional value of type "localadmin-format", describing the
-   encoding format in which fields are to be parsed (see Section 7.2).
 
 
-
-Pels                     Expires 23 August 2024                 [Page 7]
+Pels                     Expires 24 August 2024                 [Page 7]
 
 Internet-Draft             BGP Community YANG              February 2024
 
 
+   The structure of the "two-octet-as-number" type is defined in
+   Section 6.1.
+
+5.6.5.  The "localadmin" container
+
+   A group of elements that describe the Local Administrator part of the
+   community.  This object contains the following elements.
+
+5.6.5.1.  The "format" leaf
+
+   An optional value of type "localadmin-format", describing the
+   encoding format in which fields are to be parsed (see Section 7.2).
+
    The structure of the "localadmin-format" type is defined in
-   Section 6.4.  If this leaf is not defined, the default "decimal"
+   Section 6.5.  If this leaf is not defined, the default "decimal"
    encoding is assumed.
 
-5.6.4.2.  The "fields" list
+5.6.5.2.  The "fields" list
 
    A list of objects that together form the Local Administrator part of
    the community.  The combined length values of all fields MUST not
    exceed the maximum length of the Local Administrator part of the
    community.
 
-5.6.4.2.1.  The "name" leaf
+5.6.5.2.1.  The "name" leaf
 
    A required value of type "field-name", containing the name of the
    field.
 
-   The structure of the "field-name" type is defined in Section 6.5.
+   The structure of the "field-name" type is defined in Section 6.6.
 
-5.6.4.2.2.  The "length" leaf
+5.6.5.2.2.  The "length" leaf
 
    An optional value of type "uint8", containing the length of the
-   field.  If the expected field format (Section 5.6.4.1) is "decimal",
+   field.  If the expected field format (Section 5.6.5.1) is "decimal",
    this is a number of digits.  In case the expected field format is
    "binary", this is a number of bits.
 
@@ -423,32 +436,28 @@ Internet-Draft             BGP Community YANG              February 2024
    allowed length of the entire field list.  In this case the field list
    MUST NOT contain more than one element.
 
-5.6.4.2.3.  The "pattern" leaf
+5.6.5.2.3.  The "pattern" leaf
 
    A required value of type "field-pattern", containing a pattern used
    for matching the field's contents.
 
-   The structure of the "field-pattern" type is defined in Section 6.6.
+   The structure of the "field-pattern" type is defined in Section 6.7.
 
-5.6.4.2.4.  The "description" leaf
+
+
+Pels                     Expires 24 August 2024                 [Page 8]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
+5.6.5.2.4.  The "description" leaf
 
    An optional value of type "field-description", containing a
    description of the pattern.  This description can be used to provide
    meaning to specific values for a field.
 
    The structure of the "field-description" type is defined in
-   Section 6.7.
-
-
-
-
-
-
-
-Pels                     Expires 23 August 2024                 [Page 8]
-
-Internet-Draft             BGP Community YANG              February 2024
-
+   Section 6.8.
 
 5.7.  The "extended" list
 
@@ -463,25 +472,41 @@ Internet-Draft             BGP Community YANG              February 2024
 
    The structure of the "community-name" type is defined in Section 6.2.
 
-5.7.2.  The "description" leaf
+5.7.2.  The "category" leaf
+
+   An optional value of type "community-category", containing the
+   category of this community.
+
+   The structure of the "community-category" type is defined in
+   Section 6.3.
+
+5.7.3.  The "description" leaf
 
    An optional value of type "community-description", containing a
    description of this community.
 
    The structure of the "community-description" type is defined in
-   Section 6.3.
+   Section 6.4.
 
-5.7.3.  The "type" leaf
+5.7.4.  The "type" leaf
 
    A required value of type "uint8", containing the high-order Type of
    the community.
 
-5.7.4.  The "subtype" leaf
+5.7.5.  The "subtype" leaf
 
    A required value of type "uint8", containing the low-order Sub-Type
    of the community.
 
-5.7.5.  The "asn" leaf
+
+
+
+Pels                     Expires 24 August 2024                 [Page 9]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
+5.7.6.  The "asn" leaf
 
    For Two-Octet AS Specific communities: A required value of type "two-
    octet-as-number", containing the Autonomous Sytem Number set in the
@@ -490,37 +515,27 @@ Internet-Draft             BGP Community YANG              February 2024
    The structure of the "two-octet-as-number" type is defined in
    Section 6.1.
 
-5.7.6.  The "asn4" leaf
+5.7.7.  The "asn4" leaf
 
    For Four-Octet AS Specific communities: A required value of type
    "inet:as-number", containing the Autonomous Sytem Number set in the
    Global Administrator part of this community.
 
-
-
-
-
-
-Pels                     Expires 23 August 2024                 [Page 9]
-
-Internet-Draft             BGP Community YANG              February 2024
-
-
-5.7.7.  The "localadmin" container
+5.7.8.  The "localadmin" container
 
    A group of elements that describe the Local Administrator part of the
    community.  This object contains the following elements.
 
-5.7.7.1.  The "format" leaf
+5.7.8.1.  The "format" leaf
 
    An optional value of type "localadmin-format", describing the
    encoding format in which fields are to be parsed (see Section 7.2).
 
    The structure of the "localadmin-format" type is defined in
-   Section 6.4.  If this leaf is not defined, the default "decimal"
+   Section 6.5.  If this leaf is not defined, the default "decimal"
    encoding is assumed.
 
-5.7.7.2.  The "fields" list
+5.7.8.2.  The "fields" list
 
    A list of objects that together form the Local Administrator part of
    the community.  The combined length values of all fields MUST not
@@ -528,7 +543,7 @@ Internet-Draft             BGP Community YANG              February 2024
    community.
 
    The supported leafs in this list are identical to those described in
-   Section 5.6.4.2.
+   Section 5.6.5.2.
 
 5.8.  The "large" list
 
@@ -540,55 +555,39 @@ Internet-Draft             BGP Community YANG              February 2024
    A required value of type "community-name", containing the name of
    this community.
 
+
+
+Pels                     Expires 24 August 2024                [Page 10]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
    The structure of the "community-name" type is defined in Section 6.2.
 
-5.8.2.  The "description" leaf
+5.8.2.  The "category" leaf
+
+   An optional value of type "community-category", containing the
+   category of this community.
+
+   The structure of the "community-category" type is defined in
+   Section 6.3.
+
+5.8.3.  The "description" leaf
 
    An optional value of type "community-description", containing a
    description of this community.
 
    The structure of the "community-description" type is defined in
-   Section 6.3.
+   Section 6.4.
 
-5.8.3.  The "globaladmin" leaf
+5.8.4.  The "globaladmin" leaf
 
    A required value of type "inet:as-number", containing the Autonomous
    Sytem Number set in the Global Administrator part of this community.
 
-
-
-Pels                     Expires 23 August 2024                [Page 10]
-
-Internet-Draft             BGP Community YANG              February 2024
-
-
-5.8.4.  The "localdatapart1" container
+5.8.5.  The "localdatapart1" container
 
    A group of elements that describe the Local Data Part 1 section of
-   the community.  This object contains the following elements.
-
-5.8.4.1.  The "format" leaf
-
-   An optional value of type "localadmin-format", describing the
-   encoding format in which fields are to be parsed (see Section 7.2).
-
-   The structure of the "localadmin-format" type is defined in
-   Section 6.4.  If this leaf is not defined, the default "decimal"
-   encoding is assumed.
-
-5.8.4.2.  The "fields" list
-
-   A list of objects that together form the Local Data Part 1 section of
-   the community.  The combined length values of all fields MUST not
-   exceed the maximum length of the "Local Data Part 1" section of the
-   community.
-
-   The supported leafs in this list are identical to those described in
-   Section 5.6.4.2.
-
-5.8.5.  The "localdatapart2" container
-
-   A group of elements that describe the Local Data Part 2 section of
    the community.  This object contains the following elements.
 
 5.8.5.1.  The "format" leaf
@@ -597,10 +596,43 @@ Internet-Draft             BGP Community YANG              February 2024
    encoding format in which fields are to be parsed (see Section 7.2).
 
    The structure of the "localadmin-format" type is defined in
-   Section 6.4.  If this leaf is not defined, the default "decimal"
+   Section 6.5.  If this leaf is not defined, the default "decimal"
    encoding is assumed.
 
 5.8.5.2.  The "fields" list
+
+   A list of objects that together form the Local Data Part 1 section of
+   the community.  The combined length values of all fields MUST not
+   exceed the maximum length of the "Local Data Part 1" section of the
+   community.
+
+   The supported leafs in this list are identical to those described in
+   Section 5.6.5.2.
+
+
+
+
+
+Pels                     Expires 24 August 2024                [Page 11]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
+5.8.6.  The "localdatapart2" container
+
+   A group of elements that describe the Local Data Part 2 section of
+   the community.  This object contains the following elements.
+
+5.8.6.1.  The "format" leaf
+
+   An optional value of type "localadmin-format", describing the
+   encoding format in which fields are to be parsed (see Section 7.2).
+
+   The structure of the "localadmin-format" type is defined in
+   Section 6.5.  If this leaf is not defined, the default "decimal"
+   encoding is assumed.
+
+5.8.6.2.  The "fields" list
 
    A list of objects that together form the Local Data Part 2 section of
    the community.  The combined length values of all fields MUST not
@@ -608,15 +640,7 @@ Internet-Draft             BGP Community YANG              February 2024
    community.
 
    The supported leafs in this list are identical to those described in
-   Section 5.6.4.2.
-
-
-
-
-Pels                     Expires 23 August 2024                [Page 11]
-
-Internet-Draft             BGP Community YANG              February 2024
-
+   Section 5.6.5.2.
 
 6.  Type definitions
 
@@ -632,47 +656,49 @@ Internet-Draft             BGP Community YANG              February 2024
    A string specifying the name of a BGP community.  Names may be up to
    255 characters long and MUST NOT contain spaces or tabs.
 
-6.3.  The "community-description" data type
+6.3.  The "community-category" data type
+
+   An enum specifying the category of a BGP community.  Possible
+   categories are "informational" and "action", as described in
+   [RFC8195].
+
+6.4.  The "community-description" data type
 
    A string specifying the description of a BGP community.  Descriptions
    may be up to 65535 characters long.
 
-6.4.  The "localadmin-format" data type
+
+
+Pels                     Expires 24 August 2024                [Page 12]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
+6.5.  The "localadmin-format" data type
 
    An enum specifying the encoding for a localadmin/localdata field.
    Possible encodings are "decimal" for decimal numbers and "binary" for
    bit strings.
 
-6.5.  The "field-name" data type
+6.6.  The "field-name" data type
 
    A string specifying the name of a BGP community localadmin/localdata
    field.  Names may be up to 255 characters long and MUST NOT contain
    spaces or tabs.
 
-6.6.  The "field-pattern" data type
+6.7.  The "field-pattern" data type
 
    A string specifying the pattern of a BGP community localadmin/
    localdata field.  Patterns may be up to 4095 characters long and are
    described as POSIX Extended Regular Expressions (see
    [IEEE.1003-2.1992], section 2.8.4).
 
-6.7.  The "field-description" data type
+6.8.  The "field-description" data type
 
    A string specifying the description of a BGP community localadmin/
    localdata field.  Descriptions may be up to 65535 characters long.
 
 7.  Operational guidelines
-
-
-
-
-
-
-
-Pels                     Expires 23 August 2024                [Page 12]
-
-Internet-Draft             BGP Community YANG              February 2024
-
 
 7.1.  Publishing guidelines
 
@@ -694,6 +720,15 @@ Internet-Draft             BGP Community YANG              February 2024
    display information about a received community.  If a received
    community matches multiple published community definitions, the first
    matching definition in the published order takes precedence.
+
+
+
+
+
+Pels                     Expires 24 August 2024                [Page 13]
+
+Internet-Draft             BGP Community YANG              February 2024
+
 
    Parsers that use published community definitions from multiple
    operators SHOULD NOT attempt to match received communities where the
@@ -723,13 +758,6 @@ Internet-Draft             BGP Community YANG              February 2024
    This document registers the following XML namespace URN in the "IETF
    XML Registry", following the format defined in [RFC3688]:
 
-
-
-Pels                     Expires 23 August 2024                [Page 13]
-
-Internet-Draft             BGP Community YANG              February 2024
-
-
    TODO
 
 8.2.  YANG Module Registration
@@ -745,6 +773,18 @@ Internet-Draft             BGP Community YANG              February 2024
    registry [I-D.ietf-core-sid]:
 
    TODO
+
+
+
+
+
+
+
+
+Pels                     Expires 24 August 2024                [Page 14]
+
+Internet-Draft             BGP Community YANG              February 2024
+
 
 9.  Security considerations
 
@@ -778,14 +818,6 @@ Internet-Draft             BGP Community YANG              February 2024
               BCP 6, RFC 1930, DOI 10.17487/RFC1930, March 1996,
               <https://www.rfc-editor.org/info/rfc1930>.
 
-
-
-
-Pels                     Expires 23 August 2024                [Page 14]
-
-Internet-Draft             BGP Community YANG              February 2024
-
-
    [RFC1997]  Chandra, R., Traina, P., and T. Li, "BGP Communities
               Attribute", RFC 1997, DOI 10.17487/RFC1997, August 1996,
               <https://www.rfc-editor.org/info/rfc1997>.
@@ -802,6 +834,13 @@ Internet-Draft             BGP Community YANG              February 2024
               I., and N. Hilliard, "BGP Large Communities Attribute",
               RFC 8092, DOI 10.17487/RFC8092, February 2017,
               <https://www.rfc-editor.org/info/rfc8092>.
+
+
+
+Pels                     Expires 24 August 2024                [Page 15]
+
+Internet-Draft             BGP Community YANG              February 2024
+
 
 11.  Informative References
 
@@ -834,14 +873,6 @@ Internet-Draft             BGP Community YANG              February 2024
               RFC 7951, DOI 10.17487/RFC7951, August 2016,
               <https://www.rfc-editor.org/info/rfc7951>.
 
-
-
-
-Pels                     Expires 23 August 2024                [Page 15]
-
-Internet-Draft             BGP Community YANG              February 2024
-
-
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/info/rfc8174>.
@@ -860,472 +891,522 @@ Appendix A.  YANG Module
    This section contains the complete YANG module defined in this
    document.
 
+
+
+Pels                     Expires 24 August 2024                [Page 16]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
    NOTE: '\' line wrapping per [RFC8792]
 
- module draft-ietf-grow-yang-bgp-communities {
+module draft-ietf-grow-yang-bgp-communities {
 
-   yang-version 1.1;
+  yang-version 1.1;
 
-   namespace "urn:to-be-defined";
+  namespace "urn:to-be-defined";
 
-   prefix bgpcomm;
+  prefix bgpcomm;
 
-   import ietf-inet-types {
-     prefix inet;
-     revision-date 2021-02-22;
-     reference
-       "draft-ietf-netmod-rfc6991-bis-15: Common YANG Data Types";
-   }
+  import ietf-inet-types {
+    prefix inet;
+    revision-date 2021-02-22;
+    reference
+      "draft-ietf-netmod-rfc6991-bis-15: Common YANG Data Types";
+  }
 
-   organization
-     "IETF GROW Working Group";
+  organization
+    "IETF GROW Working Group";
 
-   contact
-     "WG Web:   <https://datatracker.ietf.org/wg/grow/>
-      WG List:  <mailto:grow@ietf.org>
+  contact
+    "WG Web:   <https://datatracker.ietf.org/wg/grow/>
+     WG List:  <mailto:grow@ietf.org>
 
-      Author:   Martin Pels
-        <mailto:mpels@ripe.net>";
+     Author:   Martin Pels
+       <mailto:mpels@ripe.net>";
 
-   description
-     "This module describes a structure for BGP Communities";
+  description
+    "This module describes a structure for BGP Communities";
+
+  revision "2024-02-21" {
+    description
+      "Added data types and string restrictions.
+       Added category leaf.";
+    reference
+      "RFC YYYY: YANG Module for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
+  }
+
+  revision "2023-08-01" {
+    description
+      "Initial version.";
+    reference
+      "draft-ietf-grow-yang-bgp-communities-00";
+  }
+
+  typedef two-octet-as-number {
+    type uint16;
 
 
 
-
-Pels                     Expires 23 August 2024                [Page 16]
+Pels                     Expires 24 August 2024                [Page 17]
 
 Internet-Draft             BGP Community YANG              February 2024
 
 
-   revision "2024-02-20" {
-     description
-       "Added data types and string restrictions.";
-     reference
-       "RFC YYYY: YANG Module for BGP Communities
-        RFC-EDITOR: please update YYYY with this RFC ID";
-   }
+    description
+      "This type represents autonomous system numbers, which
+       identify an Autonomous System (AS).
 
-   revision "2023-08-01" {
-     description
-       "Initial version.";
-     reference
-       "draft-ietf-grow-yang-bgp-communities-00";
-   }
+       Autonomous system numbers were originally limited to 16
+       bits.  BGP extensions have enlarged the autonomous system
+       number space to 32 bits.  The two-octet-as-number type uses
+       an uint16 base type for use cases where the enlarged number
+       space is not supported.";
+    reference
+      "RFC 1930: Guidelines for creation, selection, and registration
+                   of an Autonomous System (AS)";
+  }
 
-   typedef two-octet-as-number {
-     type uint16;
-     description
-       "This type represents autonomous system numbers, which
-        identify an Autonomous System (AS).
+  typedef community-name {
+    type string {
+      length 1..255;
+      pattern "[^ \t\n[:cntrl:]]+";
+    }
+    description
+      "This type restricts values for the name of a BGP community.";
+  }
 
-        Autonomous system numbers were originally limited to 16
-        bits.  BGP extensions have enlarged the autonomous system
-        number space to 32 bits.  The two-octet-as-number type uses
-        an uint16 base type for use cases where the enlarged number
-        space is not supported.";
-     reference
-       "RFC 1930: Guidelines for creation, selection, and registration
-                    of an Autonomous System (AS)";
-   }
+  typedef community-category {
+    type enumeration {
+      enum informational {
+        value 0;
+        description
+          "Informational community";
+      }
+      enum action {
+        value 1;
+        description
+          "Action community";
+      }
+    }
+    description
+      "This type restricts values for the category of a BGP community.";
+  }
 
-   typedef community-name {
-     type string {
-       length 1..255;
-       pattern "[^ \t\n[:cntrl:]]+";
-     }
-     description
-       "This type restricts values for the name of a BGP
-        community.";
-   }
-
-   typedef community-description {
-     type string {
-       length 1..65535;
-       pattern "[[:print:]]+";
-     }
-     description
-       "This type restricts values for the description of a
+  typedef community-description {
+    type string {
+      length 1..65535;
+      pattern "[[:print:]]+";
+    }
+    description
+      "This type restricts values for the description of a BGP
+       community.";
 
 
 
-Pels                     Expires 23 August 2024                [Page 17]
+Pels                     Expires 24 August 2024                [Page 18]
 
 Internet-Draft             BGP Community YANG              February 2024
 
 
-          BGP community.";
-   }
+  }
 
-   typedef localadmin-format {
-     type enumeration {
-       enum decimal {
-         value 0;
-         description
-           "Decimal number string";
-       }
-       enum binary {
-         value 1;
-         description
-           "Bit string";
-       }
-     }
-     description
-       "This type defines the format options for a BGP community
-        localadmin/localdata field encoding";
-   }
+  typedef localadmin-format {
+    type enumeration {
+      enum decimal {
+        value 0;
+        description
+          "Decimal number string";
+      }
+      enum binary {
+        value 1;
+        description
+          "Bit string";
+      }
+    }
+    description
+      "This type defines the format options for a BGP community
+       localadmin/localdata field encoding";
+  }
 
-   typedef field-name {
-     type string {
-       length 1..255;
-       pattern "[^ \t\n[:cntrl:]]+";
-     }
-     description
-       "This type restricts values for the name leaf of a BGP community
-        localadmin/localdata field.";
-   }
+  typedef field-name {
+    type string {
+      length 1..255;
+      pattern "[^ \t\n[:cntrl:]]+";
+    }
+    description
+      "This type restricts values for the name leaf of a BGP community
+       localadmin/localdata field.";
+  }
 
-   typedef field-pattern {
-     type string {
-       length 1..4095;
-       pattern "[-0-9.,*?^$+|(){}\\[\\]]+";
-     }
-     description
-       "This type restricts values for the pattern leaf of a BGP
-        community localadmin/localdata field.  Patterns are
-        described as POSIX Extended Regular Expressions";
-     reference
-       "IEEE 1003.2-1992: Information Technology - Portable
-        Operating System Interface (POSIX) - Part 2: Shell and
-        Utilities (Vol. 1)";
-   }
+  typedef field-pattern {
+    type string {
+      length 1..4095;
+      pattern "[-0-9.,*?^$+|(){}\\[\\]]+";
+    }
+    description
+      "This type restricts values for the pattern leaf of a BGP
+       community localadmin/localdata field.  Patterns are
+       described as POSIX Extended Regular Expressions";
+    reference
+      "IEEE 1003.2-1992: Information Technology - Portable
+       Operating System Interface (POSIX) - Part 2: Shell and
+       Utilities (Vol. 1)";
+  }
 
-   typedef field-description {
-     type string {
+  typedef field-description {
+    type string {
+      length 1..65535;
 
 
 
-Pels                     Expires 23 August 2024                [Page 18]
+Pels                     Expires 24 August 2024                [Page 19]
 
 Internet-Draft             BGP Community YANG              February 2024
 
 
-       length 1..65535;
-       pattern "[[:print:]]+";
-     }
-     description
-       "This type restricts values for the description leaf of a BGP
-        community localadmin/localdata field.";
-   }
+      pattern "[[:print:]]+";
+    }
+    description
+      "This type restricts values for the description leaf of a BGP
+       community localadmin/localdata field.";
+  }
 
-   grouping localadmin-fields {
-     list fields {
-       ordered-by user;
-       key "name";
+  grouping localadmin-fields {
+    list fields {
+      ordered-by user;
+      key "name";
 
-       leaf name {
-         type field-name;
-         mandatory true;
-         description
-           "The name of the field";
-       }
+      leaf name {
+        type field-name;
+        mandatory true;
+        description
+          "The name of the field";
+      }
 
-       leaf length {
-         type uint8;
-         description
-           "Length of the field";
-       }
+      leaf length {
+        type uint8;
+        description
+          "Length of the field";
+      }
 
-       leaf pattern {
-         type field-pattern;
-         mandatory true;
-         description
-           "Regular Expression describing the expected contents of
-            the field";
-       }
+      leaf pattern {
+        type field-pattern;
+        mandatory true;
+        description
+          "Regular Expression describing the expected contents of
+           the field";
+      }
 
-       leaf description {
-         type field-description;
-         description
-           "A text description of the field contents";
-       }
-     }
-   }
+      leaf description {
+        type field-description;
+        description
+          "A text description of the field contents";
+      }
+    }
+  }
 
-   container bgp-communities {
+  container bgp-communities {
 
-     leaf serial {
-       type uint32;
-       mandatory true;
-       description
+    leaf serial {
+      type uint32;
+      mandatory true;
+      description
+        "Version number of the community set";
 
 
 
-Pels                     Expires 23 August 2024                [Page 19]
+Pels                     Expires 24 August 2024                [Page 20]
 
 Internet-Draft             BGP Community YANG              February 2024
 
 
-         "Version number of the community set.";
-     }
+    }
 
-     leaf uri {
-       type inet:uri;
-       description
-         "Publication point for the community set";
-     }
+    leaf uri {
+      type inet:uri;
+      description
+        "Publication point for the community set";
+    }
 
-     leaf description {
-       type string {
-         length 1..65535;
-         pattern "[[:print:]]+";
-       }
-       description
-         "A description for the community set";
-     }
+    leaf description {
+      type string {
+        length 1..65535;
+        pattern "[[:print:]]+";
+      }
+      description
+        "A description for the community set";
+    }
 
-     leaf contacturl {
-       type inet:uri;
-       description
-         "A reference to a webpage with maintainer contact information";
-     }
+    leaf contacturl {
+      type inet:uri;
+      description
+        "A reference to a webpage with maintainer contact information";
+    }
 
-     list contacts {
-       key "emailaddress";
+    list contacts {
+      key "emailaddress";
 
-       leaf emailaddress {
-         type inet:email-address;
-         description
-           "Maintainer contact e-mail address";
-       }
+      leaf emailaddress {
+        type inet:email-address;
+        description
+          "Maintainer contact e-mail address";
+      }
 
-       leaf name {
-         type string {
-           length 1..255;
-           pattern "[[:print:]]+";
-         }
-         description
-           "Maintainer contact name";
-       }
+      leaf name {
+        type string {
+          length 1..255;
+          pattern "[[:print:]]+";
+        }
+        description
+          "Maintainer contact name";
+      }
 
-       leaf role {
-         type string {
-           length 1..255;
-           pattern "[[:print:]]+";
-         }
-         description
+      leaf role {
+        type string {
+          length 1..255;
+          pattern "[[:print:]]+";
+        }
+        description
+          "Maintainer contact role";
 
 
 
-Pels                     Expires 23 August 2024                [Page 20]
+Pels                     Expires 24 August 2024                [Page 21]
 
 Internet-Draft             BGP Community YANG              February 2024
 
 
-           "Maintainer contact role";
-       }
+      }
 
-       leaf organization {
-         type string {
-           length 1..255;
-           pattern "[[:print:]]+";
-         }
-         description
-           "Maintainer contact organization";
-       }
+      leaf organization {
+        type string {
+          length 1..255;
+          pattern "[[:print:]]+";
+        }
+        description
+          "Maintainer contact organization";
+      }
 
-       leaf organizationalunit {
-         type string {
-           length 1..255;
-           pattern "[[:print:]]+";
-         }
-         description
-           "Maintainer contact organizational unit";
-       }
-     }
+      leaf organizationalunit {
+        type string {
+          length 1..255;
+          pattern "[[:print:]]+";
+        }
+        description
+          "Maintainer contact organizational unit";
+      }
+    }
 
-     list regular {
-       key "name";
+    list regular {
+      key "name";
 
-       leaf name {
-         type community-name;
-         mandatory true;
-         description
-           "Community name.";
-       }
+      leaf name {
+        type community-name;
+        mandatory true;
+        description
+          "Community name";
+      }
 
-       leaf description {
-         type community-description;
-         description
-           "Description for the community";
-       }
+      leaf category {
+        type community-category;
+        description
+          "Category of the community";
+      }
 
-       leaf globaladmin {
-         type two-octet-as-number;
-         mandatory true;
-         description
-           "Global Administrator field";
-       }
+      leaf description {
+        type community-description;
+        description
+          "Description for the community";
+      }
 
-       container localadmin {
-         leaf format {
-           type localadmin-format;
+      leaf globaladmin {
+        type two-octet-as-number;
+        mandatory true;
+        description
+          "Global Administrator field";
 
 
 
-Pels                     Expires 23 August 2024                [Page 21]
+Pels                     Expires 24 August 2024                [Page 22]
 
 Internet-Draft             BGP Community YANG              February 2024
 
 
-           default decimal;
-           description
-             "Format used for parsing localadmin fields";
-         }
+      }
 
-         uses localadmin-fields;
-       }
+      container localadmin {
+        leaf format {
+          type localadmin-format;
+          default decimal;
+          description
+            "Format used for parsing localadmin fields";
+        }
 
-       description
-         "A list of objects defining Regular BGP Communities";
-       reference
-         "RFC1997: BGP Communities Attribute";
-     }
+        uses localadmin-fields;
+      }
 
-     list extended {
-       key "name";
+      description
+        "A list of objects defining Regular BGP Communities";
+      reference
+        "RFC1997: BGP Communities Attribute";
+    }
 
-       leaf name {
-         type community-name;
-         mandatory true;
-         description
-           "Community name";
-       }
+    list extended {
+      key "name";
 
-       leaf description {
-         type community-description;
-         description
-           "Description for the community";
-       }
+      leaf name {
+        type community-name;
+        mandatory true;
+        description
+          "Community name";
+      }
 
-       leaf type {
-         type uint8;
-         mandatory true;
-         description
-           "Type Field";
-       }
-       leaf subtype {
-         type uint8;
-         mandatory true;
-         description
-           "Sub-Type Field";
-       }
+      leaf category {
+        type community-category;
+        description
+          "Category of the community";
+      }
 
-       choice globaladmin {
-         mandatory true;
-         case asn {
-           leaf asn {
-             type two-octet-as-number;
+      leaf description {
+        type community-description;
+        description
+          "Description for the community";
+      }
+
+      leaf type {
+        type uint8;
+        mandatory true;
+        description
+          "Type Field";
+      }
+      leaf subtype {
 
 
 
-Pels                     Expires 23 August 2024                [Page 22]
+Pels                     Expires 24 August 2024                [Page 23]
 
 Internet-Draft             BGP Community YANG              February 2024
 
 
-             description
-               "Two-Octet AS";
-           }
-         }
-         case asn4 {
-           leaf asn4 {
-             type inet:as-number;
-             description
-               "Four-Octet AS";
-           }
-         }
-       }
+        type uint8;
+        mandatory true;
+        description
+          "Sub-Type Field";
+      }
 
-       container localadmin {
-         leaf format {
-           type localadmin-format;
-           default decimal;
-           description
-             "Format used for parsing localadmin fields";
-         }
+      choice globaladmin {
+        mandatory true;
+        case asn {
+          leaf asn {
+            type two-octet-as-number;
+            description
+              "Two-Octet AS";
+          }
+        }
+        case asn4 {
+          leaf asn4 {
+            type inet:as-number;
+            description
+              "Four-Octet AS";
+          }
+        }
+      }
 
-         uses localadmin-fields;
-       }
+      container localadmin {
+        leaf format {
+          type localadmin-format;
+          default decimal;
+          description
+            "Format used for parsing localadmin fields";
+        }
 
-       description
-         "A list of objects defining Extended BGP Communities";
-       reference
-         "RFC4360: BGP Extended Communities Attribute";
-     }
+        uses localadmin-fields;
+      }
 
-     list large {
-       key "name";
+      description
+        "A list of objects defining Extended BGP Communities";
+      reference
+        "RFC4360: BGP Extended Communities Attribute";
+    }
 
-       leaf name {
-         type community-name;
-         mandatory true;
-         description
-           "Community name.";
-       }
+    list large {
+      key "name";
 
-       leaf description {
-         type community-description;
-         description
-           "Description for the community";
-       }
-
-       leaf globaladmin {
-         type inet:as-number;
+      leaf name {
+        type community-name;
+        mandatory true;
+        description
 
 
 
-Pels                     Expires 23 August 2024                [Page 23]
+Pels                     Expires 24 August 2024                [Page 24]
 
 Internet-Draft             BGP Community YANG              February 2024
 
 
-         mandatory true;
-         description
-           "Global Administrator field";
-       }
+          "Community name";
+      }
 
-       container localdatapart1 {
-         leaf format {
-           type localadmin-format;
-           default decimal;
-           description
-             "Format used for parsing localadmin fields";
-         }
+      leaf category {
+        type community-category;
+        description
+          "Category of the community";
+      }
 
-         uses localadmin-fields;
-       }
+      leaf description {
+        type community-description;
+        description
+          "Description for the community";
+      }
 
-       container localdatapart2 {
-         leaf format {
-           type localadmin-format;
-           default decimal;
-           description
-             "Format used for parsing localadmin fields";
-         }
+      leaf globaladmin {
+        type inet:as-number;
+        mandatory true;
+        description
+          "Global Administrator field";
+      }
 
-         uses localadmin-fields;
-       }
+      container localdatapart1 {
+        leaf format {
+          type localadmin-format;
+          default decimal;
+          description
+            "Format used for parsing localadmin fields";
+        }
 
-       description
-         "A list of objects defining Large BGP Communities";
-       reference
-         "RFC8092: BGP Large Communities Attribute";
-     }
-   }
- }
+        uses localadmin-fields;
+      }
 
-                                Figure 2
+      container localdatapart2 {
+        leaf format {
+          type localadmin-format;
+          default decimal;
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
+
+      description
+        "A list of objects defining Large BGP Communities";
+      reference
+        "RFC8092: BGP Large Communities Attribute";
+
+
+
+Pels                     Expires 24 August 2024                [Page 25]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
+    }
+  }
+}
+
+                               Figure 2
 
 Appendix B.  JSON Examples
 
@@ -1341,7 +1422,38 @@ B.1.  RFC8195 Selective NO_EXPORT definition
 
 
 
-Pels                     Expires 23 August 2024                [Page 24]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Pels                     Expires 24 August 2024                [Page 26]
 
 Internet-Draft             BGP Community YANG              February 2024
 
@@ -1364,6 +1476,7 @@ Internet-Draft             BGP Community YANG              February 2024
        "large": [
          {
            "name": "RFC8195-NOEXPORT-ASN",
+           "category": "action",
            "description": "Do not export route to ASN",
            "globaladmin": 65539,
            "localdatapart1": {
@@ -1390,17 +1503,21 @@ Internet-Draft             BGP Community YANG              February 2024
 
                                   Figure 3
 
+
+
+
+
+
+
+Pels                     Expires 24 August 2024                [Page 27]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
 B.2.  RFC4384 Data Collection definition
 
    A JSON definition for the example Regular BGP community described in
    [RFC4384], section 4 looks as follows.
-
-
-
-Pels                     Expires 23 August 2024                [Page 25]
-
-Internet-Draft             BGP Community YANG              February 2024
-
 
    NOTE: '\' line wrapping per [RFC8792]
 
@@ -1445,18 +1562,19 @@ Internet-Draft             BGP Community YANG              February 2024
 
                                 Figure 4
 
+
+
+
+Pels                     Expires 24 August 2024                [Page 28]
+
+Internet-Draft             BGP Community YANG              February 2024
+
+
 Appendix C.  Acknowledgements
 
    The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper
    den Hertog, Teun Vink, Tom Petch and Dale Carder for contributing
    ideas and feedback to this document.
-
-
-
-Pels                     Expires 23 August 2024                [Page 26]
-
-Internet-Draft             BGP Community YANG              February 2024
-
 
 Author's Address
 
@@ -1503,10 +1621,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-Pels                     Expires 23 August 2024                [Page 27]
+Pels                     Expires 24 August 2024                [Page 29]

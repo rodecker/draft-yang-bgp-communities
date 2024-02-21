@@ -134,6 +134,7 @@ module: draft-ietf-grow-yang-bgp-communities
      |  +--rw organizationalunit?   string
      +--rw regular* [name]
      |  +--rw name           community-name
+     |  +--rw category?      community-category
      |  +--rw description?   community-description
      |  +--rw globaladmin    two-octet-as-number
      |  +--rw localadmin
@@ -145,6 +146,7 @@ module: draft-ietf-grow-yang-bgp-communities
      |        +--rw description?   field-description
      +--rw extended* [name]
      |  +--rw name             community-name
+     |  +--rw category?        community-category
      |  +--rw description?     community-description
      |  +--rw type             uint8
      |  +--rw subtype          uint8
@@ -162,6 +164,7 @@ module: draft-ietf-grow-yang-bgp-communities
      |        +--rw description?   field-description
      +--rw large* [name]
         +--rw name              community-name
+        +--rw category?         community-category
         +--rw description?      community-description
         +--rw globaladmin       inet:as-number
         +--rw localdatapart1
@@ -269,6 +272,15 @@ module: draft-ietf-grow-yang-bgp-communities
           </t>
         </section>
 
+        <section title="The &quot;category&quot; leaf" anchor="elements.regular.category">
+          <t>
+            An optional value of type "community-category", containing the category of this community.
+          </t>
+          <t>
+            The structure of the "community-category" type is defined in <xref target="types.community-category"/>.
+          </t>
+        </section>
+
         <section title="The &quot;description&quot; leaf" anchor="elements.regular.description">
           <t>
             An optional value of type "community-description", containing a description of this community.
@@ -371,6 +383,15 @@ module: draft-ietf-grow-yang-bgp-communities
           </t>
         </section>
 
+        <section title="The &quot;category&quot; leaf" anchor="elements.extended.category">
+          <t>
+            An optional value of type "community-category", containing the category of this community.
+          </t>
+          <t>
+            The structure of the "community-category" type is defined in <xref target="types.community-category"/>.
+          </t>
+        </section>
+
         <section title="The &quot;description&quot; leaf" anchor="elements.extended.description">
           <t>
             An optional value of type "community-description", containing a description of this community.
@@ -449,6 +470,15 @@ module: draft-ietf-grow-yang-bgp-communities
           </t>
           <t>
             The structure of the "community-name" type is defined in <xref target="types.community-name"/>.
+          </t>
+        </section>
+
+        <section title="The &quot;category&quot; leaf" anchor="elements.large.category">
+          <t>
+            An optional value of type "community-category", containing the category of this community.
+          </t>
+          <t>
+            The structure of the "community-category" type is defined in <xref target="types.community-category"/>.
           </t>
         </section>
 
@@ -543,6 +573,13 @@ module: draft-ietf-grow-yang-bgp-communities
         <t>
           A string specifying the name of a BGP community.
           Names may be up to 255 characters long and MUST NOT contain spaces or tabs.
+        </t>
+      </section>
+
+      <section title="The &quot;community-category&quot; data type" anchor="types.community-category">
+        <t>
+          An enum specifying the category of a BGP community.
+          Possible categories are "informational" and "action", as described in <xref target="RFC8195"/>.
         </t>
       </section>
 
@@ -726,9 +763,10 @@ module draft-ietf-grow-yang-bgp-communities {
   description
     "This module describes a structure for BGP Communities";
 
-  revision "2024-02-20" {
+  revision "2024-02-21" {
     description
-      "Added data types and string restrictions.";
+      "Added data types and string restrictions.
+       Added category leaf.";
     reference
       "RFC YYYY: YANG Module for BGP Communities
        RFC-EDITOR: please update YYYY with this RFC ID";
@@ -763,8 +801,24 @@ module draft-ietf-grow-yang-bgp-communities {
       pattern "[^ \t\n[:cntrl:]]+";
     }
     description
-      "This type restricts values for the name of a BGP
-       community.";
+      "This type restricts values for the name of a BGP community.";
+  }
+
+  typedef community-category {
+    type enumeration {
+      enum informational {
+        value 0;
+        description
+          "Informational community";
+      }
+      enum action {
+        value 1;
+        description
+          "Action community";
+      }
+    }
+    description
+      "This type restricts values for the category of a BGP community.";
   }
 
   typedef community-description {
@@ -773,8 +827,8 @@ module draft-ietf-grow-yang-bgp-communities {
       pattern "[[:print:]]+";
     }
     description
-      "This type restricts values for the description of a
-         BGP community.";
+      "This type restricts values for the description of a BGP
+       community.";
   }
 
   typedef localadmin-format {
@@ -870,7 +924,7 @@ module draft-ietf-grow-yang-bgp-communities {
       type uint32;
       mandatory true;
       description
-        "Version number of the community set.";
+        "Version number of the community set";
     }
 
     leaf uri {
@@ -947,7 +1001,13 @@ module draft-ietf-grow-yang-bgp-communities {
         type community-name;
         mandatory true;
         description
-          "Community name.";
+          "Community name";
+      }
+
+      leaf category {
+        type community-category;
+        description
+          "Category of the community";
       }
 
       leaf description {
@@ -988,6 +1048,12 @@ module draft-ietf-grow-yang-bgp-communities {
         mandatory true;
         description
           "Community name";
+      }
+
+      leaf category {
+        type community-category;
+        description
+          "Category of the community";
       }
 
       leaf description {
@@ -1051,7 +1117,13 @@ module draft-ietf-grow-yang-bgp-communities {
         type community-name;
         mandatory true;
         description
-          "Community name.";
+          "Community name";
+      }
+
+      leaf category {
+        type community-category;
+        description
+          "Category of the community";
       }
 
       leaf description {
@@ -1131,6 +1203,7 @@ NO_EXPORT",
     "large": [
       {
         "name": "RFC8195-NOEXPORT-ASN",
+        "category": "action",
         "description": "Do not export route to ASN",
         "globaladmin": 65539,
         "localdatapart1": {
