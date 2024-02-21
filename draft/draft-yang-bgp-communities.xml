@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 
 <!DOCTYPE rfc [
-<!ENTITY I-D.ietf-core-sid PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-core-sid-20.xml">
+<!ENTITY I-D.ietf-core-sid PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-core-sid-24.xml">
 <!ENTITY I-D.ietf-netmod-rfc6991-bis PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-netmod-rfc6991-bis-15.xml">
 <!ENTITY IEEE.1003-2.1992 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml6/reference.R.IEEE.1003-2.1992.xml">
 <!ENTITY RFC1930 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1930.xml">
@@ -318,7 +318,7 @@ module: draft-ietf-grow-yang-bgp-communities
           <section title="The &quot;fields&quot; list" anchor="elements.regular.localadmin.fields">
             <t>
               A list of objects that together form the Local Administrator part of the community.
-              The combined length values of all fields MUST not exceed the maximum length of the Local Administrator part of the community.
+              The combined length values of all fields MUST NOT exceed the maximum length of the Local Administrator part of the community.
             </t>
 
             <section title="The &quot;name&quot; leaf" anchor="elements.regular.localadmin.fields.name">
@@ -447,7 +447,7 @@ module: draft-ietf-grow-yang-bgp-communities
           <section title="The &quot;fields&quot; list" anchor="elements.extended.localadmin.fields">
             <t>
               A list of objects that together form the Local Administrator part of the community.
-              The combined length values of all fields MUST not exceed the maximum length of the Local Administrator part of the community.
+              The combined length values of all fields MUST NOT exceed the maximum length of the Local Administrator part of the community.
             </t>
             <t>
               The supported leafs in this list are identical to those described in <xref target="elements.regular.localadmin.fields"/>.
@@ -516,7 +516,7 @@ module: draft-ietf-grow-yang-bgp-communities
           <section title="The &quot;fields&quot; list" anchor="elements.large.localdatapart1.fields">
             <t>
               A list of objects that together form the Local Data Part 1 section of the community.
-              The combined length values of all fields MUST not exceed the maximum length of the "Local Data Part 1" section of the community.
+              The combined length values of all fields MUST NOT exceed the maximum length of the "Local Data Part 1" section of the community.
             </t>
             <t>
               The supported leafs in this list are identical to those described in <xref target="elements.regular.localadmin.fields"/>.
@@ -544,7 +544,7 @@ module: draft-ietf-grow-yang-bgp-communities
           <section title="The &quot;fields&quot; list" anchor="elements.large.localdatapart2.fields">
             <t>
               A list of objects that together form the Local Data Part 2 section of the community.
-              The combined length values of all fields MUST not exceed the maximum length of the "Local Data Part 2" section of the community.
+              The combined length values of all fields MUST NOT exceed the maximum length of the "Local Data Part 2" section of the community.
             </t>
             <t>
               The supported leafs in this list are identical to those described in <xref target="elements.regular.localadmin.fields"/>.

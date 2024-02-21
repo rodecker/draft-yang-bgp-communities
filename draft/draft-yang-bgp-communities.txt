@@ -414,7 +414,7 @@ Internet-Draft             BGP Community YANG              February 2024
 5.6.5.2.  The "fields" list
 
    A list of objects that together form the Local Administrator part of
-   the community.  The combined length values of all fields MUST not
+   the community.  The combined length values of all fields MUST NOT
    exceed the maximum length of the Local Administrator part of the
    community.
 
@@ -538,7 +538,7 @@ Internet-Draft             BGP Community YANG              February 2024
 5.7.8.2.  The "fields" list
 
    A list of objects that together form the Local Administrator part of
-   the community.  The combined length values of all fields MUST not
+   the community.  The combined length values of all fields MUST NOT
    exceed the maximum length of the Local Administrator part of the
    community.
 
@@ -602,7 +602,7 @@ Internet-Draft             BGP Community YANG              February 2024
 5.8.5.2.  The "fields" list
 
    A list of objects that together form the Local Data Part 1 section of
-   the community.  The combined length values of all fields MUST not
+   the community.  The combined length values of all fields MUST NOT
    exceed the maximum length of the "Local Data Part 1" section of the
    community.
 
@@ -635,7 +635,7 @@ Internet-Draft             BGP Community YANG              February 2024
 5.8.6.2.  The "fields" list
 
    A list of objects that together form the Local Data Part 2 section of
-   the community.  The combined length values of all fields MUST not
+   the community.  The combined length values of all fields MUST NOT
    exceed the maximum length of the "Local Data Part 2" section of the
    community.
 
@@ -802,9 +802,9 @@ Internet-Draft             BGP Community YANG              February 2024
    [I-D.ietf-core-sid]
               Veillette, M., Pelov, A., Petrov, I., Bormann, C., and M.
               Richardson, "YANG Schema Item iDentifier (YANG SID)", Work
-              in Progress, Internet-Draft, draft-ietf-core-sid-20, 1
-              March 2023, <https://datatracker.ietf.org/doc/html/draft-
-              ietf-core-sid-20>.
+              in Progress, Internet-Draft, draft-ietf-core-sid-24, 22
+              December 2023, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-core-sid-24>.
 
    [I-D.ietf-netmod-rfc6991-bis]
               Schönwälder, J., "Common YANG Data Types", Work in
