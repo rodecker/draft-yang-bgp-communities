@@ -1,0 +1,433 @@
+module draft-ietf-grow-yang-bgp-communities {
+
+  yang-version 1.1;
+
+  namespace "urn:to-be-defined";
+
+  prefix bgpcomm;
+
+  import ietf-inet-types {
+    prefix inet;
+    revision-date 2021-02-22;
+    reference
+      "draft-ietf-netmod-rfc6991-bis-15: Common YANG Data Types";
+  }
+
+  organization
+    "IETF GROW Working Group";
+
+  contact
+    "WG Web:   <https://datatracker.ietf.org/wg/grow/>
+     WG List:  <mailto:grow@ietf.org>
+
+     Author:   Martin Pels
+       <mailto:mpels@ripe.net>";
+
+  description
+    "This module describes a structure for BGP Communities";
+
+  revision "2024-02-21" {
+    description
+      "Added data types and string restrictions.
+       Added category leaf.";
+    reference
+      "RFC YYYY: YANG Module for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
+  }
+
+  revision "2023-08-01" {
+    description
+      "Initial version.";
+    reference
+      "draft-ietf-grow-yang-bgp-communities-00";
+  }
+
+  typedef two-octet-as-number {
+    type uint16;
+    description
+      "This type represents autonomous system numbers, which
+       identify an Autonomous System (AS).
+
+       Autonomous system numbers were originally limited to 16
+       bits.  BGP extensions have enlarged the autonomous system
+       number space to 32 bits.  The two-octet-as-number type uses
+       an uint16 base type for use cases where the enlarged number
+       space is not supported.";
+    reference
+      "RFC 1930: Guidelines for creation, selection, and registration
+                   of an Autonomous System (AS)";
+  }
+
+  typedef community-name {
+    type string {
+      length 1..255;
+      pattern "[^ \t\n[:cntrl:]]+";
+    }
+    description
+      "This type restricts values for the name of a BGP community.";
+  }
+
+  typedef community-category {
+    type enumeration {
+      enum informational {
+        value 0;
+        description
+          "Informational community";
+      }
+      enum action {
+        value 1;
+        description
+          "Action community";
+      }
+    }
+    description
+      "This type restricts values for the category of a BGP community.";
+  }
+
+  typedef community-description {
+    type string {
+      length 1..65535;
+      pattern "[[:print:]]+";
+    }
+    description
+      "This type restricts values for the description of a BGP
+       community.";
+  }
+
+  typedef localadmin-format {
+    type enumeration {
+      enum decimal {
+        value 0;
+        description
+          "Decimal number string";
+      }
+      enum binary {
+        value 1;
+        description
+          "Bit string";
+      }
+    }
+    description
+      "This type defines the format options for a BGP community
+       localadmin/localdata field encoding";
+  }
+
+  typedef field-name {
+    type string {
+      length 1..255;
+      pattern "[^ \t\n[:cntrl:]]+";
+    }
+    description
+      "This type restricts values for the name leaf of a BGP community
+       localadmin/localdata field.";
+  }
+
+  typedef field-pattern {
+    type string {
+      length 1..4095;
+      pattern "[-0-9.,*?^$+|(){}\\[\\]]+";
+    }
+    description
+      "This type restricts values for the pattern leaf of a BGP
+       community localadmin/localdata field.  Patterns are
+       described as POSIX Extended Regular Expressions";
+    reference
+      "IEEE 1003.2-1992: Information Technology - Portable
+       Operating System Interface (POSIX) - Part 2: Shell and
+       Utilities (Vol. 1)";
+  }
+
+  typedef field-description {
+    type string {
+      length 1..65535;
+      pattern "[[:print:]]+";
+    }
+    description
+      "This type restricts values for the description leaf of a BGP
+       community localadmin/localdata field.";
+  }
+
+  grouping localadmin-fields {
+    list fields {
+      ordered-by user;
+      key "name";
+
+      leaf name {
+        type field-name;
+        mandatory true;
+        description
+          "The name of the field";
+      }
+
+      leaf length {
+        type uint8;
+        description
+          "Length of the field";
+      }
+
+      leaf pattern {
+        type field-pattern;
+        mandatory true;
+        description
+          "Regular Expression describing the expected contents of
+           the field";
+      }
+
+      leaf description {
+        type field-description;
+        description
+          "A text description of the field contents";
+      }
+    }
+  }
+
+  container bgp-communities {
+
+    leaf serial {
+      type uint32;
+      mandatory true;
+      description
+        "Version number of the community set";
+    }
+
+    leaf uri {
+      type inet:uri;
+      description
+        "Publication point for the community set";
+    }
+
+    leaf description {
+      type string {
+        length 1..65535;
+        pattern "[[:print:]]+";
+      }
+      description
+        "A description for the community set";
+    }
+
+    leaf contacturl {
+      type inet:uri;
+      description
+        "A reference to a webpage with maintainer contact information";
+    }
+
+    list contacts {
+      key "emailaddress";
+
+      leaf emailaddress {
+        type inet:email-address;
+        description
+          "Maintainer contact e-mail address";
+      }
+
+      leaf name {
+        type string {
+          length 1..255;
+          pattern "[[:print:]]+";
+        }
+        description
+          "Maintainer contact name";
+      }
+
+      leaf role {
+        type string {
+          length 1..255;
+          pattern "[[:print:]]+";
+        }
+        description
+          "Maintainer contact role";
+      }
+
+      leaf organization {
+        type string {
+          length 1..255;
+          pattern "[[:print:]]+";
+        }
+        description
+          "Maintainer contact organization";
+      }
+
+      leaf organizationalunit {
+        type string {
+          length 1..255;
+          pattern "[[:print:]]+";
+        }
+        description
+          "Maintainer contact organizational unit";
+      }
+    }
+
+    list regular {
+      key "name";
+
+      leaf name {
+        type community-name;
+        mandatory true;
+        description
+          "Community name";
+      }
+
+      leaf category {
+        type community-category;
+        description
+          "Category of the community";
+      }
+
+      leaf description {
+        type community-description;
+        description
+          "Description for the community";
+      }
+
+      leaf globaladmin {
+        type two-octet-as-number;
+        mandatory true;
+        description
+          "Global Administrator field";
+      }
+
+      container localadmin {
+        leaf format {
+          type localadmin-format;
+          default decimal;
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
+
+      description
+        "A list of objects defining Regular BGP Communities";
+      reference
+        "RFC1997: BGP Communities Attribute";
+    }
+
+    list extended {
+      key "name";
+
+      leaf name {
+        type community-name;
+        mandatory true;
+        description
+          "Community name";
+      }
+
+      leaf category {
+        type community-category;
+        description
+          "Category of the community";
+      }
+
+      leaf description {
+        type community-description;
+        description
+          "Description for the community";
+      }
+
+      leaf type {
+        type uint8;
+        mandatory true;
+        description
+          "Type Field";
+      }
+      leaf subtype {
+        type uint8;
+        mandatory true;
+        description
+          "Sub-Type Field";
+      }
+
+      choice globaladmin {
+        mandatory true;
+        case asn {
+          leaf asn {
+            type two-octet-as-number;
+            description
+              "Two-Octet AS";
+          }
+        }
+        case asn4 {
+          leaf asn4 {
+            type inet:as-number;
+            description
+              "Four-Octet AS";
+          }
+        }
+      }
+
+      container localadmin {
+        leaf format {
+          type localadmin-format;
+          default decimal;
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
+
+      description
+        "A list of objects defining Extended BGP Communities";
+      reference
+        "RFC4360: BGP Extended Communities Attribute";
+    }
+
+    list large {
+      key "name";
+
+      leaf name {
+        type community-name;
+        mandatory true;
+        description
+          "Community name";
+      }
+
+      leaf category {
+        type community-category;
+        description
+          "Category of the community";
+      }
+
+      leaf description {
+        type community-description;
+        description
+          "Description for the community";
+      }
+
+      leaf globaladmin {
+        type inet:as-number;
+        mandatory true;
+        description
+          "Global Administrator field";
+      }
+
+      container localdatapart1 {
+        leaf format {
+          type localadmin-format;
+          default decimal;
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
+
+      container localdatapart2 {
+        leaf format {
+          type localadmin-format;
+          default decimal;
+          description
+            "Format used for parsing localadmin fields";
+        }
+
+        uses localadmin-fields;
+      }
+
+      description
+        "A list of objects defining Large BGP Communities";
+      reference
+        "RFC8092: BGP Large Communities Attribute";
+    }
+  }
+}

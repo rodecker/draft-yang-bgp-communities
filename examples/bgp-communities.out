@@ -1,15 +1,15 @@
 65010:1234 - Unknown
 65001:1234 - Unknown
-65001:3000 - NO-ANNOUNCE (Action=No announce to peers)
-65001:2001 - PREPEND-TO-NA (Continent=North America,Prepend-count=1)
-65001:2002 - PREPEND-TO-NA (Continent=North America,Prepend-count=2)
-65001:2101 - PREPEND-TO-EU (Continent=Europe,Prepend-count=1)
-65001:2102 - PREPEND-TO-EU (Continent=Europe,Prepend-count=2)
-65001:10768 - RFC4384-EU-NL (Region=EU,Satellite=0,Country=NL)
+65001:3000 - NO-ANNOUNCE (65001:Action=No announce to peers)
+65001:2001 - PREPEND-TO-NA (65001:Continent=North America,Prepend-count=1)
+65001:2002 - PREPEND-TO-NA (65001:Continent=North America,Prepend-count=2)
+65001:2101 - PREPEND-TO-EU (65001:Continent=Europe,Prepend-count=1)
+65001:2102 - PREPEND-TO-EU (65001:Continent=Europe,Prepend-count=2)
+65001:10768 - RFC4384-EU-NL (65001:Region=EU,Satellite=0,Country=NL)
 65010:1234:1234 - Unknown
 65001:1234:1234 - Unknown
-65001:1:528 - RFC8195-ORIGIN-NL (Function=Origin:Country=NL)
-65001:4:64498 - RFC8195-NOEXPORT-ASN (Function=ASN-No-Export:ASN=64498)
+65001:1:528 - RFC8195-ORIGIN-NL/informational (65001:Function=Origin:Country=NL)
+65001:4:64498 - RFC8195-NOEXPORT-ASN/action (65001:Function=ASN-No-Export:ASN=64498)
 0x00:0x02:65010:1234 - Unknown
 0x03:0x00:65001:1234 - Unknown
-0x00:0x02:65001:4200000001 - ANNOUNCE-TO-PEER (Peer-AS=4200000001)
+0x00:0x03:65001:4200000001 - ANNOUNCE-TO-PEER (65001:Peer-AS=4200000001)

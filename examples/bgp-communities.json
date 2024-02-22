@@ -1,5 +1,5 @@
 {
-  "draft-yang-bgp-communities:bgp-communities": {
+  "draft-ietf-grow-yang-bgp-communities:bgp-communities": {
     "description": "BGP Communities for Example.net",
     "contacts": [
       {
@@ -98,6 +98,7 @@
     "large": [
       {
         "name": "RFC8195-ORIGIN-NL",
+        "category": "informational",
         "description": "Example Large: RFC8195 - Origin NL",
         "globaladmin": 65001,
         "localdatapart1": {
@@ -121,6 +122,7 @@
       },
       {
         "name": "RFC8195-NOEXPORT-ASN",
+        "category": "action",
         "description": "Example Large: RFC8195 - No-export to ASN",
         "globaladmin": 65001,
         "localdatapart1": {
@@ -147,7 +149,7 @@
         "name": "ANNOUNCE-TO-PEER",
         "description": "Example Extended: Announce to Peer AS",
         "type": 0,
-        "subtype": 2,
+        "subtype": 3,
         "asn": 65001,
         "localadmin": {
           "fields": [

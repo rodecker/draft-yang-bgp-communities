@@ -33,9 +33,9 @@ def main(values_file: str, struct_file: str):
 
     with open(struct_file, "r", encoding="utf-8") as filehandle:
         jdata = json.load(filehandle)
-        candidates_rc = jdata['draft-yang-bgp-communities:bgp-communities']['regular']
-        candidates_lc = jdata['draft-yang-bgp-communities:bgp-communities']['large']
-        candidates_ec = jdata['draft-yang-bgp-communities:bgp-communities']['extended']
+        candidates_rc = jdata['draft-ietf-grow-yang-bgp-communities:bgp-communities']['regular']
+        candidates_lc = jdata['draft-ietf-grow-yang-bgp-communities:bgp-communities']['large']
+        candidates_ec = jdata['draft-ietf-grow-yang-bgp-communities:bgp-communities']['extended']
 
     for regular_community in bgprc:
         parse_regular_community(regular_community, candidates_rc)
@@ -145,12 +145,14 @@ def _try_candidates_ec(extype, exsubtype, asn, content, candidates):
             continue
         if int(exsubtype, 16) != candidate['subtype']:
             continue
-        if candidate['asn']:
+        if 'asn' in candidate:
             if asn != str(candidate['asn']):
                 continue
-        elif candidate['asn4']:
+        elif 'asn4' in candidate:
             if asn != str(candidate['asn4']):
                 continue
+        else:
+            continue
         if 'format' in candidate['localadmin']:
             if candidate['localadmin']['format'] == 'binary':
                 if 'asn4' in candidate:
@@ -173,8 +175,13 @@ def _try_candidate_fields(content, cfields):
         else:
             value = content
 
-        if not re.match(cfield['pattern'], value):
-            # print('{} != {}'.format(cfield['pattern'],value))
+        pattern = cfield['pattern']
+        if pattern.startswith('^'):
+          pattern = pattern[1:]
+        if pattern.endswith('$'):
+          pattern = pattern[:-1]
+        if not re.match("^{}$".format(pattern), value):
+            # print('{} != {}'.format(pattern,value))
             return False
 
         if 'length' in cfield:
@@ -251,6 +258,9 @@ def _print_match(community, candidate, fieldvals):
     """
     output_sections = []
     output_fields = []
+    for attr in ('globaladmin','asn','asn4'):
+      if attr in candidate:
+        asn = candidate[attr]
     if 'localadmin' in candidate:
         for fid, field in enumerate(candidate['localadmin']['fields']):
             if 'description' in field:
@@ -276,7 +286,11 @@ def _print_match(community, candidate, fieldvals):
             else:
                 output_fields.append(f'{field["name"]}={fieldvals[offset + fid]}')
         output_sections.append(','.join(output_fields))
-    output = f'{community} - {candidate["name"]} ({":".join(output_sections)})'
+    if 'category' in candidate:
+        output = f'{community} - {candidate["name"]}/{candidate["category"]} ' \
+                 + f'({asn}:{":".join(output_sections)})'
+    else:
+        output = f'{community} - {candidate["name"]} ({asn}:{":".join(output_sections)})'
     print(output)
 
 

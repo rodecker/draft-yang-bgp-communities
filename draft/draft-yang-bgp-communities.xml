@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 
 <!DOCTYPE rfc [
-<!ENTITY I-D.ietf-core-sid PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-core-sid-20.xml">
-<!-- <!ENTITY IEEE.1003-2.1992 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml6/reference.R.IEEE.1003-2.1992.xml"> -->
+<!ENTITY I-D.ietf-core-sid PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-core-sid-24.xml">
+<!ENTITY I-D.ietf-netmod-rfc6991-bis PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-netmod-rfc6991-bis-15.xml">
+<!ENTITY IEEE.1003-2.1992 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml6/reference.R.IEEE.1003-2.1992.xml">
+<!ENTITY RFC1930 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1930.xml">
 <!ENTITY RFC1997 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1997.xml">
 <!ENTITY RFC2119 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC3688 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3688.xml">
@@ -27,7 +29,7 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
      category="info"
-     docName="draft-ietf-grow-yang-bgp-communities-00"
+     docName="draft-ietf-grow-yang-bgp-communities-01"
      ipr="trust200902"
      xml:lang="en"
      submissionType="IETF"
@@ -37,7 +39,7 @@
 
     <title abbrev="BGP Community YANG">YANG Module for BGP Communities</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-00"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-01"/>
 
     <author fullname="Martin Pels" initials="M" surname="Pels">
       <organization>RIPE NCC</organization>
@@ -53,12 +55,24 @@
 
     <abstract>
       <t>
-        This document provides a YANG module for describing BGP communities.
+        This document defines a YANG data model for the structured specification of BGP communities.
+        The model provides operators with a way to publish their locally defined BGP communities in a standardised format.
       </t>
     </abstract>
   </front>
 
   <middle>
+
+    <section title="Introduction" anchor="intro">
+
+      <t>
+        ISP operators use BGP communities<xref target="RFC1997"/><xref target="RFC4360"/><xref target="RFC8092"/> to add information to prefix announcements or to let customers influence routing behaviour inside the network of the ISP.
+        Each ISP defines for itself which BGP communities to support and how the structure of these communities should be interpreted.
+        This document provides a YANG<xref target="RFC7950"/> module for describing the structure and meaning of BGP communities, Extended BGP communities and Large BGP communities.
+        ISP operators can use this to publish their community definitions in a standardised format.
+      </t>
+
+    </section>
 
     <section title="Terminology" anchor="terminology">
        <t>
@@ -68,17 +82,6 @@
          described in BCP 14 <xref target="RFC2119"/> <xref target="RFC8174"/>
          when, and only when, they appear in all capitals, as shown here.
       </t>
-    </section>
-
-    <section title="Introduction" anchor="intro">
-
-      <t>
-        ISP operators use BGP communities<xref target="RFC1997"/><xref target="RFC4360"/><xref target="RFC8092"/> to add information to prefix announcements or to let customers influence routing behaviour inside the network of the ISP.
-        Each ISP defines for itself which BGP communities to support and how the structure of these communities should be interpreted.
-        This document provides a YANG<xref target="RFC7950"/> module for describing the structure and meaning of BGP communities, Extended BGP communities and Large BGP communities.
-        ISP operators can use this to publish their community definitions in a well-defined format.
-      </t>
-
     </section>
 
     <section title="Rationale" anchor="rationale">
@@ -120,61 +123,64 @@
 module: draft-ietf-grow-yang-bgp-communities
   +--rw bgp-communities
      +--rw serial         uint32
-     +--rw uri?           string
+     +--rw uri?           inet:uri
      +--rw description?   string
-     +--rw contacturl?    string
+     +--rw contacturl?    inet:uri
      +--rw contacts* [emailaddress]
-     |  +--rw emailaddress          string
+     |  +--rw emailaddress          inet:email-address
      |  +--rw name?                 string
      |  +--rw role?                 string
      |  +--rw organization?         string
      |  +--rw organizationalunit?   string
      +--rw regular* [name]
-     |  +--rw name           string
-     |  +--rw description?   string
-     |  +--rw globaladmin    uint16
+     |  +--rw name           community-name
+     |  +--rw category?      community-category
+     |  +--rw description?   community-description
+     |  +--rw globaladmin    two-octet-as-number
      |  +--rw localadmin
-     |     +--rw format?   string
+     |     +--rw format?   localadmin-format
      |     +--rw fields* [name]
-     |        +--rw name           string
+     |        +--rw name           field-name
      |        +--rw length?        uint8
-     |        +--rw pattern        string
-     |        +--rw description?   string
+     |        +--rw pattern        field-pattern
+     |        +--rw description?   field-description
      +--rw extended* [name]
-     |  +--rw name             string
-     |  +--rw description?     string
+     |  +--rw name             community-name
+     |  +--rw category?        community-category
+     |  +--rw description?     community-description
      |  +--rw type             uint8
      |  +--rw subtype          uint8
      |  +--rw (globaladmin)
      |  |  +--:(asn)
-     |  |  |  +--rw asn?   uint16
+     |  |  |  +--rw asn?   two-octet-as-number
      |  |  +--:(asn4)
-     |  |     +--rw asn4?   uint32
+     |  |     +--rw asn4?   inet:as-number
      |  +--rw localadmin
-     |     +--rw format?   string
+     |     +--rw format?   localadmin-format
      |     +--rw fields* [name]
-     |        +--rw name           string
+     |        +--rw name           field-name
      |        +--rw length?        uint8
-     |        +--rw pattern        string
-     |        +--rw description?   string
+     |        +--rw pattern        field-pattern
+     |        +--rw description?   field-description
      +--rw large* [name]
-        +--rw name              string
-        +--rw description?      string
-        +--rw globaladmin       uint32
+        +--rw name              community-name
+        +--rw category?         community-category
+        +--rw description?      community-description
+        +--rw globaladmin       inet:as-number
         +--rw localdatapart1
-        |  +--rw format?   string
+        |  +--rw format?   localadmin-format
         |  +--rw fields* [name]
-        |     +--rw name           string
+        |     +--rw name           field-name
         |     +--rw length?        uint8
-        |     +--rw pattern        string
-        |     +--rw description?   string
+        |     +--rw pattern        field-pattern
+        |     +--rw description?   field-description
         +--rw localdatapart2
-           +--rw format?   string
+           +--rw format?   localadmin-format
            +--rw fields* [name]
-              +--rw name           string
+              +--rw name           field-name
               +--rw length?        uint8
-              +--rw pattern        string
-              +--rw description?   string
+              +--rw pattern        field-pattern
+              +--rw description?   field-description
            ]]></artwork>
       </figure>
     </section>
@@ -183,6 +189,9 @@ module: draft-ietf-grow-yang-bgp-communities
       <t>
         The BGP Communities YANG Module contains the elements described in this section.
         The full contents of the module can be found in <xref target="module"/>.
+
+        Several elements in this module use data types from <xref target="I-D.ietf-netmod-rfc6991-bis"/>.
+        These data types are represented with the prefix "inet".
       </t>
 
       <section title="The &quot;serial&quot; leaf" anchor="elements.serial">
@@ -194,19 +203,19 @@ module: draft-ietf-grow-yang-bgp-communities
 
       <section title="The &quot;uri&quot; leaf" anchor="elements.uri">
         <t>
-          An optional value of type "string", describing the publication point for the community set.
+          An optional value of type "inet:uri", describing the publication point for the community set.
         </t>
       </section>
 
       <section title="The &quot;description&quot; leaf" anchor="elements.description">
         <t>
-          An optional value of type "string", providing information about the specified set of communities.
+          An optional value of type "string" with a maximum length of 65535, providing information about the specified set of communities.
         </t>
       </section>
 
       <section title="The &quot;contacturl&quot; leaf" anchor="elements.contacturl">
         <t>
-          An optional value of type "string", describing a webpage where maintainer contact information may be found.
+          An optional value of type "inet:uri", describing a webpage where maintainer contact information may be found.
         </t>
       </section>
 
@@ -218,31 +227,31 @@ module: draft-ietf-grow-yang-bgp-communities
 
         <section title="The &quot;emailaddress&quot; leaf" anchor="elements.contacts.emailaddress">
           <t>
-            A required value of type "string", containing the e-mail address of the contact.
+            A required value of type "inet:email-address", containing the e-mail address of the contact.
           </t>
         </section>
 
         <section title="The &quot;name&quot; leaf" anchor="elements.contacts.name">
           <t>
-            An optional value of type "string", containing the name of the contact.
+            An optional value of type "string" with a maximum length of 255, containing the name of the contact.
           </t>
         </section>
 
         <section title="The &quot;role&quot; leaf" anchor="elements.contacts.role">
           <t>
-            An optional value of type "string", describing the role of the contact.
+            An optional value of type "string" with a maximum length of 255, describing the role of the contact.
           </t>
         </section>
 
         <section title="The &quot;organization&quot; leaf" anchor="elements.contacts.organization">
           <t>
-            An optional value of type "string", containing the organization of the contact.
+            An optional value of type "string" with a maximum length of 255, containing the organization of the contact.
           </t>
         </section>
 
         <section title="The &quot;organizationalunit&quot; leaf" anchor="elements.contacts.organizationalunit">
           <t>
-            An optional value of type "string", containing the organizational unit of the contact.
+            An optional value of type "string" with a maximum length of 255, containing the organizational unit of the contact.
           </t>
         </section>
 
@@ -256,20 +265,37 @@ module: draft-ietf-grow-yang-bgp-communities
 
         <section title="The &quot;name&quot; leaf" anchor="elements.regular.name">
           <t>
-            A required value of type "string", containing the name of this community.
-            Names may be up to 255 characters long and MUST NOT contain spaces or tabs.
+            A required value of type "community-name", containing the name of this community.
+          </t>
+          <t>
+            The structure of the "community-name" type is defined in <xref target="types.community-name"/>.
+          </t>
+        </section>
+
+        <section title="The &quot;category&quot; leaf" anchor="elements.regular.category">
+          <t>
+            An optional value of type "community-category", containing the category of this community.
+          </t>
+          <t>
+            The structure of the "community-category" type is defined in <xref target="types.community-category"/>.
           </t>
         </section>
 
         <section title="The &quot;description&quot; leaf" anchor="elements.regular.description">
           <t>
-            An optional value of type "string", providing a description of the community.
+            An optional value of type "community-description", containing a description of this community.
+          </t>
+          <t>
+            The structure of the "community-description" type is defined in <xref target="types.community-description"/>.
           </t>
         </section>
 
         <section title="The &quot;globaladmin&quot; leaf" anchor="elements.regular.globaladmin">
           <t>
-            A required value of type "uint16", containing the Autonomous Sytem Number set in the Global Administrator part of this community.
+            A required value of type "two-octet-as-number", containing the Autonomous Sytem Number set in the Global Administrator part of this community.
+          </t>
+          <t>
+           The structure of the "two-octet-as-number" type is defined in <xref target="types.two-octet-as-number"/>.
           </t>
         </section>
 
@@ -281,8 +307,10 @@ module: draft-ietf-grow-yang-bgp-communities
 
           <section title="The &quot;format&quot; leaf" anchor="elements.regular.localadmin.format">
             <t>
-              An optional value of type "string", describing the format in which fields are encoded.
-              Possible encodings are "decimal" for decimal numbers and "binary" for bit strings.
+              An optional value of type "localadmin-format", describing the encoding format in which fields are to be parsed (see <xref target="recommendations.parsing"/>).
+            </t>
+            <t>
+              The structure of the "localadmin-format" type is defined in <xref target="types.localadmin-format"/>.
               If this leaf is not defined, the default "decimal" encoding is assumed.
             </t>
           </section>
@@ -290,13 +318,15 @@ module: draft-ietf-grow-yang-bgp-communities
           <section title="The &quot;fields&quot; list" anchor="elements.regular.localadmin.fields">
             <t>
               A list of objects that together form the Local Administrator part of the community.
-              The combined length values of all fields MUST not exceed the maximum length of the Local Administrator part of the community.
+              The combined length values of all fields MUST NOT exceed the maximum length of the Local Administrator part of the community.
             </t>
 
             <section title="The &quot;name&quot; leaf" anchor="elements.regular.localadmin.fields.name">
               <t>
-                A required value of type "string", containing the name of the field.
-                Names may be up to 255 characters long and MUST NOT contain spaces or tabs.
+                A required value of type "field-name", containing the name of the field.
+              </t>
+              <t>
+                The structure of the "field-name" type is defined in <xref target="types.field-name"/>.
               </t>
             </section>
 
@@ -314,15 +344,20 @@ module: draft-ietf-grow-yang-bgp-communities
 
             <section title="The &quot;pattern&quot; leaf" anchor="elements.regular.localadmin.fields.pattern">
               <t>
-                A required value of type "string", containing a pattern used for matching the field's contents. 
-                Patterns are described as POSIX Extended Regular Expressions (see <xref target="IEEE.1003-2.1992"/>, section 2.8.4).
+                A required value of type "field-pattern", containing a pattern used for matching the field's contents.
+              </t>
+              <t>
+                The structure of the "field-pattern" type is defined in <xref target="types.field-pattern"/>.
               </t>
             </section>
 
             <section title="The &quot;description&quot; leaf" anchor="elements.regular.localadmin.fields.description">
               <t>
-                An optional value of type "string", containing a description of the pattern.
+                An optional value of type "field-description", containing a description of the pattern.
                 This description can be used to provide meaning to specific values for a field.
+              </t>
+              <t>
+                The structure of the "field-description" type is defined in <xref target="types.field-description"/>.
               </t>
             </section>
 
@@ -341,14 +376,28 @@ module: draft-ietf-grow-yang-bgp-communities
 
         <section title="The &quot;name&quot; leaf" anchor="elements.extended.name">
           <t>
-            A required value of type "string", containing the name of this community.
-            Names may be up to 255 characters long and MUST NOT contain spaces or tabs.
+            A required value of type "community-name", containing the name of this community.
+          </t>
+          <t>
+            The structure of the "community-name" type is defined in <xref target="types.community-name"/>.
+          </t>
+        </section>
+
+        <section title="The &quot;category&quot; leaf" anchor="elements.extended.category">
+          <t>
+            An optional value of type "community-category", containing the category of this community.
+          </t>
+          <t>
+            The structure of the "community-category" type is defined in <xref target="types.community-category"/>.
           </t>
         </section>
 
         <section title="The &quot;description&quot; leaf" anchor="elements.extended.description">
           <t>
-            An optional value of type "string", providing a description of the community.
+            An optional value of type "community-description", containing a description of this community.
+          </t>
+          <t>
+            The structure of the "community-description" type is defined in <xref target="types.community-description"/>.
           </t>
         </section>
 
@@ -366,13 +415,16 @@ module: draft-ietf-grow-yang-bgp-communities
 
         <section title="The &quot;asn&quot; leaf" anchor="elements.extended.asn">
           <t>
-            For Two-Octet AS Specific communities: A required value of type "uint16", containing the Autonomous Sytem Number set in the Global Administrator part of this community.
+            For Two-Octet AS Specific communities: A required value of type "two-octet-as-number", containing the Autonomous Sytem Number set in the Global Administrator part of this community.
+          </t>
+          <t>
+            The structure of the "two-octet-as-number" type is defined in <xref target="types.two-octet-as-number"/>.
           </t>
         </section>
 
         <section title="The &quot;asn4&quot; leaf" anchor="elements.extended.asn4">
           <t>
-            For Four-Octet AS Specific communities: A required value of type "uint32", containing the Autonomous Sytem Number set in the Global Administrator part of this community.
+            For Four-Octet AS Specific communities: A required value of type "inet:as-number", containing the Autonomous Sytem Number set in the Global Administrator part of this community.
           </t>
         </section>
 
@@ -384,8 +436,10 @@ module: draft-ietf-grow-yang-bgp-communities
 
           <section title="The &quot;format&quot; leaf" anchor="elements.extended.localadmin.format">
             <t>
-              An optional value of type "string", describing the format in which fields are to be parsed (see <xref target="recommendations.parsing"/>).
-              Possible encodings are "decimal" for decimal numbers and "binary" for strings of zeros and ones.
+              An optional value of type "localadmin-format", describing the encoding format in which fields are to be parsed (see <xref target="recommendations.parsing"/>).
+            </t>
+            <t>
+              The structure of the "localadmin-format" type is defined in <xref target="types.localadmin-format"/>.
               If this leaf is not defined, the default "decimal" encoding is assumed.
             </t>
           </section>
@@ -393,7 +447,7 @@ module: draft-ietf-grow-yang-bgp-communities
           <section title="The &quot;fields&quot; list" anchor="elements.extended.localadmin.fields">
             <t>
               A list of objects that together form the Local Administrator part of the community.
-              The combined length values of all fields MUST not exceed the maximum length of the Local Administrator part of the community.
+              The combined length values of all fields MUST NOT exceed the maximum length of the Local Administrator part of the community.
             </t>
             <t>
               The supported leafs in this list are identical to those described in <xref target="elements.regular.localadmin.fields"/>.
@@ -412,20 +466,34 @@ module: draft-ietf-grow-yang-bgp-communities
       
         <section title="The &quot;name&quot; leaf" anchor="elements.large.name">
           <t>
-            A required value of type "string", containing the name of this community.
-            Names may be up to 255 characters long and MUST NOT contain spaces or tabs.
+            A required value of type "community-name", containing the name of this community.
+          </t>
+          <t>
+            The structure of the "community-name" type is defined in <xref target="types.community-name"/>.
+          </t>
+        </section>
+
+        <section title="The &quot;category&quot; leaf" anchor="elements.large.category">
+          <t>
+            An optional value of type "community-category", containing the category of this community.
+          </t>
+          <t>
+            The structure of the "community-category" type is defined in <xref target="types.community-category"/>.
           </t>
         </section>
 
         <section title="The &quot;description&quot; leaf" anchor="elements.large.description">
           <t>
-            An optional value of type "string", providing a description of the community.
+            An optional value of type "community-description", containing a description of this community.
+          </t>
+          <t>
+            The structure of the "community-description" type is defined in <xref target="types.community-description"/>.
           </t>
         </section>
 
         <section title="The &quot;globaladmin&quot; leaf" anchor="elements.large.globaladmin">
           <t>
-            A required value of type "uint32", containing the Autonomous Sytem Number set in the Global Administrator part of this community.
+            A required value of type "inet:as-number", containing the Autonomous Sytem Number set in the Global Administrator part of this community.
           </t>
         </section>
 
@@ -437,8 +505,10 @@ module: draft-ietf-grow-yang-bgp-communities
 
           <section title="The &quot;format&quot; leaf" anchor="elements.large.localdatapart1.format">
             <t>
-              An optional value of type "string", describing the format in which fields are encoded.
-              Possible encodings are "decimal" for decimal numbers and "binary" for bit strings.
+              An optional value of type "localadmin-format", describing the encoding format in which fields are to be parsed (see <xref target="recommendations.parsing"/>).
+            </t>
+            <t>
+              The structure of the "localadmin-format" type is defined in <xref target="types.localadmin-format"/>.
               If this leaf is not defined, the default "decimal" encoding is assumed.
             </t>
           </section>
@@ -446,7 +516,7 @@ module: draft-ietf-grow-yang-bgp-communities
           <section title="The &quot;fields&quot; list" anchor="elements.large.localdatapart1.fields">
             <t>
               A list of objects that together form the Local Data Part 1 section of the community.
-              The combined length values of all fields MUST not exceed the maximum length of the "Local Data Part 1" section of the community.
+              The combined length values of all fields MUST NOT exceed the maximum length of the "Local Data Part 1" section of the community.
             </t>
             <t>
               The supported leafs in this list are identical to those described in <xref target="elements.regular.localadmin.fields"/>.
@@ -463,8 +533,10 @@ module: draft-ietf-grow-yang-bgp-communities
 
           <section title="The &quot;format&quot; leaf" anchor="elements.large.localdatapart2.format">
             <t>
-              An optional value of type "string", describing the format in which fields are encoded.
-              Possible encodings are "decimal" for decimal numbers and "binary" for bit strings.
+              An optional value of type "localadmin-format", describing the encoding format in which fields are to be parsed (see <xref target="recommendations.parsing"/>).
+            </t>
+            <t>
+              The structure of the "localadmin-format" type is defined in <xref target="types.localadmin-format"/>.
               If this leaf is not defined, the default "decimal" encoding is assumed.
             </t>
           </section>
@@ -472,7 +544,7 @@ module: draft-ietf-grow-yang-bgp-communities
           <section title="The &quot;fields&quot; list" anchor="elements.large.localdatapart2.fields">
             <t>
               A list of objects that together form the Local Data Part 2 section of the community.
-              The combined length values of all fields MUST not exceed the maximum length of the "Local Data Part 2" section of the community.
+              The combined length values of all fields MUST NOT exceed the maximum length of the "Local Data Part 2" section of the community.
             </t>
             <t>
               The supported leafs in this list are identical to those described in <xref target="elements.regular.localadmin.fields"/>.
@@ -485,6 +557,69 @@ module: draft-ietf-grow-yang-bgp-communities
 
     </section>
 
+    <section title="Type definitions" anchor="types">
+
+      <t>
+        Several of the elements defined in <xref target="elements"/> use custom data types. These data types are defined here.
+      </t>
+
+      <section title="The &quot;two-octet-as-number&quot; data type" anchor="types.two-octet-as-number">
+        <t>
+          A Two-Octet Autonomous System Number, as defined in <xref target="RFC1930"/>.
+        </t>
+      </section>
+
+      <section title="The &quot;community-name&quot; data type" anchor="types.community-name">
+        <t>
+          A string specifying the name of a BGP community.
+          Names may be up to 255 characters long and MUST NOT contain spaces or tabs.
+        </t>
+      </section>
+
+      <section title="The &quot;community-category&quot; data type" anchor="types.community-category">
+        <t>
+          An enum specifying the category of a BGP community.
+          Possible categories are "informational" and "action", as described in <xref target="RFC8195"/>.
+        </t>
+      </section>
+
+      <section title="The &quot;community-description&quot; data type" anchor="types.community-description">
+        <t>
+          A string specifying the description of a BGP community.
+          Descriptions may be up to 65535 characters long.
+        </t>
+      </section>
+
+      <section title="The &quot;localadmin-format&quot; data type" anchor="types.localadmin-format">
+        <t>
+          An enum specifying the encoding for a localadmin/localdata field.
+          Possible encodings are "decimal" for decimal numbers and "binary" for bit strings.
+        </t>
+      </section>
+
+      <section title="The &quot;field-name&quot; data type" anchor="types.field-name">
+        <t>
+          A string specifying the name of a BGP community localadmin/localdata field.
+          Names may be up to 255 characters long and MUST NOT contain spaces or tabs.
+        </t>
+      </section>
+
+      <section title="The &quot;field-pattern&quot; data type" anchor="types.field-pattern">
+        <t>
+          A string specifying the pattern of a BGP community localadmin/localdata field.
+          Patterns may be up to 4095 characters long and are described as POSIX Extended Regular Expressions (see <xref target="IEEE.1003-2.1992"/>, section 2.8.4).
+        </t>
+      </section>
+
+      <section title="The &quot;field-description&quot; data type" anchor="types.field-description">
+        <t>
+          A string specifying the description of a BGP community localadmin/localdata field.
+          Descriptions may be up to 65535 characters long.
+        </t>
+      </section>
+
+    </section>
+
     <section title="Operational guidelines" anchor="recommendations">
 
       <section title="Publishing guidelines" anchor="recommendations.publishing">
@@ -493,14 +628,19 @@ module: draft-ietf-grow-yang-bgp-communities
           This may include communities where the Global Administrator field contains a private ASN, if this community has a local meaning inside the network of the publisher.
         </t>
         <t>
-          When publishing community definitions with overlapping field patterns these MUST be ordered from most to least specific, to ensure parsers can perform deterministic matching.
+          When publishing community definitions with overlapping field patterns, these definitions MUST be ordered from most to least preferred.
+          This ensures parsers can perform deterministic matching (see <xref target="recommendations.parsing"/>).
+          For example, a definition for a single community "64500:123" needs to be specified before a definition that matches a covering range of communities "64500:*".
         </t>
       </section>
 
       <section title="Parsing guidelines" anchor="recommendations.parsing">
         <t>
           A published BGP community definition can be used by parsers to display information about a received community.
-          If a received community matches multiple published community definitions, the first community in the published order takes precedence.
+          If a received community matches multiple published community definitions, the first matching definition in the published order takes precedence.
+        </t>
+        <t>
+          Parsers that use published community definitions from multiple operators SHOULD NOT attempt to match received communities where the Global Administrator field contains a private ASN, unless they have some method to determine which published definition is the authoritative one.
         </t>
         <t>
           By default, communities are compared using the decimal representation of the fields. If "format" for a Local Administrator or Local Data Part is set to "binary", the fields in the received community are converted to strings of zeros and ones before comparison.
@@ -508,7 +648,7 @@ module: draft-ietf-grow-yang-bgp-communities
         <t>
           Applications that parse these community definitions SHOULD reject objects that do not comply with the rules described in this document.
           Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
-          For example: A Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).
+          For example, a Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).
         </t>
       </section>
 
@@ -563,6 +703,8 @@ module: draft-ietf-grow-yang-bgp-communities
     <references title="Normative References" anchor="normative">
 
       &I-D.ietf-core-sid;
+      &I-D.ietf-netmod-rfc6991-bis;
+      &RFC1930;
       &RFC1997;
       &RFC4360;
       &RFC7950;
@@ -572,17 +714,7 @@ module: draft-ietf-grow-yang-bgp-communities
 
     <references title="Informative References" anchor="informative">
 
-      <!-- &IEEE.1003-2.1992; -->
-      <reference anchor="IEEE.1003-2.1992">
-        <front>
-          <title>Information Technology - Portable Operating System Interface (POSIX) - Part 2: Shell and Utilities (Vol. 1)</title>
-          <author>
-            <organization>Institute of Electrical and Electronics Engineers</organization>
-          </author>
-          <date year="1992"/>
-        </front>
-        <seriesInfo name="IEEE" value="1003.2-1992"/>
-      </reference>
+      &IEEE.1003-2.1992;
       &RFC2119;
       &RFC3688;
       &RFC4384;
@@ -603,7 +735,6 @@ module: draft-ietf-grow-yang-bgp-communities
       </t>
       <figure>
         <artwork align="left"><![CDATA[
-
 module draft-ietf-grow-yang-bgp-communities {
 
   yang-version 1.1;
@@ -612,19 +743,145 @@ module draft-ietf-grow-yang-bgp-communities {
 
   prefix bgpcomm;
 
+  import ietf-inet-types {
+    prefix inet;
+    revision-date 2021-02-22;
+    reference
+      "draft-ietf-netmod-rfc6991-bis-15: Common YANG Data Types";
+  }
+
   organization
-    "To be defined";
+    "IETF GROW Working Group";
 
   contact
-    "To be defined";
+    "WG Web:   <https://datatracker.ietf.org/wg/grow/>
+     WG List:  <mailto:grow@ietf.org>
+
+     Author:   Martin Pels
+       <mailto:mpels@ripe.net>";
 
   description
     "This module describes a structure for BGP Communities";
 
+  revision "2024-02-21" {
+    description
+      "Added data types and string restrictions.
+       Added category leaf.";
+    reference
+      "RFC YYYY: YANG Module for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
+  }
+
   revision "2023-08-01" {
     description
       "Initial version.";
-    reference "0.0.2";
+    reference
+      "draft-ietf-grow-yang-bgp-communities-00";
+  }
+
+  typedef two-octet-as-number {
+    type uint16;
+    description
+      "This type represents autonomous system numbers, which
+       identify an Autonomous System (AS).
+
+       Autonomous system numbers were originally limited to 16
+       bits.  BGP extensions have enlarged the autonomous system
+       number space to 32 bits.  The two-octet-as-number type uses
+       an uint16 base type for use cases where the enlarged number
+       space is not supported.";
+    reference
+      "RFC 1930: Guidelines for creation, selection, and registration
+                   of an Autonomous System (AS)";
+  }
+
+  typedef community-name {
+    type string {
+      length 1..255;
+      pattern "[^ \t\n[:cntrl:]]+";
+    }
+    description
+      "This type restricts values for the name of a BGP community.";
+  }
+
+  typedef community-category {
+    type enumeration {
+      enum informational {
+        value 0;
+        description
+          "Informational community";
+      }
+      enum action {
+        value 1;
+        description
+          "Action community";
+      }
+    }
+    description
+      "This type restricts values for the category of a BGP community.";
+  }
+
+  typedef community-description {
+    type string {
+      length 1..65535;
+      pattern "[[:print:]]+";
+    }
+    description
+      "This type restricts values for the description of a BGP
+       community.";
+  }
+
+  typedef localadmin-format {
+    type enumeration {
+      enum decimal {
+        value 0;
+        description
+          "Decimal number string";
+      }
+      enum binary {
+        value 1;
+        description
+          "Bit string";
+      }
+    }
+    description
+      "This type defines the format options for a BGP community
+       localadmin/localdata field encoding";
+  }
+
+  typedef field-name {
+    type string {
+      length 1..255;
+      pattern "[^ \t\n[:cntrl:]]+";
+    }
+    description
+      "This type restricts values for the name leaf of a BGP community
+       localadmin/localdata field.";
+  }
+
+  typedef field-pattern {
+    type string {
+      length 1..4095;
+      pattern "[-0-9.,*?^$+|(){}\\[\\]]+";
+    }
+    description
+      "This type restricts values for the pattern leaf of a BGP
+       community localadmin/localdata field.  Patterns are
+       described as POSIX Extended Regular Expressions";
+    reference
+      "IEEE 1003.2-1992: Information Technology - Portable
+       Operating System Interface (POSIX) - Part 2: Shell and
+       Utilities (Vol. 1)";
+  }
+
+  typedef field-description {
+    type string {
+      length 1..65535;
+      pattern "[[:print:]]+";
+    }
+    description
+      "This type restricts values for the description leaf of a BGP
+       community localadmin/localdata field.";
   }
 
   grouping localadmin-fields {
@@ -633,11 +890,8 @@ module draft-ietf-grow-yang-bgp-communities {
       key "name";
 
       leaf name {
-        type string {
-          length "1..255";
-          pattern "[^ \t\n]+";
-        }
-        mandatory "true";
+        type field-name;
+        mandatory true;
         description
           "The name of the field";
       }
@@ -649,15 +903,15 @@ module draft-ietf-grow-yang-bgp-communities {
       }
 
       leaf pattern {
-        type string;
-        mandatory "true";
+        type field-pattern;
+        mandatory true;
         description
-          "Regular Expression describing the expected contents of the \
-field";
+          "Regular Expression describing the expected contents of
+           the field";
       }
 
       leaf description {
-        type string;
+        type field-description;
         description
           "A text description of the field contents";
       }
@@ -667,26 +921,29 @@ field";
   container bgp-communities {
 
     leaf serial {
-      type "uint32";
-      mandatory "true";
+      type uint32;
+      mandatory true;
       description
-        "Version number of the community set.";
+        "Version number of the community set";
     }
 
     leaf uri {
-      type string;
+      type inet:uri;
       description
         "Publication point for the community set";
     }
 
     leaf description {
-      type string;
+      type string {
+        length 1..65535;
+        pattern "[[:print:]]+";
+      }
       description
         "A description for the community set";
     }
 
     leaf contacturl {
-      type string;
+      type inet:uri;
       description
         "A reference to a webpage with maintainer contact information";
     }
@@ -695,31 +952,43 @@ field";
       key "emailaddress";
 
       leaf emailaddress {
-        type string;
+        type inet:email-address;
         description
           "Maintainer contact e-mail address";
       }
 
       leaf name {
-        type string;
+        type string {
+          length 1..255;
+          pattern "[[:print:]]+";
+        }
         description
           "Maintainer contact name";
       }
 
       leaf role {
-        type string;
+        type string {
+          length 1..255;
+          pattern "[[:print:]]+";
+        }
         description
           "Maintainer contact role";
       }
 
       leaf organization {
-        type string;
+        type string {
+          length 1..255;
+          pattern "[[:print:]]+";
+        }
         description
           "Maintainer contact organization";
       }
 
       leaf organizationalunit {
-        type string;
+        type string {
+          length 1..255;
+          pattern "[[:print:]]+";
+        }
         description
           "Maintainer contact organizational unit";
       }
@@ -729,87 +998,95 @@ field";
       key "name";
 
       leaf name {
-        type string {
-          length 1..255;
-          pattern "[^ \t\n]+";
-        }
-        mandatory "true";
+        type community-name;
+        mandatory true;
         description
-          "Community name.";
+          "Community name";
+      }
+
+      leaf category {
+        type community-category;
+        description
+          "Category of the community";
       }
 
       leaf description {
-        type string;
+        type community-description;
         description
           "Description for the community";
       }
 
       leaf globaladmin {
-        type "uint16";
-        mandatory "true";
+        type two-octet-as-number;
+        mandatory true;
         description
           "Global Administrator field";
       }
 
       container localadmin {
         leaf format {
-          type "string" {
-            pattern
-              'decimal|binary';
-          }
-          default "decimal";
+          type localadmin-format;
+          default decimal;
           description
             "Format used for parsing localadmin fields";
         }
 
         uses localadmin-fields;
       }
+
+      description
+        "A list of objects defining Regular BGP Communities";
+      reference
+        "RFC1997: BGP Communities Attribute";
     }
 
     list extended {
       key "name";
 
       leaf name {
-        type string {
-          length 1..255;
-          pattern "[^ \t\n]+";
-        }
-        mandatory "true";
+        type community-name;
+        mandatory true;
         description
           "Community name";
       }
 
+      leaf category {
+        type community-category;
+        description
+          "Category of the community";
+      }
+
       leaf description {
-        type string;
+        type community-description;
         description
           "Description for the community";
       }
 
       leaf type {
         type uint8;
-        mandatory "true";
+        mandatory true;
         description
           "Type Field";
       }
       leaf subtype {
         type uint8;
-        mandatory "true";
+        mandatory true;
         description
           "Sub-Type Field";
       }
 
       choice globaladmin {
-        mandatory "true";
+        mandatory true;
         case asn {
           leaf asn {
-            type "uint16";
+            type two-octet-as-number;
             description
               "Two-Octet AS";
           }
         }
         case asn4 {
           leaf asn4 {
-            type "uint32";
+            type inet:as-number;
             description
               "Four-Octet AS";
           }
@@ -818,52 +1095,54 @@ field";
 
       container localadmin {
         leaf format {
-          type "string" {
-            pattern
-              'decimal|binary';
-          }
-          default "decimal";
+          type localadmin-format;
+          default decimal;
           description
             "Format used for parsing localadmin fields";
         }
 
         uses localadmin-fields;
       }
+
+      description
+        "A list of objects defining Extended BGP Communities";
+      reference
+        "RFC4360: BGP Extended Communities Attribute";
     }
 
     list large {
       key "name";
 
       leaf name {
-        type string {
-          length 1..255;
-          pattern "[^ \t\n]+";
-        }
-        mandatory "true";
+        type community-name;
+        mandatory true;
         description
-          "Community name.";
+          "Community name";
+      }
+
+      leaf category {
+        type community-category;
+        description
+          "Category of the community";
       }
 
       leaf description {
-        type string;
+        type community-description;
         description
           "Description for the community";
       }
 
       leaf globaladmin {
-        type "uint32";
-        mandatory "true";
+        type inet:as-number;
+        mandatory true;
         description
           "Global Administrator field";
       }
 
       container localdatapart1 {
         leaf format {
-          type "string" {
-            pattern
-              'decimal|binary';
-          }
-          default "decimal";
+          type localadmin-format;
+          default decimal;
           description
             "Format used for parsing localadmin fields";
         }
@@ -873,17 +1152,19 @@ field";
 
       container localdatapart2 {
         leaf format {
-          type "string" {
-            pattern
-              'decimal|binary';
-          }
-          default "decimal";
+          type localadmin-format;
+          default decimal;
           description
             "Format used for parsing localadmin fields";
         }
 
         uses localadmin-fields;
       }
+
+      description
+        "A list of objects defining Large BGP Communities";
+      reference
+        "RFC8092: BGP Large Communities Attribute";
     }
   }
 }
@@ -922,6 +1203,7 @@ NO_EXPORT",
     "large": [
       {
         "name": "RFC8195-NOEXPORT-ASN",
+        "category": "action",
         "description": "Do not export route to ASN",
         "globaladmin": 65539,
         "localdatapart1": {
@@ -1005,7 +1287,7 @@ the Fiji Islands",
     <section title="Acknowledgements" anchor="acknowledgements">
 
       <t>
-        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog and Teun Vink for contributing ideas and feedback to this document.
+        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog, Teun Vink, Tom Petch and Dale Carder for contributing ideas and feedback to this document.
       </t>
 
     </section>

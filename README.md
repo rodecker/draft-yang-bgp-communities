@@ -11,7 +11,7 @@ This repository contains the following files:
 * `draft/draft-yang-bgp-communities.xml` - XML specification of the draft
 * `draft/draft-yang-bgp-communities.txt` - The draft in plain text format, generated using [xml2rfc](https://pypi.org/project/xml2rfc/)
 * `draft/draft-yang-bgp-communities.html` - The draft in html format, generated using [xml2rfc](https://pypi.org/project/xml2rfc/)
-* `yang/draft-yang-bgp-communities.yang` - The YANG model, verified using [yanglint](https://pypi.org/project/libyang/)
+* `yang/draft-ietf-grow-yang-bgp-communities.yang` - The YANG model, verified using [yanglint](https://pypi.org/project/libyang/)
 * `scripts/parser.py` - An example parser
 * `examples/bgp-communities.json` - An example JSON specification conforming to the YANG model
 * `examples/bgp-communities.txt` - Example communities to match using the JSON specification
@@ -27,12 +27,13 @@ xml2rfc --v3 --text --html draft/draft-yang-bgp-communities.xml
 
 Display the YANG module tree:
 ```
-yanglint -f tree yang/draft-yang-bgp-communities.yang
+wget https://www.yangcatalog.org/all_modules/ietf-inet-types@2021-02-22.yang -O yang/ietf-inet-types@2021-02-22.yang
+yanglint -f tree yang/draft-ietf-grow-yang-bgp-communities.yang
 ```
 
 Validate the JSON specification using the YANG model:
 ```
-yanglint yang/draft-yang-bgp-communities.yang examples/bgp-communities.json
+yanglint yang/draft-ietf-grow-yang-bgp-communities.yang examples/bgp-communities.json
 ```
 
 Parse the example communities using the example JSON specification:
