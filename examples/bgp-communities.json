@@ -149,7 +149,7 @@
         "name": "ANNOUNCE-TO-PEER",
         "description": "Example Extended: Announce to Peer AS",
         "type": 0,
-        "subtype": 2,
+        "subtype": 3,
         "asn": 65001,
         "localadmin": {
           "fields": [

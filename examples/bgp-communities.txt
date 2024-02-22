@@ -14,5 +14,5 @@
 
 0x00:0x02:65010:1234 # Extended: Unmatched ASN
 0x03:0x00:65001:1234 # Extended: Unmatched type
-0x00:0x02:65001:4200000001 # Extended: 2-octet, rt, announce to, 4-octet peer as
+0x00:0x03:65001:4200000001 # Extended: 2-octet, ro, announce to, 4-octet peer as
 
