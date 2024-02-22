@@ -173,8 +173,13 @@ def _try_candidate_fields(content, cfields):
         else:
             value = content
 
-        if not re.match(cfield['pattern'], value):
-            # print('{} != {}'.format(cfield['pattern'],value))
+        pattern = cfield['pattern']
+        if pattern.startswith('^'):
+          pattern = pattern[1:]
+        if pattern.endswith('$'):
+          pattern = pattern[:-1]
+        if not re.match("^{}$".format(pattern), value):
+            # print('{} != {}'.format(pattern,value))
             return False
 
         if 'length' in cfield:
@@ -251,6 +256,9 @@ def _print_match(community, candidate, fieldvals):
     """
     output_sections = []
     output_fields = []
+    for attr in ('globaladmin','asn','asn4'):
+      if attr in candidate:
+        asn = candidate[attr]
     if 'localadmin' in candidate:
         for fid, field in enumerate(candidate['localadmin']['fields']):
             if 'description' in field:
@@ -278,9 +286,9 @@ def _print_match(community, candidate, fieldvals):
         output_sections.append(','.join(output_fields))
     if 'category' in candidate:
         output = f'{community} - {candidate["name"]}/{candidate["category"]} ' \
-                 + f'({":".join(output_sections)})'
+                 + f'({asn}:{":".join(output_sections)})'
     else:
-        output = f'{community} - {candidate["name"]} ({":".join(output_sections)})'
+        output = f'{community} - {candidate["name"]} ({asn}:{":".join(output_sections)})'
     print(output)
 
 
