@@ -145,12 +145,14 @@ def _try_candidates_ec(extype, exsubtype, asn, content, candidates):
             continue
         if int(exsubtype, 16) != candidate['subtype']:
             continue
-        if candidate['asn']:
+        if 'asn' in candidate:
             if asn != str(candidate['asn']):
                 continue
-        elif candidate['asn4']:
+        elif 'asn4' in candidate:
             if asn != str(candidate['asn4']):
                 continue
+        else:
+            continue
         if 'format' in candidate['localadmin']:
             if candidate['localadmin']['format'] == 'binary':
                 if 'asn4' in candidate:
