@@ -36,7 +36,23 @@ Validate the JSON specification using the YANG model:
 yanglint yang/draft-ietf-grow-yang-bgp-communities.yang examples/bgp-communities.json
 ```
 
+Generate a SID file from the YANG model (using Experimental/Private SIDs):
+```
+cat draft-ietf-grow-yang-bgp-communities.yang | pyang --sid-generate-file 60000:100
+```
+
 Parse the example communities using the example JSON specification:
 ```
 scripts/parser.py examples/bgp-communities.txt examples/bgp-communities.json
+```
+
+Convert the example JSON specification to a CBOR file:
+```
+scripts/convertcbor.py --j2c -j examples/bgp-communities.json -c examples/bgp-communities.cbor
+scripts/convertcbor.py --j2c -j examples/bgp-communities.json -s *.sid -c examples/bgp-communities-sids.cbor
+```
+
+Convert a CBOR file to JSON:
+```
+scripts/convertcbor.py --c2j -c <in.cbor> [-s *.sid] -j <out.json>
 ```
