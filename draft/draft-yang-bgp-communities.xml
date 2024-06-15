@@ -29,7 +29,7 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
      category="info"
-     docName="draft-ietf-grow-yang-bgp-communities-01"
+     docName="draft-ietf-grow-yang-bgp-communities-02"
      ipr="trust200902"
      xml:lang="en"
      submissionType="IETF"
@@ -39,7 +39,7 @@
 
     <title abbrev="BGP Community YANG">YANG Module for BGP Communities</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-01"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-02"/>
 
     <author fullname="Martin Pels" initials="M" surname="Pels">
       <organization>RIPE NCC</organization>
@@ -763,13 +763,20 @@ module draft-ietf-grow-yang-bgp-communities {
   description
     "This module describes a structure for BGP Communities";
 
+  revision "2024-06-15" {
+    description
+      "Fixed regular expression patterns.";
+    reference
+      "RFC YYYY: YANG Module for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
+  }
+
   revision "2024-02-21" {
     description
       "Added data types and string restrictions.
        Added category leaf.";
     reference
-      "RFC YYYY: YANG Module for BGP Communities
-       RFC-EDITOR: please update YYYY with this RFC ID";
+      "draft-ietf-grow-yang-bgp-communities-01";
   }
 
   revision "2023-08-01" {
@@ -798,7 +805,7 @@ module draft-ietf-grow-yang-bgp-communities {
   typedef community-name {
     type string {
       length 1..255;
-      pattern "[^ \t\n[:cntrl:]]+";
+      pattern '[^ \t\r\n\p{C}]+';
     }
     description
       "This type restricts values for the name of a BGP community.";
@@ -824,7 +831,7 @@ module draft-ietf-grow-yang-bgp-communities {
   typedef community-description {
     type string {
       length 1..65535;
-      pattern "[[:print:]]+";
+      pattern '[^\p{C}]+';
     }
     description
       "This type restricts values for the description of a BGP
@@ -852,7 +859,7 @@ module draft-ietf-grow-yang-bgp-communities {
   typedef field-name {
     type string {
       length 1..255;
-      pattern "[^ \t\n[:cntrl:]]+";
+      pattern '[^ \t\r\n\p{C}]+';
     }
     description
       "This type restricts values for the name leaf of a BGP community
@@ -862,7 +869,7 @@ module draft-ietf-grow-yang-bgp-communities {
   typedef field-pattern {
     type string {
       length 1..4095;
-      pattern "[-0-9.,*?^$+|(){}\\[\\]]+";
+      pattern '[-0-9.,*?^$+|(){}\[\]]+';
     }
     description
       "This type restricts values for the pattern leaf of a BGP
@@ -877,7 +884,7 @@ module draft-ietf-grow-yang-bgp-communities {
   typedef field-description {
     type string {
       length 1..65535;
-      pattern "[[:print:]]+";
+      pattern '[^\p{C}]+';
     }
     description
       "This type restricts values for the description leaf of a BGP
@@ -936,7 +943,7 @@ module draft-ietf-grow-yang-bgp-communities {
     leaf description {
       type string {
         length 1..65535;
-        pattern "[[:print:]]+";
+        pattern '[^\p{C}]+';
       }
       description
         "A description for the community set";
@@ -960,7 +967,7 @@ module draft-ietf-grow-yang-bgp-communities {
       leaf name {
         type string {
           length 1..255;
-          pattern "[[:print:]]+";
+          pattern '[^\p{C}]+';
         }
         description
           "Maintainer contact name";
@@ -969,7 +976,7 @@ module draft-ietf-grow-yang-bgp-communities {
       leaf role {
         type string {
           length 1..255;
-          pattern "[[:print:]]+";
+          pattern '[^\p{C}]+';
         }
         description
           "Maintainer contact role";
@@ -978,7 +985,7 @@ module draft-ietf-grow-yang-bgp-communities {
       leaf organization {
         type string {
           length 1..255;
-          pattern "[[:print:]]+";
+          pattern '[^\p{C}]+';
         }
         description
           "Maintainer contact organization";
@@ -987,7 +994,7 @@ module draft-ietf-grow-yang-bgp-communities {
       leaf organizationalunit {
         type string {
           length 1..255;
-          pattern "[[:print:]]+";
+          pattern '[^\p{C}]+';
         }
         description
           "Maintainer contact organizational unit";
