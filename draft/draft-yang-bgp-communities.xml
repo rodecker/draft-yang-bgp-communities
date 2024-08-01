@@ -11,6 +11,7 @@
 <!ENTITY RFC4360 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4360.xml">
 <!ENTITY RFC4384 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4384.xml">
 <!ENTITY RFC6020 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6020.xml">
+<!ENTITY RFC7942 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7942.xml">
 <!ENTITY RFC7950 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7950.xml">
 <!ENTITY RFC7951 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7951.xml">
 <!ENTITY RFC8092 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8092.xml">
@@ -685,6 +686,83 @@ module: draft-ietf-grow-yang-bgp-communities
       </section>
 
     </section>
+
+    <section title="Implementation status" anchor="implementation">
+
+      <t>
+        RFC-EDITOR: Please remove this section and the accompanying reference(s) before publication.
+      </t>
+
+     <t>
+       This section records the status of known implementations of the protocol defined by this specification at the time of posting of this Internet-Draft, and is based on a proposal described in <xref target="RFC7942"/>.
+       The description of implementations in this section is intended to assist the IETF in its decision processes in progressing drafts to RFCs.
+       Please note that the listing of any individual implementation here does not imply endorsement by the IETF.
+       Furthermore, no effort has been spent to verify the information presented here that was supplied by IETF contributors.
+       This is not intended as, and must not be construed to be, a catalog of available implementations or their features.
+       Readers are advised to note that other implementations may exist.
+     </t>
+
+     <t>
+       According to <xref target="RFC7942"/>, "this will allow reviewers and working groups to assign due consideration to documents that have the benefit of running code, which may serve as evidence of valuable experimentation and feedback that have made the implemented protocols more mature.
+       It is up to the individual working groups to use this information as they see fit".
+     </t>
+
+      <section title="Publishing implementations" anchor="implementation.publishing">
+
+        <t>
+          The following networks are known to publish BGP community definitions according to this specification.
+        </t>
+
+        <table anchor="table.publishing">
+          <name>Publishing implementations</name>
+          <thead>
+            <tr>
+              <th>ASN</th>
+              <th>Publication URI</th>
+              <th>YANG model revision</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>197000</td>
+              <td><eref target="https://www-static.ripe.net/dynamic/draft-ietf-grow-yang-bgp-communities/as197000.json">as197000.json</eref></td>
+              <td>2024-06-15</td>
+            </tr>
+            <tr>
+              <td>25152</td>
+              <td><eref target="https://www-static.ripe.net/dynamic/draft-ietf-grow-yang-bgp-communities/as25152.json">as25152.json</eref></td>
+              <td>2024-06-15</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </section>
+
+      <section title="Parser implementations" anchor="implementation.parsing">
+
+        <t>
+          The following known parser implementations exist.
+        </t>
+
+        <table anchor="table.parsing">
+          <name>Parser implementations</name>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>YANG model revision</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><eref target="https://github.com/NLNOG/lg.ring.nlnog.net/">NLNOG Looking Glass</eref></td>
+              <td>2024-06-15</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </section>
+
+    </section>
     
     <section title="Security considerations" anchor="security">
 
@@ -719,6 +797,7 @@ module: draft-ietf-grow-yang-bgp-communities
       &RFC3688;
       &RFC4384;
       &RFC6020;
+      &RFC7942;
       &RFC7951;
       &RFC8174;
       &RFC8195;
