@@ -56,3 +56,16 @@ Convert a CBOR file to JSON:
 ```
 scripts/convertcbor.py --c2j -c <in.cbor> [-s *.sid] -j <out.json>
 ```
+
+## Implementations
+
+The following known implementations exist.
+
+### Publishing ASNs
+
+* [AS197000](https://www-static.ripe.net/dynamic/draft-ietf-grow-yang-bgp-communities/as197000.json)
+* [AS25152](https://www-static.ripe.net/dynamic/draft-ietf-grow-yang-bgp-communities/as25152.json)
+
+### Parsers
+
+* [NLNOG Looking Glass](https://github.com/NLNOG/lg.ring.nlnog.net/)
