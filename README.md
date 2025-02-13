@@ -27,7 +27,7 @@ xml2rfc --v3 --text --html draft/draft-yang-bgp-communities.xml
 
 Display the YANG module tree:
 ```
-wget https://www.yangcatalog.org/all_modules/ietf-inet-types@2021-02-22.yang -O yang/ietf-inet-types@2021-02-22.yang
+wget https://www.yangcatalog.org/all_modules/ietf-inet-types@2024-10-21.yang -O yang/ietf-inet-types@2024-10-21.yang
 yanglint -f tree yang/draft-ietf-grow-yang-bgp-communities.yang
 ```
 

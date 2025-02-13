@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 
 <!DOCTYPE rfc [
-<!ENTITY I-D.ietf-core-sid PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-core-sid-24.xml">
-<!ENTITY I-D.ietf-netmod-rfc6991-bis PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-netmod-rfc6991-bis-15.xml">
+<!ENTITY I-D.ietf-netmod-rfc6991-bis PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-netmod-rfc6991-bis-17.xml">
 <!ENTITY IEEE.1003-2.1992 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml6/reference.R.IEEE.1003-2.1992.xml">
 <!ENTITY RFC1930 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1930.xml">
 <!ENTITY RFC1997 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1997.xml">
@@ -18,6 +17,7 @@
 <!ENTITY RFC8174 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY RFC8195 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8195.xml">
 <!ENTITY RFC8792 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8792.xml">
+<!ENTITY RFC9595 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9595.xml">
 ]>
 
 <?rfc strict="yes" ?>
@@ -678,7 +678,7 @@ module: draft-ietf-grow-yang-bgp-communities
 
       <section title="YANG SID Allocation" anchor="iana.sid">
         <t>
-          This document registers the following entry in the "IETF YANG SID" registry <xref target="I-D.ietf-core-sid"/>:
+          This document registers the following entry in the "IETF YANG SID" registry <xref target="RFC9595"/>:
         </t>
         <t>
           TODO
@@ -780,13 +780,13 @@ module: draft-ietf-grow-yang-bgp-communities
 
     <references title="Normative References" anchor="normative">
 
-      &I-D.ietf-core-sid;
       &I-D.ietf-netmod-rfc6991-bis;
       &RFC1930;
       &RFC1997;
       &RFC4360;
       &RFC7950;
       &RFC8092;
+      &RFC9595;
 
     </references>
 
@@ -826,7 +826,7 @@ module draft-ietf-grow-yang-bgp-communities {
     prefix inet;
     revision-date 2021-02-22;
     reference
-      "draft-ietf-netmod-rfc6991-bis-15: Common YANG Data Types";
+      "draft-ietf-netmod-rfc6991-bis-17: Common YANG Data Types";
   }
 
   organization

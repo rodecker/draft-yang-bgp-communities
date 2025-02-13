@@ -8,9 +8,9 @@ module draft-ietf-grow-yang-bgp-communities {
 
   import ietf-inet-types {
     prefix inet;
-    revision-date 2021-02-22;
+    revision-date 2024-10-21;
     reference
-      "draft-ietf-netmod-rfc6991-bis-15: Common YANG Data Types";
+      "draft-ietf-netmod-rfc6991-bis-17: Common YANG Data Types";
   }
 
   organization
