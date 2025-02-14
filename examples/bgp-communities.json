@@ -1,13 +1,13 @@
 {
-  "draft-ietf-grow-yang-bgp-communities:bgp-communities": {
+  "ietf-grow-yang-bgp-communities:bgp-communities": {
     "description": "BGP Communities for Example.net",
-    "contacts": [
+    "contact": [
       {
-        "emailaddress": "noc@example.net",
+        "email-address": "noc@example.net",
         "name": "Example.net contact",
         "role": "Administrative contact",
         "organization": "Example.net",
-        "organizationalunit": "NOC"
+        "organizational-unit": "NOC"
       }
     ],
     "uri": "http://example.net/peering/",
@@ -16,9 +16,9 @@
       {
         "name": "NO-ANNOUNCE",
         "description": "Example Regular: Do not announce to peers",
-        "globaladmin": 65001,
-        "localadmin": {
-          "fields": [
+        "global-admin": 65001,
+        "local-admin": {
+          "field": [
             {
               "name": "Action",
               "pattern": "3000",
@@ -30,9 +30,9 @@
       {
         "name": "PREPEND-TO-NA",
         "description": "Example Regular: Prepend X times to North American peers",
-        "globaladmin": 65001,
-        "localadmin": {
-          "fields": [
+        "global-admin": 65001,
+        "local-admin": {
+          "field": [
             {
               "name": "Continent",
               "length": 3,
@@ -50,9 +50,9 @@
       {
         "name": "PREPEND-TO-EU",
         "description": "Example Regular: Prepend X times to European peers",
-        "globaladmin": 65001,
-        "localadmin": {
-          "fields": [
+        "global-admin": 65001,
+        "local-admin": {
+          "field": [
             {
               "name": "Continent",
               "length": 3,
@@ -70,10 +70,10 @@
       {
         "name": "RFC4384-EU-NL",
         "description": "Example Regular: RFC4384 - Origin EU/NL",
-        "globaladmin": 65001,
-        "localadmin": {
+        "global-admin": 65001,
+        "local-admin": {
           "format": "binary",
-          "fields": [
+          "field": [
             {
               "name": "Region",
               "length": 5,
@@ -100,9 +100,9 @@
         "name": "RFC8195-ORIGIN-NL",
         "category": "informational",
         "description": "Example Large: RFC8195 - Origin NL",
-        "globaladmin": 65001,
-        "localdatapart1": {
-          "fields": [
+        "global-admin": 65001,
+        "local-data-part-1": {
+          "field": [
             {
               "name": "Function",
               "pattern": "1",
@@ -110,8 +110,8 @@
             }
           ]
         },
-        "localdatapart2": {
-          "fields": [
+        "local-data-part-2": {
+          "field": [
             {
               "name": "Country",
               "pattern": "528",
@@ -124,9 +124,9 @@
         "name": "RFC8195-NOEXPORT-ASN",
         "category": "action",
         "description": "Example Large: RFC8195 - No-export to ASN",
-        "globaladmin": 65001,
-        "localdatapart1": {
-          "fields": [
+        "global-admin": 65001,
+        "local-data-part-1": {
+          "field": [
             {
               "name": "Function",
               "pattern": "4",
@@ -134,8 +134,8 @@
             }
           ]
         },
-        "localdatapart2": {
-          "fields": [
+        "local-data-part-2": {
+          "field": [
             {
               "name": "ASN",
               "pattern": ".*"
@@ -151,8 +151,8 @@
         "type": 0,
         "subtype": 3,
         "asn": 65001,
-        "localadmin": {
-          "fields": [
+        "local-admin": {
+          "field": [
             {
               "name": "Peer-AS",
               "pattern": ".*"
