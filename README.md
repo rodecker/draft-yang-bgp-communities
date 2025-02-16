@@ -27,18 +27,23 @@ xml2rfc --v3 --text --html draft/draft-yang-bgp-communities.xml
 
 Display the YANG module tree:
 ```
-wget https://www.yangcatalog.org/all_modules/ietf-inet-types@2021-02-22.yang -O yang/ietf-inet-types@2021-02-22.yang
-yanglint -f tree yang/draft-ietf-grow-yang-bgp-communities.yang
+wget https://www.yangcatalog.org/all_modules/ietf-inet-types@2024-10-21.yang -O yang/ietf-inet-types@2024-10-21.yang
+yanglint -p yang -f tree yang/ietf-grow-yang-bgp-communities@2025-02-13.yang
+```
+
+Validate the YANG module:
+```
+pyang --verbose --ietf -p yang ietf-grow-yang-bgp-communities@2025-02-13.yang
 ```
 
 Validate the JSON specification using the YANG model:
 ```
-yanglint yang/draft-ietf-grow-yang-bgp-communities.yang examples/bgp-communities.json
+yanglint -p yang yang/ietf-grow-yang-bgp-communities@2025-02-13.yang examples/bgp-communities.json
 ```
 
 Generate a SID file from the YANG model (using Experimental/Private SIDs):
 ```
-cat draft-ietf-grow-yang-bgp-communities.yang | pyang --sid-generate-file 60000:100
+cat yang/ietf-grow-yang-bgp-communities@2025-02-13.yang | pyang -p yang --sid-generate-file 60000:100
 ```
 
 Parse the example communities using the example JSON specification:

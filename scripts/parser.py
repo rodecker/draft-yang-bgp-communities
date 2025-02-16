@@ -33,9 +33,9 @@ def main(values_file: str, struct_file: str):
 
     with open(struct_file, "r", encoding="utf-8") as filehandle:
         jdata = json.load(filehandle)
-        candidates_rc = jdata['draft-ietf-grow-yang-bgp-communities:bgp-communities']['regular']
-        candidates_lc = jdata['draft-ietf-grow-yang-bgp-communities:bgp-communities']['large']
-        candidates_ec = jdata['draft-ietf-grow-yang-bgp-communities:bgp-communities']['extended']
+        candidates_rc = jdata['ietf-grow-yang-bgp-communities:bgp-communities']['regular']
+        candidates_lc = jdata['ietf-grow-yang-bgp-communities:bgp-communities']['large']
+        candidates_ec = jdata['ietf-grow-yang-bgp-communities:bgp-communities']['extended']
 
     for regular_community in bgprc:
         parse_regular_community(regular_community, candidates_rc)
@@ -55,7 +55,7 @@ def parse_regular_community(regular_community, candidates):
 
     found = _try_candidates_rc(asn, content, candidates)
     if found:
-        fieldvals = _candidate2fields(content, found['localadmin'])
+        fieldvals = _candidate2fields(content, found['local-admin'])
         _print_match(regular_community, found, fieldvals)
         return found
 
@@ -74,8 +74,8 @@ def parse_large_community(large_community, candidates):
     found = _try_candidates_lc(asn, content1, content2, candidates)
     if found:
         fieldvals = _candidate2fields_lc(content1, content2,
-                                         found['localdatapart1'],
-                                         found['localdatapart2'])
+                                         found['local-data-part-1'],
+                                         found['local-data-part-2'])
         _print_match(large_community, found, fieldvals)
         return found
 
@@ -93,7 +93,7 @@ def parse_extended_community(extended_community, candidates):
 
     found = _try_candidates_ec(extype, exsubtype, asn, content, candidates)
     if found:
-        fieldvals = _candidate2fields(content, found['localadmin'])
+        fieldvals = _candidate2fields(content, found['local-admin'])
         _print_match(extended_community, found, fieldvals)
         return found
 
@@ -106,12 +106,12 @@ def _try_candidates_rc(asn, content, candidates):
     Try to find a matching Regular Community amongst candidate JSON definitions
     """
     for candidate in candidates:
-        if asn != str(candidate['globaladmin']):
+        if asn != str(candidate['global-admin']):
             continue
-        if 'format' in candidate['localadmin']:
-            if candidate['localadmin']['format'] == 'binary':
+        if 'format' in candidate['local-admin']:
+            if candidate['local-admin']['format'] == 'binary':
                 content = _decimal2bits(content, 16)
-        if _try_candidate_fields(content, candidate['localadmin']['fields']):
+        if _try_candidate_fields(content, candidate['local-admin']['field']):
             return candidate
     return False
 
@@ -121,16 +121,16 @@ def _try_candidates_lc(asn, content1, content2, candidates):
     Try to find a matching Large Community amongst candidate JSON definitions
     """
     for candidate in candidates:
-        if asn != str(candidate['globaladmin']):
+        if asn != str(candidate['global-admin']):
             continue
-        if 'format' in candidate['localdatapart1']:
-            if candidate['localdatapart1']['format'] == 'binary':
+        if 'format' in candidate['local-data-part-1']:
+            if candidate['local-data-part-1']['format'] == 'binary':
                 content1 = _decimal2bits(content1, 32)
-        if 'format' in candidate['localdatapart2']:
-            if candidate['localdatapart2']['format'] == 'binary':
+        if 'format' in candidate['local-data-part-2']:
+            if candidate['local-data-part-2']['format'] == 'binary':
                 content2 = _decimal2bits(content2, 32)
-        if _try_candidate_fields(content1, candidate['localdatapart1']['fields']) \
-           and _try_candidate_fields(content2, candidate['localdatapart2']['fields']):
+        if _try_candidate_fields(content1, candidate['local-data-part-1']['field']) \
+           and _try_candidate_fields(content2, candidate['local-data-part-2']['field']):
             return candidate
     return False
 
@@ -153,13 +153,13 @@ def _try_candidates_ec(extype, exsubtype, asn, content, candidates):
                 continue
         else:
             continue
-        if 'format' in candidate['localadmin']:
-            if candidate['localadmin']['format'] == 'binary':
+        if 'format' in candidate['local-admin']:
+            if candidate['local-admin']['format'] == 'binary':
                 if 'asn4' in candidate:
                     contentstring = _decimal2bits(content, 16)
                 else:
                     contentstring = _decimal2bits(content, 32)
-        if _try_candidate_fields(contentstring, candidate['localadmin']['fields']):
+        if _try_candidate_fields(contentstring, candidate['local-admin']['field']):
             return candidate
     return False
 
@@ -198,7 +198,7 @@ def _candidate2fields(contentbits, clocaladmin):
     if 'format' in clocaladmin:
         if clocaladmin['format'] == 'binary':
             contentbits = _decimal2bits(contentbits, 16)
-    for fid, field in enumerate(clocaladmin['fields']):
+    for fid, field in enumerate(clocaladmin['field']):
         if 'length' in field:
             length = field['length']
         else:
@@ -225,7 +225,7 @@ def _candidate2fields_lc(contentbits1,
 
     pos = 0
     foffset = 0
-    for fid, field in enumerate(clocaldatapart1['fields']):
+    for fid, field in enumerate(clocaldatapart1['field']):
         if 'length' in field:
             length = field['length']
         else:
@@ -234,8 +234,8 @@ def _candidate2fields_lc(contentbits1,
         pos = pos + length
 
     pos = 0
-    foffset = len(clocaldatapart1['fields'])
-    for fid, field in enumerate(clocaldatapart2['fields']):
+    foffset = len(clocaldatapart1['field'])
+    for fid, field in enumerate(clocaldatapart2['field']):
         if 'length' in field:
             length = field['length']
         else:
@@ -258,29 +258,29 @@ def _print_match(community, candidate, fieldvals):
     """
     output_sections = []
     output_fields = []
-    for attr in ('globaladmin','asn','asn4'):
+    for attr in ('global-admin','asn','asn4'):
       if attr in candidate:
         asn = candidate[attr]
-    if 'localadmin' in candidate:
-        for fid, field in enumerate(candidate['localadmin']['fields']):
+    if 'local-admin' in candidate:
+        for fid, field in enumerate(candidate['local-admin']['field']):
             if 'description' in field:
                 output_fields.append(f'{field["name"]}={field["description"]}')
             else:
                 output_fields.append(f'{field["name"]}={fieldvals[fid]}')
         output_sections.append(','.join(output_fields))
-    elif 'localdatapart1' in candidate:
+    elif 'local-data-part-1' in candidate:
         offset = 0
         output_fields = []
-        for fid, field in enumerate(candidate['localdatapart1']['fields']):
+        for fid, field in enumerate(candidate['local-data-part-1']['field']):
             if 'description' in field:
                 output_fields.append(f"{field['name']}={field['description']}")
             else:
                 output_fields.append(f"{field['name']}={fieldvals[offset + fid]}")
         output_sections.append(','.join(output_fields))
 
-        offset = len(candidate['localdatapart1']['fields'])
+        offset = len(candidate['local-data-part-1']['field'])
         output_fields = []
-        for fid, field in enumerate(candidate['localdatapart2']['fields']):
+        for fid, field in enumerate(candidate['local-data-part-2']['field']):
             if 'description' in field:
                 output_fields.append(f'{field["name"]}={field["description"]}')
             else:
