@@ -1,5 +1,5 @@
 {
-  "ietf-grow-yang-bgp-communities:bgp-communities": {
+  "ietf-bgp-communities:bgp-communities": {
     "description": "BGP Communities for Example.net",
     "contact": [
       {

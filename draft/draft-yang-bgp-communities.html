@@ -13,10 +13,10 @@
        
     " name="description">
 <meta content="xml2rfc 3.15.2" name="generator">
-<meta content="draft-ietf-grow-yang-bgp-communities-03" name="ietf.draft">
+<meta content="draft-ietf-grow-yang-bgp-communities-04" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.15.2
-    Python 3.10.13
+    Python 3.10.16
     appdirs 1.4.4
     ConfigArgParse 1.5.3
     google-i18n-address 2.5.2
@@ -28,7 +28,7 @@
     pycountry 22.3.5
     PyYAML 6.0
     requests 2.28.1
-    setuptools 68.1.2
+    setuptools 75.6.0
     six 1.16.0
     wcwidth 0.2.5
 -->
@@ -1191,11 +1191,11 @@ li > p:last-of-type {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">BGP Community YANG</td>
-<td class="right">February 2025</td>
+<td class="right">March 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Pels</td>
-<td class="center">Expires 20 August 2025</td>
+<td class="center">Expires 14 September 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1205,15 +1205,15 @@ li > p:last-of-type {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Network Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-grow-yang-bgp-communities-03</dd>
+<dd class="internet-draft">draft-ietf-grow-yang-bgp-communities-04</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-02-16" class="published">16 February 2025</time>
+<time datetime="2025-03-13" class="published">13 March 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-08-20">20 August 2025</time></dd>
+<dd class="expires"><time datetime="2025-09-14">14 September 2025</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1249,7 +1249,7 @@ li > p:last-of-type {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 August 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 14 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1559,10 +1559,10 @@ li > p:last-of-type {
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-tree-view-2" class="section-name selfRef">Tree view</a>
       </h2>
 <p id="section-4-1">
-        The following tree diagram provides an overview of the "ietf-grow-yang-bgp-communities" data model.<a href="#section-4-1" class="pilcrow">¶</a></p>
+        The following tree diagram provides an overview of the "ietf-bgp-communities" data model.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div id="section-4-2">
 <pre class="breakable sourcecode">
-module: ietf-grow-yang-bgp-communities
+module: ietf-bgp-communities
   +--rw bgp-communities
      +--rw serial?        uint32
      +--rw uri?           inet:uri
@@ -1638,12 +1638,12 @@ module: ietf-grow-yang-bgp-communities
 <div id="section-5-2">
 <pre class="breakable sourcecode">
 
-&lt;CODE BEGINS&gt; file "ietf-grow-yang-bgp-communities@2025-02-13.yang"
+&lt;CODE BEGINS&gt; file "ietf-bgp-communities@2025-03-13.yang"
 
-module ietf-grow-yang-bgp-communities {
+module ietf-bgp-communities {
   yang-version 1.1;
   namespace
-    "urn:ietf:params:xml:ns:yang:ietf-grow-yang-bgp-communities";
+    "urn:ietf:params:xml:ns:yang:ietf-bgp-communities";
   prefix bgp-comm;
 
   import ietf-inet-types {
@@ -1676,19 +1676,13 @@ module ietf-grow-yang-bgp-communities {
      This version of this YANG module is part of RFC YYYY; see
      the RFC itself for full legal notices.
 
-     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
-     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
-     'MAY', and 'OPTIONAL' in this document are to be interpreted as
-     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
-     they appear in all capitals, as shown here.";
+  // RFC-EDITOR: please update YYYY with this RFC ID";
 
-  // RFC-EDITOR: please update YYYY with this RFC ID
-
-  revision 2025-02-13 {
+  revision 2025-03-13 {
     description
       "Initial revision.";
     reference
-      "RFC YYYY: YANG Module for BGP Communities
+      "RFC YYYY: A YANG Data Model for BGP Communities
        RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
@@ -1715,6 +1709,9 @@ module ietf-grow-yang-bgp-communities {
     }
     description
       "This type restricts values for the name of a BGP community.";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   typedef community-category {
@@ -1733,6 +1730,8 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type restricts values for the category of a BGP
        community.";
+    reference
+      "RFC 8195: Use of BGP Large Communities";
   }
 
   typedef community-description {
@@ -1743,6 +1742,9 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type restricts values for the description of a BGP
        community.";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   typedef local-admin-format {
@@ -1761,6 +1763,9 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type defines the format options for a BGP community
        Local Administrator/Local Data field encoding";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   typedef field-name {
@@ -1771,6 +1776,9 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type restricts values for the name leaf of a BGP
        community Local Administrator/Local Data field.";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   typedef field-pattern {
@@ -1796,6 +1804,9 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type restricts values for the description leaf of a BGP
        community Local Administrator/Local Data field.";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   grouping local-admin-fields {
@@ -2689,7 +2700,7 @@ module ietf-grow-yang-bgp-communities {
           XML Registry", following the format defined in <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 <div id="section-9.1-2">
 <pre class="sourcecode">
-URI: urn:ietf:params:xml:ns:yang:ietf-grow-yang-bgp-communities
+URI: urn:ietf:params:xml:ns:yang:ietf-bgp-communities
 Registrant Contact: The IESG.
 XML: N/A, the requested URI is an XML namespace.
 </pre><a href="#section-9.1-2" class="pilcrow">¶</a>
@@ -2705,9 +2716,9 @@ XML: N/A, the requested URI is an XML namespace.
           This document registers the following YANG module in the "YANG Module Names" registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>:<a href="#section-9.2-1" class="pilcrow">¶</a></p>
 <div id="section-9.2-2">
 <pre class="sourcecode">
-Name: ietf-grow-yang-bgp-communities
+Name: ietf-bgp-communities
 Maintained by IANA? N
-Namespace: urn:ietf:params:xml:ns:yang:ietf-grow-yang-bgpcommunities
+Namespace: urn:ietf:params:xml:ns:yang:ietf-bgp-communities
 Prefix: bgp-comm
 Reference: RFC YYYY
 RFC-EDITOR: please update YYYY with this RFC ID
@@ -2726,7 +2737,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
 <pre class="sourcecode">
 SID range entry point: TBD
 SID range size: 100
-YANG module name: ietf-grow-yang-bgp-communities
+YANG module name: ietf-bgp-communities
 Reference: RFC YYYY
 RFC-EDITOR: please update YYYY with this RFC ID
 </pre><a href="#section-9.3-2" class="pilcrow">¶</a>
@@ -2942,7 +2953,8 @@ RFC-EDITOR: please update YYYY with this RFC ID
 <a href="#appendix-A" class="section-number selfRef">Appendix A. </a><a href="#name-json-examples-2" class="section-name selfRef">JSON Examples</a>
       </h2>
 <p id="appendix-A-1">
-        This section shows example use cases for the YANG module defined in this document, using JSON<span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span> encoding.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+        This section shows example use cases for the YANG module defined in this document, using JSON encoding (see <span>[<a href="#RFC7951" class="cite xref">RFC7951</a>]</span>).
+        The examples contain long lines that may be folded, as described in <span>[<a href="#RFC8792" class="cite xref">RFC8792</a>]</span>.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 <div id="examples.rfc8195">
 <section id="appendix-A.1">
         <h3 id="name-rfc8195-selective-no_export-">
@@ -2950,12 +2962,12 @@ RFC-EDITOR: please update YYYY with this RFC ID
         </h3>
 <p id="appendix-A.1-1">
           A JSON definition for the example Large BGP community described in <span>[<a href="#RFC8195" class="cite xref">RFC8195</a>]</span>, section 4.1.1 looks as follows.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.1-2">
-          NOTE: '\' line wrapping per <span>[<a href="#RFC8792" class="cite xref">RFC8792</a>]</span><a href="#appendix-A.1-2" class="pilcrow">¶</a></p>
-<div id="appendix-A.1-3">
+<div id="appendix-A.1-2">
 <pre class="sourcecode">
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
-  "ietf-grow-yang-bgp-communities:bgp-communities": {
+  "ietf-bgp-communities:bgp-communities": {
     "serial": 2023080101,
     "uri": "http://example.net/peering/communities",
     "description": "BGP Community example for ASN-Based Selective \
@@ -2996,7 +3008,7 @@ NO_EXPORT",
     ]
   }
 }
-</pre><a href="#appendix-A.1-3" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.1-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
@@ -3007,12 +3019,12 @@ NO_EXPORT",
         </h3>
 <p id="appendix-A.2-1">
           A JSON definition for the example Regular BGP community described in <span>[<a href="#RFC4384" class="cite xref">RFC4384</a>]</span>, section 4 looks as follows.<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
-<p id="appendix-A.2-2">
-          NOTE: '\' line wrapping per <span>[<a href="#RFC8792" class="cite xref">RFC8792</a>]</span><a href="#appendix-A.2-2" class="pilcrow">¶</a></p>
-<div id="appendix-A.2-3">
+<div id="appendix-A.2-2">
 <pre class="sourcecode">
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
-  "ietf-grow-yang-bgp-communities:bgp-communities": {
+  "ietf-bgp-communities:bgp-communities": {
     "serial": 2023080101,
     "uri": "http://example.net/peering/communities",
     "description": "BGP Community example for Data Collection",
@@ -3049,7 +3061,7 @@ from the Fiji Islands",
     ]
   }
 }
-</pre><a href="#appendix-A.2-3" class="pilcrow">¶</a>
+</pre><a href="#appendix-A.2-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
