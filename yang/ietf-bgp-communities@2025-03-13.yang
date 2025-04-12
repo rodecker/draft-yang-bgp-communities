@@ -1,7 +1,7 @@
-module ietf-grow-yang-bgp-communities {
+module ietf-bgp-communities {
   yang-version 1.1;
   namespace
-    "urn:ietf:params:xml:ns:yang:ietf-grow-yang-bgp-communities";
+    "urn:ietf:params:xml:ns:yang:ietf-bgp-communities";
   prefix bgp-comm;
 
   import ietf-inet-types {
@@ -34,19 +34,13 @@ module ietf-grow-yang-bgp-communities {
      This version of this YANG module is part of RFC YYYY; see
      the RFC itself for full legal notices.
 
-     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
-     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
-     'MAY', and 'OPTIONAL' in this document are to be interpreted as
-     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
-     they appear in all capitals, as shown here.";
+  // RFC-EDITOR: please update YYYY with this RFC ID";
 
-  // RFC-EDITOR: please update YYYY with this RFC ID
-
-  revision 2025-02-13 {
+  revision 2025-03-13 {
     description
       "Initial revision.";
     reference
-      "RFC YYYY: YANG Module for BGP Communities
+      "RFC YYYY: A YANG Data Model for BGP Communities
        RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
@@ -73,6 +67,9 @@ module ietf-grow-yang-bgp-communities {
     }
     description
       "This type restricts values for the name of a BGP community.";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   typedef community-category {
@@ -91,6 +88,8 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type restricts values for the category of a BGP
        community.";
+    reference
+      "RFC 8195: Use of BGP Large Communities";
   }
 
   typedef community-description {
@@ -101,6 +100,9 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type restricts values for the description of a BGP
        community.";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   typedef local-admin-format {
@@ -119,6 +121,9 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type defines the format options for a BGP community
        Local Administrator/Local Data field encoding";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   typedef field-name {
@@ -129,6 +134,9 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type restricts values for the name leaf of a BGP
        community Local Administrator/Local Data field.";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   typedef field-pattern {
@@ -154,6 +162,9 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type restricts values for the description leaf of a BGP
        community Local Administrator/Local Data field.";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   grouping local-admin-fields {

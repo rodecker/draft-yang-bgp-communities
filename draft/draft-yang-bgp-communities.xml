@@ -32,7 +32,7 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
      category="std"
-     docName="draft-ietf-grow-yang-bgp-communities-03"
+     docName="draft-ietf-grow-yang-bgp-communities-04"
      ipr="trust200902"
      xml:lang="en"
      submissionType="IETF"
@@ -42,13 +42,13 @@
 
     <title abbrev="BGP Community YANG">A YANG Data Model for BGP Communities</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-03"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-04"/>
 
     <author fullname="Martin Pels" initials="M" surname="Pels">
       <organization>RIPE NCC</organization>
       <address>
         <postal>
-          <country>Netherlands</country>
+          <country>NL</country>
         </postal>
         <email>mpels@ripe.net</email>
       </address>
@@ -124,10 +124,10 @@
     <section title="Tree view" anchor="tree">
 
       <t>
-        The following tree diagram provides an overview of the "ietf-grow-yang-bgp-communities" data model.
+        The following tree diagram provides an overview of the "ietf-bgp-communities" data model.
       </t>
       <sourcecode>
-module: ietf-grow-yang-bgp-communities
+module: ietf-bgp-communities
   +--rw bgp-communities
      +--rw serial?        uint32
      +--rw uri?           inet:uri
@@ -198,12 +198,12 @@ module: ietf-grow-yang-bgp-communities
       </t>
       <sourcecode>
 <![CDATA[
-<CODE BEGINS> file "ietf-grow-yang-bgp-communities@2025-02-13.yang"
+<CODE BEGINS> file "ietf-bgp-communities@2025-03-13.yang"
 
-module ietf-grow-yang-bgp-communities {
+module ietf-bgp-communities {
   yang-version 1.1;
   namespace
-    "urn:ietf:params:xml:ns:yang:ietf-grow-yang-bgp-communities";
+    "urn:ietf:params:xml:ns:yang:ietf-bgp-communities";
   prefix bgp-comm;
 
   import ietf-inet-types {
@@ -236,19 +236,13 @@ module ietf-grow-yang-bgp-communities {
      This version of this YANG module is part of RFC YYYY; see
      the RFC itself for full legal notices.
 
-     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
-     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
-     'MAY', and 'OPTIONAL' in this document are to be interpreted as
-     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
-     they appear in all capitals, as shown here.";
+  // RFC-EDITOR: please update YYYY with this RFC ID";
 
-  // RFC-EDITOR: please update YYYY with this RFC ID
-
-  revision 2025-02-13 {
+  revision 2025-03-13 {
     description
       "Initial revision.";
     reference
-      "RFC YYYY: YANG Module for BGP Communities
+      "RFC YYYY: A YANG Data Model for BGP Communities
        RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
@@ -275,6 +269,9 @@ module ietf-grow-yang-bgp-communities {
     }
     description
       "This type restricts values for the name of a BGP community.";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   typedef community-category {
@@ -293,6 +290,8 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type restricts values for the category of a BGP
        community.";
+    reference
+      "RFC 8195: Use of BGP Large Communities";
   }
 
   typedef community-description {
@@ -303,6 +302,9 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type restricts values for the description of a BGP
        community.";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   typedef local-admin-format {
@@ -321,6 +323,9 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type defines the format options for a BGP community
        Local Administrator/Local Data field encoding";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   typedef field-name {
@@ -331,6 +336,9 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type restricts values for the name leaf of a BGP
        community Local Administrator/Local Data field.";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   typedef field-pattern {
@@ -356,6 +364,9 @@ module ietf-grow-yang-bgp-communities {
     description
       "This type restricts values for the description leaf of a BGP
        community Local Administrator/Local Data field.";
+    reference
+      "RFC YYYY: A YANG Data Model for BGP Communities
+       RFC-EDITOR: please update YYYY with this RFC ID";
   }
 
   grouping local-admin-fields {
@@ -1109,7 +1120,7 @@ module ietf-grow-yang-bgp-communities {
           XML Registry", following the format defined in <xref target="RFC3688"/>:
         </t>
         <sourcecode>
-URI: urn:ietf:params:xml:ns:yang:ietf-grow-yang-bgp-communities
+URI: urn:ietf:params:xml:ns:yang:ietf-bgp-communities
 Registrant Contact: The IESG.
 XML: N/A, the requested URI is an XML namespace.
         </sourcecode>
@@ -1120,9 +1131,9 @@ XML: N/A, the requested URI is an XML namespace.
           This document registers the following YANG module in the "YANG Module Names" registry <xref target="RFC6020"/>:
         </t>
         <sourcecode>
-Name: ietf-grow-yang-bgp-communities
+Name: ietf-bgp-communities
 Maintained by IANA? N
-Namespace: urn:ietf:params:xml:ns:yang:ietf-grow-yang-bgpcommunities
+Namespace: urn:ietf:params:xml:ns:yang:ietf-bgp-communities
 Prefix: bgp-comm
 Reference: RFC YYYY
 RFC-EDITOR: please update YYYY with this RFC ID
@@ -1136,7 +1147,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
         <sourcecode>
 SID range entry point: TBD
 SID range size: 100
-YANG module name: ietf-grow-yang-bgp-communities
+YANG module name: ietf-bgp-communities
 Reference: RFC YYYY
 RFC-EDITOR: please update YYYY with this RFC ID
         </sourcecode>
@@ -1275,19 +1286,19 @@ RFC-EDITOR: please update YYYY with this RFC ID
     <section title="JSON Examples" anchor="examples">
 
       <t>
-        This section shows example use cases for the YANG module defined in this document, using JSON<xref target="RFC7951"/> encoding.
+        This section shows example use cases for the YANG module defined in this document, using JSON encoding (see <xref target="RFC7951"/>).
+        The examples contain long lines that may be folded, as described in <xref target="RFC8792"/>.
       </t>
 
       <section title="RFC8195 Selective NO_EXPORT definition" anchor="examples.rfc8195">
         <t>
           A JSON definition for the example Large BGP community described in <xref target="RFC8195"/>, section 4.1.1 looks as follows.
         </t>
-        <t>
-          NOTE: '\' line wrapping per <xref target="RFC8792"/>
-        </t>
         <sourcecode>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
-  "ietf-grow-yang-bgp-communities:bgp-communities": {
+  "ietf-bgp-communities:bgp-communities": {
     "serial": 2023080101,
     "uri": "http://example.net/peering/communities",
     "description": "BGP Community example for ASN-Based Selective \
@@ -1335,12 +1346,11 @@ NO_EXPORT",
         <t>
           A JSON definition for the example Regular BGP community described in <xref target="RFC4384"/>, section 4 looks as follows.
         </t>
-        <t>
-          NOTE: '\' line wrapping per <xref target="RFC8792"/>
-        </t>
         <sourcecode>
+=============== NOTE: '\' line wrapping per RFC 8792 ================
+
 {
-  "ietf-grow-yang-bgp-communities:bgp-communities": {
+  "ietf-bgp-communities:bgp-communities": {
     "serial": 2023080101,
     "uri": "http://example.net/peering/communities",
     "description": "BGP Community example for Data Collection",
