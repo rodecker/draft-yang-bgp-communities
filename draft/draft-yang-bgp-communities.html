@@ -13,7 +13,7 @@
        
     " name="description">
 <meta content="xml2rfc 3.15.2" name="generator">
-<meta content="draft-ietf-grow-yang-bgp-communities-04" name="ietf.draft">
+<meta content="draft-ietf-grow-yang-bgp-communities-05" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.15.2
     Python 3.10.16
@@ -1191,11 +1191,11 @@ li > p:last-of-type {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">BGP Community YANG</td>
-<td class="right">March 2025</td>
+<td class="right">June 2025</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Pels</td>
-<td class="center">Expires 25 September 2025</td>
+<td class="center">Expires 5 December 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1205,15 +1205,15 @@ li > p:last-of-type {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Network Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-grow-yang-bgp-communities-04</dd>
+<dd class="internet-draft">draft-ietf-grow-yang-bgp-communities-05</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-03-24" class="published">24 March 2025</time>
+<time datetime="2025-06-03" class="published">3 June 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-09-25">25 September 2025</time></dd>
+<dd class="expires"><time datetime="2025-12-05">5 December 2025</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1249,7 +1249,7 @@ li > p:last-of-type {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 25 September 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 5 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1294,204 +1294,77 @@ li > p:last-of-type {
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-yang-module-2" class="internal xref">YANG Module</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
-            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-data-elements-2" class="internal xref">Data Elements</a></p>
+            <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-operational-guidelines-2" class="internal xref">Operational guidelines</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.1">
-                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-the-serial-leaf-2" class="internal xref">The "serial" leaf</a></p>
+                <p id="section-toc.1-1.6.2.1.1"><a href="#section-6.1" class="auto internal xref">6.1</a>.  <a href="#name-publishing-guidelines-2" class="internal xref">Publishing guidelines</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.2">
-                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-the-uri-leaf-2" class="internal xref">The "uri" leaf</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.3">
-                <p id="section-toc.1-1.6.2.3.1"><a href="#section-6.3" class="auto internal xref">6.3</a>.  <a href="#name-the-description-leaf-6" class="internal xref">The "description" leaf</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.4">
-                <p id="section-toc.1-1.6.2.4.1"><a href="#section-6.4" class="auto internal xref">6.4</a>.  <a href="#name-the-contact-url-leaf-2" class="internal xref">The "contact-url" leaf</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5">
-                <p id="section-toc.1-1.6.2.5.1"><a href="#section-6.5" class="auto internal xref">6.5</a>.  <a href="#name-the-contact-list-2" class="internal xref">The "contact" list</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.1">
-                    <p id="section-toc.1-1.6.2.5.2.1.1"><a href="#section-6.5.1" class="auto internal xref">6.5.1</a>.  <a href="#name-the-email-address-leaf-2" class="internal xref">The "email-address" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.2">
-                    <p id="section-toc.1-1.6.2.5.2.2.1"><a href="#section-6.5.2" class="auto internal xref">6.5.2</a>.  <a href="#name-the-name-leaf-6" class="internal xref">The "name" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.3">
-                    <p id="section-toc.1-1.6.2.5.2.3.1"><a href="#section-6.5.3" class="auto internal xref">6.5.3</a>.  <a href="#name-the-role-leaf-2" class="internal xref">The "role" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.4">
-                    <p id="section-toc.1-1.6.2.5.2.4.1"><a href="#section-6.5.4" class="auto internal xref">6.5.4</a>.  <a href="#name-the-organization-leaf-2" class="internal xref">The "organization" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.5.2.5">
-                    <p id="section-toc.1-1.6.2.5.2.5.1"><a href="#section-6.5.5" class="auto internal xref">6.5.5</a>.  <a href="#name-the-organizational-unit-leaf" class="internal xref">The "organizational-unit" leaf</a></p>
-</li>
-                </ul>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6">
-                <p id="section-toc.1-1.6.2.6.1"><a href="#section-6.6" class="auto internal xref">6.6</a>.  <a href="#name-the-regular-list-2" class="internal xref">The "regular" list</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6.2.1">
-                    <p id="section-toc.1-1.6.2.6.2.1.1"><a href="#section-6.6.1" class="auto internal xref">6.6.1</a>.  <a href="#name-the-name-leaf-7" class="internal xref">The "name" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6.2.2">
-                    <p id="section-toc.1-1.6.2.6.2.2.1"><a href="#section-6.6.2" class="auto internal xref">6.6.2</a>.  <a href="#name-the-category-leaf-4" class="internal xref">The "category" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6.2.3">
-                    <p id="section-toc.1-1.6.2.6.2.3.1"><a href="#section-6.6.3" class="auto internal xref">6.6.3</a>.  <a href="#name-the-description-leaf-7" class="internal xref">The "description" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6.2.4">
-                    <p id="section-toc.1-1.6.2.6.2.4.1"><a href="#section-6.6.4" class="auto internal xref">6.6.4</a>.  <a href="#name-the-global-admin-leaf-3" class="internal xref">The "global-admin" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.6.2.5">
-                    <p id="section-toc.1-1.6.2.6.2.5.1"><a href="#section-6.6.5" class="auto internal xref">6.6.5</a>.  <a href="#name-the-local-admin-container-3" class="internal xref">The "local-admin" container</a></p>
-</li>
-                </ul>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.7">
-                <p id="section-toc.1-1.6.2.7.1"><a href="#section-6.7" class="auto internal xref">6.7</a>.  <a href="#name-the-extended-list-2" class="internal xref">The "extended" list</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.7.2.1">
-                    <p id="section-toc.1-1.6.2.7.2.1.1"><a href="#section-6.7.1" class="auto internal xref">6.7.1</a>.  <a href="#name-the-name-leaf-9" class="internal xref">The "name" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.7.2.2">
-                    <p id="section-toc.1-1.6.2.7.2.2.1"><a href="#section-6.7.2" class="auto internal xref">6.7.2</a>.  <a href="#name-the-category-leaf-5" class="internal xref">The "category" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.7.2.3">
-                    <p id="section-toc.1-1.6.2.7.2.3.1"><a href="#section-6.7.3" class="auto internal xref">6.7.3</a>.  <a href="#name-the-description-leaf-9" class="internal xref">The "description" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.7.2.4">
-                    <p id="section-toc.1-1.6.2.7.2.4.1"><a href="#section-6.7.4" class="auto internal xref">6.7.4</a>.  <a href="#name-the-type-leaf-2" class="internal xref">The "type" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.7.2.5">
-                    <p id="section-toc.1-1.6.2.7.2.5.1"><a href="#section-6.7.5" class="auto internal xref">6.7.5</a>.  <a href="#name-the-subtype-leaf-2" class="internal xref">The "subtype" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.7.2.6">
-                    <p id="section-toc.1-1.6.2.7.2.6.1"><a href="#section-6.7.6" class="auto internal xref">6.7.6</a>.  <a href="#name-the-asn-leaf-2" class="internal xref">The "asn" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.7.2.7">
-                    <p id="section-toc.1-1.6.2.7.2.7.1"><a href="#section-6.7.7" class="auto internal xref">6.7.7</a>.  <a href="#name-the-asn4-leaf-2" class="internal xref">The "asn4" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.7.2.8">
-                    <p id="section-toc.1-1.6.2.7.2.8.1"><a href="#section-6.7.8" class="auto internal xref">6.7.8</a>.  <a href="#name-the-local-admin-container-4" class="internal xref">The "local-admin" container</a></p>
-</li>
-                </ul>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.8">
-                <p id="section-toc.1-1.6.2.8.1"><a href="#section-6.8" class="auto internal xref">6.8</a>.  <a href="#name-the-large-list-2" class="internal xref">The "large" list</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.8.2.1">
-                    <p id="section-toc.1-1.6.2.8.2.1.1"><a href="#section-6.8.1" class="auto internal xref">6.8.1</a>.  <a href="#name-the-name-leaf-10" class="internal xref">The "name" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.8.2.2">
-                    <p id="section-toc.1-1.6.2.8.2.2.1"><a href="#section-6.8.2" class="auto internal xref">6.8.2</a>.  <a href="#name-the-category-leaf-6" class="internal xref">The "category" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.8.2.3">
-                    <p id="section-toc.1-1.6.2.8.2.3.1"><a href="#section-6.8.3" class="auto internal xref">6.8.3</a>.  <a href="#name-the-description-leaf-10" class="internal xref">The "description" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.8.2.4">
-                    <p id="section-toc.1-1.6.2.8.2.4.1"><a href="#section-6.8.4" class="auto internal xref">6.8.4</a>.  <a href="#name-the-global-admin-leaf-4" class="internal xref">The "global-admin" leaf</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.8.2.5">
-                    <p id="section-toc.1-1.6.2.8.2.5.1"><a href="#section-6.8.5" class="auto internal xref">6.8.5</a>.  <a href="#name-the-local-datapart-1-contain" class="internal xref">The "local-datapart-1" container</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6.2.8.2.6">
-                    <p id="section-toc.1-1.6.2.8.2.6.1"><a href="#section-6.8.6" class="auto internal xref">6.8.6</a>.  <a href="#name-the-local-data-part-2-contai" class="internal xref">The "local-data-part-2" container</a></p>
-</li>
-                </ul>
+                <p id="section-toc.1-1.6.2.2.1"><a href="#section-6.2" class="auto internal xref">6.2</a>.  <a href="#name-parsing-guidelines-2" class="internal xref">Parsing guidelines</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
-            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-type-definitions-2" class="internal xref">Type definitions</a></p>
+            <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-iana-considerations-2" class="internal xref">IANA considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
-                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-the-two-octet-as-number-data" class="internal xref">The "two-octet-as-number" data type</a></p>
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-yang-namespace-registration-2" class="internal xref">YANG Namespace Registration</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
-                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-the-community-name-data-type" class="internal xref">The "community-name" data type</a></p>
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-yang-module-registration-2" class="internal xref">YANG Module Registration</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
-                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-the-community-category-data-" class="internal xref">The "community-category" data type</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.4">
-                <p id="section-toc.1-1.7.2.4.1"><a href="#section-7.4" class="auto internal xref">7.4</a>.  <a href="#name-the-community-description-da" class="internal xref">The "community-description" data type</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.5">
-                <p id="section-toc.1-1.7.2.5.1"><a href="#section-7.5" class="auto internal xref">7.5</a>.  <a href="#name-the-local-admin-format-data-" class="internal xref">The "local-admin-format" data type</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.6">
-                <p id="section-toc.1-1.7.2.6.1"><a href="#section-7.6" class="auto internal xref">7.6</a>.  <a href="#name-the-field-name-data-type-2" class="internal xref">The "field-name" data type</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.7">
-                <p id="section-toc.1-1.7.2.7.1"><a href="#section-7.7" class="auto internal xref">7.7</a>.  <a href="#name-the-field-pattern-data-type-2" class="internal xref">The "field-pattern" data type</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.8">
-                <p id="section-toc.1-1.7.2.8.1"><a href="#section-7.8" class="auto internal xref">7.8</a>.  <a href="#name-the-field-description-data-t" class="internal xref">The "field-description" data type</a></p>
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-yang-sid-allocation-2" class="internal xref">YANG SID Allocation</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-operational-guidelines-2" class="internal xref">Operational guidelines</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-implementation-status-2" class="internal xref">Implementation status</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
-                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-publishing-guidelines-2" class="internal xref">Publishing guidelines</a></p>
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-publishing-implementations-3" class="internal xref">Publishing implementations</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
-                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-parsing-guidelines-2" class="internal xref">Parsing guidelines</a></p>
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-parser-implementations-3" class="internal xref">Parser implementations</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-iana-considerations-2" class="internal xref">IANA considerations</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-security-considerations-2" class="internal xref">Security considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-yang-namespace-registration-2" class="internal xref">YANG Namespace Registration</a></p>
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-parsing-considerations-2" class="internal xref">Parsing considerations</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-yang-module-registration-2" class="internal xref">YANG Module Registration</a></p>
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-privacy-considerations-2" class="internal xref">Privacy considerations</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
-                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-yang-sid-allocation-2" class="internal xref">YANG SID Allocation</a></p>
+                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-netconf-restconf-considerati" class="internal xref">NETCONF/RESTCONF considerations</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-implementation-status-2" class="internal xref">Implementation status</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-publishing-implementations-3" class="internal xref">Publishing implementations</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-parser-implementations-3" class="internal xref">Parser implementations</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-normative-references-2" class="internal xref">Normative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-security-considerations-2" class="internal xref">Security considerations</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-informative-references-2" class="internal xref">Informative References</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-normative-references-2" class="internal xref">Normative References</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#section-13" class="auto internal xref">13</a>. <a href="#name-informative-references-2" class="internal xref">Informative References</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-json-examples-2" class="internal xref">JSON Examples</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-json-examples-2" class="internal xref">JSON Examples</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.1">
-                <p id="section-toc.1-1.14.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-rfc8195-selective-no_export-" class="internal xref">RFC8195 Selective NO_EXPORT definition</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.1">
+                <p id="section-toc.1-1.12.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-rfc8195-selective-no_export-" class="internal xref">RFC8195 Selective NO_EXPORT definition</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14.2.2">
-                <p id="section-toc.1-1.14.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-rfc4384-data-collection-defi" class="internal xref">RFC4384 Data Collection definition</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.2">
+                <p id="section-toc.1-1.12.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-rfc4384-data-collection-defi" class="internal xref">RFC4384 Data Collection definition</a></p>
 </li>
             </ul>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
-            <p id="section-toc.1-1.15.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-acknowledgements-2" class="internal xref">Acknowledgements</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-acknowledgements-2" class="internal xref">Acknowledgements</a></p>
 </li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
-            <p id="section-toc.1-1.16.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-address-2" class="internal xref">Author's Address</a></p>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
+            <p id="section-toc.1-1.14.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-address-2" class="internal xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1633,12 +1506,14 @@ module: ietf-bgp-communities
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-yang-module-2" class="section-name selfRef">YANG Module</a>
       </h2>
 <p id="section-5-1">
-        This section contains the complete YANG module defined in this document.
-        A break-down of the individual elements in this module can be found in <a href="#elements" class="auto internal xref">Section 6</a>.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<div id="section-5-2">
+        This section contains the complete YANG module defined in this document.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">
+        Several elements in this module use data types from <span>[<a href="#I-D.ietf-netmod-rfc6991-bis" class="cite xref">I-D.ietf-netmod-rfc6991-bis</a>]</span>.
+        These data types are represented with the prefix "inet".<a href="#section-5-2" class="pilcrow">¶</a></p>
+<div id="section-5-3">
 <pre class="breakable sourcecode">
 
-&lt;CODE BEGINS&gt; file "ietf-bgp-communities@2025-03-13.yang"
+&lt;CODE BEGINS&gt; file "ietf-bgp-communities@2025-06-03.yang"
 
 module ietf-bgp-communities {
   yang-version 1.1;
@@ -1676,9 +1551,15 @@ module ietf-bgp-communities {
      This version of this YANG module is part of RFC YYYY; see
      the RFC itself for full legal notices.
 
-  // RFC-EDITOR: please update YYYY with this RFC ID";
+     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+     'MAY', and 'OPTIONAL' in this document are to be interpreted as
+     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+     they appear in all capitals, as shown here.";
 
-  revision 2025-03-13 {
+  // RFC-EDITOR: please update YYYY with this RFC ID
+
+  revision 2025-06-03 {
     description
       "Initial revision.";
     reference
@@ -1826,19 +1707,31 @@ module ietf-bgp-communities {
       leaf length {
         type uint8;
         description
-          "Length of the field";
+          "Length of the field.  If local-admin-format is 'decimal',
+           this is a number of digits.  In case local-admin-format is
+           'binary', it is a number of bits.
+
+           Parsers use the field length to determine how many
+           decimals or bits from the Local Administrator part of the
+           community are used by this field.  If this leaf is not
+           defined, the length is assumed to be the maximum allowed
+           length of the entire field list.  In this case the field
+           list MUST NOT contain more than one element.";
       }
       leaf pattern {
         type field-pattern;
         mandatory true;
         description
-          "Regular Expression describing the expected contents of
-           the field";
+          "Used by parsers to match on the content of the field.
+           This could be a single value or a regular expression
+           pattern matching multiple values.";
       }
       leaf description {
         type field-description;
         description
-          "A text description of the field contents";
+          "A text description of the field pattern.  This description
+           can be used to provide meaning to specific values for a
+           field.";
       }
     }
   }
@@ -1850,7 +1743,13 @@ module ietf-bgp-communities {
       type uint32;
       must "boolean(.)";
       description
-        "Version number of the community set";
+        "Version number of the community set.  This value wraps and
+         should be compared using sequence space arithmetic.
+         Publishing implementations are free to decide how to
+         generate this value.  One example method is to use the
+         YYYYMMDDnn syntax as commonly used inside the DNS.";
+      reference
+        "RFC 1912: Common DNS Operational and Configuration Errors";
     }
     leaf uri {
       type inet:uri;
@@ -1915,6 +1814,7 @@ module ietf-bgp-communities {
     }
     list regular {
       key "name";
+      ordered-by user;
       description
         "A list of objects describing RFC 1997 BGP Communities";
       leaf name {
@@ -1954,9 +1854,11 @@ module ietf-bgp-communities {
     }
     list extended {
       key "name";
+      ordered-by user;
       description
         "A list of objects describing RFC 4360 Extended BGP
-         Communities";
+         Communities.  Two-Octet and Four-Octet AS Specific
+         communities are supported by this model.";
       leaf name {
         type community-name;
         description
@@ -1976,13 +1878,19 @@ module ietf-bgp-communities {
         type uint8;
         mandatory true;
         description
-          "Type Field";
+          "High-order Type of the community.  Supported values are 0
+           (0x00) for Transitive Two-Octet AS-Specific Extended
+           Communities, 2 (0x02) for Transitive Four-Octet
+           AS-Specific Extended Communities, 64 (0x40) for
+           Non-Transitive Two-Octet AS-Specific Extended Communities
+           and 66 (0x42) for Non-Transitive Four-Octet AS-Specific
+           Extended Communities.";
       }
       leaf subtype {
         type uint8;
         mandatory true;
         description
-          "Sub-Type Field";
+          "Low-order Sub-Type of the community";
       }
       choice global-admin {
         mandatory true;
@@ -2021,6 +1929,7 @@ module ietf-bgp-communities {
     }
     list large {
       key "name";
+      ordered-by user;
       description
         "A list of objects describing RFC 8092 Large BGP
          Communities";
@@ -2074,647 +1983,79 @@ module ietf-bgp-communities {
 }
 &lt;CODE ENDS&gt;
 
-</pre><a href="#section-5-2" class="pilcrow">¶</a>
-</div>
-</section>
-</div>
-<div id="elements">
-<section id="section-6">
-      <h2 id="name-data-elements-2">
-<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-data-elements-2" class="section-name selfRef">Data Elements</a>
-      </h2>
-<p id="section-6-1">
-        The BGP Communities YANG module contains the elements described in this section.
-        The full contents of the module can be found in <a href="#module" class="auto internal xref">Section 5</a>.
-
-        Several elements in this module use data types from <span>[<a href="#I-D.ietf-netmod-rfc6991-bis" class="cite xref">I-D.ietf-netmod-rfc6991-bis</a>]</span>.
-        These data types are represented with the prefix "inet".<a href="#section-6-1" class="pilcrow">¶</a></p>
-<div id="elements.serial">
-<section id="section-6.1">
-        <h3 id="name-the-serial-leaf-2">
-<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-the-serial-leaf-2" class="section-name selfRef">The "serial" leaf</a>
-        </h3>
-<p id="section-6.1-1">
-          A required value of type "uint32", containing the version number for the community set.
-          This value wraps and should be compared using sequence space arithmetic.
-          Publishing Implementations are free to decide how to generate this value.
-          One example method is to use the YYYYMMDDnn syntax as commonly used inside the DNS<span>[<a href="#RFC1912" class="cite xref">RFC1912</a>]</span>.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.uri">
-<section id="section-6.2">
-        <h3 id="name-the-uri-leaf-2">
-<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-the-uri-leaf-2" class="section-name selfRef">The "uri" leaf</a>
-        </h3>
-<p id="section-6.2-1">
-          An optional value of type "inet:uri", describing the publication point for the community set.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.description">
-<section id="section-6.3">
-        <h3 id="name-the-description-leaf-6">
-<a href="#section-6.3" class="section-number selfRef">6.3. </a><a href="#name-the-description-leaf-6" class="section-name selfRef">The "description" leaf</a>
-        </h3>
-<p id="section-6.3-1">
-          An optional value of type "string" with a maximum length of 65535, providing information about the specified set of communities.<a href="#section-6.3-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.contact-url">
-<section id="section-6.4">
-        <h3 id="name-the-contact-url-leaf-2">
-<a href="#section-6.4" class="section-number selfRef">6.4. </a><a href="#name-the-contact-url-leaf-2" class="section-name selfRef">The "contact-url" leaf</a>
-        </h3>
-<p id="section-6.4-1">
-          An optional value of type "inet:uri", describing a webpage where maintainer contact information may be found.<a href="#section-6.4-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.contact">
-<section id="section-6.5">
-        <h3 id="name-the-contact-list-2">
-<a href="#section-6.5" class="section-number selfRef">6.5. </a><a href="#name-the-contact-list-2" class="section-name selfRef">The "contact" list</a>
-        </h3>
-<p id="section-6.5-1">
-          A list of objects defining contact information for the maintainer(s) of the community set.
-          Each object contains the following elements.<a href="#section-6.5-1" class="pilcrow">¶</a></p>
-<div id="elements.contact.email-address">
-<section id="section-6.5.1">
-          <h4 id="name-the-email-address-leaf-2">
-<a href="#section-6.5.1" class="section-number selfRef">6.5.1. </a><a href="#name-the-email-address-leaf-2" class="section-name selfRef">The "email-address" leaf</a>
-          </h4>
-<p id="section-6.5.1-1">
-            A required value of type "inet:email-address", containing the e-mail address of the contact.<a href="#section-6.5.1-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.contact.name">
-<section id="section-6.5.2">
-          <h4 id="name-the-name-leaf-6">
-<a href="#section-6.5.2" class="section-number selfRef">6.5.2. </a><a href="#name-the-name-leaf-6" class="section-name selfRef">The "name" leaf</a>
-          </h4>
-<p id="section-6.5.2-1">
-            An optional value of type "string" with a maximum length of 255, containing the name of the contact.<a href="#section-6.5.2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.contact.role">
-<section id="section-6.5.3">
-          <h4 id="name-the-role-leaf-2">
-<a href="#section-6.5.3" class="section-number selfRef">6.5.3. </a><a href="#name-the-role-leaf-2" class="section-name selfRef">The "role" leaf</a>
-          </h4>
-<p id="section-6.5.3-1">
-            An optional value of type "string" with a maximum length of 255, describing the role of the contact.<a href="#section-6.5.3-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.contact.organization">
-<section id="section-6.5.4">
-          <h4 id="name-the-organization-leaf-2">
-<a href="#section-6.5.4" class="section-number selfRef">6.5.4. </a><a href="#name-the-organization-leaf-2" class="section-name selfRef">The "organization" leaf</a>
-          </h4>
-<p id="section-6.5.4-1">
-            An optional value of type "string" with a maximum length of 255, containing the organization of the contact.<a href="#section-6.5.4-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.contact.organizational-unit">
-<section id="section-6.5.5">
-          <h4 id="name-the-organizational-unit-leaf">
-<a href="#section-6.5.5" class="section-number selfRef">6.5.5. </a><a href="#name-the-organizational-unit-leaf" class="section-name selfRef">The "organizational-unit" leaf</a>
-          </h4>
-<p id="section-6.5.5-1">
-            An optional value of type "string" with a maximum length of 255, containing the organizational unit of the contact.<a href="#section-6.5.5-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-</section>
-</div>
-<div id="elements.regular">
-<section id="section-6.6">
-        <h3 id="name-the-regular-list-2">
-<a href="#section-6.6" class="section-number selfRef">6.6. </a><a href="#name-the-regular-list-2" class="section-name selfRef">The "regular" list</a>
-        </h3>
-<p id="section-6.6-1">
-          A list of objects defining Regular (<span>[<a href="#RFC1997" class="cite xref">RFC1997</a>]</span>) BGP communities.
-          Each object contains the following elements.<a href="#section-6.6-1" class="pilcrow">¶</a></p>
-<div id="elements.regular.name">
-<section id="section-6.6.1">
-          <h4 id="name-the-name-leaf-7">
-<a href="#section-6.6.1" class="section-number selfRef">6.6.1. </a><a href="#name-the-name-leaf-7" class="section-name selfRef">The "name" leaf</a>
-          </h4>
-<p id="section-6.6.1-1">
-            A required value of type "community-name", containing the name of this community.<a href="#section-6.6.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.6.1-2">
-            The structure of the "community-name" type is defined in <a href="#types.community-name" class="auto internal xref">Section 7.2</a>.<a href="#section-6.6.1-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.regular.category">
-<section id="section-6.6.2">
-          <h4 id="name-the-category-leaf-4">
-<a href="#section-6.6.2" class="section-number selfRef">6.6.2. </a><a href="#name-the-category-leaf-4" class="section-name selfRef">The "category" leaf</a>
-          </h4>
-<p id="section-6.6.2-1">
-            An optional value of type "community-category", containing the category of this community.<a href="#section-6.6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.6.2-2">
-            The structure of the "community-category" type is defined in <a href="#types.community-category" class="auto internal xref">Section 7.3</a>.<a href="#section-6.6.2-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.regular.description">
-<section id="section-6.6.3">
-          <h4 id="name-the-description-leaf-7">
-<a href="#section-6.6.3" class="section-number selfRef">6.6.3. </a><a href="#name-the-description-leaf-7" class="section-name selfRef">The "description" leaf</a>
-          </h4>
-<p id="section-6.6.3-1">
-            An optional value of type "community-description", containing a description of this community.<a href="#section-6.6.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.6.3-2">
-            The structure of the "community-description" type is defined in <a href="#types.community-description" class="auto internal xref">Section 7.4</a>.<a href="#section-6.6.3-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.regular.global-admin">
-<section id="section-6.6.4">
-          <h4 id="name-the-global-admin-leaf-3">
-<a href="#section-6.6.4" class="section-number selfRef">6.6.4. </a><a href="#name-the-global-admin-leaf-3" class="section-name selfRef">The "global-admin" leaf</a>
-          </h4>
-<p id="section-6.6.4-1">
-            A required value of type "two-octet-as-number", containing the Autonomous System Number (ASN) set in the Global Administrator part of this community.<a href="#section-6.6.4-1" class="pilcrow">¶</a></p>
-<p id="section-6.6.4-2">
-           The structure of the "two-octet-as-number" type is defined in <a href="#types.two-octet-as-number" class="auto internal xref">Section 7.1</a>.<a href="#section-6.6.4-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.regular.local-admin">
-<section id="section-6.6.5">
-          <h4 id="name-the-local-admin-container-3">
-<a href="#section-6.6.5" class="section-number selfRef">6.6.5. </a><a href="#name-the-local-admin-container-3" class="section-name selfRef">The "local-admin" container</a>
-          </h4>
-<p id="section-6.6.5-1">
-            A group of elements that describe the Local Administrator part of the community.
-            This object contains the following elements.<a href="#section-6.6.5-1" class="pilcrow">¶</a></p>
-<div id="elements.regular.local-admin.format">
-<section id="section-6.6.5.1">
-            <h5 id="name-the-format-leaf-5">
-<a href="#section-6.6.5.1" class="section-number selfRef">6.6.5.1. </a><a href="#name-the-format-leaf-5" class="section-name selfRef">The "format" leaf</a>
-            </h5>
-<p id="section-6.6.5.1-1">
-              An optional value of type "local-admin-format", describing the encoding format in which fields are to be parsed (see <a href="#recommendations.parsing" class="auto internal xref">Section 8.2</a>).<a href="#section-6.6.5.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.6.5.1-2">
-              The structure of the "local-admin-format" type is defined in <a href="#types.local-admin-format" class="auto internal xref">Section 7.5</a>.
-              If this leaf is not defined, the default "decimal" encoding is assumed.<a href="#section-6.6.5.1-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.regular.local-admin.field">
-<section id="section-6.6.5.2">
-            <h5 id="name-the-field-list-5">
-<a href="#section-6.6.5.2" class="section-number selfRef">6.6.5.2. </a><a href="#name-the-field-list-5" class="section-name selfRef">The "field" list</a>
-            </h5>
-<p id="section-6.6.5.2-1">
-              A list of objects that together form the Local Administrator part of the community.
-              The combined length values of all fields MUST NOT exceed the maximum length of the Local Administrator part of the community.<a href="#section-6.6.5.2-1" class="pilcrow">¶</a></p>
-<div id="elements.regular.local-admin.field.name">
-<section id="section-6.6.5.2.1">
-              <h6 id="name-the-name-leaf-8">
-<a href="#section-6.6.5.2.1" class="section-number selfRef">6.6.5.2.1. </a><a href="#name-the-name-leaf-8" class="section-name selfRef">The "name" leaf</a>
-              </h6>
-<p id="section-6.6.5.2.1-1">
-                A required value of type "field-name", containing the name of the field.<a href="#section-6.6.5.2.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.6.5.2.1-2">
-                The structure of the "field-name" type is defined in <a href="#types.field-name" class="auto internal xref">Section 7.6</a>.<a href="#section-6.6.5.2.1-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.regular.local-admin.field.length">
-<section id="section-6.6.5.2.2">
-              <h6 id="name-the-length-leaf-2">
-<a href="#section-6.6.5.2.2" class="section-number selfRef">6.6.5.2.2. </a><a href="#name-the-length-leaf-2" class="section-name selfRef">The "length" leaf</a>
-              </h6>
-<p id="section-6.6.5.2.2-1">
-                An optional value of type "uint8", containing the length of the field.
-                If the expected field format (<a href="#elements.regular.local-admin.format" class="auto internal xref">Section 6.6.5.1</a>) is "decimal", this is a number of digits.
-                In case the expected field format is "binary", this is a number of bits.<a href="#section-6.6.5.2.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.6.5.2.2-2">
-                Parsers use the field length to determine how many decimals or bits from the Local Administrator part of the community are used by this field.
-                If this leaf is not defined, the length is assumed to be the maximum allowed length of the entire field list.
-                In this case the field list MUST NOT contain more than one element.<a href="#section-6.6.5.2.2-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.regular.local-admin.field.pattern">
-<section id="section-6.6.5.2.3">
-              <h6 id="name-the-pattern-leaf-2">
-<a href="#section-6.6.5.2.3" class="section-number selfRef">6.6.5.2.3. </a><a href="#name-the-pattern-leaf-2" class="section-name selfRef">The "pattern" leaf</a>
-              </h6>
-<p id="section-6.6.5.2.3-1">
-                A required value of type "field-pattern", used by parsers to match the content of the corresponding field in the Local Administrator part of a community.
-                This could be a single value or a regular expression pattern matching multiple values.<a href="#section-6.6.5.2.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.6.5.2.3-2">
-                The structure of the "field-pattern" type is defined in <a href="#types.field-pattern" class="auto internal xref">Section 7.7</a>.<a href="#section-6.6.5.2.3-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.regular.local-admin.field.description">
-<section id="section-6.6.5.2.4">
-              <h6 id="name-the-description-leaf-8">
-<a href="#section-6.6.5.2.4" class="section-number selfRef">6.6.5.2.4. </a><a href="#name-the-description-leaf-8" class="section-name selfRef">The "description" leaf</a>
-              </h6>
-<p id="section-6.6.5.2.4-1">
-                An optional value of type "field-description", containing a description of the pattern.
-                This description can be used to provide meaning to specific values for a field.<a href="#section-6.6.5.2.4-1" class="pilcrow">¶</a></p>
-<p id="section-6.6.5.2.4-2">
-                The structure of the "field-description" type is defined in <a href="#types.field-description" class="auto internal xref">Section 7.8</a>.<a href="#section-6.6.5.2.4-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-</section>
-</div>
-</section>
-</div>
-</section>
-</div>
-<div id="elements.extended">
-<section id="section-6.7">
-        <h3 id="name-the-extended-list-2">
-<a href="#section-6.7" class="section-number selfRef">6.7. </a><a href="#name-the-extended-list-2" class="section-name selfRef">The "extended" list</a>
-        </h3>
-<p id="section-6.7-1">
-          A list of objects defining Extended (<span>[<a href="#RFC4360" class="cite xref">RFC4360</a>]</span>) BGP communities.
-          Two-Octet and Four-Octet AS Specific communities are supported by this specification.
-          Each object contains the following elements.<a href="#section-6.7-1" class="pilcrow">¶</a></p>
-<div id="elements.extended.name">
-<section id="section-6.7.1">
-          <h4 id="name-the-name-leaf-9">
-<a href="#section-6.7.1" class="section-number selfRef">6.7.1. </a><a href="#name-the-name-leaf-9" class="section-name selfRef">The "name" leaf</a>
-          </h4>
-<p id="section-6.7.1-1">
-            A required value of type "community-name", containing the name of this community.<a href="#section-6.7.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.7.1-2">
-            The structure of the "community-name" type is defined in <a href="#types.community-name" class="auto internal xref">Section 7.2</a>.<a href="#section-6.7.1-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.extended.category">
-<section id="section-6.7.2">
-          <h4 id="name-the-category-leaf-5">
-<a href="#section-6.7.2" class="section-number selfRef">6.7.2. </a><a href="#name-the-category-leaf-5" class="section-name selfRef">The "category" leaf</a>
-          </h4>
-<p id="section-6.7.2-1">
-            An optional value of type "community-category", containing the category of this community.<a href="#section-6.7.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.7.2-2">
-            The structure of the "community-category" type is defined in <a href="#types.community-category" class="auto internal xref">Section 7.3</a>.<a href="#section-6.7.2-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.extended.description">
-<section id="section-6.7.3">
-          <h4 id="name-the-description-leaf-9">
-<a href="#section-6.7.3" class="section-number selfRef">6.7.3. </a><a href="#name-the-description-leaf-9" class="section-name selfRef">The "description" leaf</a>
-          </h4>
-<p id="section-6.7.3-1">
-            An optional value of type "community-description", containing a description of this community.<a href="#section-6.7.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.7.3-2">
-            The structure of the "community-description" type is defined in <a href="#types.community-description" class="auto internal xref">Section 7.4</a>.<a href="#section-6.7.3-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.extended.type">
-<section id="section-6.7.4">
-          <h4 id="name-the-type-leaf-2">
-<a href="#section-6.7.4" class="section-number selfRef">6.7.4. </a><a href="#name-the-type-leaf-2" class="section-name selfRef">The "type" leaf</a>
-          </h4>
-<p id="section-6.7.4-1">
-            A required value of type "uint8", containing the high-order Type of the community.
-            Supported values are 0 (0x00) for Transitive Two-Octet AS-Specific Extended Communities, 2 (0x02) for Transitive Four-Octet AS-Specific Extended Communities, 64 (0x40) for Non-Transitive Two-Octet AS-Specific Extended Communities and 66 (0x42) for Non-Transitive Four-Octet AS-Specific Extended Communities.<a href="#section-6.7.4-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.extended.subtype">
-<section id="section-6.7.5">
-          <h4 id="name-the-subtype-leaf-2">
-<a href="#section-6.7.5" class="section-number selfRef">6.7.5. </a><a href="#name-the-subtype-leaf-2" class="section-name selfRef">The "subtype" leaf</a>
-          </h4>
-<p id="section-6.7.5-1">
-            A required value of type "uint8", containing the low-order Sub-Type of the community.<a href="#section-6.7.5-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.extended.asn">
-<section id="section-6.7.6">
-          <h4 id="name-the-asn-leaf-2">
-<a href="#section-6.7.6" class="section-number selfRef">6.7.6. </a><a href="#name-the-asn-leaf-2" class="section-name selfRef">The "asn" leaf</a>
-          </h4>
-<p id="section-6.7.6-1">
-            For Two-Octet AS Specific communities: A required value of type "two-octet-as-number", containing the Autonomous Sytem Number set in the Global Administrator part of this community.<a href="#section-6.7.6-1" class="pilcrow">¶</a></p>
-<p id="section-6.7.6-2">
-            The structure of the "two-octet-as-number" type is defined in <a href="#types.two-octet-as-number" class="auto internal xref">Section 7.1</a>.<a href="#section-6.7.6-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.extended.asn4">
-<section id="section-6.7.7">
-          <h4 id="name-the-asn4-leaf-2">
-<a href="#section-6.7.7" class="section-number selfRef">6.7.7. </a><a href="#name-the-asn4-leaf-2" class="section-name selfRef">The "asn4" leaf</a>
-          </h4>
-<p id="section-6.7.7-1">
-            For Four-Octet AS Specific communities: A required value of type "inet:as-number", containing the ASN set in the Global Administrator part of this community.<a href="#section-6.7.7-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.extended.local-admin">
-<section id="section-6.7.8">
-          <h4 id="name-the-local-admin-container-4">
-<a href="#section-6.7.8" class="section-number selfRef">6.7.8. </a><a href="#name-the-local-admin-container-4" class="section-name selfRef">The "local-admin" container</a>
-          </h4>
-<p id="section-6.7.8-1">
-            A group of elements that describe the Local Administrator part of the community.
-            This object contains the following elements.<a href="#section-6.7.8-1" class="pilcrow">¶</a></p>
-<div id="elements.extended.local-admin.format">
-<section id="section-6.7.8.1">
-            <h5 id="name-the-format-leaf-6">
-<a href="#section-6.7.8.1" class="section-number selfRef">6.7.8.1. </a><a href="#name-the-format-leaf-6" class="section-name selfRef">The "format" leaf</a>
-            </h5>
-<p id="section-6.7.8.1-1">
-              An optional value of type "local-admin-format", describing the encoding format in which fields are to be parsed (see <a href="#recommendations.parsing" class="auto internal xref">Section 8.2</a>).<a href="#section-6.7.8.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.7.8.1-2">
-              The structure of the "local-admin-format" type is defined in <a href="#types.local-admin-format" class="auto internal xref">Section 7.5</a>.
-              If this leaf is not defined, the default "decimal" encoding is assumed.<a href="#section-6.7.8.1-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.extended.local-admin.field">
-<section id="section-6.7.8.2">
-            <h5 id="name-the-field-list-6">
-<a href="#section-6.7.8.2" class="section-number selfRef">6.7.8.2. </a><a href="#name-the-field-list-6" class="section-name selfRef">The "field" list</a>
-            </h5>
-<p id="section-6.7.8.2-1">
-              A list of objects that together form the Local Administrator part of the community.
-              The combined length values of all fields MUST NOT exceed the maximum length of the Local Administrator part of the community.<a href="#section-6.7.8.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.7.8.2-2">
-              The supported leafs in this list are identical to those described in <a href="#elements.regular.local-admin.field" class="auto internal xref">Section 6.6.5.2</a>.<a href="#section-6.7.8.2-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-</section>
-</div>
-</section>
-</div>
-<div id="elements.large">
-<section id="section-6.8">
-        <h3 id="name-the-large-list-2">
-<a href="#section-6.8" class="section-number selfRef">6.8. </a><a href="#name-the-large-list-2" class="section-name selfRef">The "large" list</a>
-        </h3>
-<p id="section-6.8-1">
-          A list of objects defining Large (<span>[<a href="#RFC8092" class="cite xref">RFC8092</a>]</span>) BGP communities.
-          Each object contains the following elements.<a href="#section-6.8-1" class="pilcrow">¶</a></p>
-<div id="elements.large.name">
-<section id="section-6.8.1">
-          <h4 id="name-the-name-leaf-10">
-<a href="#section-6.8.1" class="section-number selfRef">6.8.1. </a><a href="#name-the-name-leaf-10" class="section-name selfRef">The "name" leaf</a>
-          </h4>
-<p id="section-6.8.1-1">
-            A required value of type "community-name", containing the name of this community.<a href="#section-6.8.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.8.1-2">
-            The structure of the "community-name" type is defined in <a href="#types.community-name" class="auto internal xref">Section 7.2</a>.<a href="#section-6.8.1-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.large.category">
-<section id="section-6.8.2">
-          <h4 id="name-the-category-leaf-6">
-<a href="#section-6.8.2" class="section-number selfRef">6.8.2. </a><a href="#name-the-category-leaf-6" class="section-name selfRef">The "category" leaf</a>
-          </h4>
-<p id="section-6.8.2-1">
-            An optional value of type "community-category", containing the category of this community.<a href="#section-6.8.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.8.2-2">
-            The structure of the "community-category" type is defined in <a href="#types.community-category" class="auto internal xref">Section 7.3</a>.<a href="#section-6.8.2-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.large.description">
-<section id="section-6.8.3">
-          <h4 id="name-the-description-leaf-10">
-<a href="#section-6.8.3" class="section-number selfRef">6.8.3. </a><a href="#name-the-description-leaf-10" class="section-name selfRef">The "description" leaf</a>
-          </h4>
-<p id="section-6.8.3-1">
-            An optional value of type "community-description", containing a description of this community.<a href="#section-6.8.3-1" class="pilcrow">¶</a></p>
-<p id="section-6.8.3-2">
-            The structure of the "community-description" type is defined in <a href="#types.community-description" class="auto internal xref">Section 7.4</a>.<a href="#section-6.8.3-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.large.global-admin">
-<section id="section-6.8.4">
-          <h4 id="name-the-global-admin-leaf-4">
-<a href="#section-6.8.4" class="section-number selfRef">6.8.4. </a><a href="#name-the-global-admin-leaf-4" class="section-name selfRef">The "global-admin" leaf</a>
-          </h4>
-<p id="section-6.8.4-1">
-            A required value of type "inet:as-number", containing the ASN set in the Global Administrator part of this community.<a href="#section-6.8.4-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.large.local-data-part-1">
-<section id="section-6.8.5">
-          <h4 id="name-the-local-datapart-1-contain">
-<a href="#section-6.8.5" class="section-number selfRef">6.8.5. </a><a href="#name-the-local-datapart-1-contain" class="section-name selfRef">The "local-datapart-1" container</a>
-          </h4>
-<p id="section-6.8.5-1">
-            A group of elements that describe the Local Data Part 1 section of the community.
-            This object contains the following elements.<a href="#section-6.8.5-1" class="pilcrow">¶</a></p>
-<div id="elements.large.local-data-part-1.format">
-<section id="section-6.8.5.1">
-            <h5 id="name-the-format-leaf-7">
-<a href="#section-6.8.5.1" class="section-number selfRef">6.8.5.1. </a><a href="#name-the-format-leaf-7" class="section-name selfRef">The "format" leaf</a>
-            </h5>
-<p id="section-6.8.5.1-1">
-              An optional value of type "local-admin-format", describing the encoding format in which fields are to be parsed (see <a href="#recommendations.parsing" class="auto internal xref">Section 8.2</a>).<a href="#section-6.8.5.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.8.5.1-2">
-              The structure of the "local-admin-format" type is defined in <a href="#types.local-admin-format" class="auto internal xref">Section 7.5</a>.
-              If this leaf is not defined, the default "decimal" encoding is assumed.<a href="#section-6.8.5.1-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.large.local-data-part-1.field">
-<section id="section-6.8.5.2">
-            <h5 id="name-the-field-list-7">
-<a href="#section-6.8.5.2" class="section-number selfRef">6.8.5.2. </a><a href="#name-the-field-list-7" class="section-name selfRef">The "field" list</a>
-            </h5>
-<p id="section-6.8.5.2-1">
-              A list of objects that together form the Local Data Part 1 section of the community.
-              The combined length values of all fields MUST NOT exceed the maximum length of the "Local Data Part 1" section of the community.<a href="#section-6.8.5.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.8.5.2-2">
-              The supported leafs in this list are identical to those described in <a href="#elements.regular.local-admin.field" class="auto internal xref">Section 6.6.5.2</a>.<a href="#section-6.8.5.2-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-</section>
-</div>
-<div id="elements.large.local-data-part-2">
-<section id="section-6.8.6">
-          <h4 id="name-the-local-data-part-2-contai">
-<a href="#section-6.8.6" class="section-number selfRef">6.8.6. </a><a href="#name-the-local-data-part-2-contai" class="section-name selfRef">The "local-data-part-2" container</a>
-          </h4>
-<p id="section-6.8.6-1">
-            A group of elements that describe the Local Data Part 2 section of the community.
-            This object contains the following elements.<a href="#section-6.8.6-1" class="pilcrow">¶</a></p>
-<div id="elements.large.local-data-part-2.format">
-<section id="section-6.8.6.1">
-            <h5 id="name-the-format-leaf-8">
-<a href="#section-6.8.6.1" class="section-number selfRef">6.8.6.1. </a><a href="#name-the-format-leaf-8" class="section-name selfRef">The "format" leaf</a>
-            </h5>
-<p id="section-6.8.6.1-1">
-              An optional value of type "local-admin-format", describing the encoding format in which fields are to be parsed (see <a href="#recommendations.parsing" class="auto internal xref">Section 8.2</a>).<a href="#section-6.8.6.1-1" class="pilcrow">¶</a></p>
-<p id="section-6.8.6.1-2">
-              The structure of the "local-admin-format" type is defined in <a href="#types.local-admin-format" class="auto internal xref">Section 7.5</a>.
-              If this leaf is not defined, the default "decimal" encoding is assumed.<a href="#section-6.8.6.1-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="elements.large.local-data-part-2.field">
-<section id="section-6.8.6.2">
-            <h5 id="name-the-field-list-8">
-<a href="#section-6.8.6.2" class="section-number selfRef">6.8.6.2. </a><a href="#name-the-field-list-8" class="section-name selfRef">The "field" list</a>
-            </h5>
-<p id="section-6.8.6.2-1">
-              A list of objects that together form the Local Data Part 2 section of the community.
-              The combined length values of all fields MUST NOT exceed the maximum length of the "Local Data Part 2" section of the community.<a href="#section-6.8.6.2-1" class="pilcrow">¶</a></p>
-<p id="section-6.8.6.2-2">
-              The supported leafs in this list are identical to those described in <a href="#elements.regular.local-admin.field" class="auto internal xref">Section 6.6.5.2</a>.<a href="#section-6.8.6.2-2" class="pilcrow">¶</a></p>
-</section>
-</div>
-</section>
-</div>
-</section>
-</div>
-</section>
-</div>
-<div id="types">
-<section id="section-7">
-      <h2 id="name-type-definitions-2">
-<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-type-definitions-2" class="section-name selfRef">Type definitions</a>
-      </h2>
-<p id="section-7-1">
-        Several of the elements defined in <a href="#elements" class="auto internal xref">Section 6</a> use custom data types. These data types are defined here.<a href="#section-7-1" class="pilcrow">¶</a></p>
-<div id="types.two-octet-as-number">
-<section id="section-7.1">
-        <h3 id="name-the-two-octet-as-number-data">
-<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-the-two-octet-as-number-data" class="section-name selfRef">The "two-octet-as-number" data type</a>
-        </h3>
-<p id="section-7.1-1">
-          A Two-Octet Autonomous System Number, as defined in <span>[<a href="#RFC1930" class="cite xref">RFC1930</a>]</span>.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="types.community-name">
-<section id="section-7.2">
-        <h3 id="name-the-community-name-data-type">
-<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-the-community-name-data-type" class="section-name selfRef">The "community-name" data type</a>
-        </h3>
-<p id="section-7.2-1">
-          A string specifying the name of a BGP community.
-          Names may be up to 255 characters long and MUST NOT contain spaces or tabs.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="types.community-category">
-<section id="section-7.3">
-        <h3 id="name-the-community-category-data-">
-<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-the-community-category-data-" class="section-name selfRef">The "community-category" data type</a>
-        </h3>
-<p id="section-7.3-1">
-          An enum specifying the category of a BGP community.
-          Possible categories are "informational" and "action", as described in <span>[<a href="#RFC8195" class="cite xref">RFC8195</a>]</span>.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="types.community-description">
-<section id="section-7.4">
-        <h3 id="name-the-community-description-da">
-<a href="#section-7.4" class="section-number selfRef">7.4. </a><a href="#name-the-community-description-da" class="section-name selfRef">The "community-description" data type</a>
-        </h3>
-<p id="section-7.4-1">
-          A string specifying the description of a BGP community.
-          Descriptions may be up to 65535 characters long.<a href="#section-7.4-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="types.local-admin-format">
-<section id="section-7.5">
-        <h3 id="name-the-local-admin-format-data-">
-<a href="#section-7.5" class="section-number selfRef">7.5. </a><a href="#name-the-local-admin-format-data-" class="section-name selfRef">The "local-admin-format" data type</a>
-        </h3>
-<p id="section-7.5-1">
-          An enum specifying the encoding for a Local Administrator/Local Data field.
-          Possible encodings are "decimal" for decimal numbers and "binary" for bit strings.<a href="#section-7.5-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="types.field-name">
-<section id="section-7.6">
-        <h3 id="name-the-field-name-data-type-2">
-<a href="#section-7.6" class="section-number selfRef">7.6. </a><a href="#name-the-field-name-data-type-2" class="section-name selfRef">The "field-name" data type</a>
-        </h3>
-<p id="section-7.6-1">
-          A string specifying the name of a BGP community Local Administrator/Local Data field.
-          Names may be up to 255 characters long and MUST NOT contain spaces or tabs.<a href="#section-7.6-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="types.field-pattern">
-<section id="section-7.7">
-        <h3 id="name-the-field-pattern-data-type-2">
-<a href="#section-7.7" class="section-number selfRef">7.7. </a><a href="#name-the-field-pattern-data-type-2" class="section-name selfRef">The "field-pattern" data type</a>
-        </h3>
-<p id="section-7.7-1">
-          A string specifying the pattern of a BGP community Local Administrator/Local Data field.
-          Patterns may be up to 4095 characters long and are described as POSIX Extended Regular Expressions (see <span>[<a href="#IEEE.1003-2.1992" class="cite xref">IEEE.1003-2.1992</a>]</span>, Section 2.8.4).<a href="#section-7.7-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="types.field-description">
-<section id="section-7.8">
-        <h3 id="name-the-field-description-data-t">
-<a href="#section-7.8" class="section-number selfRef">7.8. </a><a href="#name-the-field-description-data-t" class="section-name selfRef">The "field-description" data type</a>
-        </h3>
-<p id="section-7.8-1">
-          A string specifying the description of a BGP community Local Administrator/Local Data field.
-          Descriptions may be up to 65535 characters long.<a href="#section-7.8-1" class="pilcrow">¶</a></p>
-</section>
+</pre><a href="#section-5-3" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="recommendations">
-<section id="section-8">
+<section id="section-6">
       <h2 id="name-operational-guidelines-2">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-operational-guidelines-2" class="section-name selfRef">Operational guidelines</a>
+<a href="#section-6" class="section-number selfRef">6. </a><a href="#name-operational-guidelines-2" class="section-name selfRef">Operational guidelines</a>
       </h2>
 <div id="recommendations.publishing">
-<section id="section-8.1">
+<section id="section-6.1">
         <h3 id="name-publishing-guidelines-2">
-<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-publishing-guidelines-2" class="section-name selfRef">Publishing guidelines</a>
+<a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-publishing-guidelines-2" class="section-name selfRef">Publishing guidelines</a>
         </h3>
-<p id="section-8.1-1">
+<p id="section-6.1-1">
           Operators SHOULD only publish BGP community definitions for networks they control.
-          This may include communities where the Global Administrator field contains a private ASN, if this community has a local meaning inside the network of the publisher.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
-<p id="section-8.1-2">
+          This may include communities where the Global Administrator field contains a private ASN, if this community has a local meaning inside the network of the publisher.<a href="#section-6.1-1" class="pilcrow">¶</a></p>
+<p id="section-6.1-2">
           When publishing community definitions with overlapping field patterns, these definitions MUST be ordered from most to least preferred.
-          This ensures parsers can perform deterministic matching (see <a href="#recommendations.parsing" class="auto internal xref">Section 8.2</a>).
-          For example, a definition for a single community "64500:123" needs to be specified before a definition that matches a covering range of communities "64500:*".<a href="#section-8.1-2" class="pilcrow">¶</a></p>
+          This ensures parsers can perform deterministic matching (see <a href="#recommendations.parsing" class="auto internal xref">Section 6.2</a>).
+          For example, a definition for a single community "64500:123" needs to be specified before a definition that matches a covering range of communities "64500:*".<a href="#section-6.1-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="recommendations.parsing">
-<section id="section-8.2">
+<section id="section-6.2">
         <h3 id="name-parsing-guidelines-2">
-<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-parsing-guidelines-2" class="section-name selfRef">Parsing guidelines</a>
+<a href="#section-6.2" class="section-number selfRef">6.2. </a><a href="#name-parsing-guidelines-2" class="section-name selfRef">Parsing guidelines</a>
         </h3>
-<p id="section-8.2-1">
+<p id="section-6.2-1">
           A published BGP community definition can be used by parsers to display information about a received community.
-          If a received community matches multiple published community definitions, the first matching definition in the published order takes precedence.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
-<p id="section-8.2-2">
-          Parsers that use published community definitions from multiple operators SHOULD NOT attempt to match received communities where the Global Administrator field contains a private ASN, unless they have some method to determine which published definition is the authoritative one.<a href="#section-8.2-2" class="pilcrow">¶</a></p>
-<p id="section-8.2-3">
-          By default, communities are compared using the decimal representation of the fields. If "format" for a Local Administrator or Local Data Part is set to "binary", the fields in the received community are converted to strings of zeros and ones before comparison.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
-<p id="section-8.2-4">
+          If a received community matches multiple published community definitions, the first matching definition in the published order takes precedence.<a href="#section-6.2-1" class="pilcrow">¶</a></p>
+<p id="section-6.2-2">
+          Parsers that use published community definitions from multiple operators SHOULD NOT attempt to match received communities where the Global Administrator field contains a private ASN, unless they have some method to determine which published definition is the authoritative one.<a href="#section-6.2-2" class="pilcrow">¶</a></p>
+<p id="section-6.2-3">
+          By default, communities are compared using the decimal representation of the fields. If "format" for a Local Administrator or Local Data Part is set to "binary", the fields in the received community are converted to strings of zeros and ones before comparison.<a href="#section-6.2-3" class="pilcrow">¶</a></p>
+<p id="section-6.2-4">
           Applications that parse these community definitions SHOULD reject objects that do not comply with the rules described in this document.
           Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
-          For example, a Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).<a href="#section-8.2-4" class="pilcrow">¶</a></p>
+          For example, a Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).<a href="#section-6.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="iana">
-<section id="section-9">
+<section id="section-7">
       <h2 id="name-iana-considerations-2">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations-2" class="section-name selfRef">IANA considerations</a>
+<a href="#section-7" class="section-number selfRef">7. </a><a href="#name-iana-considerations-2" class="section-name selfRef">IANA considerations</a>
       </h2>
 <div id="iana.xml">
-<section id="section-9.1">
+<section id="section-7.1">
         <h3 id="name-yang-namespace-registration-2">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-yang-namespace-registration-2" class="section-name selfRef">YANG Namespace Registration</a>
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-yang-namespace-registration-2" class="section-name selfRef">YANG Namespace Registration</a>
         </h3>
-<p id="section-9.1-1">
+<p id="section-7.1-1">
           This document registers the following XML namespace URN in the "IETF
-          XML Registry", following the format defined in <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-9.1-1" class="pilcrow">¶</a></p>
-<div id="section-9.1-2">
+          XML Registry", following the format defined in <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<div id="section-7.1-2">
 <pre class="sourcecode">
 URI: urn:ietf:params:xml:ns:yang:ietf-bgp-communities
 Registrant Contact: The IESG.
 XML: N/A, the requested URI is an XML namespace.
-</pre><a href="#section-9.1-2" class="pilcrow">¶</a>
+</pre><a href="#section-7.1-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="iana.yang">
-<section id="section-9.2">
+<section id="section-7.2">
         <h3 id="name-yang-module-registration-2">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-yang-module-registration-2" class="section-name selfRef">YANG Module Registration</a>
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-yang-module-registration-2" class="section-name selfRef">YANG Module Registration</a>
         </h3>
-<p id="section-9.2-1">
-          This document registers the following YANG module in the "YANG Module Names" registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>:<a href="#section-9.2-1" class="pilcrow">¶</a></p>
-<div id="section-9.2-2">
+<p id="section-7.2-1">
+          This document registers the following YANG module in the "YANG Module Names" registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>:<a href="#section-7.2-1" class="pilcrow">¶</a></p>
+<div id="section-7.2-2">
 <pre class="sourcecode">
 Name: ietf-bgp-communities
 Maintained by IANA? N
@@ -2722,54 +2063,54 @@ Namespace: urn:ietf:params:xml:ns:yang:ietf-bgp-communities
 Prefix: bgp-comm
 Reference: RFC YYYY
 RFC-EDITOR: please update YYYY with this RFC ID
-</pre><a href="#section-9.2-2" class="pilcrow">¶</a>
+</pre><a href="#section-7.2-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="iana.sid">
-<section id="section-9.3">
+<section id="section-7.3">
         <h3 id="name-yang-sid-allocation-2">
-<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-yang-sid-allocation-2" class="section-name selfRef">YANG SID Allocation</a>
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-yang-sid-allocation-2" class="section-name selfRef">YANG SID Allocation</a>
         </h3>
-<p id="section-9.3-1">
-          This document registers the following entry in the "IETF YANG SID" registry <span>[<a href="#RFC9595" class="cite xref">RFC9595</a>]</span>:<a href="#section-9.3-1" class="pilcrow">¶</a></p>
-<div id="section-9.3-2">
+<p id="section-7.3-1">
+          This document registers the following entry in the "IETF YANG SID" registry <span>[<a href="#RFC9595" class="cite xref">RFC9595</a>]</span>:<a href="#section-7.3-1" class="pilcrow">¶</a></p>
+<div id="section-7.3-2">
 <pre class="sourcecode">
 SID range entry point: TBD
 SID range size: 100
 YANG module name: ietf-bgp-communities
 Reference: RFC YYYY
 RFC-EDITOR: please update YYYY with this RFC ID
-</pre><a href="#section-9.3-2" class="pilcrow">¶</a>
+</pre><a href="#section-7.3-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 </section>
 </div>
 <div id="implementation">
-<section id="section-10">
+<section id="section-8">
       <h2 id="name-implementation-status-2">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-implementation-status-2" class="section-name selfRef">Implementation status</a>
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-implementation-status-2" class="section-name selfRef">Implementation status</a>
       </h2>
-<p id="section-10-1">
-        RFC-EDITOR: Please remove this section and the accompanying reference(s) before publication.<a href="#section-10-1" class="pilcrow">¶</a></p>
-<p id="section-10-2">
+<p id="section-8-1">
+        RFC-EDITOR: Please remove this section and the accompanying reference(s) before publication.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-2">
        This section records the status of known implementations of the protocol defined by this specification at the time of posting of this Internet-Draft, and is based on a proposal described in <span>[<a href="#RFC7942" class="cite xref">RFC7942</a>]</span>.
        The description of implementations in this section is intended to assist the IETF in its decision processes in progressing drafts to RFCs.
        Please note that the listing of any individual implementation here does not imply endorsement by the IETF.
        Furthermore, no effort has been spent to verify the information presented here that was supplied by IETF contributors.
        This is not intended as, and must not be construed to be, a catalog of available implementations or their features.
-       Readers are advised to note that other implementations may exist.<a href="#section-10-2" class="pilcrow">¶</a></p>
-<p id="section-10-3">
+       Readers are advised to note that other implementations may exist.<a href="#section-8-2" class="pilcrow">¶</a></p>
+<p id="section-8-3">
        According to <span>[<a href="#RFC7942" class="cite xref">RFC7942</a>]</span>, "this will allow reviewers and working groups to assign due consideration to documents that have the benefit of running code, which may serve as evidence of valuable experimentation and feedback that have made the implemented protocols more mature.
-       It is up to the individual working groups to use this information as they see fit".<a href="#section-10-3" class="pilcrow">¶</a></p>
+       It is up to the individual working groups to use this information as they see fit".<a href="#section-8-3" class="pilcrow">¶</a></p>
 <div id="implementation.publishing">
-<section id="section-10.1">
+<section id="section-8.1">
         <h3 id="name-publishing-implementations-3">
-<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-publishing-implementations-3" class="section-name selfRef">Publishing implementations</a>
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-publishing-implementations-3" class="section-name selfRef">Publishing implementations</a>
         </h3>
-<p id="section-10.1-1">
-          The following networks are known to publish BGP community definitions according to this specification.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
+<p id="section-8.1-1">
+          The following networks are known to publish BGP community definitions according to this specification.<a href="#section-8.1-1" class="pilcrow">¶</a></p>
 <span id="name-publishing-implementations-4"></span><div id="table.publishing">
 <table class="center" id="table-1">
           <caption>
@@ -2804,12 +2145,12 @@ RFC-EDITOR: please update YYYY with this RFC ID
 </section>
 </div>
 <div id="implementation.parsing">
-<section id="section-10.2">
+<section id="section-8.2">
         <h3 id="name-parser-implementations-3">
-<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-parser-implementations-3" class="section-name selfRef">Parser implementations</a>
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-parser-implementations-3" class="section-name selfRef">Parser implementations</a>
         </h3>
-<p id="section-10.2-1">
-          The following known parser implementations exist.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-1">
+          The following known parser implementations exist.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
 <span id="name-parser-implementations-4"></span><div id="table.parsing">
 <table class="center" id="table-2">
           <caption>
@@ -2837,26 +2178,57 @@ RFC-EDITOR: please update YYYY with this RFC ID
 </section>
 </div>
 <div id="security">
-<section id="section-11">
+<section id="section-9">
       <h2 id="name-security-considerations-2">
-<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-security-considerations-2" class="section-name selfRef">Security considerations</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations-2" class="section-name selfRef">Security considerations</a>
       </h2>
-<p id="section-11-1">
-        The YANG module described in this document may be used to specify BGP community definitions in different encoding formats, such as XML, JSON or CBOR.
-        Applications that parse these community definitions SHOULD reject objects that do not comply with the rules described in this document.
-        Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.<a href="#section-11-1" class="pilcrow">¶</a></p>
-<p id="section-11-2">
-        The "contact-url" element defined in <a href="#elements.contact-url" class="auto internal xref">Section 6.4</a> may contain a link to an untrusted webpage.
-        Parsers MAY opt to render the URL as plain text rather than a clickable link, to prevent inadvertent exposure of information by users of the rendered output.<a href="#section-11-2" class="pilcrow">¶</a></p>
-<p id="section-11-3">
-        Several elements of the "contact" list defined in <a href="#elements.contact" class="auto internal xref">Section 6.5</a> may contain personal data covered by privacy-laws.
-        Publishers MUST ensure that the elements defined in <a href="#elements.contact.email-address" class="auto internal xref">Section 6.5.1</a> and <a href="#elements.contact.name" class="auto internal xref">Section 6.5.2</a> do not contain any privacy-sensitive information.<a href="#section-11-3" class="pilcrow">¶</a></p>
+<div id="security.parsing">
+<section id="section-9.1">
+        <h3 id="name-parsing-considerations-2">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-parsing-considerations-2" class="section-name selfRef">Parsing considerations</a>
+        </h3>
+<p id="section-9.1-1">
+          The YANG module described in this document may be used to specify BGP community definitions in different encoding formats, such as XML, JSON or CBOR.
+          Applications that parse these community definitions SHOULD reject objects that do not comply with the rules described in this document.
+          Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<p id="section-9.1-2">
+          The "contact-url" element may contain a link to an untrusted webpage.
+          Parsers MAY opt to render the URL as plain text rather than a clickable link, to prevent inadvertent exposure of information by users of the rendered output.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security.privacy">
+<section id="section-9.2">
+        <h3 id="name-privacy-considerations-2">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-privacy-considerations-2" class="section-name selfRef">Privacy considerations</a>
+        </h3>
+<p id="section-9.2-1">
+          Several elements of the "contact" list may contain personal data covered by privacy-laws.
+          Publishers MUST ensure that the elements email-address" and "name" do not contain any privacy-sensitive information.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security.netconf">
+<section id="section-9.3">
+        <h3 id="name-netconf-restconf-considerati">
+<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-netconf-restconf-considerati" class="section-name selfRef">NETCONF/RESTCONF considerations</a>
+        </h3>
+<p id="section-9.3-1">
+          This section is modeled after the template described in Section 3.7 of <span>[<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<p id="section-9.3-2">
+          The YANG module defines a set of identities, types, and groupings.
+          These nodes are intended to be reused by other YANG modules.
+          The module by itself does not expose any data nodes that are writable, data nodes that contain read-only state, or RPCs.
+          As such, there are no additional security issues related to the YANG module that need to be considered.<a href="#section-9.3-2" class="pilcrow">¶</a></p>
+<p id="section-9.3-3">
+          Modules that use the groupings that are defined in this document should identify the corresponding security considerations.
+          For example, reusing some of these groupings may expose privacy-related information (see <a href="#security.privacy" class="auto internal xref">Section 9.2</a>).<a href="#section-9.3-3" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="normative">
-<section id="section-12">
+<section id="section-10">
       <h2 id="name-normative-references-2">
-<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-normative-references-2" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
 <dt id="I-D.ietf-netmod-rfc6991-bis">[I-D.ietf-netmod-rfc6991-bis]</dt>
@@ -2891,11 +2263,15 @@ RFC-EDITOR: please update YYYY with this RFC ID
 </section>
 </div>
 <div id="informative">
-<section id="section-13">
+<section id="section-11">
       <h2 id="name-informative-references-2">
-<a href="#section-13" class="section-number selfRef">13. </a><a href="#name-informative-references-2" class="section-name selfRef">Informative References</a>
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-informative-references-2" class="section-name selfRef">Informative References</a>
       </h2>
 <dl class="references">
+<dt id="I-D.ietf-netmod-rfc8407bis">[I-D.ietf-netmod-rfc8407bis]</dt>
+      <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-25</span>, <time datetime="2025-05-05" class="refDate">5 May 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-25">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-25</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="IEEE.1003-2.1992">[IEEE.1003-2.1992]</dt>
       <dd>
 <span class="refAuthor">Institute of Electrical and Electronics Engineers</span>, <span class="refTitle">"Information Technology - Portable Operating System Interface (POSIX) - Part 2: Shell and Utilities (Vol. 1)"</span>, <span class="seriesInfo">IEEE Standard 1003.2</span>, <span class="seriesInfo">IEEE 1003.2-1992</span>, <span class="seriesInfo">IEEE ieee-1003-2</span>, <time datetime="1992" class="refDate">1992</time>. </dd>
@@ -2961,7 +2337,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
 <a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-rfc8195-selective-no_export-" class="section-name selfRef">RFC8195 Selective NO_EXPORT definition</a>
         </h3>
 <p id="appendix-A.1-1">
-          A JSON definition for the example Large BGP community described in <span>[<a href="#RFC8195" class="cite xref">RFC8195</a>]</span>, section 4.1.1 looks as follows.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
+          A JSON definition for the example Large BGP community described in <span>[<a href="#RFC8195" class="cite xref">RFC8195</a>]</span>, Section 4.1.1 looks as follows.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
 <div id="appendix-A.1-2">
 <pre class="sourcecode">
 =============== NOTE: '\' line wrapping per RFC 8792 ================
@@ -3018,9 +2394,9 @@ NO_EXPORT",
 <a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-rfc4384-data-collection-defi" class="section-name selfRef">RFC4384 Data Collection definition</a>
         </h3>
 <p id="appendix-A.2-1">
-          A JSON definition for the example Regular BGP community described in <span>[<a href="#RFC4384" class="cite xref">RFC4384</a>]</span>, section 4 looks as follows.<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
+          A JSON definition for the example Regular and Extended BGP communities described in <span>[<a href="#RFC4384" class="cite xref">RFC4384</a>]</span>, Section 4 looks as follows.<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
 <div id="appendix-A.2-2">
-<pre class="sourcecode">
+<pre class="breakable sourcecode">
 =============== NOTE: '\' line wrapping per RFC 8792 ================
 
 {
@@ -3031,13 +2407,50 @@ NO_EXPORT",
     "contact-url": "https://example.net/contact",
     "regular": [
       {
-        "name": "RFC4384-ORIGIN-OC/FJ",
+        "name": "RFC4384-REGULAR-ORIGIN-OC/FJ",
         "description": "A national route over a terrestrial link \
 from the Fiji Islands",
-        "global-admin": 64497,
+        "global-admin": 10876,
         "local-admin": {
           "format": "binary",
           "field": [
+            {
+              "name": "Region",
+              "length": 5,
+              "pattern": "00010",
+              "description": "OC"
+            },
+            {
+              "name": "Satellite",
+              "length": 1,
+              "pattern": "0"
+            },
+            {
+              "name": "Country",
+              "length": 10,
+              "pattern": "0011110010",
+              "description": "FJ"
+            }
+          ]
+        }
+      }
+    ],
+    "extended": [
+      {
+        "name": "RFC4384-EXTENDED-ORIGIN-OC/FJ",
+        "description": "A national route over a terrestrial link \
+from the Fiji Islands",
+        "type": 0,
+        "subtype": 8,
+        "asn": 10876,
+        "local-admin": {
+          "format": "binary",
+          "field": [
+            {
+              "name": "Reserved",
+              "length": 16,
+              "pattern": "0000000000000000"
+            },
             {
               "name": "Region",
               "length": 5,
@@ -3073,7 +2486,7 @@ from the Fiji Islands",
 <a href="#appendix-B" class="section-number selfRef">Appendix B. </a><a href="#name-acknowledgements-2" class="section-name selfRef">Acknowledgements</a>
       </h2>
 <p id="appendix-B-1">
-        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog, Teun Vink, Tom Petch, Dale Carder and Mohamed Boucadair for contributing ideas and feedback to this document.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog, Teun Vink, Tom Petch, Dale Carder, Mohamed Boucadair and Ladislav Lhotka for contributing ideas and feedback to this document.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
