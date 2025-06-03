@@ -34,7 +34,13 @@ module ietf-bgp-communities {
      This version of this YANG module is part of RFC YYYY; see
      the RFC itself for full legal notices.
 
-  // RFC-EDITOR: please update YYYY with this RFC ID";
+     The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
+     NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+     'MAY', and 'OPTIONAL' in this document are to be interpreted as
+     described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
+     they appear in all capitals, as shown here.";
+
+  // RFC-EDITOR: please update YYYY with this RFC ID
 
   revision 2025-06-03 {
     description
@@ -184,29 +190,31 @@ module ietf-bgp-communities {
       leaf length {
         type uint8;
         description
-          "Length of the field.  If local-admin-format is 'decimal', this is a
-           number of digits.  In case local-admin-format is 'binary', it is a
-           number of bits.
+          "Length of the field.  If local-admin-format is 'decimal',
+           this is a number of digits.  In case local-admin-format is
+           'binary', it is a number of bits.
 
-           Parsers use the field length to determine how many decimals or bits
-           from the Local Administrator part of the community are used by this
-           field.  If this leaf is not defined, the length is assumed to be the
-           maximum allowed length of the entire field list.  In this case the
-           field list MUST NOT contain more than one element.";
+           Parsers use the field length to determine how many
+           decimals or bits from the Local Administrator part of the
+           community are used by this field.  If this leaf is not
+           defined, the length is assumed to be the maximum allowed
+           length of the entire field list.  In this case the field
+           list MUST NOT contain more than one element.";
       }
       leaf pattern {
         type field-pattern;
         mandatory true;
         description
-          "Used by parsers to match on the content of the field.  This could be
-           a single value or a regular expression pattern matching multiple
-           values.";
+          "Used by parsers to match on the content of the field.
+           This could be a single value or a regular expression
+           pattern matching multiple values.";
       }
       leaf description {
         type field-description;
         description
-          "A text description of the field pattern.  This description can be
-           used to provide meaning to specific values for a field.";
+          "A text description of the field pattern.  This description
+           can be used to provide meaning to specific values for a
+           field.";
       }
     }
   }
@@ -218,10 +226,11 @@ module ietf-bgp-communities {
       type uint32;
       must "boolean(.)";
       description
-        "Version number of the community set.  This value wraps and should be
-         compared using sequence space arithmetic.  Publishing Implementations
-         are free to decide how to generate this value.  One example method is
-         to use the YYYYMMDDnn syntax as commonly used inside the DNS.";
+        "Version number of the community set.  This value wraps and
+         should be compared using sequence space arithmetic.
+         Publishing implementations are free to decide how to
+         generate this value.  One example method is to use the
+         YYYYMMDDnn syntax as commonly used inside the DNS.";
       reference
         "RFC 1912: Common DNS Operational and Configuration Errors";
     }
@@ -331,8 +340,8 @@ module ietf-bgp-communities {
       ordered-by user;
       description
         "A list of objects describing RFC 4360 Extended BGP
-         Communities.  Two-Octet and Four-Octet AS Specific communities are
-         supported by this model.";
+         Communities.  Two-Octet and Four-Octet AS Specific
+         communities are supported by this model.";
       leaf name {
         type community-name;
         description
@@ -352,12 +361,13 @@ module ietf-bgp-communities {
         type uint8;
         mandatory true;
         description
-          "High-order Type of the community.  Supported values are 0 (0x00)
-           for Transitive Two-Octet AS-Specific Extended Communities, 2 (0x02)
-           for Transitive Four-Octet AS-Specific Extended Communities, 64
-           (0x40) for Non-Transitive Two-Octet AS-Specific Extended Communities
-           and 66 (0x42) for Non-Transitive Four-Octet AS-Specific Extended
-           Communities.";
+          "High-order Type of the community.  Supported values are 0
+           (0x00) for Transitive Two-Octet AS-Specific Extended
+           Communities, 2 (0x02) for Transitive Four-Octet
+           AS-Specific Extended Communities, 64 (0x40) for
+           Non-Transitive Two-Octet AS-Specific Extended Communities
+           and 66 (0x42) for Non-Transitive Four-Octet AS-Specific
+           Extended Communities.";
       }
       leaf subtype {
         type uint8;
