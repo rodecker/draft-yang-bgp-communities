@@ -1,0 +1,41 @@
+{
+  "ietf-bgp-communities:bgp-communities": {
+    "serial": 2023080101,
+    "uri": "http://example.net/peering/communities",
+    "description": "BGP Community example for ASN-Based Selective NO_EXPORT",
+    "contact": [
+      {
+        "email-address": "noc@example.net",
+        "name": "Example.net contact",
+        "role": "Administrative contact",
+        "organization": "Example.net",
+        "organizational-unit": "NOC"
+      }
+    ],
+    "large": [
+      {
+        "name": "RFC8195-NOEXPORT-ASN",
+        "category": "action",
+        "description": "Do not export route to ASN",
+        "global-admin": 65539,
+        "local-data-part-1": {
+          "field": [
+            {
+              "name": "Function",
+              "pattern": "4",
+              "description": "ASN-No-Export"
+            }
+          ]
+        },
+        "local-data-part-2": {
+          "field": [
+            {
+              "name": "ASN",
+              "pattern": ".*"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

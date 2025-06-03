@@ -1,0 +1,37 @@
+{
+  "ietf-bgp-communities:bgp-communities": {
+    "serial": 2023080101,
+    "uri": "http://example.net/peering/communities",
+    "description": "BGP Community example for Data Collection",
+    "contact-url": "https://example.net/contact",
+    "regular": [
+      {
+        "name": "RFC4384-ORIGIN-OC/FJ",
+        "description": "A national route over a terrestrial link from the Fiji Islands",
+        "global-admin": 64497,
+        "local-admin": {
+          "format": "binary",
+          "field": [
+            {
+              "name": "Region",
+              "length": 5, 
+              "pattern": "00010",
+              "description": "OC"
+            },
+            {
+              "name": "Satellite",
+              "length": 1, 
+              "pattern": "0"
+            },
+            {
+              "name": "Country",
+              "length": 10,
+              "pattern": "0011110010",
+              "description": "FJ"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
