@@ -6,12 +6,48 @@
     "contact-url": "https://example.net/contact",
     "regular": [
       {
-        "name": "RFC4384-ORIGIN-OC/FJ",
+        "name": "RFC4384-REGULAR-ORIGIN-OC/FJ",
         "description": "A national route over a terrestrial link from the Fiji Islands",
         "global-admin": 64497,
         "local-admin": {
           "format": "binary",
           "field": [
+            {
+              "name": "Region",
+              "length": 5, 
+              "pattern": "00010",
+              "description": "OC"
+            },
+            {
+              "name": "Satellite",
+              "length": 1, 
+              "pattern": "0"
+            },
+            {
+              "name": "Country",
+              "length": 10,
+              "pattern": "0011110010",
+              "description": "FJ"
+            }
+          ]
+        }
+      }
+    ],
+    "extended": [
+      {
+        "name": "RFC4384-EXTENDED-ORIGIN-OC/FJ",
+        "description": "A national route over a terrestrial link from the Fiji Islands",
+        "type": 0,
+        "subtype": 8,
+        "asn": 64497,
+        "local-admin": {
+          "format": "binary",
+          "field": [
+            {
+              "name": "Reserved",
+              "length": 16, 
+              "pattern": "0000000000000000"
+            },
             {
               "name": "Region",
               "length": 5, 
