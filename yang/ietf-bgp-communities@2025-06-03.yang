@@ -288,6 +288,7 @@ module ietf-bgp-communities {
     }
     list regular {
       key "name";
+      ordered-by user;
       description
         "A list of objects describing RFC 1997 BGP Communities";
       leaf name {
@@ -327,6 +328,7 @@ module ietf-bgp-communities {
     }
     list extended {
       key "name";
+      ordered-by user;
       description
         "A list of objects describing RFC 4360 Extended BGP
          Communities.  Two-Octet and Four-Octet AS Specific communities are
@@ -400,6 +402,7 @@ module ietf-bgp-communities {
     }
     list large {
       key "name";
+      ordered-by user;
       description
         "A list of objects describing RFC 8092 Large BGP
          Communities";
