@@ -2,6 +2,7 @@
 
 <!DOCTYPE rfc [
 <!ENTITY I-D.ietf-netmod-rfc6991-bis PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-netmod-rfc6991-bis-17.xml">
+<!ENTITY I-D.ietf-netmod-rfc8407bis PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-netmod-rfc8407bis-25.xml">
 <!ENTITY IEEE.1003-2.1992 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml6/reference.R.IEEE.1003-2.1992.xml">
 <!ENTITY RFC1912 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1912.xml">
 <!ENTITY RFC1930 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1930.xml">
@@ -368,19 +369,47 @@ RFC-EDITOR: please update YYYY with this RFC ID
     
     <section title="Security considerations" anchor="security">
 
-      <t>
-        The YANG module described in this document may be used to specify BGP community definitions in different encoding formats, such as XML, JSON or CBOR.
-        Applications that parse these community definitions SHOULD reject objects that do not comply with the rules described in this document.
-        Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
-      </t>
-      <t>
-        The "contact-url" element may contain a link to an untrusted webpage.
-        Parsers MAY opt to render the URL as plain text rather than a clickable link, to prevent inadvertent exposure of information by users of the rendered output.
-      </t>
-      <t>
-        Several elements of the "contact" list may contain personal data covered by privacy-laws.
-        Publishers MUST ensure that the elements email-address" and "name" do not contain any privacy-sensitive information.
-      </t>
+      <section title="Parsing considerations" anchor="security.parsing">
+
+        <t>
+          The YANG module described in this document may be used to specify BGP community definitions in different encoding formats, such as XML, JSON or CBOR.
+          Applications that parse these community definitions SHOULD reject objects that do not comply with the rules described in this document.
+          Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
+        </t>
+        <t>
+          The "contact-url" element may contain a link to an untrusted webpage.
+          Parsers MAY opt to render the URL as plain text rather than a clickable link, to prevent inadvertent exposure of information by users of the rendered output.
+        </t>
+
+      </section>
+
+      <section title="Privacy considerations" anchor="security.privacy">
+
+        <t>
+          Several elements of the "contact" list may contain personal data covered by privacy-laws.
+          Publishers MUST ensure that the elements email-address" and "name" do not contain any privacy-sensitive information.
+        </t>
+
+      </section>
+
+      <section title="NETCONF/RESTCONF considerations" anchor="security.netconf">
+
+        <t>
+          This section is modeled after the template described in Section 3.7 of <xref target="I-D.ietf-netmod-rfc8407bis"/>.
+        </t>
+
+        <t>
+          The YANG module defines a set of identities, types, and groupings.
+          These nodes are intended to be reused by other YANG modules.
+          The module by itself does not expose any data nodes that are writable, data nodes that contain read-only state, or RPCs.
+          As such, there are no additional security issues related to the YANG module that need to be considered.
+        </t>
+        <t>
+          Modules that use the groupings that are defined in this document should identify the corresponding security considerations.
+          For example, reusing some of these groupings may expose privacy-related information (see <xref target="security.privacy"/>).
+        </t>
+
+      </section>
 
     </section>
 
@@ -402,6 +431,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
 
     <references title="Informative References" anchor="informative">
 
+      &I-D.ietf-netmod-rfc8407bis;
       &IEEE.1003-2.1992;
       &RFC1912;
       &RFC2119;
@@ -426,7 +456,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
 
       <section title="RFC8195 Selective NO_EXPORT definition" anchor="examples.rfc8195">
         <t>
-          A JSON definition for the example Large BGP community described in <xref target="RFC8195"/>, section 4.1.1 looks as follows.
+          A JSON definition for the example Large BGP community described in <xref target="RFC8195"/>, Section 4.1.1 looks as follows.
         </t>
         <sourcecode>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
@@ -478,7 +508,7 @@ NO_EXPORT",
 
       <section title="RFC4384 Data Collection definition" anchor="examples.rfc4384">
         <t>
-          A JSON definition for the example Regular and Extended BGP communities described in <xref target="RFC4384"/>, section 4 looks as follows.
+          A JSON definition for the example Regular and Extended BGP communities described in <xref target="RFC4384"/>, Section 4 looks as follows.
         </t>
         <sourcecode>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
