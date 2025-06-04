@@ -220,6 +220,7 @@ module ietf-bgp-communities {
   }
 
   container bgp-communities {
+    config false;
     description
       "A community set";
     leaf serial {

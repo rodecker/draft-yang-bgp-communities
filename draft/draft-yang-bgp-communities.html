@@ -1195,7 +1195,7 @@ li > p:last-of-type {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Pels</td>
-<td class="center">Expires 5 December 2025</td>
+<td class="center">Expires 6 December 2025</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1208,12 +1208,12 @@ li > p:last-of-type {
 <dd class="internet-draft">draft-ietf-grow-yang-bgp-communities-05</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-06-03" class="published">3 June 2025</time>
+<time datetime="2025-06-04" class="published">4 June 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2025-12-05">5 December 2025</time></dd>
+<dd class="expires"><time datetime="2025-12-06">6 December 2025</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1249,7 +1249,7 @@ li > p:last-of-type {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 5 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 6 December 2025.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1333,13 +1333,10 @@ li > p:last-of-type {
             <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-security-considerations-2" class="internal xref">Security considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-parsing-considerations-2" class="internal xref">Parsing considerations</a></p>
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-publishing-considerations-2" class="internal xref">Publishing considerations</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-privacy-considerations-2" class="internal xref">Privacy considerations</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
-                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-netconf-restconf-considerati" class="internal xref">NETCONF/RESTCONF considerations</a></p>
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-parsing-considerations-2" class="internal xref">Parsing considerations</a></p>
 </li>
             </ul>
 </li>
@@ -1436,66 +1433,66 @@ li > p:last-of-type {
 <div id="section-4-2">
 <pre class="breakable sourcecode">
 module: ietf-bgp-communities
-  +--rw bgp-communities
-     +--rw serial?        uint32
-     +--rw uri?           inet:uri
-     +--rw description?   string
-     +--rw contact-url?   inet:uri
-     +--rw contact* [email-address]
-     |  +--rw email-address          inet:email-address
-     |  +--rw name?                  string
-     |  +--rw role?                  string
-     |  +--rw organization?          string
-     |  +--rw organizational-unit?   string
-     +--rw regular* [name]
-     |  +--rw name            community-name
-     |  +--rw category?       community-category
-     |  +--rw description?    community-description
-     |  +--rw global-admin    two-octet-as-number
-     |  +--rw local-admin
-     |     +--rw format?   local-admin-format
-     |     +--rw field* [name]
-     |        +--rw name           field-name
-     |        +--rw length?        uint8
-     |        +--rw pattern        field-pattern
-     |        +--rw description?   field-description
-     +--rw extended* [name]
-     |  +--rw name              community-name
-     |  +--rw category?         community-category
-     |  +--rw description?      community-description
-     |  +--rw type              uint8
-     |  +--rw subtype           uint8
-     |  +--rw (global-admin)
+  +--ro bgp-communities
+     +--ro serial?        uint32
+     +--ro uri?           inet:uri
+     +--ro description?   string
+     +--ro contact-url?   inet:uri
+     +--ro contact* [email-address]
+     |  +--ro email-address          inet:email-address
+     |  +--ro name?                  string
+     |  +--ro role?                  string
+     |  +--ro organization?          string
+     |  +--ro organizational-unit?   string
+     +--ro regular* [name]
+     |  +--ro name            community-name
+     |  +--ro category?       community-category
+     |  +--ro description?    community-description
+     |  +--ro global-admin    two-octet-as-number
+     |  +--ro local-admin
+     |     +--ro format?   local-admin-format
+     |     +--ro field* [name]
+     |        +--ro name           field-name
+     |        +--ro length?        uint8
+     |        +--ro pattern        field-pattern
+     |        +--ro description?   field-description
+     +--ro extended* [name]
+     |  +--ro name              community-name
+     |  +--ro category?         community-category
+     |  +--ro description?      community-description
+     |  +--ro type              uint8
+     |  +--ro subtype           uint8
+     |  +--ro (global-admin)
      |  |  +--:(asn)
-     |  |  |  +--rw asn?   two-octet-as-number
+     |  |  |  +--ro asn?   two-octet-as-number
      |  |  +--:(asn4)
-     |  |     +--rw asn4?   inet:as-number
-     |  +--rw local-admin
-     |     +--rw format?   local-admin-format
-     |     +--rw field* [name]
-     |        +--rw name           field-name
-     |        +--rw length?        uint8
-     |        +--rw pattern        field-pattern
-     |        +--rw description?   field-description
-     +--rw large* [name]
-        +--rw name                 community-name
-        +--rw category?            community-category
-        +--rw description?         community-description
-        +--rw global-admin         inet:as-number
-        +--rw local-data-part-1
-        |  +--rw format?   local-admin-format
-        |  +--rw field* [name]
-        |     +--rw name           field-name
-        |     +--rw length?        uint8
-        |     +--rw pattern        field-pattern
-        |     +--rw description?   field-description
-        +--rw local-data-part-2
-           +--rw format?   local-admin-format
-           +--rw field* [name]
-              +--rw name           field-name
-              +--rw length?        uint8
-              +--rw pattern        field-pattern
-              +--rw description?   field-description
+     |  |     +--ro asn4?   inet:as-number
+     |  +--ro local-admin
+     |     +--ro format?   local-admin-format
+     |     +--ro field* [name]
+     |        +--ro name           field-name
+     |        +--ro length?        uint8
+     |        +--ro pattern        field-pattern
+     |        +--ro description?   field-description
+     +--ro large* [name]
+        +--ro name                 community-name
+        +--ro category?            community-category
+        +--ro description?         community-description
+        +--ro global-admin         inet:as-number
+        +--ro local-data-part-1
+        |  +--ro format?   local-admin-format
+        |  +--ro field* [name]
+        |     +--ro name           field-name
+        |     +--ro length?        uint8
+        |     +--ro pattern        field-pattern
+        |     +--ro description?   field-description
+        +--ro local-data-part-2
+           +--ro format?   local-admin-format
+           +--ro field* [name]
+              +--ro name           field-name
+              +--ro length?        uint8
+              +--ro pattern        field-pattern
+              +--ro description?   field-description
 </pre><a href="#section-4-2" class="pilcrow">¶</a>
 </div>
 </section>
@@ -1737,6 +1734,7 @@ module ietf-bgp-communities {
   }
 
   container bgp-communities {
+    config false;
     description
       "A community set";
     leaf serial {
@@ -2182,45 +2180,47 @@ RFC-EDITOR: please update YYYY with this RFC ID
       <h2 id="name-security-considerations-2">
 <a href="#section-9" class="section-number selfRef">9. </a><a href="#name-security-considerations-2" class="section-name selfRef">Security considerations</a>
       </h2>
-<div id="security.parsing">
+<div id="security.publishing">
 <section id="section-9.1">
-        <h3 id="name-parsing-considerations-2">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-parsing-considerations-2" class="section-name selfRef">Parsing considerations</a>
+        <h3 id="name-publishing-considerations-2">
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-publishing-considerations-2" class="section-name selfRef">Publishing considerations</a>
         </h3>
 <p id="section-9.1-1">
-          The YANG module described in this document may be used to specify BGP community definitions in different encoding formats, such as XML, JSON or CBOR.
-          Applications that parse these community definitions SHOULD reject objects that do not comply with the rules described in this document.
-          Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+          This section is modeled after the template described in Section 3.7 of <span>[<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
 <p id="section-9.1-2">
-          The "contact-url" element may contain a link to an untrusted webpage.
-          Parsers MAY opt to render the URL as plain text rather than a clickable link, to prevent inadvertent exposure of information by users of the rendered output.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+          The "ietf-bgp-communities" YANG module defines a data model that is designed to be accessed via YANG-based management protocols, such as NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>.
+          These YANG-based management protocols (1) have to use a secure transport layer (e.g., SSH <span>[<a href="#RFC4252" class="cite xref">RFC4252</a>]</span>, TLS <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, and QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>) and (2) have to use mutual authentication.<a href="#section-9.1-2" class="pilcrow">¶</a></p>
+<p id="section-9.1-3">
+          The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.<a href="#section-9.1-3" class="pilcrow">¶</a></p>
+<p id="section-9.1-4">
+          There are no data nodes defined in this YANG module that are writable/creatable/deletable.<a href="#section-9.1-4" class="pilcrow">¶</a></p>
+<p id="section-9.1-5">
+          Some of the readable data nodes in this YANG module may be considered sensitive or vulnerable in some network environments.
+          Specifically, the following subtrees and data nodes have particular sensitivities/vulnerabilities:<a href="#section-9.1-5" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-9.1-6.1">bgp-communities/contact/email-address<a href="#section-9.1-6.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-9.1-6.2">bgp-communities/contact/name<a href="#section-9.1-6.2" class="pilcrow">¶</a>
+</li>
+        </ul>
+<p id="section-9.1-7">
+          Disclosing this information may be misused, e.g., for tracking and data correlation.
+          Publishers MUST NOT populate these elements with Personally Identifiable Information (PII).
+          For example, these elements may be set with information that refers to generic contact information, not pointing to specific individuals.<a href="#section-9.1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="security.privacy">
+<div id="security.parsing">
 <section id="section-9.2">
-        <h3 id="name-privacy-considerations-2">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-privacy-considerations-2" class="section-name selfRef">Privacy considerations</a>
+        <h3 id="name-parsing-considerations-2">
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-parsing-considerations-2" class="section-name selfRef">Parsing considerations</a>
         </h3>
 <p id="section-9.2-1">
-          Several elements of the "contact" list may contain personal data covered by privacy-laws.
-          Publishers MUST ensure that the elements email-address" and "name" do not contain any privacy-sensitive information.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
-<div id="security.netconf">
-<section id="section-9.3">
-        <h3 id="name-netconf-restconf-considerati">
-<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-netconf-restconf-considerati" class="section-name selfRef">NETCONF/RESTCONF considerations</a>
-        </h3>
-<p id="section-9.3-1">
-          This section is modeled after the template described in Section 3.7 of <span>[<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-9.3-1" class="pilcrow">¶</a></p>
-<p id="section-9.3-2">
-          The YANG module defines a set of identities, types, and groupings.
-          These nodes are intended to be reused by other YANG modules.
-          The module by itself does not expose any data nodes that are writable, data nodes that contain read-only state, or RPCs.
-          As such, there are no additional security issues related to the YANG module that need to be considered.<a href="#section-9.3-2" class="pilcrow">¶</a></p>
-<p id="section-9.3-3">
-          Modules that use the groupings that are defined in this document should identify the corresponding security considerations.
-          For example, reusing some of these groupings may expose privacy-related information (see <a href="#security.privacy" class="auto internal xref">Section 9.2</a>).<a href="#section-9.3-3" class="pilcrow">¶</a></p>
+          The YANG module described in this document may be used to specify BGP community definitions in different encoding formats, such as XML, JSON or CBOR.
+          Applications that parse these community definitions SHOULD reject objects that do not comply with the rules described in this document.
+          Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-9.2-2">
+          The "bgp-communities/contact-url" element may contain a link to an untrusted webpage.
+          Parsers MAY opt to render the URL as plain text rather than a clickable link, to prevent inadvertent exposure of information by users of the rendered output.<a href="#section-9.2-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2288,6 +2288,10 @@ RFC-EDITOR: please update YYYY with this RFC ID
       <dd>
 <span class="refAuthor">Mealling, M.</span>, <span class="refTitle">"The IETF XML Registry"</span>, <span class="seriesInfo">BCP 81</span>, <span class="seriesInfo">RFC 3688</span>, <span class="seriesInfo">DOI 10.17487/RFC3688</span>, <time datetime="2004-01" class="refDate">January 2004</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3688">https://www.rfc-editor.org/info/rfc3688</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC4252">[RFC4252]</dt>
+      <dd>
+<span class="refAuthor">Ylonen, T.</span> and <span class="refAuthor">C. Lonvick, Ed.</span>, <span class="refTitle">"The Secure Shell (SSH) Authentication Protocol"</span>, <span class="seriesInfo">RFC 4252</span>, <span class="seriesInfo">DOI 10.17487/RFC4252</span>, <time datetime="2006-01" class="refDate">January 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4252">https://www.rfc-editor.org/info/rfc4252</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4384">[RFC4384]</dt>
       <dd>
 <span class="refAuthor">Meyer, D.</span>, <span class="refTitle">"BGP Communities for Data Collection"</span>, <span class="seriesInfo">BCP 114</span>, <span class="seriesInfo">RFC 4384</span>, <span class="seriesInfo">DOI 10.17487/RFC4384</span>, <time datetime="2006-02" class="refDate">February 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4384">https://www.rfc-editor.org/info/rfc4384</a>&gt;</span>. </dd>
@@ -2296,6 +2300,10 @@ RFC-EDITOR: please update YYYY with this RFC ID
       <dd>
 <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refTitle">"YANG - A Data Modeling Language for the Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6020</span>, <span class="seriesInfo">DOI 10.17487/RFC6020</span>, <time datetime="2010-10" class="refDate">October 2010</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6020">https://www.rfc-editor.org/info/rfc6020</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC6241">[RFC6241]</dt>
+      <dd>
+<span class="refAuthor">Enns, R., Ed.</span>, <span class="refAuthor">Bjorklund, M., Ed.</span>, <span class="refAuthor">Schoenwaelder, J., Ed.</span>, and <span class="refAuthor">A. Bierman, Ed.</span>, <span class="refTitle">"Network Configuration Protocol (NETCONF)"</span>, <span class="seriesInfo">RFC 6241</span>, <span class="seriesInfo">DOI 10.17487/RFC6241</span>, <time datetime="2011-06" class="refDate">June 2011</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6241">https://www.rfc-editor.org/info/rfc6241</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC7942">[RFC7942]</dt>
       <dd>
 <span class="refAuthor">Sheffer, Y.</span> and <span class="refAuthor">A. Farrel</span>, <span class="refTitle">"Improving Awareness of Running Code: The Implementation Status Section"</span>, <span class="seriesInfo">BCP 205</span>, <span class="seriesInfo">RFC 7942</span>, <span class="seriesInfo">DOI 10.17487/RFC7942</span>, <time datetime="2016-07" class="refDate">July 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7942">https://www.rfc-editor.org/info/rfc7942</a>&gt;</span>. </dd>
@@ -2303,6 +2311,10 @@ RFC-EDITOR: please update YYYY with this RFC ID
 <dt id="RFC7951">[RFC7951]</dt>
       <dd>
 <span class="refAuthor">Lhotka, L.</span>, <span class="refTitle">"JSON Encoding of Data Modeled with YANG"</span>, <span class="seriesInfo">RFC 7951</span>, <span class="seriesInfo">DOI 10.17487/RFC7951</span>, <time datetime="2016-08" class="refDate">August 2016</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7951">https://www.rfc-editor.org/info/rfc7951</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8040">[RFC8040]</dt>
+      <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Bjorklund, M.</span>, and <span class="refAuthor">K. Watsen</span>, <span class="refTitle">"RESTCONF Protocol"</span>, <span class="seriesInfo">RFC 8040</span>, <span class="seriesInfo">DOI 10.17487/RFC8040</span>, <time datetime="2017-01" class="refDate">January 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8040">https://www.rfc-editor.org/info/rfc8040</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
       <dd>
@@ -2316,9 +2328,21 @@ RFC-EDITOR: please update YYYY with this RFC ID
       <dd>
 <span class="refAuthor">Bjorklund, M.</span> and <span class="refAuthor">L. Berger, Ed.</span>, <span class="refTitle">"YANG Tree Diagrams"</span>, <span class="seriesInfo">BCP 215</span>, <span class="seriesInfo">RFC 8340</span>, <span class="seriesInfo">DOI 10.17487/RFC8340</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8340">https://www.rfc-editor.org/info/rfc8340</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC8341">[RFC8341]</dt>
+      <dd>
+<span class="refAuthor">Bierman, A.</span> and <span class="refAuthor">M. Bjorklund</span>, <span class="refTitle">"Network Configuration Access Control Model"</span>, <span class="seriesInfo">STD 91</span>, <span class="seriesInfo">RFC 8341</span>, <span class="seriesInfo">DOI 10.17487/RFC8341</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8341">https://www.rfc-editor.org/info/rfc8341</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC8446">[RFC8446]</dt>
+      <dd>
+<span class="refAuthor">Rescorla, E.</span>, <span class="refTitle">"The Transport Layer Security (TLS) Protocol Version 1.3"</span>, <span class="seriesInfo">RFC 8446</span>, <span class="seriesInfo">DOI 10.17487/RFC8446</span>, <time datetime="2018-08" class="refDate">August 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8446">https://www.rfc-editor.org/info/rfc8446</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC8792">[RFC8792]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Watsen, K.</span>, <span class="refAuthor">Auerswald, E.</span>, <span class="refAuthor">Farrel, A.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Handling Long Lines in Content of Internet-Drafts and RFCs"</span>, <span class="seriesInfo">RFC 8792</span>, <span class="seriesInfo">DOI 10.17487/RFC8792</span>, <time datetime="2020-06" class="refDate">June 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8792">https://www.rfc-editor.org/info/rfc8792</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9000">[RFC9000]</dt>
+    <dd>
+<span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9000">https://www.rfc-editor.org/info/rfc9000</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>

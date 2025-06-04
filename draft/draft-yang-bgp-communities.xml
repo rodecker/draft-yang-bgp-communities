@@ -9,17 +9,23 @@
 <!ENTITY RFC1997 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1997.xml">
 <!ENTITY RFC2119 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC3688 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3688.xml">
+<!ENTITY RFC4252 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4252.xml">
 <!ENTITY RFC4360 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4360.xml">
 <!ENTITY RFC4384 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4384.xml">
 <!ENTITY RFC6020 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6020.xml">
+<!ENTITY RFC6241 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6241.xml">
 <!ENTITY RFC7942 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7942.xml">
 <!ENTITY RFC7950 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7950.xml">
 <!ENTITY RFC7951 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7951.xml">
+<!ENTITY RFC8040 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8040.xml">
 <!ENTITY RFC8092 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8092.xml">
 <!ENTITY RFC8174 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml">
 <!ENTITY RFC8195 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8195.xml">
 <!ENTITY RFC8340 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8340.xml">
+<!ENTITY RFC8341 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8341.xml">
+<!ENTITY RFC8446 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8446.xml">
 <!ENTITY RFC8792 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8792.xml">
+<!ENTITY RFC9000 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9000.xml">
 <!ENTITY RFC9595 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9595.xml">
 ]>
 
@@ -129,66 +135,66 @@
       </t>
       <sourcecode>
 module: ietf-bgp-communities
-  +--rw bgp-communities
-     +--rw serial?        uint32
-     +--rw uri?           inet:uri
-     +--rw description?   string
-     +--rw contact-url?   inet:uri
-     +--rw contact* [email-address]
-     |  +--rw email-address          inet:email-address
-     |  +--rw name?                  string
-     |  +--rw role?                  string
-     |  +--rw organization?          string
-     |  +--rw organizational-unit?   string
-     +--rw regular* [name]
-     |  +--rw name            community-name
-     |  +--rw category?       community-category
-     |  +--rw description?    community-description
-     |  +--rw global-admin    two-octet-as-number
-     |  +--rw local-admin
-     |     +--rw format?   local-admin-format
-     |     +--rw field* [name]
-     |        +--rw name           field-name
-     |        +--rw length?        uint8
-     |        +--rw pattern        field-pattern
-     |        +--rw description?   field-description
-     +--rw extended* [name]
-     |  +--rw name              community-name
-     |  +--rw category?         community-category
-     |  +--rw description?      community-description
-     |  +--rw type              uint8
-     |  +--rw subtype           uint8
-     |  +--rw (global-admin)
+  +--ro bgp-communities
+     +--ro serial?        uint32
+     +--ro uri?           inet:uri
+     +--ro description?   string
+     +--ro contact-url?   inet:uri
+     +--ro contact* [email-address]
+     |  +--ro email-address          inet:email-address
+     |  +--ro name?                  string
+     |  +--ro role?                  string
+     |  +--ro organization?          string
+     |  +--ro organizational-unit?   string
+     +--ro regular* [name]
+     |  +--ro name            community-name
+     |  +--ro category?       community-category
+     |  +--ro description?    community-description
+     |  +--ro global-admin    two-octet-as-number
+     |  +--ro local-admin
+     |     +--ro format?   local-admin-format
+     |     +--ro field* [name]
+     |        +--ro name           field-name
+     |        +--ro length?        uint8
+     |        +--ro pattern        field-pattern
+     |        +--ro description?   field-description
+     +--ro extended* [name]
+     |  +--ro name              community-name
+     |  +--ro category?         community-category
+     |  +--ro description?      community-description
+     |  +--ro type              uint8
+     |  +--ro subtype           uint8
+     |  +--ro (global-admin)
      |  |  +--:(asn)
-     |  |  |  +--rw asn?   two-octet-as-number
+     |  |  |  +--ro asn?   two-octet-as-number
      |  |  +--:(asn4)
-     |  |     +--rw asn4?   inet:as-number
-     |  +--rw local-admin
-     |     +--rw format?   local-admin-format
-     |     +--rw field* [name]
-     |        +--rw name           field-name
-     |        +--rw length?        uint8
-     |        +--rw pattern        field-pattern
-     |        +--rw description?   field-description
-     +--rw large* [name]
-        +--rw name                 community-name
-        +--rw category?            community-category
-        +--rw description?         community-description
-        +--rw global-admin         inet:as-number
-        +--rw local-data-part-1
-        |  +--rw format?   local-admin-format
-        |  +--rw field* [name]
-        |     +--rw name           field-name
-        |     +--rw length?        uint8
-        |     +--rw pattern        field-pattern
-        |     +--rw description?   field-description
-        +--rw local-data-part-2
-           +--rw format?   local-admin-format
-           +--rw field* [name]
-              +--rw name           field-name
-              +--rw length?        uint8
-              +--rw pattern        field-pattern
-              +--rw description?   field-description
+     |  |     +--ro asn4?   inet:as-number
+     |  +--ro local-admin
+     |     +--ro format?   local-admin-format
+     |     +--ro field* [name]
+     |        +--ro name           field-name
+     |        +--ro length?        uint8
+     |        +--ro pattern        field-pattern
+     |        +--ro description?   field-description
+     +--ro large* [name]
+        +--ro name                 community-name
+        +--ro category?            community-category
+        +--ro description?         community-description
+        +--ro global-admin         inet:as-number
+        +--ro local-data-part-1
+        |  +--ro format?   local-admin-format
+        |  +--ro field* [name]
+        |     +--ro name           field-name
+        |     +--ro length?        uint8
+        |     +--ro pattern        field-pattern
+        |     +--ro description?   field-description
+        +--ro local-data-part-2
+           +--ro format?   local-admin-format
+           +--ro field* [name]
+              +--ro name           field-name
+              +--ro length?        uint8
+              +--ro pattern        field-pattern
+              +--ro description?   field-description
       </sourcecode>
     </section>
 
@@ -426,6 +432,7 @@ module ietf-bgp-communities {
   }
 
   container bgp-communities {
+    config false;
     description
       "A community set";
     leaf serial {
@@ -832,6 +839,37 @@ RFC-EDITOR: please update YYYY with this RFC ID
     
     <section title="Security considerations" anchor="security">
 
+      <section title="Publishing considerations" anchor="security.publishing">
+
+        <t>
+          This section is modeled after the template described in Section 3.7 of <xref target="I-D.ietf-netmod-rfc8407bis"/>.
+        </t>
+        <t>
+          The "ietf-bgp-communities" YANG module defines a data model that is designed to be accessed via YANG-based management protocols, such as NETCONF <xref target="RFC6241"/> and RESTCONF <xref target="RFC8040"/>.
+          These YANG-based management protocols (1) have to use a secure transport layer (e.g., SSH <xref target="RFC4252"/>, TLS <xref target="RFC8446"/>, and QUIC <xref target="RFC9000"/>) and (2) have to use mutual authentication.
+        </t>
+        <t>
+          The Network Configuration Access Control Model (NACM) <xref target="RFC8341"/> provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.
+        </t>
+        <t>
+          There are no data nodes defined in this YANG module that are writable/creatable/deletable.
+        </t>
+        <t>
+          Some of the readable data nodes in this YANG module may be considered sensitive or vulnerable in some network environments.
+          Specifically, the following subtrees and data nodes have particular sensitivities/vulnerabilities:
+        </t>
+        <ul>
+         <li>bgp-communities/contact/email-address</li>
+         <li>bgp-communities/contact/name</li>
+        </ul>
+        <t>
+          Disclosing this information may be misused, e.g., for tracking and data correlation.
+          Publishers MUST NOT populate these elements with Personally Identifiable Information (PII).
+          For example, these elements may be set with information that refers to generic contact information, not pointing to specific individuals.
+        </t>
+
+      </section>
+
       <section title="Parsing considerations" anchor="security.parsing">
 
         <t>
@@ -840,36 +878,8 @@ RFC-EDITOR: please update YYYY with this RFC ID
           Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
         </t>
         <t>
-          The "contact-url" element may contain a link to an untrusted webpage.
+          The "bgp-communities/contact-url" element may contain a link to an untrusted webpage.
           Parsers MAY opt to render the URL as plain text rather than a clickable link, to prevent inadvertent exposure of information by users of the rendered output.
-        </t>
-
-      </section>
-
-      <section title="Privacy considerations" anchor="security.privacy">
-
-        <t>
-          Several elements of the "contact" list may contain personal data covered by privacy-laws.
-          Publishers MUST ensure that the elements email-address" and "name" do not contain any privacy-sensitive information.
-        </t>
-
-      </section>
-
-      <section title="NETCONF/RESTCONF considerations" anchor="security.netconf">
-
-        <t>
-          This section is modeled after the template described in Section 3.7 of <xref target="I-D.ietf-netmod-rfc8407bis"/>.
-        </t>
-
-        <t>
-          The YANG module defines a set of identities, types, and groupings.
-          These nodes are intended to be reused by other YANG modules.
-          The module by itself does not expose any data nodes that are writable, data nodes that contain read-only state, or RPCs.
-          As such, there are no additional security issues related to the YANG module that need to be considered.
-        </t>
-        <t>
-          Modules that use the groupings that are defined in this document should identify the corresponding security considerations.
-          For example, reusing some of these groupings may expose privacy-related information (see <xref target="security.privacy"/>).
         </t>
 
       </section>
@@ -899,14 +909,20 @@ RFC-EDITOR: please update YYYY with this RFC ID
       &RFC1912;
       &RFC2119;
       &RFC3688;
+      &RFC4252;
       &RFC4384;
       &RFC6020;
+      &RFC6241;
       &RFC7942;
       &RFC7951;
+      &RFC8040;
       &RFC8174;
       &RFC8195;
       &RFC8340;
+      &RFC8341;
+      &RFC8446;
       &RFC8792;
+      &RFC9000;
 
     </references>
 
