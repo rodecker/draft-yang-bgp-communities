@@ -46,7 +46,8 @@
             {
               "name": "Reserved",
               "length": 16, 
-              "pattern": "0000000000000000"
+              "pattern": "0000000000000000",
+              "description": "0"
             },
             {
               "name": "Region",

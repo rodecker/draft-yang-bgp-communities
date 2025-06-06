@@ -1355,7 +1355,8 @@ Internet-Draft             BGP Community YANG                  June 2025
                {
                  "name": "Reserved",
                  "length": 16,
-                 "pattern": "0000000000000000"
+                 "pattern": "0000000000000000",
+                 "description": "0"
                },
                {
                  "name": "Region",
@@ -1393,7 +1394,6 @@ Author's Address
    RIPE NCC
    Netherlands
    Email: mpels@ripe.net
-
 
 
 
