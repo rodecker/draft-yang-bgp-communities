@@ -14,10 +14,10 @@ This repository contains the following files:
 * `yang/draft-ietf-grow-yang-bgp-communities.yang` - The YANG model, verified using [yanglint](https://pypi.org/project/libyang/)
 * `scripts/parser.py` - An example parser
 * `examples/bgp-communities.json` - An example JSON specification conforming to the YANG model
-* `examples/bgp-communities.txt` - Example communities to match using the JSON specification
-* `examples/bgp-communities.out` - Example output of the parser
 * `examples/rfc4384.json` - Example JSON specification for [RFC4384](https://www.rfc-editor.org/info/rfc4384) communities used in the draft
 * `examples/rfc8195.json` - Example JSON specification for [RFC8195](https://www.rfc-editor.org/info/rfc8195) community used in the draft
+* `examples/*.txt` - Example communities to match using the JSON specification
+* `examples/*.out` - Example output of the parser
 * `resources/inventory.md` - A non-exhaustive list of BGP community definitions found on the web
 
 ## Usage
@@ -48,9 +48,11 @@ Generate a SID file from the YANG model (using Experimental/Private SIDs):
 cat yang/ietf-bgp-communities.yang | pyang -p yang --sid-generate-file 60000:100
 ```
 
-Parse the example communities using the example JSON specification:
+Parse the example communities using example JSON specifications:
 ```
 scripts/parser.py examples/bgp-communities.txt examples/bgp-communities.json
+scripts/parser.py examples/rfc8195.txt examples/rfc8195.json
+scripts/parser.py examples/rfc4384.txt examples/rfc4384.json
 ```
 
 Convert the example JSON specification to a CBOR file:

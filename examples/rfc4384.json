@@ -8,7 +8,7 @@
       {
         "name": "RFC4384-REGULAR-ORIGIN-OC/FJ",
         "description": "A national route over a terrestrial link from the Fiji Islands",
-        "global-admin": 64497,
+        "global-admin": 10876,
         "local-admin": {
           "format": "binary",
           "field": [
@@ -39,7 +39,7 @@
         "description": "A national route over a terrestrial link from the Fiji Islands",
         "type": 0,
         "subtype": 8,
-        "asn": 64497,
+        "asn": 10876,
         "local-admin": {
           "format": "binary",
           "field": [

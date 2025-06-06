@@ -1,0 +1,2 @@
+10876:4338            # A national route over a terrestrial link in AS 10876 from the Fiji Islands
+0x00:0x08:10876:4338  # A national route over a terrestrial link in AS 10876 from the Fiji Islands
