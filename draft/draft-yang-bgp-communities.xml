@@ -960,7 +960,7 @@ NO_EXPORT",
         "name": "RFC8195-NOEXPORT-ASN",
         "category": "action",
         "description": "Do not export route to ASN",
-        "global-admin": 65539,
+        "global-admin": 64497,
         "local-data-part-1": {
           "field": [
             {
