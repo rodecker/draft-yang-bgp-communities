@@ -13,6 +13,7 @@ This repository contains the following files:
 * `draft/draft-yang-bgp-communities.html` - The draft in html format, generated using [xml2rfc](https://pypi.org/project/xml2rfc/)
 * `yang/draft-ietf-grow-yang-bgp-communities.yang` - The YANG model, verified using [yanglint](https://pypi.org/project/libyang/)
 * `scripts/parser.py` - An example parser
+* `scripts/convertcbor.py` - A tool for converting from JSON to CBOR and vice versa
 * `examples/bgp-communities.json` - An example JSON specification conforming to the YANG model
 * `examples/rfc4384.json` - Example JSON specification for [RFC4384](https://www.rfc-editor.org/info/rfc4384) communities used in the draft
 * `examples/rfc8195.json` - Example JSON specification for [RFC8195](https://www.rfc-editor.org/info/rfc8195) community used in the draft
