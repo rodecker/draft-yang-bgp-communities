@@ -15,6 +15,9 @@ def main(values_file: str, struct_file: str):
     bgprc = []
     bgplc = []
     bgpec = []
+    candidates_rc = []
+    candidates_lc = []
+    candidates_ec = []
 
     with open(values_file, "r", encoding="utf-8") as filehandle:
         for line in filehandle.readlines():
@@ -33,9 +36,12 @@ def main(values_file: str, struct_file: str):
 
     with open(struct_file, "r", encoding="utf-8") as filehandle:
         jdata = json.load(filehandle)
-        candidates_rc = jdata['ietf-bgp-communities:bgp-communities']['regular']
-        candidates_lc = jdata['ietf-bgp-communities:bgp-communities']['large']
-        candidates_ec = jdata['ietf-bgp-communities:bgp-communities']['extended']
+        if 'regular' in jdata['ietf-bgp-communities:bgp-communities']:
+            candidates_rc = jdata['ietf-bgp-communities:bgp-communities']['regular']
+        if 'large' in jdata['ietf-bgp-communities:bgp-communities']:
+            candidates_lc = jdata['ietf-bgp-communities:bgp-communities']['large']
+        if 'extended' in jdata['ietf-bgp-communities:bgp-communities']:
+            candidates_ec = jdata['ietf-bgp-communities:bgp-communities']['extended']
 
     for regular_community in bgprc:
         parse_regular_community(regular_community, candidates_rc)
@@ -55,7 +61,7 @@ def parse_regular_community(regular_community, candidates):
 
     found = _try_candidates_rc(asn, content, candidates)
     if found:
-        fieldvals = _candidate2fields(content, found['local-admin'])
+        fieldvals = _candidate2fields(content, found['local-admin'], 16)
         _print_match(regular_community, found, fieldvals)
         return found
 
@@ -93,7 +99,12 @@ def parse_extended_community(extended_community, candidates):
 
     found = _try_candidates_ec(extype, exsubtype, asn, content, candidates)
     if found:
-        fieldvals = _candidate2fields(content, found['local-admin'])
+        if 'asn' in found:
+            fieldvals = _candidate2fields(content, found['local-admin'], 32)
+        elif 'asn4' in found:
+            fieldvals = _candidate2fields(content, found['local-admin'], 16)
+        else:
+            return None
         _print_match(extended_community, found, fieldvals)
         return found
 
@@ -181,7 +192,6 @@ def _try_candidate_fields(content, cfields):
         if pattern.endswith('$'):
           pattern = pattern[:-1]
         if not re.match("^{}$".format(pattern), value):
-            # print('{} != {}'.format(pattern,value))
             return False
 
         if 'length' in cfield:
@@ -189,7 +199,7 @@ def _try_candidate_fields(content, cfields):
     return True
 
 
-def _candidate2fields(contentbits, clocaladmin):
+def _candidate2fields(contentbits, clocaladmin, localadminlength):
     """
     Link values from tested community to field names in matched candidate
     """
@@ -197,7 +207,7 @@ def _candidate2fields(contentbits, clocaladmin):
     pos = 0
     if 'format' in clocaladmin:
         if clocaladmin['format'] == 'binary':
-            contentbits = _decimal2bits(contentbits, 16)
+            contentbits = _decimal2bits(contentbits, localadminlength)
     for fid, field in enumerate(clocaladmin['field']):
         if 'length' in field:
             length = field['length']
