@@ -42,7 +42,8 @@
             {
               "name": "Prepend-count",
               "length": 1,
-              "pattern": "[1-5]"
+              "pattern": "[1-5]",
+              "description": "*"
             }
           ]
         }
@@ -62,7 +63,8 @@
             {
               "name": "Prepend-count",
               "length": 1,
-              "pattern": "[1-5]"
+              "pattern": "[1-5]",
+              "description": "*"
             }
           ]
         }
@@ -83,7 +85,8 @@
             {
               "name": "Satellite",
               "length": 1,
-              "pattern": "[0-1]"
+              "pattern": "[0-1]",
+              "description": "*"
             },
             {
               "name": "Country",
@@ -138,7 +141,8 @@
           "field": [
             {
               "name": "ASN",
-              "pattern": ".*"
+              "pattern": ".*",
+              "description": "*"
             }
           ]
         }
@@ -155,7 +159,8 @@
           "field": [
             {
               "name": "Peer-AS",
-              "pattern": ".*"
+              "pattern": ".*",
+              "description": "*"
             }
           ]
         }

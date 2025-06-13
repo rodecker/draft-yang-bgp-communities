@@ -31,7 +31,8 @@
           "field": [
             {
               "name": "ASN",
-              "pattern": ".*"
+              "pattern": ".*",
+              "description": "*"
             }
           ]
         }

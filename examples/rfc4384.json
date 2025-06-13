@@ -21,7 +21,8 @@
             {
               "name": "Satellite",
               "length": 1, 
-              "pattern": "0"
+              "pattern": "0",
+              "description": "*"
             },
             {
               "name": "Country",
@@ -46,8 +47,7 @@
             {
               "name": "Reserved",
               "length": 16, 
-              "pattern": "0000000000000000",
-              "description": "0"
+              "pattern": "0000000000000000"
             },
             {
               "name": "Region",
@@ -58,7 +58,8 @@
             {
               "name": "Satellite",
               "length": 1, 
-              "pattern": "0"
+              "pattern": "0",
+              "description": "*"
             },
             {
               "name": "Country",

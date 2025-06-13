@@ -163,11 +163,13 @@ module ietf-bgp-communities {
   typedef field-description {
     type string {
       length "1..65535";
-      pattern '[^\p{C}]+';
+      pattern '(\*)|([^*]+)';
     }
     description
       "This type restricts values for the description leaf of a BGP
-       community Local Administrator/Local Data field.";
+       community Local Administrator/Local Data field.  The string
+       containing a single asterisk '*' indicates that the value of
+       the field should be used as description.";
     reference
       "RFC YYYY: A YANG Data Model for BGP Communities
        RFC-EDITOR: please update YYYY with this RFC ID";

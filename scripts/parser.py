@@ -273,28 +273,40 @@ def _print_match(community, candidate, fieldvals):
         asn = candidate[attr]
     if 'local-admin' in candidate:
         for fid, field in enumerate(candidate['local-admin']['field']):
-            if 'description' in field:
-                output_fields.append(f'{field["name"]}={field["description"]}')
-            else:
+            if not 'description' in field:
+                continue
+            if field["description"] == '*':
                 output_fields.append(f'{field["name"]}={fieldvals[fid]}')
+            else:
+                output_fields.append(f'{field["name"]}={field["description"]}')
+        if len(output_fields) == 0:
+            output_fields = '-'
         output_sections.append(','.join(output_fields))
     elif 'local-data-part-1' in candidate:
         offset = 0
         output_fields = []
         for fid, field in enumerate(candidate['local-data-part-1']['field']):
-            if 'description' in field:
-                output_fields.append(f"{field['name']}={field['description']}")
-            else:
+            if not 'description' in field:
+                continue
+            if field["description"] == '*':
                 output_fields.append(f"{field['name']}={fieldvals[offset + fid]}")
+            else:
+                output_fields.append(f"{field['name']}={field['description']}")
+        if len(output_fields) == 0:
+            output_fields = '-'
         output_sections.append(','.join(output_fields))
 
         offset = len(candidate['local-data-part-1']['field'])
         output_fields = []
         for fid, field in enumerate(candidate['local-data-part-2']['field']):
-            if 'description' in field:
-                output_fields.append(f'{field["name"]}={field["description"]}')
-            else:
+            if not 'description' in field:
+                continue
+            if field["description"] == '*':
                 output_fields.append(f'{field["name"]}={fieldvals[offset + fid]}')
+            else:
+                output_fields.append(f'{field["name"]}={field["description"]}')
+        if len(output_fields) == 0:
+            output_fields = '-'
         output_sections.append(','.join(output_fields))
     if 'category' in candidate:
         output = f'{community} - {candidate["name"]}/{candidate["category"]} ' \
