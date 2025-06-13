@@ -69,7 +69,7 @@ module ietf-bgp-communities {
   typedef community-name {
     type string {
       length "1..255";
-      pattern '[^ \t\r\n\p{C}]+';
+      pattern '[^\s]+';
     }
     description
       "This type restricts values for the name of a BGP community.";
@@ -101,7 +101,6 @@ module ietf-bgp-communities {
   typedef community-description {
     type string {
       length "1..65535";
-      pattern '[^\p{C}]+';
     }
     description
       "This type restricts values for the description of a BGP
@@ -135,7 +134,7 @@ module ietf-bgp-communities {
   typedef field-name {
     type string {
       length "1..255";
-      pattern '[^ \t\r\n\p{C}]+';
+      pattern '[^\s]+';
     }
     description
       "This type restricts values for the name leaf of a BGP
@@ -245,7 +244,6 @@ module ietf-bgp-communities {
     leaf description {
       type string {
         length "1..65535";
-        pattern '[^\p{C}]+';
       }
       description
         "A description for the community set";
@@ -268,7 +266,6 @@ module ietf-bgp-communities {
       leaf name {
         type string {
           length "1..255";
-          pattern '[^\p{C}]+';
         }
         description
           "Maintainer contact name";
@@ -276,7 +273,6 @@ module ietf-bgp-communities {
       leaf role {
         type string {
           length "1..255";
-          pattern '[^\p{C}]+';
         }
         description
           "Maintainer contact role";
@@ -284,7 +280,6 @@ module ietf-bgp-communities {
       leaf organization {
         type string {
           length "1..255";
-          pattern '[^\p{C}]+';
         }
         description
           "Maintainer contact organization";
@@ -292,7 +287,6 @@ module ietf-bgp-communities {
       leaf organizational-unit {
         type string {
           length "1..255";
-          pattern '[^\p{C}]+';
         }
         description
           "Maintainer contact organizational unit";
