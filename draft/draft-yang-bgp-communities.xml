@@ -871,7 +871,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
       <section title="Parsing considerations" anchor="security.parsing">
 
         <t>
-          The YANG module described in this document may be used to specify BGP community definitions in different encoding formats, such as XML, JSON or CBOR.
+          The YANG module described in this document may be used to specify BGP community definitions in different serialization formats, such as XML, JSON or CBOR.
           Applications that parse these community definitions SHOULD reject objects that do not conform to the YANG model.
           Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
           For example, a Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).
@@ -879,6 +879,10 @@ RFC-EDITOR: please update YYYY with this RFC ID
         <t>
           The "bgp-communities/contact-url" element may contain a link to an untrusted webpage.
           Parsers MAY opt to render the URL as plain text rather than a clickable link, to prevent inadvertent exposure of information by users of the rendered output.
+        </t>
+        <t>
+          Several elements with the "string" data type may be used to display information in a web page or application.
+          Parsers should take care that the appropriate escaping is performed to protect against cross-site scripting attacks.
         </t>
 
       </section>
