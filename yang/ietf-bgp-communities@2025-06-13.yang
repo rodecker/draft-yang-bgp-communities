@@ -42,7 +42,7 @@ module ietf-bgp-communities {
 
   // RFC-EDITOR: please update YYYY with this RFC ID
 
-  revision 2025-06-03 {
+  revision 2025-06-13 {
     description
       "Initial revision.";
     reference
