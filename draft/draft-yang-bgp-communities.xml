@@ -709,9 +709,7 @@ module ietf-bgp-communities {
           By default, communities are compared using the decimal representation of the fields. If "format" for a Local Administrator or Local Data Part is set to "binary", the fields in the received community are converted to strings of zeros and ones before comparison.
         </t>
         <t>
-          Applications that parse these community definitions SHOULD reject objects that do not conform to the YANG model.
-          Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
-          For example, a Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).
+          See <xref target="security.parsing"> for security considerations when parsing community definitions.
         </t>
       </section>
 
@@ -876,6 +874,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
           The YANG module described in this document may be used to specify BGP community definitions in different encoding formats, such as XML, JSON or CBOR.
           Applications that parse these community definitions SHOULD reject objects that do not conform to the YANG model.
           Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
+          For example, a Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).
         </t>
         <t>
           The "bgp-communities/contact-url" element may contain a link to an untrusted webpage.
