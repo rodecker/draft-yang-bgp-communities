@@ -156,6 +156,74 @@ def _edit_dict(obj):
         except ValueError as e:
             sys.stderr.write(f"Error: {e.args[0]['error-string']}\n")
 
+# Supported notations:
+#   nnn -> any number
+#   x -> any digit
+#   a-b -> numeric range a upto b
+def _fields_from_txt(localadmin):
+    fields = []
+    if re.search(r'nnn', localadmin):
+        strlen = len(localadmin)
+        index = 0
+        while index < strlen:
+            if localadmin[index] == 'n':
+                if localadmin[index+1] == 'n' and \
+                   localadmin[index+2] == 'n':
+                    field = {}
+                    field['pattern'] = '[0-9]+'
+                    fields.append(field)
+                    index = index + 3
+                else:
+                    return None
+            else:
+                if not re.match(r'\d', localadmin[index]):
+                    return None
+                if len(fields) > 0 and fields[-1]['pattern'] == localadmin[index-1]:
+                    fields[-1]['pattern'] = fields[-1]['pattern'] + \
+                                             localadmin[index]
+                else:
+                    field = {}
+                    field['pattern'] = localadmin[index]
+                    fields.append(field)
+                index = index + 1
+    elif re.search(r'x', localadmin):
+        strlen = len(localadmin)
+        index = 0
+        while index < strlen:
+            if localadmin[index] == 'x':
+                field = {}
+                field['pattern'] = '[0-9]'
+                fields.append(field)
+                index = index + 1
+            else:
+                if not re.match(r'\d', localadmin[index]):
+                    return None
+                if len(fields) > 0 and fields[-1]['pattern'] == localadmin[index-1]:
+                    fields[-1]['pattern'] = fields[-1]['pattern'] + \
+                                             localadmin[index]
+                else:
+                    field = {}
+                    field['pattern'] = localadmin[index]
+                    fields.append(field)
+                index = index + 1
+        pass
+    elif re.search(r'-', localadmin):
+        try:
+            start, end = map(int, localadmin.split("-"))
+            pattern = "(" + "|".join(str(i) for i in range(start, end + 1)) + ")"
+            if len(pattern) < 3:
+                return None
+            field = {}
+            field['pattern'] = pattern
+            fields.append(field)            
+        except:
+            return None
+        pass
+    else:
+        field = {}
+        field['pattern'] = localadmin
+        fields.append(field)
+    return fields
 
 '''
 For file format, see:
@@ -181,36 +249,42 @@ def import_text(obj, filename):
     regular = obj.bgp_communities.regular
     extended = obj.bgp_communities.extended
     large = obj.bgp_communities.large
-    #try:
-    for line in f:
-        m = re.match(r'^(\d+):([-0-9nx]+),(.+)$', line)
-        if m:
-            globaladmin = m.group(1)
-            localadmin = m.group(2)
-            name = f"{globaladmin}:{localadmin}"
-            description = m.group(3)
-            if name in regular.keys():
-                sys.stderr.write(f"Warning: duplicate entry '{name}'\n")
-                continue
-            regular.add(name)
-            regular[name]._set_global_admin(globaladmin)
-            # all txt definitions use decimal format
-            #regular[name].local_admin._set_format("decimal")
+    try:
+        for line in f:
+            # Regular
+            m = re.match(r'^(\d+):([-0-9nx]+),(.+)$', line)
+            if m:
+                globaladmin = m.group(1)
+                localadmin = m.group(2)
+                name = f"{globaladmin}:{localadmin}"
+                description = m.group(3).strip()
+                if name in regular.keys():
+                    sys.stderr.write(f"Warning: duplicate entry '{name}'\n")
+                    continue
+                parsed_fields = _fields_from_txt(localadmin)
+                if parsed_fields == None:
+                    sys.stderr.write(f"Warning: Unable to parse entry '{name}'\n")
+                    continue
+                regular.add(name)
+                regular[name]._set_description(description)
+                regular[name]._set_global_admin(globaladmin)
+                for index, pf in enumerate(parsed_fields):
+                    regular[name].local_admin.field.add(f"field{index}")
+                    field = regular[name].local_admin.field[f"field{index}"]
+                    field._set_pattern(pf['pattern'])
 
-            #if re.search(r'nnn', localadmin):
-            #if re.search(r'x', localadmin):
-            #if re.search(r'-', localadmin):
-            #if re_range...
-            regular[name].local_admin.field.add("match")
-            field = regular[name].local_admin.field["match"]
-            field._set_pattern(localadmin)
-            field._set_description(description)
-            
-        #elif re.match(r'^soo (\d+):(\d+),(.+)$', line):
-        #elif re.match(r'^(\d+):(\d+):\d(\d+),(.+)$', line):
-    #except Exception as e:
-    #    sys.stderr.write(f"Error: Import from '{filename}' failed: {e}\n")
-    #    exit(1)
+            # Extended
+            #elif re.match(r'^(soo|rt) (\d+):(\d+),(.+)$', line):
+
+            # Large
+            #elif re.match(r'^(\d+):(\d+):\d(\d+),(.+)$', line):
+
+            # Unknown
+            elif not re.match(r'^(#).+', line):
+                sys.stderr.write(f"Warning: Skipped line '{line.strip()}'\n")
+    except Exception as e:
+        sys.stderr.write(f"Error: Import from '{filename}' failed: {e}\n")
+        exit(1)
 
 def _write_to_file(obj, filename, ask=False):
     if ask:
