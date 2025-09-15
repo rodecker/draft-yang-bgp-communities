@@ -156,6 +156,91 @@ def _edit_dict(obj):
         except ValueError as e:
             sys.stderr.write(f"Error: {e.args[0]['error-string']}\n")
 
+def _regular_from_txt(regular, globaladmin, localadmin, description):
+    name = f"{globaladmin}:{localadmin}"
+    if name in regular.keys():
+        sys.stderr.write(f"Warning: duplicate entry '{name}'\n")
+        return
+    parsed_fields = _fields_from_txt(localadmin)
+    if parsed_fields == None:
+        sys.stderr.write(f"Warning: Unable to parse entry '{name}'\n")
+        return
+    regular.add(name)
+    regular[name]._set_description(description)
+    regular[name]._set_global_admin(globaladmin)
+    for index, pf in enumerate(parsed_fields):
+        regular[name].local_admin.field.add(f"field{index}")
+        field = regular[name].local_admin.field[f"field{index}"]
+        field._set_pattern(pf['pattern'])
+        if "$0" in description and 'wildcard' in pf:
+            field._set_description("*")
+            regular[name]._set_description(description.replace("$0",
+                                                               f"$field{index}"))
+
+def _extended_from_txt(extended, typename, globaladmin, localadmin, description):
+    name = f"{typename}-{globaladmin}:{localadmin}"
+    if name in extended.keys():
+        sys.stderr.write(f"Warning: duplicate entry '{name}'\n")
+        return
+    parsed_fields = _fields_from_txt(localadmin)
+    if parsed_fields == None:
+        sys.stderr.write(f"Warning: Unable to parse entry '{name}'\n")
+        return
+    extended.add(name)
+    extended[name]._set_description(description)
+    if int(globaladmin) > 65535:
+        extended[name]._set_asn4(globaladmin)
+        extended[name]._set_type(2)
+    else:
+        extended[name]._set_asn(globaladmin)
+        extended[name]._set_type(0)
+    if typename == 'rt':
+        extended[name]._set_subtype(2)
+    elif typename == 'soo':
+        extended[name]._set_subtype(3)
+    for index, pf in enumerate(parsed_fields):
+        extended[name].local_admin.field.add(f"field{index}")
+        field = extended[name].local_admin.field[f"field{index}"]
+        field._set_pattern(pf['pattern'])
+        if "$0" in description and 'wildcard' in pf:
+            field._set_description("*")
+            extended[name]._set_description(description.replace("$0",
+                                                                f"$field{index}"))
+
+def _large_from_txt(large, globaladmin, localdata1, localdata2, description):
+    name = f"{globaladmin}:{localdata1}:{localdata2}"
+    if name in large.keys():
+        sys.stderr.write(f"Warning: duplicate entry '{name}'\n")
+        return
+    parsed_fields1 = _fields_from_txt(localdata1)
+    parsed_fields2 = _fields_from_txt(localdata2)
+    if parsed_fields1 == None or parsed_fields2 == None:
+        sys.stderr.write(f"Warning: Unable to parse entry '{name}'\n")
+        return
+    large.add(name)
+    large[name]._set_description(description)
+    large[name]._set_global_admin(globaladmin)
+    wc_index = 0
+    for index, pf in enumerate(parsed_fields1):
+        large[name].local_data_part_1.field.add(f"field{index}")
+        field = large[name].local_data_part_1.field[f"field{index}"]
+        field._set_pattern(pf['pattern'])
+        if f"${wc_index}" in description and 'wildcard' in pf:
+            field._set_description("*")
+            large[name]._set_description(description.replace(f"${wc_index}",
+                                                             f"$field{index}"))
+            wc_index = wc_index + 1
+    base_index = len(parsed_fields1)
+    for index, pf in enumerate(parsed_fields2):
+        large[name].local_data_part_2.field.add(f"field{index + base_index}")
+        field = large[name].local_data_part_2.field[f"field{index + base_index}"]
+        field._set_pattern(pf['pattern'])
+        if f"${wc_index}" in description and 'wildcard' in pf:
+            field._set_description("*")
+            comm_description = large[name]._get_description()
+            large[name]._set_description(comm_description.replace(f"${wc_index}",
+                                                                  f"$field{index + base_index}"))
+
 # Supported notations:
 #   nnn -> any number
 #   x -> any digit
@@ -170,6 +255,7 @@ def _fields_from_txt(localadmin):
                 if localadmin[index+1] == 'n' and \
                    localadmin[index+2] == 'n':
                     field = {}
+                    field['wildcard'] = True
                     field['pattern'] = '[0-9]+'
                     fields.append(field)
                     index = index + 3
@@ -192,6 +278,7 @@ def _fields_from_txt(localadmin):
         while index < strlen:
             if localadmin[index] == 'x':
                 field = {}
+                field['wildcard'] = True
                 field['pattern'] = '[0-9]'
                 fields.append(field)
                 index = index + 1
@@ -231,14 +318,14 @@ https://github.com/NLNOG/lg.ring.nlnog.net/blob/main/README.md
 '''
 def import_text(obj, filename):
     name = os.path.basename(filename)
-    globaladmin = None
+    asn = None
     m = re.match(r'^as(\d+)\.txt$', name)
     if m:
-        globaladmin = m.group(1)
-    if not globaladmin:
+        asn = m.group(1)
+    if not asn:
         sys.stderr.write(f"Error: Could not derive ASN from file name '{args.filename}'\n")
         sys.exit(1)
-    obj.bgp_communities._set_description(f"BGP Communities for AS{globaladmin}")
+    obj.bgp_communities._set_description(f"BGP Communities for AS{asn}")
 
     try:
         f = open(filename, 'r')
@@ -252,36 +339,75 @@ def import_text(obj, filename):
     try:
         for line in f:
             # Regular
-            m = re.match(r'^(\d+):([-0-9nx]+),(.+)$', line)
+            m = re.match(r'^([-0-9]+|<ASN>):([-0-9nx]+),(.+)$', line)
             if m:
                 globaladmin = m.group(1)
-                localadmin = m.group(2)
-                name = f"{globaladmin}:{localadmin}"
-                description = m.group(3).strip()
-                if name in regular.keys():
-                    sys.stderr.write(f"Warning: duplicate entry '{name}'\n")
-                    continue
-                parsed_fields = _fields_from_txt(localadmin)
-                if parsed_fields == None:
-                    sys.stderr.write(f"Warning: Unable to parse entry '{name}'\n")
-                    continue
-                regular.add(name)
-                regular[name]._set_description(description)
-                regular[name]._set_global_admin(globaladmin)
-                for index, pf in enumerate(parsed_fields):
-                    regular[name].local_admin.field.add(f"field{index}")
-                    field = regular[name].local_admin.field[f"field{index}"]
-                    field._set_pattern(pf['pattern'])
+                mm = re.match(r'(\d+)-(\d+)', globaladmin)
+                if mm:
+                    start = int(mm.group(1))
+                    stop = int(mm.group(2))
+                    for i in range(start, stop + 1):
+                        _regular_from_txt(regular, i,
+                                                   m.group(2),
+                                                   m.group(3).strip())
+                else:
+                    if globaladmin == "<ASN>":
+                        globaladmin = asn
+                    _regular_from_txt(regular, globaladmin,
+                                               m.group(2),
+                                               m.group(3).strip())
+                continue
 
             # Extended
-            #elif re.match(r'^(soo|rt) (\d+):(\d+),(.+)$', line):
+            m = re.match(r'^(soo|rt)\s([-0-9]+|<ASN>):([-0-9nx]+),(.+)$', line)
+            if m:
+                globaladmin = m.group(2)
+                mm = re.match(r'(\d+)-(\d+)', globaladmin)
+                if mm:
+                    start = int(mm.group(1))
+                    stop = int(mm.group(2))
+                    for i in range(start, stop + 1):
+                        _extended_from_txt(extended, m.group(1),
+                                                     i,
+                                                     m.group(3),
+                                                     m.group(4).strip())
+                else:
+                    if globaladmin == "<ASN>":
+                        globaladmin = asn
+                    _extended_from_txt(extended, m.group(1),
+                                                 globaladmin,
+                                                 m.group(3),
+                                                 m.group(4).strip())
+                continue
 
             # Large
-            #elif re.match(r'^(\d+):(\d+):\d(\d+),(.+)$', line):
+            m = re.match(r'^([-0-9]+|<ASN>):([-0-9nx]+):([-0-9nx]+),(.+)$', line)
+            if m:
+                globaladmin = m.group(1)
+                mm = re.match(r'(\d+)-(\d+)', globaladmin)
+                if mm:
+                    start = int(mm.group(1))
+                    stop = int(mm.group(2))
+                    for i in range(start, stop + 1):
+                        _large_from_txt(large, i,
+                                               m.group(2),
+                                               m.group(3),
+                                               m.group(4).strip())
+                else:
+                    if globaladmin == "<ASN>":
+                        globaladmin = asn
+                    _large_from_txt(large, globaladmin,
+                                           m.group(2),
+                                           m.group(3),
+                                           m.group(4).strip())
+                continue
 
             # Unknown
-            elif not re.match(r'^(#).+', line):
+            elif not re.match(r'^(#).*$|^$', line):
                 sys.stderr.write(f"Warning: Skipped line '{line.strip()}'\n")
+    except KeyboardInterrupt:
+        sys.stderr.write(f"Caught keyboard interrupt; exiting.\n")
+        exit(1)
     except Exception as e:
         sys.stderr.write(f"Error: Import from '{filename}' failed: {e}\n")
         exit(1)
