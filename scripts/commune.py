@@ -10,6 +10,9 @@ from pyangbind.lib.serialise import pybindJSONDecoder
 
 from bindings import ietf_bgp_communities
 
+MAX_ASN16 = 65535
+MAX_ASN32 = 4294967295
+
 def _key2attrname(key):
     return re.sub(r'-', '_', key)
 
@@ -156,10 +159,14 @@ def _edit_dict(obj):
         except ValueError as e:
             sys.stderr.write(f"Error: {e.args[0]['error-string']}\n")
 
-def _regular_from_txt(regular, globaladmin, localadmin, description):
+def _regular_from_txt(regular,
+                      globaladmin,
+                      localadmin,
+                      description,
+                      wc_index=0):
     name = f"{globaladmin}:{localadmin}"
     if name in regular.keys():
-        sys.stderr.write(f"Warning: duplicate entry '{name}'\n")
+        sys.stderr.write(f"Warning: Skipping duplicate entry '{name}'\n")
         return
     parsed_fields = _fields_from_txt(localadmin)
     if parsed_fields == None:
@@ -172,15 +179,20 @@ def _regular_from_txt(regular, globaladmin, localadmin, description):
         regular[name].local_admin.field.add(f"field{index}")
         field = regular[name].local_admin.field[f"field{index}"]
         field._set_pattern(pf['pattern'])
-        if "$0" in description and 'wildcard' in pf:
+        if f"${wc_index}" in description and 'wildcard' in pf:
             field._set_description("*")
-            regular[name]._set_description(description.replace("$0",
+            regular[name]._set_description(description.replace(f"${wc_index}",
                                                                f"$field{index}"))
 
-def _extended_from_txt(extended, typename, globaladmin, localadmin, description):
+def _extended_from_txt(extended,
+                       typename,
+                       globaladmin,
+                       localadmin,
+                       description,
+                       wc_index=0):
     name = f"{typename}-{globaladmin}:{localadmin}"
     if name in extended.keys():
-        sys.stderr.write(f"Warning: duplicate entry '{name}'\n")
+        sys.stderr.write(f"Warning: Skipping duplicate entry '{name}'\n")
         return
     parsed_fields = _fields_from_txt(localadmin)
     if parsed_fields == None:
@@ -188,7 +200,7 @@ def _extended_from_txt(extended, typename, globaladmin, localadmin, description)
         return
     extended.add(name)
     extended[name]._set_description(description)
-    if int(globaladmin) > 65535:
+    if int(globaladmin) > MAX_ASN16:
         extended[name]._set_asn4(globaladmin)
         extended[name]._set_type(2)
     else:
@@ -202,15 +214,20 @@ def _extended_from_txt(extended, typename, globaladmin, localadmin, description)
         extended[name].local_admin.field.add(f"field{index}")
         field = extended[name].local_admin.field[f"field{index}"]
         field._set_pattern(pf['pattern'])
-        if "$0" in description and 'wildcard' in pf:
+        if f"${wc_index}" in description and 'wildcard' in pf:
             field._set_description("*")
-            extended[name]._set_description(description.replace("$0",
+            extended[name]._set_description(description.replace(f"${wc_index}",
                                                                 f"$field{index}"))
 
-def _large_from_txt(large, globaladmin, localdata1, localdata2, description):
+def _large_from_txt(large,
+                    globaladmin,
+                    localdata1,
+                    localdata2,
+                    description,
+                    wc_index=0):
     name = f"{globaladmin}:{localdata1}:{localdata2}"
     if name in large.keys():
-        sys.stderr.write(f"Warning: duplicate entry '{name}'\n")
+        sys.stderr.write(f"Warning: Skipping duplicate entry '{name}'\n")
         return
     parsed_fields1 = _fields_from_txt(localdata1)
     parsed_fields2 = _fields_from_txt(localdata2)
@@ -220,15 +237,15 @@ def _large_from_txt(large, globaladmin, localdata1, localdata2, description):
     large.add(name)
     large[name]._set_description(description)
     large[name]._set_global_admin(globaladmin)
-    wc_index = 0
     for index, pf in enumerate(parsed_fields1):
         large[name].local_data_part_1.field.add(f"field{index}")
         field = large[name].local_data_part_1.field[f"field{index}"]
         field._set_pattern(pf['pattern'])
-        if f"${wc_index}" in description and 'wildcard' in pf:
-            field._set_description("*")
-            large[name]._set_description(description.replace(f"${wc_index}",
-                                                             f"$field{index}"))
+        if 'wildcard' in pf:
+            if f"${wc_index}" in description:
+                field._set_description("*")
+                large[name]._set_description(description.replace(f"${wc_index}",
+                                                                 f"$field{index}"))
             wc_index = wc_index + 1
     base_index = len(parsed_fields1)
     for index, pf in enumerate(parsed_fields2):
@@ -241,10 +258,12 @@ def _large_from_txt(large, globaladmin, localdata1, localdata2, description):
             large[name]._set_description(comm_description.replace(f"${wc_index}",
                                                                   f"$field{index + base_index}"))
 
-# Supported notations:
-#   nnn -> any number
-#   x -> any digit
-#   a-b -> numeric range a upto b
+'''
+Supported notations:
+  nnn -> any number
+  x -> any digit
+  a-b -> numeric range a upto b
+'''
 def _fields_from_txt(localadmin):
     fields = []
     if re.search(r'nnn', localadmin):
@@ -313,6 +332,20 @@ def _fields_from_txt(localadmin):
     return fields
 
 '''
+Convert ASN with x to a list
+'''
+def _x_to_range(globaladmin):
+    asnlist = []
+    for back_index, ch in enumerate(globaladmin[::-1]):
+        if ch == 'x':
+            for i in range(10):
+                index = len(globaladmin) - 1 - back_index
+                asn = globaladmin[:index] + str(i) + globaladmin[index+1:]
+                asnlist.append(asn)
+            break
+    return asnlist
+
+'''
 For file format, see:
 https://github.com/NLNOG/lg.ring.nlnog.net/blob/main/README.md
 '''
@@ -339,7 +372,7 @@ def import_text(obj, filename):
     try:
         for line in f:
             # Regular
-            m = re.match(r'^([-0-9]+|<ASN>):([-0-9nx]+),(.+)$', line)
+            m = re.match(r'^([-0-9x]+|<ASN>):([-0-9nx]+),(.+)$', line)
             if m:
                 globaladmin = m.group(1)
                 mm = re.match(r'(\d+)-(\d+)', globaladmin)
@@ -350,6 +383,19 @@ def import_text(obj, filename):
                         _regular_from_txt(regular, i,
                                                    m.group(2),
                                                    m.group(3).strip())
+                elif 'x' in globaladmin:
+                    galist = _x_to_range(globaladmin)
+                    for ga in galist:
+                        if int(ga) > MAX_ASN16:
+                            pass
+                        else:
+                            cdescr =  m.group(3).strip()
+                            pos = globaladmin.find('x')
+                            cdescr = cdescr.replace("$0",ga[pos])
+                            _regular_from_txt(regular, ga,
+                                                       m.group(2),
+                                                       cdescr,
+                                                       wc_index=1)
                 else:
                     if globaladmin == "<ASN>":
                         globaladmin = asn
@@ -359,7 +405,7 @@ def import_text(obj, filename):
                 continue
 
             # Extended
-            m = re.match(r'^(soo|rt)\s([-0-9]+|<ASN>):([-0-9nx]+),(.+)$', line)
+            m = re.match(r'^(soo|rt)\s([-0-9x]+|<ASN>):([-0-9nx]+),(.+)$', line)
             if m:
                 globaladmin = m.group(2)
                 mm = re.match(r'(\d+)-(\d+)', globaladmin)
@@ -371,6 +417,20 @@ def import_text(obj, filename):
                                                      i,
                                                      m.group(3),
                                                      m.group(4).strip())
+                elif 'x' in globaladmin:
+                    galist = _x_to_range(globaladmin)
+                    for ga in galist:
+                        if int(ga) > MAX_ASN32:
+                            pass
+                        else:
+                            cdescr =  m.group(4).strip()
+                            pos = globaladmin.find('x')
+                            cdescr = cdescr.replace("$0",ga[pos])
+                            _extended_from_txt(extended, m.group(1),
+                                                         ga,
+                                                         m.group(3),
+                                                         cdescr,
+                                                         wc_index=1)
                 else:
                     if globaladmin == "<ASN>":
                         globaladmin = asn
@@ -381,7 +441,7 @@ def import_text(obj, filename):
                 continue
 
             # Large
-            m = re.match(r'^([-0-9]+|<ASN>):([-0-9nx]+):([-0-9nx]+),(.+)$', line)
+            m = re.match(r'^([-0-9x]+|<ASN>):([-0-9nx]+):([-0-9nx]+),(.+)$', line)
             if m:
                 globaladmin = m.group(1)
                 mm = re.match(r'(\d+)-(\d+)', globaladmin)
@@ -393,6 +453,20 @@ def import_text(obj, filename):
                                                m.group(2),
                                                m.group(3),
                                                m.group(4).strip())
+                elif 'x' in globaladmin:
+                    galist = _x_to_range(globaladmin)
+                    for ga in galist:
+                        if int(ga) > MAX_ASN32:
+                            pass
+                        else:
+                            cdescr =  m.group(4).strip()
+                            pos = globaladmin.find('x')
+                            cdescr = cdescr.replace("$0",ga[pos])
+                            _large_from_txt(large, ga,
+                                                   m.group(2),
+                                                   m.group(3),
+                                                   cdescr,
+                                                   wc_index=1)
                 else:
                     if globaladmin == "<ASN>":
                         globaladmin = asn
