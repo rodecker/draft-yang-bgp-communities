@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import curses
 import json
 import re
 import os
@@ -75,7 +76,100 @@ def _print_dict(obj_dict, recurse=False, depth=0):
         else:
             print(f"{' ' * depth}{name}: {attr}")
 
-def edit_object(obj):
+def navigate_object(stdscr, obj):
+    curses.curs_set(0)
+    _edit_object(stdscr, obj)
+
+def _edit_object(stdscr, obj):
+    stack = [(None, obj)]  # path stack (key, object)
+    print_idx = 0 # for listings longer than screen
+    selected_idx = 0
+
+    while True:
+        stdscr.clear()
+        parent_key, current = stack[-1]
+
+        # Build list of entries depending on type
+        if isinstance(current, dict):
+            items = list(current.items())
+        else:
+            current_dict = current.get()
+            items = list(current_dict.items())
+
+        # Render current view
+        stdscr.addstr(0, 0, f"Path: {'/'.join(str(k) for k, _ in stack if k is not None)}")
+        h, w = stdscr.getmaxyx()
+        for idx, (name, attr) in enumerate(items[print_idx:]):
+            if idx + 2 > h-1:
+                continue
+            prefix = "-> " if (print_idx + idx) == selected_idx else "   "
+            if hasattr(attr, "items"):
+                message = f"{prefix}{name}: [{type(attr).__name__}]"
+                stdscr.addstr(idx + 2, 0, message[:w-1])
+                stdscr.refresh()
+            else:
+                message = f"{prefix}{name}: {attr}"
+                stdscr.addstr(idx + 2, 0, message[:w-1])
+                stdscr.refresh()
+
+        stdscr.refresh()
+
+        # Get key press
+        key = stdscr.getch()
+
+        if key == 27:  # ESC to quit
+            break
+        if key == curses.KEY_UP:
+            selected_idx = max(0, selected_idx - 1)
+            if selected_idx + 2 > h-1:
+                print_idx = selected_idx
+            elif print_idx > 0:
+                print_idx = print_idx - 1
+        elif key == curses.KEY_DOWN:
+            selected_idx = min(len(items) - 1, selected_idx + 1)
+            if selected_idx + 2 > h-1:
+                print_idx = selected_idx
+        elif key == curses.KEY_RIGHT and items:
+            k, v = items[selected_idx]
+            if isinstance(v, (dict)):
+                #stack.append((k, v))
+                stack.append((k, _key2attr(current, k)))
+                selected_idx = 0
+                print_idx = 0
+        elif key == curses.KEY_LEFT and len(stack) > 1:
+            stack.pop()
+            selected_idx = 0
+            print_idx = 0
+        elif key in (curses.KEY_ENTER, 10, 13) and items:
+            k, v = items[selected_idx]
+            if not isinstance(v, (dict, list)):
+                new_val = _edit_value(stdscr, v)
+                getattr(current, "_set_" + f"{_key2attrname(k)}")(new_val)
+
+def _edit_value(stdscr, value):
+    curses.echo()
+    stdscr.clear() 
+    stdscr.addstr(0, 0, f"Edit value (current: {value}): ")
+    new_val = stdscr.getstr().decode("utf-8")
+    curses.noecho()
+        
+    # Try to keep type consistent
+    if isinstance(value, bool):
+        return new_val.lower() in ("true", "1", "yes", "y")
+    elif isinstance(value, int):
+        try: 
+            return int(new_val)
+        except ValueError:
+            return value
+    elif isinstance(value, float):
+        try:
+            return float(new_val)
+        except ValueError: 
+            return value
+    else:   
+        return new_val
+
+def __edit_object(obj):
     obj_dict = obj.get()
     #if not hasattr(obj,'_parent'):
     print_object(obj)
@@ -501,9 +595,10 @@ def _write_to_file(obj, filename, ask=False):
             break
     try:
         f = open(filename, "w")
-        f.write(pybindJSON.dumps(obj,
-                                 mode='ietf',
-                                 indent=2))
+        s = pybindJSON.dumps(obj,
+                             mode='ietf',
+                             indent=2)
+        f.write(s.encode("utf-8").decode("unicode_escape"))
         print("Saved.")
         exit(0)
     except Exception as e:
@@ -553,7 +648,7 @@ def main():
     if args.dump:
         dump_object(commune)
     if args.edit:
-        edit_object(commune)
+        curses.wrapper(lambda stdscr: navigate_object(stdscr, commune))
         _write_to_file(commune, args.filename, ask=True)
     elif args.from_text:
         _write_to_file(commune, args.filename, ask=False)
