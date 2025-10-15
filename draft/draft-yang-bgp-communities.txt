@@ -4,12 +4,12 @@
 
 Network Working Group                                            M. Pels
 Internet-Draft                                                  RIPE NCC
-Intended status: Standards Track                         14 October 2025
-Expires: 17 April 2026
+Intended status: Standards Track                         15 October 2025
+Expires: 18 April 2026
 
 
                  A YANG Data Model for BGP Communities
-                draft-ietf-grow-yang-bgp-communities-06
+                draft-ietf-grow-yang-bgp-communities-07
 
 Abstract
 
@@ -37,7 +37,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 17 April 2026.
+   This Internet-Draft will expire on 18 April 2026.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Pels                      Expires 17 April 2026                 [Page 1]
+Pels                      Expires 18 April 2026                 [Page 1]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Pels                      Expires 17 April 2026                 [Page 2]
+Pels                      Expires 18 April 2026                 [Page 2]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -165,7 +165,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                 [Page 3]
+Pels                      Expires 18 April 2026                 [Page 3]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -221,7 +221,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                 [Page 4]
+Pels                      Expires 18 April 2026                 [Page 4]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -277,7 +277,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                 [Page 5]
+Pels                      Expires 18 April 2026                 [Page 5]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -333,7 +333,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                 [Page 6]
+Pels                      Expires 18 April 2026                 [Page 6]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -389,7 +389,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                 [Page 7]
+Pels                      Expires 18 April 2026                 [Page 7]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -445,7 +445,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                 [Page 8]
+Pels                      Expires 18 April 2026                 [Page 8]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -501,7 +501,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                 [Page 9]
+Pels                      Expires 18 April 2026                 [Page 9]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -557,7 +557,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 10]
+Pels                      Expires 18 April 2026                [Page 10]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -613,7 +613,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 11]
+Pels                      Expires 18 April 2026                [Page 11]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -669,7 +669,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 12]
+Pels                      Expires 18 April 2026                [Page 12]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -725,7 +725,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 13]
+Pels                      Expires 18 April 2026                [Page 13]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -781,7 +781,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 14]
+Pels                      Expires 18 April 2026                [Page 14]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -837,7 +837,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 15]
+Pels                      Expires 18 April 2026                [Page 15]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -893,7 +893,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 16]
+Pels                      Expires 18 April 2026                [Page 16]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -909,7 +909,7 @@ Internet-Draft             BGP Community YANG               October 2025
      import ietf-bgp-communities {
        prefix bgp-comm;
        reference
-         "draft-ietf-grow-yang-bgp-communities-06: A YANG Data
+         "draft-ietf-grow-yang-bgp-communities-07: A YANG Data
           Model for BGP Communities";
      }
      import ietf-routing {
@@ -949,7 +949,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 17]
+Pels                      Expires 18 April 2026                [Page 17]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1005,7 +1005,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 18]
+Pels                      Expires 18 April 2026                [Page 18]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1061,7 +1061,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 19]
+Pels                      Expires 18 April 2026                [Page 19]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1117,7 +1117,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 20]
+Pels                      Expires 18 April 2026                [Page 20]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1173,7 +1173,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 21]
+Pels                      Expires 18 April 2026                [Page 21]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1229,7 +1229,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 22]
+Pels                      Expires 18 April 2026                [Page 22]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1285,7 +1285,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 23]
+Pels                      Expires 18 April 2026                [Page 23]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1341,7 +1341,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 24]
+Pels                      Expires 18 April 2026                [Page 24]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1397,7 +1397,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 25]
+Pels                      Expires 18 April 2026                [Page 25]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1453,7 +1453,7 @@ A.1.  RFC8195 Selective NO_EXPORT definition
 
 
 
-Pels                      Expires 17 April 2026                [Page 26]
+Pels                      Expires 18 April 2026                [Page 26]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1509,7 +1509,7 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 27]
+Pels                      Expires 18 April 2026                [Page 27]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1565,7 +1565,7 @@ A.2.  RFC4384 Data Collection definition
 
 
 
-Pels                      Expires 17 April 2026                [Page 28]
+Pels                      Expires 18 April 2026                [Page 28]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1621,7 +1621,7 @@ Author's Address
 
 
 
-Pels                      Expires 17 April 2026                [Page 29]
+Pels                      Expires 18 April 2026                [Page 29]
 
 Internet-Draft             BGP Community YANG               October 2025
 
@@ -1677,4 +1677,4 @@ Internet-Draft             BGP Community YANG               October 2025
 
 
 
-Pels                      Expires 17 April 2026                [Page 30]
+Pels                      Expires 18 April 2026                [Page 30]

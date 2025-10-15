@@ -41,7 +41,7 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
      category="std"
-     docName="draft-ietf-grow-yang-bgp-communities-06"
+     docName="draft-ietf-grow-yang-bgp-communities-07"
      ipr="trust200902"
      xml:lang="en"
      submissionType="IETF"
@@ -51,7 +51,7 @@
 
     <title abbrev="BGP Community YANG">A YANG Data Model for BGP Communities</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-06"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-07"/>
 
     <author fullname="Martin Pels" initials="M" surname="Pels">
       <organization>RIPE NCC</organization>
@@ -772,7 +772,7 @@ module ietf-bgp-communities-annotate {
   import ietf-bgp-communities {
     prefix bgp-comm;
     reference
-      "draft-ietf-grow-yang-bgp-communities-06: A YANG Data
+      "draft-ietf-grow-yang-bgp-communities-07: A YANG Data
        Model for BGP Communities";
   }
   import ietf-routing {
