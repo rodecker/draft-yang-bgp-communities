@@ -2,7 +2,6 @@
 
 <!DOCTYPE rfc [
 <!ENTITY I-D.ietf-idr-bgp-model PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-bgp-model-18.xml">
-<!ENTITY I-D.ietf-netmod-rfc8407bis PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-netmod-rfc8407bis-28.xml">
 <!ENTITY IEEE.1003-2.1992 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml6/reference.R.IEEE.1003-2.1992.xml">
 <!ENTITY RFC1912 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1912.xml">
 <!ENTITY RFC1930 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1930.xml">
@@ -28,6 +27,7 @@
 <!ENTITY RFC8792 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8792.xml">
 <!ENTITY RFC9000 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9000.xml">
 <!ENTITY RFC9595 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9595.xml">
+<!ENTITY RFC9907 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9907.xml">
 <!ENTITY RFC9911 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9911.xml">
 ]>
 
@@ -1037,11 +1037,11 @@ RFC-EDITOR: please update YYYY with this RFC ID
       <section title="Publishing considerations" anchor="security.publishing">
 
         <t>
-          This section is modeled after the template described in Section 3.7 of <xref target="I-D.ietf-netmod-rfc8407bis"/>.
+          This section is modeled after the template described in Section 3.7.1 of <xref target="RFC9907"/>.
         </t>
         <t>
-          The "ietf-bgp-communities" YANG module defines a data model that is designed to be accessed via YANG-based management protocols, such as NETCONF <xref target="RFC6241"/> and RESTCONF <xref target="RFC8040"/>.
-          These YANG-based management protocols (1) have to use a secure transport layer (e.g., SSH <xref target="RFC4252"/>, TLS <xref target="RFC8446"/>, and QUIC <xref target="RFC9000"/>) and (2) have to use mutual authentication.
+          The "ietf-bgp-communities" YANG module defines a data model that is designed to be accessed via YANG-based management protocols, such as the Network Configuration Protocol (NETCONF) <xref target="RFC6241"/> and RESTCONF <xref target="RFC8040"/>.
+          These YANG-based management protocols (1) have to use a secure transport layer (e.g., Secure Shell (SSH) <xref target="RFC4252"/>, TLS <xref target="RFC8446"/>, and QUIC <xref target="RFC9000"/>) and (2) have to use mutual authentication.
         </t>
         <t>
           The Network Configuration Access Control Model (NACM) <xref target="RFC8341"/> provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.
@@ -1107,7 +1107,6 @@ RFC-EDITOR: please update YYYY with this RFC ID
 
     <references title="Informative References" anchor="informative">
 
-      &I-D.ietf-netmod-rfc8407bis;
       &IEEE.1003-2.1992;
       &RFC1912;
       &RFC2119;
@@ -1125,6 +1124,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
       &RFC8446;
       &RFC8792;
       &RFC9000;
+      &RFC9907;
 
     </references>
 
