@@ -4,12 +4,12 @@
 
 Network Working Group                                            M. Pels
 Internet-Draft                                                  RIPE NCC
-Intended status: Standards Track                           25 March 2026
-Expires: 26 September 2026
+Intended status: Standards Track                           14 April 2026
+Expires: 16 October 2026
 
 
                  A YANG Data Model for BGP Communities
-                draft-ietf-grow-yang-bgp-communities-07
+                draft-ietf-grow-yang-bgp-communities-08
 
 Abstract
 
@@ -21,6 +21,10 @@ Abstract
    Two YANG modules are defined in this document.  The first is designed
    for stand-alone usage.  The second is used to augment the "ietf-bgp"
    YANG module[I-D.ietf-idr-bgp-model] with BGP community annotations.
+
+   Additionally, this document provides an optional discovery mechanism
+   based on publishing of community definition locations through the
+   Resource Public Key Infrastructure (RPKI).
 
 Status of This Memo
 
@@ -37,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 26 September 2026.
+   This Internet-Draft will expire on 16 October 2026.
 
 Copyright Notice
 
@@ -49,13 +53,9 @@ Copyright Notice
 
 
 
-
-
-
-
-Pels                    Expires 26 September 2026               [Page 1]
+Pels                     Expires 16 October 2026                [Page 1]
 
-Internet-Draft             BGP Community YANG                 March 2026
+Internet-Draft             BGP Community YANG                 April 2026
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -80,24 +80,24 @@ Table of Contents
      7.2.  Parsing guidelines  . . . . . . . . . . . . . . . . . . .  20
    8.  RPKI-based Community Definition References  . . . . . . . . .  20
      8.1.  ASN.1 Notation  . . . . . . . . . . . . . . . . . . . . .  20
-     8.2.  CDR Validation  . . . . . . . . . . . . . . . . . . . . .  22
-     8.3.  CDR Publication Guidelines  . . . . . . . . . . . . . . .  23
+     8.2.  CDR publication guidelines  . . . . . . . . . . . . . . .  22
+     8.3.  CDR validation guidelines . . . . . . . . . . . . . . . .  23
    9.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  23
      9.1.  YANG Namespace Registration . . . . . . . . . . . . . . .  23
      9.2.  YANG Module Registration  . . . . . . . . . . . . . . . .  23
-     9.3.  YANG SID Allocation . . . . . . . . . . . . . . . . . . .  24
+     9.3.  YANG SID Allocation . . . . . . . . . . . . . . . . . . .  23
      9.4.  RPKI Identifiers  . . . . . . . . . . . . . . . . . . . .  24
    10. Implementation status . . . . . . . . . . . . . . . . . . . .  26
      10.1.  Publishing implementations . . . . . . . . . . . . . . .  27
      10.2.  Parser implementations . . . . . . . . . . . . . . . . .  27
+     10.3.  CDR implementations  . . . . . . . . . . . . . . . . . .  27
    11. Security considerations . . . . . . . . . . . . . . . . . . .  27
      11.1.  Publishing considerations  . . . . . . . . . . . . . . .  27
      11.2.  Parsing considerations . . . . . . . . . . . . . . . . .  28
+     11.3.  CDR considerations . . . . . . . . . . . . . . . . . . .  29
    12. Normative References  . . . . . . . . . . . . . . . . . . . .  29
    13. Informative References  . . . . . . . . . . . . . . . . . . .  31
    Appendix A.  JSON Examples  . . . . . . . . . . . . . . . . . . .  33
-     A.1.  RFC8195 Selective NO_EXPORT definition  . . . . . . . . .  33
-     A.2.  RFC4384 Data Collection definition  . . . . . . . . . . .  35
    Appendix B.  Acknowledgements . . . . . . . . . . . . . . . . . .  36
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  37
 
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Pels                    Expires 26 September 2026               [Page 2]
+Pels                     Expires 16 October 2026                [Page 2]
 
-Internet-Draft             BGP Community YANG                 March 2026
+Internet-Draft             BGP Community YANG                 April 2026
 
 
 1.  Introduction
@@ -130,6 +130,10 @@ Internet-Draft             BGP Community YANG                 March 2026
    Section 4 and Section 5 describe the base module.  Section 6
    describes a module which augments the "ietf-bgp" YANG
    module[I-D.ietf-idr-bgp-model] with BGP community annotations.
+
+   Section 8 describes an optional discovery mechanism based on
+   publishing of community definition locations through the Resource
+   Public Key Infrastructure (RPKI) [RFC6480].
 
 2.  Terminology
 
@@ -154,26 +158,18 @@ Internet-Draft             BGP Community YANG                 March 2026
    advertised to AS64501 by a customer may be interpreted by AS64501 to
    mean that this prefix must not be propagated to AS64498.
 
-
-
-
-
-
-
-
-
-
-
-
-Pels                    Expires 26 September 2026               [Page 3]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
    For both use cases it is necessary for the ISP to communicate the
    meaning of their locally defined communities to others.  Currently
    this is typically done by publishing a list of communities on a web
    page, or as a remark inside an "autnum" object in the Internet
+
+
+
+Pels                     Expires 16 October 2026                [Page 3]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
    Routing Registry.  This makes it cumbersome to determine whether and
    where an ISP publishes community information.  The lack of a well-
    defined structure makes it hard to create a standardized publishing
@@ -193,11 +189,13 @@ Internet-Draft             BGP Community YANG                 March 2026
    importing the definitions and providing the CLI-user with available
    choices for manual configuration.
 
-   This document only describes a data model for the publishing format
-   of community definitions.  The publishing location and publishing
-   mechanism used are outside the scope of this specification.  The data
-   model does not make any assumption about the protocol used to
-   publish/retrieve formatted data following the model.
+   This document describes a data model for the publishing format of
+   community definitions.  The data model does not make any assumption
+   about the protocol used to publish/retrieve formatted data following
+   the model.  Section 8 describes an optional discovery mechanism using
+   the RPKI, which requires publishing at an HTTPS Uniform Resource
+   Identifier (URI)[RFC9110].  Other publishing locations and publishing
+   mechanisms are outside the scope of this specification.
 
 4.  Tree view
 
@@ -218,16 +216,16 @@ Internet-Draft             BGP Community YANG                 March 2026
         |  +--ro organization?          string
         |  +--ro organizational-unit?   string
         +--ro regular* [name]
-
-
-
-Pels                    Expires 26 September 2026               [Page 4]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
         |  +--ro name            community-name
         |  +--ro category?       community-category
+
+
+
+Pels                     Expires 16 October 2026                [Page 4]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
         |  +--ro description?    community-description
         |  +--ro global-admin    two-octet-as-number
         |  +--ro local-admin
@@ -277,9 +275,11 @@ Internet-Draft             BGP Community YANG                 March 2026
 
 
 
-Pels                    Expires 26 September 2026               [Page 5]
+
+
+Pels                     Expires 16 October 2026                [Page 5]
 
-Internet-Draft             BGP Community YANG                 March 2026
+Internet-Draft             BGP Community YANG                 April 2026
 
 
 5.  Base Module
@@ -287,11 +287,10 @@ Internet-Draft             BGP Community YANG                 March 2026
    This section contains the base YANG module for BGP community
    definitions.
 
-   Several elements in this module use data types from
-   [I-D.ietf-netmod-rfc6991-bis].  These data types are represented with
-   the prefix "inet".
+   Several elements in this module use data types from [RFC9911].  These
+   data types are represented with the prefix "inet".
 
-   <CODE BEGINS> file "ietf-bgp-communities@2025-08-26.yang"
+   <CODE BEGINS> file "ietf-bgp-communities@2026-01-05.yang"
 
    module ietf-bgp-communities {
      yang-version 1.1;
@@ -302,7 +301,7 @@ Internet-Draft             BGP Community YANG                 March 2026
      import ietf-inet-types {
        prefix inet;
        reference
-         "draft-ietf-netmod-rfc6991-bis-18: Common YANG Data Types";
+         "RFC 9911: Common YANG Data Types";
      }
 
      organization
@@ -330,22 +329,22 @@ Internet-Draft             BGP Community YANG                 March 2026
         the RFC itself for full legal notices.
 
         The key words 'MUST', 'MUST NOT', 'REQUIRED', 'SHALL', 'SHALL
-
-
-
-Pels                    Expires 26 September 2026               [Page 6]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
         NOT', 'SHOULD', 'SHOULD NOT', 'RECOMMENDED', 'NOT RECOMMENDED',
+
+
+
+Pels                     Expires 16 October 2026                [Page 6]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
         'MAY', and 'OPTIONAL' in this document are to be interpreted as
         described in BCP 14 (RFC 2119) (RFC 8174) when, and only when,
         they appear in all capitals, as shown here.";
 
      // RFC-EDITOR: please update YYYY with this RFC ID
 
-     revision 2025-08-26 {
+     revision 2026-01-05 {
        description
          "Initial revision.";
        reference
@@ -386,15 +385,15 @@ Internet-Draft             BGP Community YANG                 March 2026
          enum informational {
            value 0;
            description
-
-
-
-Pels                    Expires 26 September 2026               [Page 7]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
              "Informational community";
+
+
+
+Pels                     Expires 16 October 2026                [Page 7]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
          }
          enum action {
            value 1;
@@ -442,15 +441,15 @@ Internet-Draft             BGP Community YANG                 March 2026
           RFC-EDITOR: please update YYYY with this RFC ID";
      }
 
-
-
-
-Pels                    Expires 26 September 2026               [Page 8]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
      typedef field-name {
+
+
+
+Pels                     Expires 16 October 2026                [Page 8]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
        type string {
          length "1..255";
          pattern '[^\s]+';
@@ -498,15 +497,15 @@ Internet-Draft             BGP Community YANG                 March 2026
          "A group of subfields inside the Local Administrator/Local
           Data section of a BGP Community";
        list field {
-
-
-
-Pels                    Expires 26 September 2026               [Page 9]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
          key "name";
+
+
+
+Pels                     Expires 16 October 2026                [Page 9]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
          ordered-by user;
          description
            "Ordered list of fields with their meanings";
@@ -554,15 +553,15 @@ Internet-Draft             BGP Community YANG                 March 2026
          type inet:email-address;
          description
            "Maintainer contact e-mail address";
-
-
-
-Pels                    Expires 26 September 2026              [Page 10]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
        }
+
+
+
+Pels                     Expires 16 October 2026               [Page 10]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
        leaf name {
          type string {
            length "1..255";
@@ -610,15 +609,15 @@ Internet-Draft             BGP Community YANG                 March 2026
          type community-description;
          description
            "Description for the community";
-
-
-
-Pels                    Expires 26 September 2026              [Page 11]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
        }
+
+
+
+Pels                     Expires 16 October 2026               [Page 11]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
        leaf global-admin {
          type two-octet-as-number;
          mandatory true;
@@ -666,15 +665,15 @@ Internet-Draft             BGP Community YANG                 March 2026
          description
            "High-order Type of the community.  Supported values are 0
             (0x00) for Transitive Two-Octet AS-Specific Extended
-
-
-
-Pels                    Expires 26 September 2026              [Page 12]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
             Communities, 2 (0x02) for Transitive Four-Octet
+
+
+
+Pels                     Expires 16 October 2026               [Page 12]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
             AS-Specific Extended Communities, 64 (0x40) for
             Non-Transitive Two-Octet AS-Specific Extended Communities
             and 66 (0x42) for Non-Transitive Four-Octet AS-Specific
@@ -722,15 +721,15 @@ Internet-Draft             BGP Community YANG                 March 2026
            description
              "Format used for parsing Local Administrator subfields";
          }
-
-
-
-Pels                    Expires 26 September 2026              [Page 13]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
          uses local-admin-fields;
+
+
+
+Pels                     Expires 16 October 2026               [Page 13]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
        }
        reference
          "RFC 4360: BGP Extended Communities Attribute";
@@ -778,15 +777,15 @@ Internet-Draft             BGP Community YANG                 March 2026
            type local-admin-format;
            default "decimal";
            description
-
-
-
-Pels                    Expires 26 September 2026              [Page 14]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
              "Format used for parsing Local Data Part 2 subfields";
+
+
+
+Pels                     Expires 16 October 2026               [Page 14]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
          }
          uses local-admin-fields;
        }
@@ -834,15 +833,15 @@ Internet-Draft             BGP Community YANG                 March 2026
          description
            "A reference to a webpage with maintainer contact
             information";
-
-
-
-Pels                    Expires 26 September 2026              [Page 15]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
        }
+
+
+
+Pels                     Expires 16 October 2026               [Page 15]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
        list contact {
          key "email-address";
          description
@@ -890,15 +889,15 @@ Internet-Draft             BGP Community YANG                 March 2026
            error-message
              "global-admin must be private ASN or match
               autonomous-system-id";
-
-
-
-Pels                    Expires 26 September 2026              [Page 16]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
          }
+
+
+
+Pels                     Expires 16 October 2026               [Page 16]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
          key "name";
          ordered-by user;
          description
@@ -916,7 +915,7 @@ Internet-Draft             BGP Community YANG                 March 2026
    "ietf-bgp" YANG module.  It can be used to annotate BGP communities
    in a BGP RIB.
 
-   <CODE BEGINS> file "ietf-bgp-communities-annotate@2025-08-26.yang"
+   <CODE BEGINS> file "ietf-bgp-communities-annotate@2026-04-14.yang"
 
    module ietf-bgp-communities-annotate {
      yang-version 1.1;
@@ -927,7 +926,7 @@ Internet-Draft             BGP Community YANG                 March 2026
      import ietf-bgp-communities {
        prefix bgp-comm;
        reference
-         "draft-ietf-grow-yang-bgp-communities-07: A YANG Data
+         "draft-ietf-grow-yang-bgp-communities-08: A YANG Data
           Model for BGP Communities";
      }
      import ietf-routing {
@@ -939,22 +938,22 @@ Internet-Draft             BGP Community YANG                 March 2026
      import ietf-bgp {
        prefix bgp;
        reference
-         "draft-ietf-idr-bgp-model-18: YANG Model for Border
+         "draft-ietf-idr-bgp-model-19: YANG Model for Border
           Gateway Protocol (BGP-4)";
      }
 
      organization
        "IETF GROW Working Group";
      contact
-
-
-
-Pels                    Expires 26 September 2026              [Page 17]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
        "WG Web:   <https://datatracker.ietf.org/wg/grow/>
+
+
+
+Pels                     Expires 16 October 2026               [Page 17]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
         WG List:  <mailto:grow@ietf.org>
 
         Author:   Martin Pels
@@ -984,7 +983,7 @@ Internet-Draft             BGP Community YANG                 March 2026
 
      // RFC-EDITOR: please update YYYY with this RFC ID
 
-     revision 2025-08-26 {
+     revision 2026-04-14 {
        description
          "Initial revision.";
        reference
@@ -1002,15 +1001,15 @@ Internet-Draft             BGP Community YANG                 March 2026
          presence "true";
          description
            "The presence of this container indicates
-
-
-
-Pels                    Expires 26 September 2026              [Page 18]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
             that a community definition is available";
+
+
+
+Pels                     Expires 16 October 2026               [Page 18]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
          uses bgp-comm:regular-community;
        }
      }
@@ -1056,19 +1055,17 @@ Internet-Draft             BGP Community YANG                 March 2026
    Administrator field contains a private ASN, if this community has a
    local meaning inside the network of the publisher.
 
-
-
-
-
-
-Pels                    Expires 26 September 2026              [Page 19]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
    When publishing community definitions with overlapping field
    patterns, these definitions MUST be ordered from most to least
    preferred.  This ensures parsers can perform deterministic matching
+
+
+
+Pels                     Expires 16 October 2026               [Page 19]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
    (see Section 7.2).  For example, a definition for a single community
    "64500:123" needs to be specified before a definition that matches a
    covering range of communities "64500:*".
@@ -1101,7 +1098,7 @@ Internet-Draft             BGP Community YANG                 March 2026
    (RPKI) [RFC6480].  This section defines a Cryptographic Message
    Syntax (CMS) [RFC5652] protected content type, termed a Community
    Definition Reference (CDR), to facilitate discovery of online
-   publication locations of BGP communitty definitions.
+   publication locations of BGP community definitions.
 
 8.1.  ASN.1 Notation
 
@@ -1117,9 +1114,12 @@ Internet-Draft             BGP Community YANG                 March 2026
 
 
 
-Pels                    Expires 26 September 2026              [Page 20]
+
+
+
+Pels                     Expires 16 October 2026               [Page 20]
 
-Internet-Draft             BGP Community YANG                 March 2026
+Internet-Draft             BGP Community YANG                 April 2026
 
 
    RPKI-CDR-2026
@@ -1154,7 +1154,7 @@ Internet-Draft             BGP Community YANG                 March 2026
      yangRevision      IA5String (SIZE(10)) DEFAULT YangRevision,
      location          AccessDescription }
 
-   YangRevision IA5String ::= "2025-08-26" -- From [RFCYYYY]
+   YangRevision IA5String ::= "2026-01-05" -- From [RFCYYYY]
 
    END
 
@@ -1173,20 +1173,21 @@ Internet-Draft             BGP Community YANG                 March 2026
 
 
 
-Pels                    Expires 26 September 2026              [Page 21]
+Pels                     Expires 16 October 2026               [Page 21]
 
-Internet-Draft             BGP Community YANG                 March 2026
+Internet-Draft             BGP Community YANG                 April 2026
 
 
    Consumers of the JSON encoded community definition referenced in
-   Section 8.1.4 MUST check that the ASN contained in the asID field
-   matches the ASN value in the autonomous-system-id leaf.
+   Section 8.1.4 MUST check that the ASN contained in the asID field of
+   the eContent matches the ASN value in the autonomous-system-id leaf
+   of the community definition.
 
 8.1.3.  yangRevision
 
    The yangRevision field contains the revision identifier for the
    applicable YANG model, in this version of the specification it MUST
-   be 2025-08-26.
+   be 2026-01-05.
 
 8.1.4.  location
 
@@ -1197,44 +1198,10 @@ Internet-Draft             BGP Community YANG                 March 2026
    for the Autonomous System identified in the asID field.
 
    Consumers of the community definition MUST check that the URI
-   contained in the accessLocation exactly matches the URI contained in
-   the uri leaf.
+   contained in the accessLocation of the eContent exactly matches the
+   URI contained in the uri leaf of the community definition.
 
-8.2.  CDR Validation
-
-   To validate a CDR, the RPKI Relying Party (RP) MUST perform all the
-   validation checks specified in [RFC6488] as well as the following
-   additional CDR-specific validation steps:
-
-   *  The Autonomous System Identifier Delegation Extension [RFC3779]
-      MUST be present in the end-entity (EE) certificate (contained
-      within the CDR), and the asID in the CDR eContent MUST match the
-      ASId specified by the EE certificate's Autonomous System
-      Identifier Delegation Extension.
-
-   *  The Autonomous System Identifier Delegation Extension MUST contain
-      exactly one "id" element (Section 3.2.3.6 of [RFC3779]) and MUST
-      NOT contain any "inherit" elements (Section 3.2.3.3 of [RFC3779])
-      or "range" elements (Section 3.2.3.7 of [RFC3779]).
-
-   *  The IP Address Delegation Extension [RFC3779] MUST be absent.
-
-
-
-
-
-
-
-
-
-
-
-Pels                    Expires 26 September 2026              [Page 22]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
-8.3.  CDR Publication Guidelines
+8.2.  CDR publication guidelines
 
    To avoid proliferation of CDRs in RPKI repositories, Certification
    Authorities (CAs) SHOULD maintain a single CDR object for a given
@@ -1256,9 +1223,35 @@ Internet-Draft             BGP Community YANG                 March 2026
    based on Section 2.2 of [RFC6481], i.e., convert the 160-bit hash of
    the EE's public key value into a 27-character string using Base 64
    Encoding with the URL and Filename Safe Alphabet (see Section 5 of
-   [RFC4648]).  See Section 7.7 of
+   [RFC4648]).  See Section 8.7 of
    [I-D.ietf-sidrops-publication-server-bcp] for more information and
    considerations.
+
+
+
+Pels                     Expires 16 October 2026               [Page 22]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
+8.3.  CDR validation guidelines
+
+   To validate a CDR, the RPKI Relying Party (RP) MUST perform all the
+   validation checks specified in [RFC6488] as well as the following
+   additional CDR-specific validation steps:
+
+   *  The Autonomous System Identifier Delegation Extension [RFC3779]
+      MUST be present in the end-entity (EE) certificate (contained
+      within the CDR), and the asID in the CDR eContent MUST match the
+      ASId specified by the EE certificate's Autonomous System
+      Identifier Delegation Extension.
+
+   *  The Autonomous System Identifier Delegation Extension MUST contain
+      exactly one "id" element (Section 3.2.3.6 of [RFC3779]) and MUST
+      NOT contain any "inherit" elements (Section 3.2.3.3 of [RFC3779])
+      or "range" elements (Section 3.2.3.7 of [RFC3779]).
+
+   *  The IP Address Delegation Extension [RFC3779] MUST be absent.
 
 9.  IANA considerations
 
@@ -1280,59 +1273,64 @@ Internet-Draft             BGP Community YANG                 March 2026
    Maintained by IANA? N
    Namespace: urn:ietf:params:xml:ns:yang:ietf-bgp-communities
    Prefix: bgp-comm
-   Reference: RFC YYYY
-   RFC-EDITOR: please update YYYY with this RFC ID
-
-
-
-Pels                    Expires 26 September 2026              [Page 23]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
+   Reference: RFCYYYY
 
 9.3.  YANG SID Allocation
 
    This document registers the following entry in the "IETF YANG SID"
    registry [RFC9595]:
 
+
+
+
+
+
+Pels                     Expires 16 October 2026               [Page 23]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
    SID range entry point: TBD
    SID range size: 100
    YANG module name: ietf-bgp-communities
-   Reference: RFC YYYY
-   RFC-EDITOR: please update YYYY with this RFC ID
+   Reference: RFCYYYY
 
 9.4.  RPKI Identifiers
 
 9.4.1.  SMI Security for S/MIME Module Identifier registry
 
-   IANA is requested to allocate in the "SMI Security for S/MIME Module
-   Identifier (1.2.840.113549.1.9.16.0)" registry as follows:
+   This document registers the following entry in the "SMI Security for
+   S/MIME Module Identifier (1.2.840.113549.1.9.16.0)" registry
+   [RFC7107]:
 
-                +---------+---------------+---------------+
+                +=========+===============+===============+
                 | Decimal | Description   | Specification |
-                +---------+---------------+---------------+
-                | TBD1    | RPKI-CDR-2026 | [RFC-to-be]   |
+                +=========+===============+===============+
+                | TBD1    | RPKI-CDR-2026 | RFCYYYY       |
                 +---------+---------------+---------------+
 
-                                  Table 1
+                  Table 1: SMI Security for S/MIME Module
+                                 Identifier
 
 9.4.2.  SMI Security for S/MIME CMS Content Type registry
 
-   IANA is requested to allocate in the "SMI Security for S/MIME CMS
-   Content Type (1.2.840.113549.1.9.16.1)" registry as follows:
+   This document registers the following entry in the "SMI Security for
+   S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry
+   [RFC7107]:
 
-                 +---------+-------------+---------------+
+                 +=========+=============+===============+
                  | Decimal | Description | Specification |
-                 +---------+-------------+---------------+
-                 | TBD2    | id-ct-CDR   | [RFC-to-be]   |
+                 +=========+=============+===============+
+                 | TBD2    | id-ct-CDR   | RFCYYYY       |
                  +---------+-------------+---------------+
 
-                                  Table 2
+                    Table 2: SMI Security for S/MIME CMS
+                                Content Type
 
 9.4.3.  SMI Security for PKIX Access Descriptor
 
-   IANA is requested to allocate in the "SMI Security for PKIX Access
-   Descriptor" registry as follows:
+   This document registers the following entry in the "SMI Security for
+   PKIX Access Descriptor" registry [RFC7299]:
 
 
 
@@ -1341,52 +1339,53 @@ Internet-Draft             BGP Community YANG                 March 2026
 
 
 
-Pels                    Expires 26 September 2026              [Page 24]
+
+
+Pels                     Expires 16 October 2026               [Page 24]
 
-Internet-Draft             BGP Community YANG                 March 2026
+Internet-Draft             BGP Community YANG                 April 2026
 
 
-          +---------+---------------------------+---------------+
+          +=========+===========================+===============+
           | Decimal | Description               | Specification |
-          +---------+---------------------------+---------------+
-          | TBD3    | id-ad-communityDefinition | [RFC-to-be]   |
+          +=========+===========================+===============+
+          | TBD3    | id-ad-communityDefinition | RFCYYYY       |
           +---------+---------------------------+---------------+
 
-                                  Table 3
+              Table 3: SMI Security for PKIX Access Descriptor
 
 9.4.4.  RPKI Signed Object registry
 
-   IANA is requested to allocate in the "RPKI Signed Object" registry as
-   follows:
+   This document registers the following entry in the "RPKI Signed
+   Object" registry [RFC6488]:
 
-       +------------+------------------------------+---------------+
+       +============+==============================+===============+
        | Name       | OID                          | Specification |
-       +------------+------------------------------+---------------+
-       | Community  | 1.2.840.113549.1.9.16.1.TBD2 | [RFC-to-be]   |
+       +============+==============================+===============+
+       | Community  | 1.2.840.113549.1.9.16.1.TBD2 | RFCYYYY       |
        | Definition |                              |               |
        | Reference  |                              |               |
        +------------+------------------------------+---------------+
 
-                                  Table 4
+                        Table 4: RPKI Signed Object
 
 9.4.5.  RPKI Repository Name Scheme registry
 
-   IANA is requested to register in the "RPKI Repository Name Scheme"
-   registry [RFC6481] as follows:
+   This document registers the following entry in the "RPKI Repository
+   Name Scheme" registry [RFC6481]:
 
-   +--------------------+--------------------------------+-------------+
-   | Filename Extension | RPKI Object                    | Reference   |
-   +--------------------+--------------------------------+-------------+
-   | .cdr               | Community Definition           | [RFC-to-be] |
-   |                    | Reference                      |             |
-   +--------------------+--------------------------------+-------------+
+    +====================+================================+===========+
+    | Filename Extension | RPKI Object                    | Reference |
+    +====================+================================+===========+
+    | .cdr               | Community Definition Reference | RFCYYYY   |
+    +--------------------+--------------------------------+-----------+
 
-                                  Table 5
+                    Table 5: RPKI Repository Name Scheme
 
 9.4.6.  Media Type registry
 
-   The IANA is requested to register the media type application/rpki-cdr
-   in the "Media Type" registry as follows:
+   This document registers the the media type application/rpki-cdr in
+   the "Media Type" registry [RFC6838]:
 
 
 
@@ -1397,9 +1396,10 @@ Internet-Draft             BGP Community YANG                 March 2026
 
 
 
-Pels                    Expires 26 September 2026              [Page 25]
+
+Pels                     Expires 16 October 2026               [Page 25]
 
-Internet-Draft             BGP Community YANG                 March 2026
+Internet-Draft             BGP Community YANG                 April 2026
 
 
       Type name: application
@@ -1407,17 +1407,17 @@ Internet-Draft             BGP Community YANG                 March 2026
       Required parameters: N/A
       Optional parameters: N/A
       Encoding considerations: binary
-      Security considerations: Carries an RPKI CDR [RFC-to-be].
+      Security considerations: Carries an RPKI CDR [RFCYYYY].
           This media type contains no active content. See
-          Section XYZ of [RFC-to-be] for further information.
+          Section XYZ of [RFCYYYY] for further information.
       Interoperability considerations: None
-      Published specification: [RFC-to-be]
+      Published specification: [RFCYYYY]
       Applications that use this media type: RPKI operators
       Additional information:
         Content: This media type is a signed object, as defined
             in [RFC6488], which contains as payload a reference
             to an online publication of a Community Definition
-            as defined in [RFC-to-be].
+            as defined in [RFCYYYY].
         Magic number(s): None
         File extension(s): .cdr
         Macintosh file type code(s):
@@ -1429,9 +1429,6 @@ Internet-Draft             BGP Community YANG                 March 2026
 
 
 10.  Implementation status
-
-   RFC-EDITOR: Please remove this section and the accompanying
-   reference(s) before publication.
 
    This section records the status of known implementations of the
    protocol defined by this specification at the time of posting of this
@@ -1446,24 +1443,20 @@ Internet-Draft             BGP Community YANG                 March 2026
    features.  Readers are advised to note that other implementations may
    exist.
 
-
-
-
-
-
-
-
-Pels                    Expires 26 September 2026              [Page 26]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
    According to [RFC7942], "this will allow reviewers and working groups
    to assign due consideration to documents that have the benefit of
    running code, which may serve as evidence of valuable experimentation
    and feedback that have made the implemented protocols more mature.
    It is up to the individual working groups to use this information as
    they see fit".
+
+
+
+
+Pels                     Expires 16 October 2026               [Page 26]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
 
 10.1.  Publishing implementations
 
@@ -1474,11 +1467,11 @@ Internet-Draft             BGP Community YANG                 March 2026
    | ASN    | Publication URI                            | YANG model |
    |        |                                            | revision   |
    +========+============================================+============+
-   | 197000 | as197000.json                              | 2025-08-26 |
+   | 197000 | as197000.json                              | 2026-01-05 |
    |        | (https://web.admindns.ripe.net/draft-ietf- |            |
    |        | grow-yang-bgp-communities/as197000.json)   |            |
    +--------+--------------------------------------------+------------+
-   | 25152  | as25152.json                               | 2025-08-26 |
+   | 25152  | as25152.json                               | 2026-01-05 |
    |        | (https://web.admindns.ripe.net/draft-ietf- |            |
    |        | grow-yang-bgp-communities/as25152.json)    |            |
    +--------+--------------------------------------------+------------+
@@ -1499,27 +1492,35 @@ Internet-Draft             BGP Community YANG                 March 2026
 
                      Table 7: Parser implementations
 
+10.3.  CDR implementations
+
+   No Community Definition Reference implementations are known at this
+   time.
+
 11.  Security considerations
 
 11.1.  Publishing considerations
 
-   This section is modeled after the template described in Section 3.7
-   of [I-D.ietf-netmod-rfc8407bis].
+   This section is modeled after the template described in Section 3.7.1
+   of [RFC9907].
 
 
 
 
-Pels                    Expires 26 September 2026              [Page 27]
+
+
+Pels                     Expires 16 October 2026               [Page 27]
 
-Internet-Draft             BGP Community YANG                 March 2026
+Internet-Draft             BGP Community YANG                 April 2026
 
 
    The "ietf-bgp-communities" YANG module defines a data model that is
    designed to be accessed via YANG-based management protocols, such as
-   NETCONF [RFC6241] and RESTCONF [RFC8040].  These YANG-based
-   management protocols (1) have to use a secure transport layer (e.g.,
-   SSH [RFC4252], TLS [RFC8446], and QUIC [RFC9000]) and (2) have to use
-   mutual authentication.
+   the Network Configuration Protocol (NETCONF) [RFC6241] and RESTCONF
+   [RFC8040].  These YANG-based management protocols (1) have to use a
+   secure transport layer (e.g., Secure Shell (SSH) [RFC4252], TLS
+   [RFC8446], and QUIC [RFC9000]) and (2) have to use mutual
+   authentication.
 
    The Network Configuration Access Control Model (NACM) [RFC8341]
    provides the means to restrict access for particular NETCONF or
@@ -1558,37 +1559,45 @@ Internet-Draft             BGP Community YANG                 March 2026
    field of length 2 would be illegal, as the Local Administrator field
    has a maximum length of 65535 (5 digits).
 
+
+
+
+
+
+
+Pels                     Expires 16 October 2026               [Page 28]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
    The "bgp-communities/contact-url" element may contain a link to an
    untrusted webpage.  Parsers MAY opt to render the URL as plain text
    rather than a clickable link, to prevent inadvertent exposure of
    information by users of the rendered output.
-
-
-
-Pels                    Expires 26 September 2026              [Page 28]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
 
    Several elements with the "string" data type may be used to display
    information in a web page or application.  Parsers should take care
    that the appropriate escaping is performed to protect against cross-
    site scripting attacks.
 
+11.3.  CDR considerations
+
+   Operators publishing CDRs in the RPKI MUST specify an accessLocation
+   that points to a web object under their own control.
+
+   Applications retrieving the location of community definitions through
+   the RPKI MUST perform all checks specified in Section 8.1 and
+   Section 8.3.  When downloading a definition from this location via
+   HTTPS, applications MUST perform HTTPS (TLS) validation.
+
 12.  Normative References
 
    [I-D.ietf-idr-bgp-model]
               Jethanandani, M., Patel, K., Hares, S., and J. Haas, "YANG
               Model for Border Gateway Protocol (BGP-4)", Work in
-              Progress, Internet-Draft, draft-ietf-idr-bgp-model-18, 21
-              October 2024, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-idr-bgp-model-18>.
-
-   [I-D.ietf-netmod-rfc6991-bis]
-              Schönwälder, J., "Common YANG Data Types", Work in
-              Progress, Internet-Draft, draft-ietf-netmod-rfc6991-bis-
-              18, 23 June 2025, <https://datatracker.ietf.org/doc/html/
-              draft-ietf-netmod-rfc6991-bis-18>.
+              Progress, Internet-Draft, draft-ietf-idr-bgp-model-19, 2
+              March 2026, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-idr-bgp-model-19>.
 
    [RFC1930]  Hawkinson, J. and T. Bates, "Guidelines for creation,
               selection, and registration of an Autonomous System (AS)",
@@ -1608,6 +1617,15 @@ Internet-Draft             BGP Community YANG                 March 2026
               Communities Attribute", RFC 4360, DOI 10.17487/RFC4360,
               February 2006, <https://www.rfc-editor.org/info/rfc4360>.
 
+
+
+
+
+Pels                     Expires 16 October 2026               [Page 29]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
+
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
               Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
               <https://www.rfc-editor.org/info/rfc4648>.
@@ -1615,16 +1633,6 @@ Internet-Draft             BGP Community YANG                 March 2026
    [RFC5652]  Housley, R., "Cryptographic Message Syntax (CMS)", STD 70,
               RFC 5652, DOI 10.17487/RFC5652, September 2009,
               <https://www.rfc-editor.org/info/rfc5652>.
-
-
-
-
-
-
-Pels                    Expires 26 September 2026              [Page 29]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
 
    [RFC6480]  Lepinski, M. and S. Kent, "An Infrastructure to Support
               Secure Internet Routing", RFC 6480, DOI 10.17487/RFC6480,
@@ -1645,9 +1653,34 @@ Internet-Draft             BGP Community YANG                 March 2026
               (RPKI)", RFC 6488, DOI 10.17487/RFC6488, February 2012,
               <https://www.rfc-editor.org/info/rfc6488>.
 
+   [RFC6838]  Freed, N., Klensin, J., and T. Hansen, "Media Type
+              Specifications and Registration Procedures", BCP 13,
+              RFC 6838, DOI 10.17487/RFC6838, January 2013,
+              <https://www.rfc-editor.org/info/rfc6838>.
+
+   [RFC7107]  Housley, R., "Object Identifier Registry for the S/MIME
+              Mail Security Working Group", RFC 7107,
+              DOI 10.17487/RFC7107, January 2014,
+              <https://www.rfc-editor.org/info/rfc7107>.
+
+   [RFC7299]  Housley, R., "Object Identifier Registry for the PKIX
+              Working Group", RFC 7299, DOI 10.17487/RFC7299, July 2014,
+              <https://www.rfc-editor.org/info/rfc7299>.
+
    [RFC7950]  Bjorklund, M., Ed., "The YANG 1.1 Data Modeling Language",
               RFC 7950, DOI 10.17487/RFC7950, August 2016,
               <https://www.rfc-editor.org/info/rfc7950>.
+
+
+
+
+
+
+
+Pels                     Expires 16 October 2026               [Page 30]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
 
    [RFC8092]  Heitz, J., Ed., Snijders, J., Ed., Patel, K., Bagdonas,
               I., and N. Hilliard, "BGP Large Communities Attribute",
@@ -1674,13 +1707,9 @@ Internet-Draft             BGP Community YANG                 March 2026
               iDentifier (YANG SID)", RFC 9595, DOI 10.17487/RFC9595,
               July 2024, <https://www.rfc-editor.org/info/rfc9595>.
 
-
-
-
-Pels                    Expires 26 September 2026              [Page 30]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
+   [RFC9911]  Schönwälder, J., Ed., "Common YANG Data Types", RFC 9911,
+              DOI 10.17487/RFC9911, December 2025,
+              <https://www.rfc-editor.org/info/rfc9911>.
 
    [X.680]    ITU-T, "Information technology - Abstract Syntax Notation
               One (ASN.1): Specification of basic notation",
@@ -1688,13 +1717,26 @@ Internet-Draft             BGP Community YANG                 March 2026
 
 13.  Informative References
 
-   [I-D.ietf-netmod-rfc8407bis]
-              Bierman, A., Boucadair, M., and Q. Wu, "Guidelines for
-              Authors and Reviewers of Documents Containing YANG Data
-              Models", Work in Progress, Internet-Draft, draft-ietf-
-              netmod-rfc8407bis-28, 5 June 2025,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-netmod-
-              rfc8407bis-28>.
+   [I-D.ietf-sidrops-publication-server-bcp]
+              Bruijnzeels, T., de Kock, T., Hill, F., Harrison, T., and
+              J. Snijders, "Best Practises for Operating Resource Public
+              Key Infrastructure (RPKI) Publication Services", Work in
+              Progress, Internet-Draft, draft-ietf-sidrops-publication-
+              server-bcp-07, 21 March 2026,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-
+              publication-server-bcp-07>.
+
+
+
+
+
+
+
+
+Pels                     Expires 16 October 2026               [Page 31]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
 
    [IEEE.1003-2.1992]
               Institute of Electrical and Electronics Engineers,
@@ -1729,15 +1771,6 @@ Internet-Draft             BGP Community YANG                 March 2026
               DOI 10.17487/RFC6020, October 2010,
               <https://www.rfc-editor.org/info/rfc6020>.
 
-
-
-
-
-Pels                    Expires 26 September 2026              [Page 31]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
    [RFC6241]  Enns, R., Ed., Bjorklund, M., Ed., Schoenwaelder, J., Ed.,
               and A. Bierman, Ed., "Network Configuration Protocol
               (NETCONF)", RFC 6241, DOI 10.17487/RFC6241, June 2011,
@@ -1751,6 +1784,15 @@ Internet-Draft             BGP Community YANG                 March 2026
    [RFC7951]  Lhotka, L., "JSON Encoding of Data Modeled with YANG",
               RFC 7951, DOI 10.17487/RFC7951, August 2016,
               <https://www.rfc-editor.org/info/rfc7951>.
+
+
+
+
+
+Pels                     Expires 16 October 2026               [Page 32]
+
+Internet-Draft             BGP Community YANG                 April 2026
+
 
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
               Protocol", RFC 8040, DOI 10.17487/RFC8040, January 2017,
@@ -1782,22 +1824,10 @@ Internet-Draft             BGP Community YANG                 March 2026
               DOI 10.17487/RFC9000, May 2021,
               <https://www.rfc-editor.org/info/rfc9000>.
 
-   [I-D.ietf-sidrops-publication-server-bcp]
-              Bruijnzeels, T., de Kock, T., Hill, F., Harrison, T., and
-              J. Snijders, "Best Practises for Operating Resource Public
-              Key Infrastructure (RPKI) Publication Services", Work in
-
-
-
-Pels                    Expires 26 September 2026              [Page 32]
-
-Internet-Draft             BGP Community YANG                 March 2026
-
-
-              Progress, Internet-Draft, draft-ietf-sidrops-publication-
-              server-bcp-07, 21 March 2026,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-
-              publication-server-bcp-07>.
+   [RFC9907]  Bierman, A., Boucadair, M., Ed., and Q. Wu, "Guidelines
+              for Authors and Reviewers of Documents Containing YANG
+              Data Models", BCP 216, RFC 9907, DOI 10.17487/RFC9907,
+              March 2026, <https://www.rfc-editor.org/info/rfc9907>.
 
 Appendix A.  JSON Examples
 
@@ -1808,46 +1838,16 @@ Appendix A.  JSON Examples
 A.1.  RFC8195 Selective NO_EXPORT definition
 
    A JSON definition for the example Large BGP community described in
-   [RFC8195], Section 4.1.1 looks as follows.
+   Section 4.1.1 of [RFC8195] looks as follows.
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Pels                    Expires 26 September 2026              [Page 33]
+Pels                     Expires 16 October 2026               [Page 33]
 
-Internet-Draft             BGP Community YANG                 March 2026
+Internet-Draft             BGP Community YANG                 April 2026
 
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
@@ -1901,15 +1901,15 @@ Internet-Draft             BGP Community YANG                 March 2026
 
 
 
-Pels                    Expires 26 September 2026              [Page 34]
+Pels                     Expires 16 October 2026               [Page 34]
 
-Internet-Draft             BGP Community YANG                 March 2026
+Internet-Draft             BGP Community YANG                 April 2026
 
 
 A.2.  RFC4384 Data Collection definition
 
    A JSON definition for the example Regular and Extended BGP
-   communities described in [RFC4384], Section 4 looks as follows.
+   communities described in Section 4 of [RFC4384] looks as follows.
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
 
@@ -1957,9 +1957,9 @@ A.2.  RFC4384 Data Collection definition
 
 
 
-Pels                    Expires 26 September 2026              [Page 35]
+Pels                     Expires 16 October 2026               [Page 35]
 
-Internet-Draft             BGP Community YANG                 March 2026
+Internet-Draft             BGP Community YANG                 April 2026
 
 
            "description": "A national route over a terrestrial link \
@@ -2013,9 +2013,9 @@ Appendix B.  Acknowledgements
 
 
 
-Pels                    Expires 26 September 2026              [Page 36]
+Pels                     Expires 16 October 2026               [Page 36]
 
-Internet-Draft             BGP Community YANG                 March 2026
+Internet-Draft             BGP Community YANG                 April 2026
 
 
 Author's Address
@@ -2069,4 +2069,4 @@ Author's Address
 
 
 
-Pels                    Expires 26 September 2026              [Page 37]
+Pels                     Expires 16 October 2026               [Page 37]

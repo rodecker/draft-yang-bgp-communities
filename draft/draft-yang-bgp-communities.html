@@ -15,9 +15,12 @@
         Two YANG modules are defined in this document.
         The first is designed for stand-alone usage. The second is used to augment the "ietf-bgp" YANG module  with BGP community annotations.
        
+       
+        Additionally, this document provides an optional discovery mechanism based on publishing of community definition locations through the Resource Public Key Infrastructure (RPKI).
+       
     ' name="description">
 <meta content="xml2rfc 3.31.0" name="generator">
-<meta content="draft-ietf-grow-yang-bgp-communities-06" name="ietf.draft">
+<meta content="draft-ietf-grow-yang-bgp-communities-08" name="ietf.draft">
 <!-- Generator version information:
   xml2rfc 3.31.0
     Python 3.13.7
@@ -1221,11 +1224,11 @@ li > p:last-of-type:only-child {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">BGP Community YANG</td>
-<td class="right">October 2025</td>
+<td class="right">April 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Pels</td>
-<td class="center">Expires 17 April 2026</td>
+<td class="center">Expires 16 October 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1235,15 +1238,15 @@ li > p:last-of-type:only-child {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Network Working Group</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-ietf-grow-yang-bgp-communities-06</dd>
+<dd class="internet-draft">draft-ietf-grow-yang-bgp-communities-08</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-14" class="published">14 October 2025</time>
+<time datetime="2026-04-14" class="published">14 April 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-04-17">17 April 2026</time></dd>
+<dd class="expires"><time datetime="2026-10-16">16 October 2026</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1262,6 +1265,8 @@ li > p:last-of-type:only-child {
 <p id="section-abstract-2">
         Two YANG modules are defined in this document.
         The first is designed for stand-alone usage. The second is used to augment the "ietf-bgp" YANG module<span>[<a href="#I-D.ietf-idr-bgp-model" class="cite xref">I-D.ietf-idr-bgp-model</a>]</span> with BGP community annotations.<a href="#section-abstract-2" class="pilcrow">¶</a></p>
+<p id="section-abstract-3">
+        Additionally, this document provides an optional discovery mechanism based on publishing of community definition locations through the Resource Public Key Infrastructure (RPKI).<a href="#section-abstract-3" class="pilcrow">¶</a></p>
 </section>
 <div id="status-of-memo">
 <section id="section-boilerplate.1">
@@ -1282,7 +1287,7 @@ li > p:last-of-type:only-child {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 17 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 16 October 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1291,7 +1296,7 @@ li > p:last-of-type:only-child {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2025 IETF Trust and the persons identified as the
+            Copyright (c) 2026 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1341,63 +1346,78 @@ li > p:last-of-type:only-child {
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
-            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-iana-considerations" class="internal xref">IANA considerations</a></p>
+            <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-rpki-based-community-defini" class="internal xref">RPKI-based Community Definition References</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.1">
-                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-yang-namespace-registration" class="internal xref">YANG Namespace Registration</a></p>
+                <p id="section-toc.1-1.8.2.1.1"><a href="#section-8.1" class="auto internal xref">8.1</a>.  <a href="#name-asn1-notation" class="internal xref">ASN.1 Notation</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.2">
-                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-yang-module-registration" class="internal xref">YANG Module Registration</a></p>
+                <p id="section-toc.1-1.8.2.2.1"><a href="#section-8.2" class="auto internal xref">8.2</a>.  <a href="#name-cdr-publication-guidelines" class="internal xref">CDR publication guidelines</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8.2.3">
-                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-yang-sid-allocation" class="internal xref">YANG SID Allocation</a></p>
+                <p id="section-toc.1-1.8.2.3.1"><a href="#section-8.3" class="auto internal xref">8.3</a>.  <a href="#name-cdr-validation-guidelines" class="internal xref">CDR validation guidelines</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9">
-            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-implementation-status" class="internal xref">Implementation status</a></p>
+            <p id="section-toc.1-1.9.1"><a href="#section-9" class="auto internal xref">9</a>.  <a href="#name-iana-considerations" class="internal xref">IANA considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.1">
-                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-publishing-implementations" class="internal xref">Publishing implementations</a></p>
+                <p id="section-toc.1-1.9.2.1.1"><a href="#section-9.1" class="auto internal xref">9.1</a>.  <a href="#name-yang-namespace-registration" class="internal xref">YANG Namespace Registration</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.2">
-                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-parser-implementations" class="internal xref">Parser implementations</a></p>
+                <p id="section-toc.1-1.9.2.2.1"><a href="#section-9.2" class="auto internal xref">9.2</a>.  <a href="#name-yang-module-registration" class="internal xref">YANG Module Registration</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.3">
+                <p id="section-toc.1-1.9.2.3.1"><a href="#section-9.3" class="auto internal xref">9.3</a>.  <a href="#name-yang-sid-allocation" class="internal xref">YANG SID Allocation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.9.2.4">
+                <p id="section-toc.1-1.9.2.4.1"><a href="#section-9.4" class="auto internal xref">9.4</a>.  <a href="#name-rpki-identifiers" class="internal xref">RPKI Identifiers</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10">
-            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-security-considerations" class="internal xref">Security considerations</a></p>
+            <p id="section-toc.1-1.10.1"><a href="#section-10" class="auto internal xref">10</a>. <a href="#name-implementation-status" class="internal xref">Implementation status</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.1">
-                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-publishing-considerations" class="internal xref">Publishing considerations</a></p>
+                <p id="section-toc.1-1.10.2.1.1"><a href="#section-10.1" class="auto internal xref">10.1</a>.  <a href="#name-publishing-implementations" class="internal xref">Publishing implementations</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.2">
-                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-parsing-considerations" class="internal xref">Parsing considerations</a></p>
+                <p id="section-toc.1-1.10.2.2.1"><a href="#section-10.2" class="auto internal xref">10.2</a>.  <a href="#name-parser-implementations" class="internal xref">Parser implementations</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.10.2.3">
+                <p id="section-toc.1-1.10.2.3.1"><a href="#section-10.3" class="auto internal xref">10.3</a>.  <a href="#name-cdr-implementations" class="internal xref">CDR implementations</a></p>
 </li>
             </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11">
-            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-normative-references" class="internal xref">Normative References</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-informative-references" class="internal xref">Informative References</a></p>
-</li>
-          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
-            <p id="section-toc.1-1.13.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-json-examples" class="internal xref">JSON Examples</a></p>
+            <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-security-considerations" class="internal xref">Security considerations</a></p>
 <ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.1">
-                <p id="section-toc.1-1.13.2.1.1"><a href="#appendix-A.1" class="auto internal xref">A.1</a>.  <a href="#name-rfc8195-selective-no_export" class="internal xref">RFC8195 Selective NO_EXPORT definition</a></p>
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.1">
+                <p id="section-toc.1-1.11.2.1.1"><a href="#section-11.1" class="auto internal xref">11.1</a>.  <a href="#name-publishing-considerations" class="internal xref">Publishing considerations</a></p>
 </li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13.2.2">
-                <p id="section-toc.1-1.13.2.2.1"><a href="#appendix-A.2" class="auto internal xref">A.2</a>.  <a href="#name-rfc4384-data-collection-def" class="internal xref">RFC4384 Data Collection definition</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.2">
+                <p id="section-toc.1-1.11.2.2.1"><a href="#section-11.2" class="auto internal xref">11.2</a>.  <a href="#name-parsing-considerations" class="internal xref">Parsing considerations</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.11.2.3">
+                <p id="section-toc.1-1.11.2.3.1"><a href="#section-11.3" class="auto internal xref">11.3</a>.  <a href="#name-cdr-considerations" class="internal xref">CDR considerations</a></p>
 </li>
             </ul>
 </li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
+            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
+            <p id="section-toc.1-1.13.1"><a href="#section-13" class="auto internal xref">13</a>. <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
+            <p id="section-toc.1-1.14.1"><a href="#appendix-A" class="auto internal xref">Appendix A</a>.  <a href="#name-json-examples" class="internal xref">JSON Examples</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.15">
-            <p id="section-toc.1-1.15.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.15.1"><a href="#appendix-B" class="auto internal xref">Appendix B</a>.  <a href="#name-acknowledgements" class="internal xref">Acknowledgements</a></p>
+</li>
+          <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.16">
+            <p id="section-toc.1-1.16.1"><a href="#appendix-C" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
 </li>
         </ul>
 </nav>
@@ -1417,6 +1437,8 @@ li > p:last-of-type:only-child {
 <p id="section-1-2">
         <a href="#tree" class="auto internal xref">Section 4</a> and <a href="#module" class="auto internal xref">Section 5</a> describe the base module.
         <a href="#augment" class="auto internal xref">Section 6</a> describes a module which augments the "ietf-bgp" YANG module<span>[<a href="#I-D.ietf-idr-bgp-model" class="cite xref">I-D.ietf-idr-bgp-model</a>]</span> with BGP community annotations.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">
+        <a href="#rpki" class="auto internal xref">Section 8</a> describes an optional discovery mechanism based on publishing of community definition locations through the Resource Public Key Infrastructure (RPKI) <span>[<a href="#RFC6480" class="cite xref">RFC6480</a>]</span>.<a href="#section-1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="terminology">
@@ -1457,9 +1479,10 @@ li > p:last-of-type:only-child {
         Another potential use case is in generating routing policy configurations based on community definitions published by an upstream ASN.
         This could be achieved automatically using external tooling to generate router configurations, or inside a router's command-line interface by importing the definitions and providing the CLI-user with available choices for manual configuration.<a href="#section-3-3" class="pilcrow">¶</a></p>
 <p id="section-3-4">
-        This document only describes a data model for the publishing format of community definitions.
-        The publishing location and publishing mechanism used are outside the scope of this specification.
-        The data model does not make any assumption about the protocol used to publish/retrieve formatted data following the model.<a href="#section-3-4" class="pilcrow">¶</a></p>
+        This document describes a data model for the publishing format of community definitions.
+        The data model does not make any assumption about the protocol used to publish/retrieve formatted data following the model.
+        <a href="#rpki" class="auto internal xref">Section 8</a> describes an optional discovery mechanism using the RPKI, which requires publishing at an HTTPS Uniform Resource Identifier (URI)<span>[<a href="#RFC9110" class="cite xref">RFC9110</a>]</span>.
+        Other publishing locations and publishing mechanisms are outside the scope of this specification.<a href="#section-3-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="tree">
@@ -1545,12 +1568,12 @@ module: ietf-bgp-communities
 <p id="section-5-1">
         This section contains the base YANG module for BGP community definitions.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <p id="section-5-2">
-        Several elements in this module use data types from <span>[<a href="#I-D.ietf-netmod-rfc6991-bis" class="cite xref">I-D.ietf-netmod-rfc6991-bis</a>]</span>.
+        Several elements in this module use data types from <span>[<a href="#RFC9911" class="cite xref">RFC9911</a>]</span>.
         These data types are represented with the prefix "inet".<a href="#section-5-2" class="pilcrow">¶</a></p>
 <div class="breakable sourcecode" id="section-5-3">
 <pre>
 
-&lt;CODE BEGINS&gt; file "ietf-bgp-communities@2025-08-26.yang"
+&lt;CODE BEGINS&gt; file "ietf-bgp-communities@2026-01-05.yang"
 
 module ietf-bgp-communities {
   yang-version 1.1;
@@ -1561,7 +1584,7 @@ module ietf-bgp-communities {
   import ietf-inet-types {
     prefix inet;
     reference
-      "draft-ietf-netmod-rfc6991-bis-18: Common YANG Data Types";
+      "RFC 9911: Common YANG Data Types";
   }
 
   organization
@@ -1596,7 +1619,7 @@ module ietf-bgp-communities {
 
   // RFC-EDITOR: please update YYYY with this RFC ID
 
-  revision 2025-08-26 {
+  revision 2026-01-05 {
     description
       "Initial revision.";
     reference
@@ -2096,7 +2119,7 @@ module ietf-bgp-communities {
 <div class="breakable sourcecode" id="section-6-2">
 <pre>
 
-&lt;CODE BEGINS&gt; file "ietf-bgp-communities-annotate@2025-08-26.yang"
+&lt;CODE BEGINS&gt; file "ietf-bgp-communities-annotate@2026-04-14.yang"
 
 module ietf-bgp-communities-annotate {
   yang-version 1.1;
@@ -2107,7 +2130,7 @@ module ietf-bgp-communities-annotate {
   import ietf-bgp-communities {
     prefix bgp-comm;
     reference
-      "draft-ietf-grow-yang-bgp-communities-06: A YANG Data
+      "draft-ietf-grow-yang-bgp-communities-08: A YANG Data
        Model for BGP Communities";
   }
   import ietf-routing {
@@ -2119,7 +2142,7 @@ module ietf-bgp-communities-annotate {
   import ietf-bgp {
     prefix bgp;
     reference
-      "draft-ietf-idr-bgp-model-18: YANG Model for Border
+      "draft-ietf-idr-bgp-model-19: YANG Model for Border
        Gateway Protocol (BGP-4)";
   }
 
@@ -2156,7 +2179,7 @@ module ietf-bgp-communities-annotate {
 
   // RFC-EDITOR: please update YYYY with this RFC ID
 
-  revision 2025-08-26 {
+  revision 2026-04-14 {
     description
       "Initial revision.";
     reference
@@ -2226,10 +2249,10 @@ module ietf-bgp-communities-annotate {
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-publishing-guidelines" class="section-name selfRef">Publishing guidelines</a>
         </h3>
 <p id="section-7.1-1">
-          Operators SHOULD only publish BGP community definitions for networks they control.
+          Operators <span class="bcp14">SHOULD</span> only publish BGP community definitions for networks they control.
           This may include communities where the Global Administrator field contains a private ASN, if this community has a local meaning inside the network of the publisher.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
 <p id="section-7.1-2">
-          When publishing community definitions with overlapping field patterns, these definitions MUST be ordered from most to least preferred.
+          When publishing community definitions with overlapping field patterns, these definitions <span class="bcp14">MUST</span> be ordered from most to least preferred.
           This ensures parsers can perform deterministic matching (see <a href="#recommendations.parsing" class="auto internal xref">Section 7.2</a>).
           For example, a definition for a single community "64500:123" needs to be specified before a definition that matches a covering range of communities "64500:*".<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 </section>
@@ -2243,104 +2266,414 @@ module ietf-bgp-communities-annotate {
           A published BGP community definition can be used by parsers to display information about a received community.
           If a received community matches multiple published community definitions, the first matching definition in the published order takes precedence.<a href="#section-7.2-1" class="pilcrow">¶</a></p>
 <p id="section-7.2-2">
-          Parsers that use published community definitions from multiple operators SHOULD NOT attempt to match received communities where the Global Administrator field contains a private ASN, unless they have some method to determine which published definition is the authoritative one.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
+          Parsers that use published community definitions from multiple operators <span class="bcp14">SHOULD NOT</span> attempt to match received communities where the Global Administrator field contains a private ASN, unless they have some method to determine which published definition is the authoritative one.<a href="#section-7.2-2" class="pilcrow">¶</a></p>
 <p id="section-7.2-3">
           By default, communities are compared using the decimal representation of the fields. If "format" for a Local Administrator or Local Data Part is set to "binary", the fields in the received community are converted to strings of zeros and ones before comparison.<a href="#section-7.2-3" class="pilcrow">¶</a></p>
 <p id="section-7.2-4">
-          See <a href="#security.parsing" class="auto internal xref">Section 10.2</a> for security considerations when parsing community definitions.<a href="#section-7.2-4" class="pilcrow">¶</a></p>
+          See <a href="#security.parsing" class="auto internal xref">Section 11.2</a> for security considerations when parsing community definitions.<a href="#section-7.2-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="rpki">
+<section id="section-8">
+      <h2 id="name-rpki-based-community-defini">
+<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-rpki-based-community-defini" class="section-name selfRef">RPKI-based Community Definition References</a>
+      </h2>
+<p id="section-8-1">
+        Autonomous System operators <span class="bcp14">MAY</span> publish the location of JSON encoded community definitions through the Resource Public Key Infrastructure (RPKI) <span>[<a href="#RFC6480" class="cite xref">RFC6480</a>]</span>.
+        This section defines a Cryptographic Message Syntax (CMS) <span>[<a href="#RFC5652" class="cite xref">RFC5652</a>]</span> protected content type, termed a Community Definition Reference (CDR), to facilitate discovery of online publication locations of BGP community definitions.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<div id="rpki.asn1">
+<section id="section-8.1">
+        <h3 id="name-asn1-notation">
+<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-asn1-notation" class="section-name selfRef">ASN.1 Notation</a>
+        </h3>
+<p id="section-8.1-1">
+          The eContent of a Community Definition Reference is formally defined using ASN.1 (<span>[<a href="#X.680" class="cite xref">X.680</a>]</span>) as follows:<a href="#section-8.1-1" class="pilcrow">¶</a></p>
+<div class="lang-asn.1 sourcecode" id="section-8.1-2">
+<pre>
+RPKI-CDR-2026
+  { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+     pkcs-9(9) smime(16) modules(0) id-mod-rpki-cdr-2026(TBD1) }
+
+DEFINITIONS EXPLICIT TAGS ::=
+BEGIN
+
+IMPORTS
+  CONTENT-TYPE
+  FROM CryptographicMessageSyntax-2010 -- From [RFC6268]
+    { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+       pkcs-9(9) smime(16) modules(0) id-mod-cms-2009(58) }
+
+  AccessDescription
+  FROM PKIX1Implicit-2009 -- From [RFC5912]
+    { iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) id-mod(0)
+      id-mod-pkix1-implicit-02(59) } ;
+
+id-ct-CDR OBJECT IDENTIFIER ::=
+  { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+    pkcs-9(9) id-smime(16) id-ct(1) CDR(TBD2) }
+
+ct-CDR CONTENT-TYPE ::=
+  { TYPE CommunityDefinitionReference IDENTIFIED BY id-ct-CDR }
+
+CommunityDefinitionReference ::= SEQUENCE {
+  version       [0] INTEGER DEFAULT 0,
+  asID              INTEGER (1..4294967295),
+  yangRevision      IA5String (SIZE(10)) DEFAULT YangRevision,
+  location          AccessDescription }
+
+YangRevision IA5String ::= "2026-01-05" -- From [RFCYYYY]
+
+END
+</pre><a href="#section-8.1-2" class="pilcrow">¶</a>
+</div>
+<div id="rpki.asn1.version">
+<section id="section-8.1.1">
+          <h4 id="name-version">
+<a href="#section-8.1.1" class="section-number selfRef">8.1.1. </a><a href="#name-version" class="section-name selfRef">version</a>
+          </h4>
+<p id="section-8.1.1-1">
+            The version field contains the format version for the <code>CommunityDefinitionReference</code> structure, in this version of the specification it <span class="bcp14">MUST</span> be 0.<a href="#section-8.1.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="rpki.asn1.asid">
+<section id="section-8.1.2">
+          <h4 id="name-asid">
+<a href="#section-8.1.2" class="section-number selfRef">8.1.2. </a><a href="#name-asid" class="section-name selfRef">asID</a>
+          </h4>
+<p id="section-8.1.2-1">
+            The <code>asID</code> field contains a positive integer that represents the Autonomous System number of the authorizing entity.<a href="#section-8.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.1.2-2">
+            Consumers of the JSON encoded community definition referenced in <a href="#rpki.asn1.location" class="auto internal xref">Section 8.1.4</a> <span class="bcp14">MUST</span> check that the ASN contained in the <code>asID</code> field of the eContent matches the ASN value in the <code>autonomous-system-id</code> leaf of the community definition.<a href="#section-8.1.2-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="rpki.asn1.yangrevision">
+<section id="section-8.1.3">
+          <h4 id="name-yangrevision">
+<a href="#section-8.1.3" class="section-number selfRef">8.1.3. </a><a href="#name-yangrevision" class="section-name selfRef">yangRevision</a>
+          </h4>
+<p id="section-8.1.3-1">
+            The <code>yangRevision</code> field contains the revision identifier for the applicable YANG model, in this version of the specification it <span class="bcp14">MUST</span> be <code>2026-01-05</code>.<a href="#section-8.1.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="rpki.asn1.location">
+<section id="section-8.1.4">
+          <h4 id="name-location">
+<a href="#section-8.1.4" class="section-number selfRef">8.1.4. </a><a href="#name-location" class="section-name selfRef">location</a>
+          </h4>
+<p id="section-8.1.4-1">
+            The <code>location</code> field contains an instance of <code>AccessDescription</code> with an <code>accessMethod</code> of <code>id-ad-communityDefinition</code> and an <code>accessLocation</code> which <span class="bcp14">MUST</span> be an HTTPS Uniform Resource Identifier (URI) as defined in <span>[<a href="#RFC9110" class="cite xref">RFC9110</a>]</span> that points to the JSON encoded BGP community definition for the Autonomous System identified in the <code>asID</code> field.<a href="#section-8.1.4-1" class="pilcrow">¶</a></p>
+<p id="section-8.1.4-2">
+            Consumers of the community definition <span class="bcp14">MUST</span> check that the URI contained in the <code>accessLocation</code> of the eContent exactly matches the URI contained in the <code>uri</code> leaf of the community definition.<a href="#section-8.1.4-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="rpki.publication">
+<section id="section-8.2">
+        <h3 id="name-cdr-publication-guidelines">
+<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-cdr-publication-guidelines" class="section-name selfRef">CDR publication guidelines</a>
+        </h3>
+<p id="section-8.2-1">
+          To avoid proliferation of CDRs in RPKI repositories, Certification Authorities (CAs) <span class="bcp14">SHOULD</span> maintain a single CDR object for a given Autonomous System for each YANG model revision supported by the CA.
+          RPs <span class="bcp14">SHOULD</span> pass on to consumer applications a deduplicated list of community definition locations annotated with revision identifiers for each Autonomous System.
+          CAs <span class="bcp14">SHOULD</span> anticipate RPs to impose an upper bound on the number of CDRs for a given Autonomous System and that if such thresholds are exceeded, RP implementations will treat all CDR objects related to the AS as invalid, i.e., not emit a partial list of community definition locations.<a href="#section-8.2-1" class="pilcrow">¶</a></p>
+<p id="section-8.2-2">
+          CAs are <span class="bcp14">RECOMMENDED</span> to generate a new key pair for each new CDR and only sign one CDR with each EE certificate.
+          This type of EE certificate is termed a "one-time-use" EE certificate (see <span><a href="https://rfc-editor.org/rfc/rfc6487#section-3" class="relref">Section 3</a> of [<a href="#RFC6487" class="cite xref">RFC6487</a>]</span>).<a href="#section-8.2-2" class="pilcrow">¶</a></p>
+<p id="section-8.2-3">
+          CAs are <span class="bcp14">RECOMMENDED</span> to follow the guidelines for naming CDR objects based on <span><a href="https://rfc-editor.org/rfc/rfc6481#section-2.2" class="relref">Section 2.2</a> of [<a href="#RFC6481" class="cite xref">RFC6481</a>]</span>, i.e., convert the 160-bit hash of the EE's public key value into a 27-character string using Base 64 Encoding with the URL and Filename Safe Alphabet (see <span><a href="https://rfc-editor.org/rfc/rfc4648#section-5" class="relref">Section 5</a> of [<a href="#RFC4648" class="cite xref">RFC4648</a>]</span>).
+          See <span><a href="https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-publication-server-bcp-07#section-8.7" class="relref">Section 8.7</a> of [<a href="#I-D.ietf-sidrops-publication-server-bcp" class="cite xref">I-D.ietf-sidrops-publication-server-bcp</a>]</span> for more information and considerations.<a href="#section-8.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="rpki.validation">
+<section id="section-8.3">
+        <h3 id="name-cdr-validation-guidelines">
+<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-cdr-validation-guidelines" class="section-name selfRef">CDR validation guidelines</a>
+        </h3>
+<p id="section-8.3-1">
+          To validate a CDR, the RPKI Relying Party (RP) <span class="bcp14">MUST</span> perform all the validation checks specified in <span>[<a href="#RFC6488" class="cite xref">RFC6488</a>]</span> as well as the following additional CDR-specific validation steps:<a href="#section-8.3-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-8.3-2.1">
+            The Autonomous System Identifier Delegation Extension <span>[<a href="#RFC3779" class="cite xref">RFC3779</a>]</span> <span class="bcp14">MUST</span> be present in the end-entity (EE) certificate (contained within the CDR), and the <code>asID</code> in the CDR eContent <span class="bcp14">MUST</span> match the <code>ASId</code> specified by the EE certificate's Autonomous System Identifier Delegation Extension.<a href="#section-8.3-2.1" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-8.3-2.2">
+            The Autonomous System Identifier Delegation Extension <span class="bcp14">MUST</span> contain exactly one "id" element (<span><a href="https://rfc-editor.org/rfc/rfc3779#section-3.2.3.6" class="relref">Section 3.2.3.6</a> of [<a href="#RFC3779" class="cite xref">RFC3779</a>]</span>) and <span class="bcp14">MUST NOT</span> contain any "inherit" elements (<span><a href="https://rfc-editor.org/rfc/rfc3779#section-3.2.3.3" class="relref">Section 3.2.3.3</a> of [<a href="#RFC3779" class="cite xref">RFC3779</a>]</span>) or "range" elements (<span><a href="https://rfc-editor.org/rfc/rfc3779#section-3.2.3.7" class="relref">Section 3.2.3.7</a> of [<a href="#RFC3779" class="cite xref">RFC3779</a>]</span>).<a href="#section-8.3-2.2" class="pilcrow">¶</a>
+</li>
+          <li class="normal" id="section-8.3-2.3">
+            The IP Address Delegation Extension <span>[<a href="#RFC3779" class="cite xref">RFC3779</a>]</span> <span class="bcp14">MUST</span> be absent.<a href="#section-8.3-2.3" class="pilcrow">¶</a>
+</li>
+        </ul>
 </section>
 </div>
 </section>
 </div>
 <div id="iana">
-<section id="section-8">
+<section id="section-9">
       <h2 id="name-iana-considerations">
-<a href="#section-8" class="section-number selfRef">8. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA considerations</a>
+<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-iana-considerations" class="section-name selfRef">IANA considerations</a>
       </h2>
 <div id="iana.xml">
-<section id="section-8.1">
+<section id="section-9.1">
         <h3 id="name-yang-namespace-registration">
-<a href="#section-8.1" class="section-number selfRef">8.1. </a><a href="#name-yang-namespace-registration" class="section-name selfRef">YANG Namespace Registration</a>
+<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-yang-namespace-registration" class="section-name selfRef">YANG Namespace Registration</a>
         </h3>
-<p id="section-8.1-1">
+<p id="section-9.1-1">
           This document registers the following XML namespace URN in the "IETF
-          XML Registry", following the format defined in <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-8.1-1" class="pilcrow">¶</a></p>
-<div class="sourcecode" id="section-8.1-2">
+          XML Registry", following the format defined in <span>[<a href="#RFC3688" class="cite xref">RFC3688</a>]</span>:<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<div class="sourcecode" id="section-9.1-2">
 <pre>
 URI: urn:ietf:params:xml:ns:yang:ietf-bgp-communities
 Registrant Contact: The IESG.
 XML: N/A, the requested URI is an XML namespace.
-</pre><a href="#section-8.1-2" class="pilcrow">¶</a>
+</pre><a href="#section-9.1-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="iana.yang">
-<section id="section-8.2">
+<section id="section-9.2">
         <h3 id="name-yang-module-registration">
-<a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-yang-module-registration" class="section-name selfRef">YANG Module Registration</a>
+<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-yang-module-registration" class="section-name selfRef">YANG Module Registration</a>
         </h3>
-<p id="section-8.2-1">
-          This document registers the following YANG module in the "YANG Module Names" registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>:<a href="#section-8.2-1" class="pilcrow">¶</a></p>
-<div class="sourcecode" id="section-8.2-2">
+<p id="section-9.2-1">
+          This document registers the following YANG module in the "YANG Module Names" registry <span>[<a href="#RFC6020" class="cite xref">RFC6020</a>]</span>:<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<div class="sourcecode" id="section-9.2-2">
 <pre>
 Name: ietf-bgp-communities
 Maintained by IANA? N
 Namespace: urn:ietf:params:xml:ns:yang:ietf-bgp-communities
 Prefix: bgp-comm
-Reference: RFC YYYY
-RFC-EDITOR: please update YYYY with this RFC ID
-</pre><a href="#section-8.2-2" class="pilcrow">¶</a>
+Reference: RFCYYYY
+</pre><a href="#section-9.2-2" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
 <div id="iana.sid">
-<section id="section-8.3">
+<section id="section-9.3">
         <h3 id="name-yang-sid-allocation">
-<a href="#section-8.3" class="section-number selfRef">8.3. </a><a href="#name-yang-sid-allocation" class="section-name selfRef">YANG SID Allocation</a>
+<a href="#section-9.3" class="section-number selfRef">9.3. </a><a href="#name-yang-sid-allocation" class="section-name selfRef">YANG SID Allocation</a>
         </h3>
-<p id="section-8.3-1">
-          This document registers the following entry in the "IETF YANG SID" registry <span>[<a href="#RFC9595" class="cite xref">RFC9595</a>]</span>:<a href="#section-8.3-1" class="pilcrow">¶</a></p>
-<div class="sourcecode" id="section-8.3-2">
+<p id="section-9.3-1">
+          This document registers the following entry in the "IETF YANG SID" registry <span>[<a href="#RFC9595" class="cite xref">RFC9595</a>]</span>:<a href="#section-9.3-1" class="pilcrow">¶</a></p>
+<div class="sourcecode" id="section-9.3-2">
 <pre>
 SID range entry point: TBD
 SID range size: 100
 YANG module name: ietf-bgp-communities
-Reference: RFC YYYY
-RFC-EDITOR: please update YYYY with this RFC ID
-</pre><a href="#section-8.3-2" class="pilcrow">¶</a>
+Reference: RFCYYYY
+</pre><a href="#section-9.3-2" class="pilcrow">¶</a>
 </div>
+</section>
+</div>
+<div id="iana.rpki">
+<section id="section-9.4">
+        <h3 id="name-rpki-identifiers">
+<a href="#section-9.4" class="section-number selfRef">9.4. </a><a href="#name-rpki-identifiers" class="section-name selfRef">RPKI Identifiers</a>
+        </h3>
+<section id="section-9.4.1">
+          <h4 id="name-smi-security-for-s-mime-mod">
+<a href="#section-9.4.1" class="section-number selfRef">9.4.1. </a><a href="#name-smi-security-for-s-mime-mod" class="section-name selfRef">SMI Security for S/MIME Module Identifier registry</a>
+          </h4>
+<p id="section-9.4.1-1">
+            This document registers the following entry in the "SMI Security for S/MIME Module Identifier (1.2.840.113549.1.9.16.0)" registry <span>[<a href="#RFC7107" class="cite xref">RFC7107</a>]</span>:<a href="#section-9.4.1-1" class="pilcrow">¶</a></p>
+<span id="name-smi-security-for-s-mime-modu"></span><table class="center" id="table-1">
+            <caption>
+<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#name-smi-security-for-s-mime-modu" class="selfRef">SMI Security for S/MIME Module Identifier</a>
+            </caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Decimal</th>
+                <th class="text-left" rowspan="1" colspan="1">Description</th>
+                <th class="text-left" rowspan="1" colspan="1">Specification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">TBD1</td>
+                <td class="text-left" rowspan="1" colspan="1">RPKI-CDR-2026</td>
+                <td class="text-left" rowspan="1" colspan="1">RFCYYYY</td>
+              </tr>
+            </tbody>
+          </table>
+</section>
+<section id="section-9.4.2">
+          <h4 id="name-smi-security-for-s-mime-cms">
+<a href="#section-9.4.2" class="section-number selfRef">9.4.2. </a><a href="#name-smi-security-for-s-mime-cms" class="section-name selfRef">SMI Security for S/MIME CMS Content Type registry</a>
+          </h4>
+<p id="section-9.4.2-1">
+            This document registers the following entry in the "SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry <span>[<a href="#RFC7107" class="cite xref">RFC7107</a>]</span>:<a href="#section-9.4.2-1" class="pilcrow">¶</a></p>
+<span id="name-smi-security-for-s-mime-cms-"></span><table class="center" id="table-2">
+            <caption>
+<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#name-smi-security-for-s-mime-cms-" class="selfRef">SMI Security for S/MIME CMS Content Type</a>
+            </caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Decimal</th>
+                <th class="text-left" rowspan="1" colspan="1">Description</th>
+                <th class="text-left" rowspan="1" colspan="1">Specification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">TBD2</td>
+                <td class="text-left" rowspan="1" colspan="1">id-ct-CDR</td>
+                <td class="text-left" rowspan="1" colspan="1">RFCYYYY</td>
+              </tr>
+            </tbody>
+          </table>
+</section>
+<section id="section-9.4.3">
+          <h4 id="name-smi-security-for-pkix-acces">
+<a href="#section-9.4.3" class="section-number selfRef">9.4.3. </a><a href="#name-smi-security-for-pkix-acces" class="section-name selfRef">SMI Security for PKIX Access Descriptor</a>
+          </h4>
+<p id="section-9.4.3-1">
+            This document registers the following entry in the "SMI Security for PKIX Access Descriptor" registry <span>[<a href="#RFC7299" class="cite xref">RFC7299</a>]</span>:<a href="#section-9.4.3-1" class="pilcrow">¶</a></p>
+<span id="name-smi-security-for-pkix-access"></span><table class="center" id="table-3">
+            <caption>
+<a href="#table-3" class="selfRef">Table 3</a>:
+<a href="#name-smi-security-for-pkix-access" class="selfRef">SMI Security for PKIX Access Descriptor</a>
+            </caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Decimal</th>
+                <th class="text-left" rowspan="1" colspan="1">Description</th>
+                <th class="text-left" rowspan="1" colspan="1">Specification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">TBD3</td>
+                <td class="text-left" rowspan="1" colspan="1">id-ad-communityDefinition</td>
+                <td class="text-left" rowspan="1" colspan="1">RFCYYYY</td>
+              </tr>
+            </tbody>
+          </table>
+</section>
+<section id="section-9.4.4">
+          <h4 id="name-rpki-signed-object-registry">
+<a href="#section-9.4.4" class="section-number selfRef">9.4.4. </a><a href="#name-rpki-signed-object-registry" class="section-name selfRef">RPKI Signed Object registry</a>
+          </h4>
+<p id="section-9.4.4-1">
+            This document registers the following entry in the "RPKI Signed Object" registry <span>[<a href="#RFC6488" class="cite xref">RFC6488</a>]</span>:<a href="#section-9.4.4-1" class="pilcrow">¶</a></p>
+<span id="name-rpki-signed-object"></span><table class="center" id="table-4">
+            <caption>
+<a href="#table-4" class="selfRef">Table 4</a>:
+<a href="#name-rpki-signed-object" class="selfRef">RPKI Signed Object</a>
+            </caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Name</th>
+                <th class="text-left" rowspan="1" colspan="1">OID</th>
+                <th class="text-left" rowspan="1" colspan="1">Specification</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">Community Definition Reference</td>
+                <td class="text-left" rowspan="1" colspan="1">1.2.840.113549.1.9.16.1.TBD2</td>
+                <td class="text-left" rowspan="1" colspan="1">RFCYYYY</td>
+              </tr>
+            </tbody>
+          </table>
+</section>
+<section id="section-9.4.5">
+          <h4 id="name-rpki-repository-name-scheme">
+<a href="#section-9.4.5" class="section-number selfRef">9.4.5. </a><a href="#name-rpki-repository-name-scheme" class="section-name selfRef">RPKI Repository Name Scheme registry</a>
+          </h4>
+<p id="section-9.4.5-1">
+            This document registers the following entry in the "RPKI Repository Name Scheme" registry <span>[<a href="#RFC6481" class="cite xref">RFC6481</a>]</span>:<a href="#section-9.4.5-1" class="pilcrow">¶</a></p>
+<span id="name-rpki-repository-name-scheme-2"></span><table class="center" id="table-5">
+            <caption>
+<a href="#table-5" class="selfRef">Table 5</a>:
+<a href="#name-rpki-repository-name-scheme-2" class="selfRef">RPKI Repository Name Scheme</a>
+            </caption>
+<thead>
+              <tr>
+                <th class="text-left" rowspan="1" colspan="1">Filename Extension</th>
+                <th class="text-left" rowspan="1" colspan="1">RPKI Object</th>
+                <th class="text-left" rowspan="1" colspan="1">Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="text-left" rowspan="1" colspan="1">.cdr</td>
+                <td class="text-left" rowspan="1" colspan="1">Community Definition Reference</td>
+                <td class="text-left" rowspan="1" colspan="1">RFCYYYY</td>
+              </tr>
+            </tbody>
+          </table>
+</section>
+<section id="section-9.4.6">
+          <h4 id="name-media-type-registry">
+<a href="#section-9.4.6" class="section-number selfRef">9.4.6. </a><a href="#name-media-type-registry" class="section-name selfRef">Media Type registry</a>
+          </h4>
+<p id="section-9.4.6-1">
+            This document registers the the media type <code>application/rpki-cdr</code> in the "Media Type" registry <span>[<a href="#RFC6838" class="cite xref">RFC6838</a>]</span>:<a href="#section-9.4.6-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-9.4.6-2">
+<pre>
+
+   Type name: application
+   Subtype name: rpki-cdr
+   Required parameters: N/A
+   Optional parameters: N/A
+   Encoding considerations: binary
+   Security considerations: Carries an RPKI CDR [RFCYYYY].
+       This media type contains no active content. See
+       Section XYZ of [RFCYYYY] for further information.
+   Interoperability considerations: None
+   Published specification: [RFCYYYY]
+   Applications that use this media type: RPKI operators
+   Additional information:
+     Content: This media type is a signed object, as defined
+         in [RFC6488], which contains as payload a reference
+         to an online publication of a Community Definition
+         as defined in [RFCYYYY].
+     Magic number(s): None
+     File extension(s): .cdr
+     Macintosh file type code(s):
+   Person &amp; email address to contact for further information:
+     Job Snijders &lt;job@bsd.nl&gt;
+   Intended usage: COMMON
+   Restrictions on usage: None
+   Change controller: IETF
+
+</pre><a href="#section-9.4.6-2" class="pilcrow">¶</a>
+</div>
+</section>
 </section>
 </div>
 </section>
 </div>
 <div id="implementation">
-<section id="section-9">
+<section id="section-10">
       <h2 id="name-implementation-status">
-<a href="#section-9" class="section-number selfRef">9. </a><a href="#name-implementation-status" class="section-name selfRef">Implementation status</a>
+<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-implementation-status" class="section-name selfRef">Implementation status</a>
       </h2>
-<p id="section-9-1">
-        RFC-EDITOR: Please remove this section and the accompanying reference(s) before publication.<a href="#section-9-1" class="pilcrow">¶</a></p>
-<p id="section-9-2">
+<p id="section-10-1">
        This section records the status of known implementations of the protocol defined by this specification at the time of posting of this Internet-Draft, and is based on a proposal described in <span>[<a href="#RFC7942" class="cite xref">RFC7942</a>]</span>.
        The description of implementations in this section is intended to assist the IETF in its decision processes in progressing drafts to RFCs.
        Please note that the listing of any individual implementation here does not imply endorsement by the IETF.
        Furthermore, no effort has been spent to verify the information presented here that was supplied by IETF contributors.
        This is not intended as, and must not be construed to be, a catalog of available implementations or their features.
-       Readers are advised to note that other implementations may exist.<a href="#section-9-2" class="pilcrow">¶</a></p>
-<p id="section-9-3">
+       Readers are advised to note that other implementations may exist.<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-2">
        According to <span>[<a href="#RFC7942" class="cite xref">RFC7942</a>]</span>, "this will allow reviewers and working groups to assign due consideration to documents that have the benefit of running code, which may serve as evidence of valuable experimentation and feedback that have made the implemented protocols more mature.
-       It is up to the individual working groups to use this information as they see fit".<a href="#section-9-3" class="pilcrow">¶</a></p>
+       It is up to the individual working groups to use this information as they see fit".<a href="#section-10-2" class="pilcrow">¶</a></p>
 <div id="implementation.publishing">
-<section id="section-9.1">
+<section id="section-10.1">
         <h3 id="name-publishing-implementations">
-<a href="#section-9.1" class="section-number selfRef">9.1. </a><a href="#name-publishing-implementations" class="section-name selfRef">Publishing implementations</a>
+<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-publishing-implementations" class="section-name selfRef">Publishing implementations</a>
         </h3>
-<p id="section-9.1-1">
-          The following networks are known to publish BGP community definitions according to this specification.<a href="#section-9.1-1" class="pilcrow">¶</a></p>
+<p id="section-10.1-1">
+          The following networks are known to publish BGP community definitions according to this specification.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
 <span id="name-publishing-implementations-2"></span><div id="table.publishing">
-<table class="center" id="table-1">
+<table class="center" id="table-6">
           <caption>
-<a href="#table-1" class="selfRef">Table 1</a>:
+<a href="#table-6" class="selfRef">Table 6</a>:
 <a href="#name-publishing-implementations-2" class="selfRef">Publishing implementations</a>
           </caption>
 <thead>
@@ -2356,14 +2689,14 @@ RFC-EDITOR: please update YYYY with this RFC ID
               <td class="text-left" rowspan="1" colspan="1">
                 <a href="https://web.admindns.ripe.net/draft-ietf-grow-yang-bgp-communities/as197000.json">as197000.json</a>
 </td>
-              <td class="text-left" rowspan="1" colspan="1">2025-08-26</td>
+              <td class="text-left" rowspan="1" colspan="1">2026-01-05</td>
             </tr>
             <tr>
               <td class="text-left" rowspan="1" colspan="1">25152</td>
               <td class="text-left" rowspan="1" colspan="1">
                 <a href="https://web.admindns.ripe.net/draft-ietf-grow-yang-bgp-communities/as25152.json">as25152.json</a>
 </td>
-              <td class="text-left" rowspan="1" colspan="1">2025-08-26</td>
+              <td class="text-left" rowspan="1" colspan="1">2026-01-05</td>
             </tr>
           </tbody>
         </table>
@@ -2371,16 +2704,16 @@ RFC-EDITOR: please update YYYY with this RFC ID
 </section>
 </div>
 <div id="implementation.parsing">
-<section id="section-9.2">
+<section id="section-10.2">
         <h3 id="name-parser-implementations">
-<a href="#section-9.2" class="section-number selfRef">9.2. </a><a href="#name-parser-implementations" class="section-name selfRef">Parser implementations</a>
+<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-parser-implementations" class="section-name selfRef">Parser implementations</a>
         </h3>
-<p id="section-9.2-1">
-          The following known parser implementations exist.<a href="#section-9.2-1" class="pilcrow">¶</a></p>
+<p id="section-10.2-1">
+          The following known parser implementations exist.<a href="#section-10.2-1" class="pilcrow">¶</a></p>
 <span id="name-parser-implementations-2"></span><div id="table.parsing">
-<table class="center" id="table-2">
+<table class="center" id="table-7">
           <caption>
-<a href="#table-2" class="selfRef">Table 2</a>:
+<a href="#table-7" class="selfRef">Table 7</a>:
 <a href="#name-parser-implementations-2" class="selfRef">Parser implementations</a>
           </caption>
 <thead>
@@ -2401,75 +2734,92 @@ RFC-EDITOR: please update YYYY with this RFC ID
 </div>
 </section>
 </div>
+<div id="implementation.rpki">
+<section id="section-10.3">
+        <h3 id="name-cdr-implementations">
+<a href="#section-10.3" class="section-number selfRef">10.3. </a><a href="#name-cdr-implementations" class="section-name selfRef">CDR implementations</a>
+        </h3>
+<p id="section-10.3-1">
+          No Community Definition Reference implementations are known at this time.<a href="#section-10.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
 </section>
 </div>
 <div id="security">
-<section id="section-10">
+<section id="section-11">
       <h2 id="name-security-considerations">
-<a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security considerations</a>
+<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-security-considerations" class="section-name selfRef">Security considerations</a>
       </h2>
 <div id="security.publishing">
-<section id="section-10.1">
+<section id="section-11.1">
         <h3 id="name-publishing-considerations">
-<a href="#section-10.1" class="section-number selfRef">10.1. </a><a href="#name-publishing-considerations" class="section-name selfRef">Publishing considerations</a>
+<a href="#section-11.1" class="section-number selfRef">11.1. </a><a href="#name-publishing-considerations" class="section-name selfRef">Publishing considerations</a>
         </h3>
-<p id="section-10.1-1">
-          This section is modeled after the template described in Section 3.7 of <span>[<a href="#I-D.ietf-netmod-rfc8407bis" class="cite xref">I-D.ietf-netmod-rfc8407bis</a>]</span>.<a href="#section-10.1-1" class="pilcrow">¶</a></p>
-<p id="section-10.1-2">
-          The "ietf-bgp-communities" YANG module defines a data model that is designed to be accessed via YANG-based management protocols, such as NETCONF <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>.
-          These YANG-based management protocols (1) have to use a secure transport layer (e.g., SSH <span>[<a href="#RFC4252" class="cite xref">RFC4252</a>]</span>, TLS <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, and QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>) and (2) have to use mutual authentication.<a href="#section-10.1-2" class="pilcrow">¶</a></p>
-<p id="section-10.1-3">
-          The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.<a href="#section-10.1-3" class="pilcrow">¶</a></p>
-<p id="section-10.1-4">
-          There are no data nodes defined in this YANG module that are writable/creatable/deletable.<a href="#section-10.1-4" class="pilcrow">¶</a></p>
-<p id="section-10.1-5">
+<p id="section-11.1-1">
+          This section is modeled after the template described in <span><a href="https://rfc-editor.org/rfc/rfc9907#section-3.7.1" class="relref">Section 3.7.1</a> of [<a href="#RFC9907" class="cite xref">RFC9907</a>]</span>.<a href="#section-11.1-1" class="pilcrow">¶</a></p>
+<p id="section-11.1-2">
+          The "ietf-bgp-communities" YANG module defines a data model that is designed to be accessed via YANG-based management protocols, such as the Network Configuration Protocol (NETCONF) <span>[<a href="#RFC6241" class="cite xref">RFC6241</a>]</span> and RESTCONF <span>[<a href="#RFC8040" class="cite xref">RFC8040</a>]</span>.
+          These YANG-based management protocols (1) have to use a secure transport layer (e.g., Secure Shell (SSH) <span>[<a href="#RFC4252" class="cite xref">RFC4252</a>]</span>, TLS <span>[<a href="#RFC8446" class="cite xref">RFC8446</a>]</span>, and QUIC <span>[<a href="#RFC9000" class="cite xref">RFC9000</a>]</span>) and (2) have to use mutual authentication.<a href="#section-11.1-2" class="pilcrow">¶</a></p>
+<p id="section-11.1-3">
+          The Network Configuration Access Control Model (NACM) <span>[<a href="#RFC8341" class="cite xref">RFC8341</a>]</span> provides the means to restrict access for particular NETCONF or RESTCONF users to a preconfigured subset of all available NETCONF or RESTCONF protocol operations and content.<a href="#section-11.1-3" class="pilcrow">¶</a></p>
+<p id="section-11.1-4">
+          There are no data nodes defined in this YANG module that are writable/creatable/deletable.<a href="#section-11.1-4" class="pilcrow">¶</a></p>
+<p id="section-11.1-5">
           Some of the readable data nodes in this YANG module may be considered sensitive or vulnerable in some network environments.
-          Specifically, the following subtrees and data nodes have particular sensitivities/vulnerabilities:<a href="#section-10.1-5" class="pilcrow">¶</a></p>
+          Specifically, the following subtrees and data nodes have particular sensitivities/vulnerabilities:<a href="#section-11.1-5" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-10.1-6.1">bgp-communities/contact/email-address<a href="#section-10.1-6.1" class="pilcrow">¶</a>
+<li class="normal" id="section-11.1-6.1">bgp-communities/contact/email-address<a href="#section-11.1-6.1" class="pilcrow">¶</a>
 </li>
-          <li class="normal" id="section-10.1-6.2">bgp-communities/contact/name<a href="#section-10.1-6.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-11.1-6.2">bgp-communities/contact/name<a href="#section-11.1-6.2" class="pilcrow">¶</a>
 </li>
         </ul>
-<p id="section-10.1-7">
+<p id="section-11.1-7">
           Disclosing this information may be misused, e.g., for tracking and data correlation.
-          Publishers MUST NOT populate these elements with Personally Identifiable Information (PII).
-          For example, these elements may be set with information that refers to generic contact information, not pointing to specific individuals.<a href="#section-10.1-7" class="pilcrow">¶</a></p>
+          Publishers <span class="bcp14">MUST NOT</span> populate these elements with Personally Identifiable Information (PII).
+          For example, these elements may be set with information that refers to generic contact information, not pointing to specific individuals.<a href="#section-11.1-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security.parsing">
-<section id="section-10.2">
+<section id="section-11.2">
         <h3 id="name-parsing-considerations">
-<a href="#section-10.2" class="section-number selfRef">10.2. </a><a href="#name-parsing-considerations" class="section-name selfRef">Parsing considerations</a>
+<a href="#section-11.2" class="section-number selfRef">11.2. </a><a href="#name-parsing-considerations" class="section-name selfRef">Parsing considerations</a>
         </h3>
-<p id="section-10.2-1">
+<p id="section-11.2-1">
           The YANG module described in this document may be used to specify BGP community definitions in different serialization formats, such as XML, JSON or CBOR.
-          Applications that parse these community definitions SHOULD reject objects that do not conform to the YANG model.
-          Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
-          For example, a Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).<a href="#section-10.2-1" class="pilcrow">¶</a></p>
-<p id="section-10.2-2">
+          Applications that parse these community definitions <span class="bcp14">SHOULD</span> reject objects that do not conform to the YANG model.
+          Furthermore, parsers <span class="bcp14">SHOULD</span> check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
+          For example, a Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).<a href="#section-11.2-1" class="pilcrow">¶</a></p>
+<p id="section-11.2-2">
           The "bgp-communities/contact-url" element may contain a link to an untrusted webpage.
-          Parsers MAY opt to render the URL as plain text rather than a clickable link, to prevent inadvertent exposure of information by users of the rendered output.<a href="#section-10.2-2" class="pilcrow">¶</a></p>
-<p id="section-10.2-3">
+          Parsers <span class="bcp14">MAY</span> opt to render the URL as plain text rather than a clickable link, to prevent inadvertent exposure of information by users of the rendered output.<a href="#section-11.2-2" class="pilcrow">¶</a></p>
+<p id="section-11.2-3">
           Several elements with the "string" data type may be used to display information in a web page or application.
-          Parsers should take care that the appropriate escaping is performed to protect against cross-site scripting attacks.<a href="#section-10.2-3" class="pilcrow">¶</a></p>
+          Parsers should take care that the appropriate escaping is performed to protect against cross-site scripting attacks.<a href="#section-11.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="security.cdr">
+<section id="section-11.3">
+        <h3 id="name-cdr-considerations">
+<a href="#section-11.3" class="section-number selfRef">11.3. </a><a href="#name-cdr-considerations" class="section-name selfRef">CDR considerations</a>
+        </h3>
+<p id="section-11.3-1">
+          Operators publishing CDRs in the RPKI <span class="bcp14">MUST</span> specify an <code>accessLocation</code> that points to a web object under their own control.<a href="#section-11.3-1" class="pilcrow">¶</a></p>
+<p id="section-11.3-2">
+          Applications retrieving the location of community definitions through the RPKI <span class="bcp14">MUST</span> perform all checks specified in <a href="#rpki.asn1" class="auto internal xref">Section 8.1</a> and <a href="#rpki.validation" class="auto internal xref">Section 8.3</a>.
+          When downloading a definition from this location via HTTPS, applications <span class="bcp14">MUST</span> perform HTTPS (TLS) validation.<a href="#section-11.3-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
 <div id="normative">
-<section id="section-11">
+<section id="section-12">
       <h2 id="name-normative-references">
-<a href="#section-11" class="section-number selfRef">11. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
       </h2>
 <dl class="references">
 <dt id="I-D.ietf-idr-bgp-model">[I-D.ietf-idr-bgp-model]</dt>
       <dd>
-<span class="refAuthor">Jethanandani, M.</span>, <span class="refAuthor">Patel, K.</span>, <span class="refAuthor">Hares, S.</span>, and <span class="refAuthor">J. Haas</span>, <span class="refTitle">"YANG Model for Border Gateway Protocol (BGP-4)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-idr-bgp-model-18</span>, <time datetime="2024-10-21" class="refDate">21 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-idr-bgp-model-18">https://datatracker.ietf.org/doc/html/draft-ietf-idr-bgp-model-18</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="I-D.ietf-netmod-rfc6991-bis">[I-D.ietf-netmod-rfc6991-bis]</dt>
-      <dd>
-<span class="refAuthor">Schönwälder, J.</span>, <span class="refTitle">"Common YANG Data Types"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc6991-bis-18</span>, <time datetime="2025-06-23" class="refDate">23 June 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc6991-bis-18">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc6991-bis-18</a>&gt;</span>. </dd>
+<span class="refAuthor">Jethanandani, M.</span>, <span class="refAuthor">Patel, K.</span>, <span class="refAuthor">Hares, S.</span>, and <span class="refAuthor">J. Haas</span>, <span class="refTitle">"YANG Model for Border Gateway Protocol (BGP-4)"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-idr-bgp-model-19</span>, <time datetime="2026-03-02" class="refDate">2 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-idr-bgp-model-19">https://datatracker.ietf.org/doc/html/draft-ietf-idr-bgp-model-19</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC1930">[RFC1930]</dt>
       <dd>
@@ -2479,9 +2829,49 @@ RFC-EDITOR: please update YYYY with this RFC ID
       <dd>
 <span class="refAuthor">Chandra, R.</span>, <span class="refAuthor">Traina, P.</span>, and <span class="refAuthor">T. Li</span>, <span class="refTitle">"BGP Communities Attribute"</span>, <span class="seriesInfo">RFC 1997</span>, <span class="seriesInfo">DOI 10.17487/RFC1997</span>, <time datetime="1996-08" class="refDate">August 1996</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc1997">https://www.rfc-editor.org/info/rfc1997</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC3779">[RFC3779]</dt>
+      <dd>
+<span class="refAuthor">Lynn, C.</span>, <span class="refAuthor">Kent, S.</span>, and <span class="refAuthor">K. Seo</span>, <span class="refTitle">"X.509 Extensions for IP Addresses and AS Identifiers"</span>, <span class="seriesInfo">RFC 3779</span>, <span class="seriesInfo">DOI 10.17487/RFC3779</span>, <time datetime="2004-06" class="refDate">June 2004</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc3779">https://www.rfc-editor.org/info/rfc3779</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC4360">[RFC4360]</dt>
       <dd>
 <span class="refAuthor">Sangli, S.</span>, <span class="refAuthor">Tappan, D.</span>, and <span class="refAuthor">Y. Rekhter</span>, <span class="refTitle">"BGP Extended Communities Attribute"</span>, <span class="seriesInfo">RFC 4360</span>, <span class="seriesInfo">DOI 10.17487/RFC4360</span>, <time datetime="2006-02" class="refDate">February 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4360">https://www.rfc-editor.org/info/rfc4360</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC4648">[RFC4648]</dt>
+      <dd>
+<span class="refAuthor">Josefsson, S.</span>, <span class="refTitle">"The Base16, Base32, and Base64 Data Encodings"</span>, <span class="seriesInfo">RFC 4648</span>, <span class="seriesInfo">DOI 10.17487/RFC4648</span>, <time datetime="2006-10" class="refDate">October 2006</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc4648">https://www.rfc-editor.org/info/rfc4648</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC5652">[RFC5652]</dt>
+      <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Cryptographic Message Syntax (CMS)"</span>, <span class="seriesInfo">STD 70</span>, <span class="seriesInfo">RFC 5652</span>, <span class="seriesInfo">DOI 10.17487/RFC5652</span>, <time datetime="2009-09" class="refDate">September 2009</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc5652">https://www.rfc-editor.org/info/rfc5652</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6480">[RFC6480]</dt>
+      <dd>
+<span class="refAuthor">Lepinski, M.</span> and <span class="refAuthor">S. Kent</span>, <span class="refTitle">"An Infrastructure to Support Secure Internet Routing"</span>, <span class="seriesInfo">RFC 6480</span>, <span class="seriesInfo">DOI 10.17487/RFC6480</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6480">https://www.rfc-editor.org/info/rfc6480</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6481">[RFC6481]</dt>
+      <dd>
+<span class="refAuthor">Huston, G.</span>, <span class="refAuthor">Loomans, R.</span>, and <span class="refAuthor">G. Michaelson</span>, <span class="refTitle">"A Profile for Resource Certificate Repository Structure"</span>, <span class="seriesInfo">RFC 6481</span>, <span class="seriesInfo">DOI 10.17487/RFC6481</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6481">https://www.rfc-editor.org/info/rfc6481</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6487">[RFC6487]</dt>
+      <dd>
+<span class="refAuthor">Huston, G.</span>, <span class="refAuthor">Michaelson, G.</span>, and <span class="refAuthor">R. Loomans</span>, <span class="refTitle">"A Profile for X.509 PKIX Resource Certificates"</span>, <span class="seriesInfo">RFC 6487</span>, <span class="seriesInfo">DOI 10.17487/RFC6487</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6487">https://www.rfc-editor.org/info/rfc6487</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6488">[RFC6488]</dt>
+      <dd>
+<span class="refAuthor">Lepinski, M.</span>, <span class="refAuthor">Chi, A.</span>, and <span class="refAuthor">S. Kent</span>, <span class="refTitle">"Signed Object Template for the Resource Public Key Infrastructure (RPKI)"</span>, <span class="seriesInfo">RFC 6488</span>, <span class="seriesInfo">DOI 10.17487/RFC6488</span>, <time datetime="2012-02" class="refDate">February 2012</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6488">https://www.rfc-editor.org/info/rfc6488</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC6838">[RFC6838]</dt>
+      <dd>
+<span class="refAuthor">Freed, N.</span>, <span class="refAuthor">Klensin, J.</span>, and <span class="refAuthor">T. Hansen</span>, <span class="refTitle">"Media Type Specifications and Registration Procedures"</span>, <span class="seriesInfo">BCP 13</span>, <span class="seriesInfo">RFC 6838</span>, <span class="seriesInfo">DOI 10.17487/RFC6838</span>, <time datetime="2013-01" class="refDate">January 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc6838">https://www.rfc-editor.org/info/rfc6838</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7107">[RFC7107]</dt>
+      <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Object Identifier Registry for the S/MIME Mail Security Working Group"</span>, <span class="seriesInfo">RFC 7107</span>, <span class="seriesInfo">DOI 10.17487/RFC7107</span>, <time datetime="2014-01" class="refDate">January 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7107">https://www.rfc-editor.org/info/rfc7107</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC7299">[RFC7299]</dt>
+      <dd>
+<span class="refAuthor">Housley, R.</span>, <span class="refTitle">"Object Identifier Registry for the PKIX Working Group"</span>, <span class="seriesInfo">RFC 7299</span>, <span class="seriesInfo">DOI 10.17487/RFC7299</span>, <time datetime="2014-07" class="refDate">July 2014</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc7299">https://www.rfc-editor.org/info/rfc7299</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7950">[RFC7950]</dt>
       <dd>
@@ -2499,22 +2889,34 @@ RFC-EDITOR: please update YYYY with this RFC ID
       <dd>
 <span class="refAuthor">Lhotka, L.</span>, <span class="refAuthor">Lindem, A.</span>, and <span class="refAuthor">Y. Qu</span>, <span class="refTitle">"A YANG Data Model for Routing Management (NMDA Version)"</span>, <span class="seriesInfo">RFC 8349</span>, <span class="seriesInfo">DOI 10.17487/RFC8349</span>, <time datetime="2018-03" class="refDate">March 2018</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8349">https://www.rfc-editor.org/info/rfc8349</a>&gt;</span>. </dd>
 <dd class="break"></dd>
+<dt id="RFC9110">[RFC9110]</dt>
+      <dd>
+<span class="refAuthor">Fielding, R., Ed.</span>, <span class="refAuthor">Nottingham, M., Ed.</span>, and <span class="refAuthor">J. Reschke, Ed.</span>, <span class="refTitle">"HTTP Semantics"</span>, <span class="seriesInfo">STD 97</span>, <span class="seriesInfo">RFC 9110</span>, <span class="seriesInfo">DOI 10.17487/RFC9110</span>, <time datetime="2022-06" class="refDate">June 2022</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9110">https://www.rfc-editor.org/info/rfc9110</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC9595">[RFC9595]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Veillette, M., Ed.</span>, <span class="refAuthor">Pelov, A., Ed.</span>, <span class="refAuthor">Petrov, I., Ed.</span>, <span class="refAuthor">Bormann, C.</span>, and <span class="refAuthor">M. Richardson</span>, <span class="refTitle">"YANG Schema Item iDentifier (YANG SID)"</span>, <span class="seriesInfo">RFC 9595</span>, <span class="seriesInfo">DOI 10.17487/RFC9595</span>, <time datetime="2024-07" class="refDate">July 2024</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9595">https://www.rfc-editor.org/info/rfc9595</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9911">[RFC9911]</dt>
+      <dd>
+<span class="refAuthor">Schönwälder, J., Ed.</span>, <span class="refTitle">"Common YANG Data Types"</span>, <span class="seriesInfo">RFC 9911</span>, <span class="seriesInfo">DOI 10.17487/RFC9911</span>, <time datetime="2025-12" class="refDate">December 2025</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9911">https://www.rfc-editor.org/info/rfc9911</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="X.680">[X.680]</dt>
+    <dd>
+<span class="refAuthor">ITU-T</span>, <span class="refTitle">"Information technology - Abstract Syntax Notation One (ASN.1): Specification of basic notation"</span>, <span class="seriesInfo">ITU-T Recommendation X.680</span>, <time datetime="2021" class="refDate">2021</time>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
 </div>
 <div id="informative">
-<section id="section-12">
+<section id="section-13">
       <h2 id="name-informative-references">
-<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+<a href="#section-13" class="section-number selfRef">13. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
       </h2>
 <dl class="references">
-<dt id="I-D.ietf-netmod-rfc8407bis">[I-D.ietf-netmod-rfc8407bis]</dt>
+<dt id="I-D.ietf-sidrops-publication-server-bcp">[I-D.ietf-sidrops-publication-server-bcp]</dt>
       <dd>
-<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-netmod-rfc8407bis-28</span>, <time datetime="2025-06-05" class="refDate">5 June 2025</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-28">https://datatracker.ietf.org/doc/html/draft-ietf-netmod-rfc8407bis-28</a>&gt;</span>. </dd>
+<span class="refAuthor">Bruijnzeels, T.</span>, <span class="refAuthor">de Kock, T.</span>, <span class="refAuthor">Hill, F.</span>, <span class="refAuthor">Harrison, T.</span>, and <span class="refAuthor">J. Snijders</span>, <span class="refTitle">"Best Practises for Operating Resource Public Key Infrastructure (RPKI) Publication Services"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-ietf-sidrops-publication-server-bcp-07</span>, <time datetime="2026-03-21" class="refDate">21 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-publication-server-bcp-07">https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-publication-server-bcp-07</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="IEEE.1003-2.1992">[IEEE.1003-2.1992]</dt>
       <dd>
@@ -2581,8 +2983,12 @@ RFC-EDITOR: please update YYYY with this RFC ID
 <span class="refAuthor">Watsen, K.</span>, <span class="refAuthor">Auerswald, E.</span>, <span class="refAuthor">Farrel, A.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Handling Long Lines in Content of Internet-Drafts and RFCs"</span>, <span class="seriesInfo">RFC 8792</span>, <span class="seriesInfo">DOI 10.17487/RFC8792</span>, <time datetime="2020-06" class="refDate">June 2020</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc8792">https://www.rfc-editor.org/info/rfc8792</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC9000">[RFC9000]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Iyengar, J., Ed.</span> and <span class="refAuthor">M. Thomson, Ed.</span>, <span class="refTitle">"QUIC: A UDP-Based Multiplexed and Secure Transport"</span>, <span class="seriesInfo">RFC 9000</span>, <span class="seriesInfo">DOI 10.17487/RFC9000</span>, <time datetime="2021-05" class="refDate">May 2021</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9000">https://www.rfc-editor.org/info/rfc9000</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="RFC9907">[RFC9907]</dt>
+    <dd>
+<span class="refAuthor">Bierman, A.</span>, <span class="refAuthor">Boucadair, M., Ed.</span>, and <span class="refAuthor">Q. Wu</span>, <span class="refTitle">"Guidelines for Authors and Reviewers of Documents Containing YANG Data Models"</span>, <span class="seriesInfo">BCP 216</span>, <span class="seriesInfo">RFC 9907</span>, <span class="seriesInfo">DOI 10.17487/RFC9907</span>, <time datetime="2026-03" class="refDate">March 2026</time>, <span>&lt;<a href="https://www.rfc-editor.org/info/rfc9907">https://www.rfc-editor.org/info/rfc9907</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>
@@ -2601,7 +3007,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
 <a href="#appendix-A.1" class="section-number selfRef">A.1. </a><a href="#name-rfc8195-selective-no_export" class="section-name selfRef">RFC8195 Selective NO_EXPORT definition</a>
         </h3>
 <p id="appendix-A.1-1">
-          A JSON definition for the example Large BGP community described in <span>[<a href="#RFC8195" class="cite xref">RFC8195</a>]</span>, Section 4.1.1 looks as follows.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
+          A JSON definition for the example Large BGP community described in <span><a href="https://rfc-editor.org/rfc/rfc8195#section-4.1.1" class="relref">Section 4.1.1</a> of [<a href="#RFC8195" class="cite xref">RFC8195</a>]</span> looks as follows.<a href="#appendix-A.1-1" class="pilcrow">¶</a></p>
 <div class="sourcecode" id="appendix-A.1-2">
 <pre>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
@@ -2660,7 +3066,7 @@ NO_EXPORT",
 <a href="#appendix-A.2" class="section-number selfRef">A.2. </a><a href="#name-rfc4384-data-collection-def" class="section-name selfRef">RFC4384 Data Collection definition</a>
         </h3>
 <p id="appendix-A.2-1">
-          A JSON definition for the example Regular and Extended BGP communities described in <span>[<a href="#RFC4384" class="cite xref">RFC4384</a>]</span>, Section 4 looks as follows.<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
+          A JSON definition for the example Regular and Extended BGP communities described in <span><a href="https://rfc-editor.org/rfc/rfc4384#section-4" class="relref">Section 4</a> of [<a href="#RFC4384" class="cite xref">RFC4384</a>]</span> looks as follows.<a href="#appendix-A.2-1" class="pilcrow">¶</a></p>
 <div class="breakable sourcecode" id="appendix-A.2-2">
 <pre>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
@@ -2756,6 +3162,8 @@ from the Fiji Islands",
       </h2>
 <p id="appendix-B-1">
         The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog, Teun Vink, Tom Petch, Dale Carder, Mohamed Boucadair and Ladislav Lhotka for contributing ideas and feedback to this document.<a href="#appendix-B-1" class="pilcrow">¶</a></p>
+<p id="appendix-B-2">
+        The author would like to thank <span class="contact-name">Job Snijders</span> for specifying the CDR RPKI Signed Object profile.<a href="#appendix-B-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">
