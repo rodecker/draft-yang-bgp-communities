@@ -45,7 +45,8 @@
      ipr="trust200902"
      xml:lang="en"
      submissionType="IETF"
-     version="3">
+     version="3"
+     consensus="yes">
 
   <front>
 
@@ -912,6 +913,129 @@ module ietf-bgp-communities-annotate {
 
     </section>
 
+    <section title="RPKI-based Community Definition References">
+      <t>
+        Autonomous System operators <bcp14>MAY</bcp14> publish the location of JSON encoded community definitions through the Resource Public Key Infrastructure (RPKI) <xref target="RFC6480"/>.
+        This section defines a Cryptographic Message Syntax (CMS) <xref target="RFC5652"/> protected content type, termed a Community Definition Reference (CDR), to facilitate discovery of online publication locations of BGP communitty definitions.
+      </t>
+
+    <section title="ASN.1 Notation">
+      <t>
+        The eContent of a Community Definition Reference is formally defined using ASN.1 (<xref target="X.680"/>) as follows:
+      </t>
+
+      <sourcecode type="asn.1" markers="false">
+RPKI-CDR-2026
+  { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+     pkcs-9(9) smime(16) modules(0) id-mod-rpki-cdr-2026(TBD1) }
+
+DEFINITIONS EXPLICIT TAGS ::=
+BEGIN
+
+IMPORTS
+  CONTENT-TYPE
+  FROM CryptographicMessageSyntax-2010 -- From [RFC6268]
+    { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+       pkcs-9(9) smime(16) modules(0) id-mod-cms-2009(58) }
+
+  AccessDescription
+  FROM PKIX1Implicit-2009 -- From [RFC5912]
+    { iso(1) identified-organization(3) dod(6) internet(1)
+      security(5) mechanisms(5) pkix(7) id-mod(0)
+      id-mod-pkix1-implicit-02(59) } ;
+
+id-ct-CDR OBJECT IDENTIFIER ::=
+  { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
+    pkcs-9(9) id-smime(16) id-ct(1) CDR(TBD2) }
+
+ct-CDR CONTENT-TYPE ::=
+  { TYPE CommunityDefinitionReference IDENTIFIED BY id-ct-CDR }
+
+CommunityDefinitionReference ::= SEQUENCE {
+  version       [0] INTEGER DEFAULT 0,
+  asID              INTEGER (1..4294967295),
+  yangRevision      IA5String (SIZE(10)) DEFAULT YangRevision,
+  location          AccessDescription }
+
+YangRevision IA5String ::= "2025-08-26" -- From [RFCYYYY]
+
+END
+        </sourcecode>
+<!-- XXX: RFC Editor, please replace RFCYYYY in the above section with the actual RFC number of this document -->
+
+        <section toc="exclude">
+          <name>version</name>
+          <t>
+            The version field contains the format version for the <tt>CommunityDefinitionReference</tt> structure, in this version of the specification it <bcp14>MUST</bcp14> be 0.
+          </t>
+        </section>
+
+        <section toc="exclude">
+          <name>asID</name>
+          <t>
+            The <tt>asID</tt> field contains a positive integer that represents the Autonomous System number of the authorizing entity.
+          </t>
+          <t>
+            Consumers of the JSON encoded community definition referenced in <xref target="location"/> <bcp14>MUST</bcp14> check that the ASN contained in the <tt>asID</tt> field matches the ASN value in the <tt>autonomous-system-id</tt> leaf.
+          </t>
+        </section>
+
+        <section toc="exclude">
+          <name>yangRevision</name>
+          <t>
+            The <tt>yangRevision</tt> field contains the revision identifier for the applicable YANG model, in this version of the specification it <bcp14>MUST</bcp14> be <tt>2025-08-26</tt>.
+          </t>
+        </section>
+
+        <section toc="exclude" anchor="location">
+          <name>location</name>
+          <t>
+            The <tt>location</tt> field contains an instance of <tt>AccessDescription</tt> with an <tt>accessMethod</tt> of <tt>id-ad-communityDefinition</tt> and an <tt>accessLocation</tt> which <bcp14>MUST</bcp14> be an HTTPS Uniform Resource Identifier (URI) as defined in <xref target="RFC9110"/> that points to the JSON encoded BGP community definition for the Autonomous System identified in the <tt>asID</tt> field.
+          </t>
+          <t>
+            Consumers of the community definition <bcp14>MUST</bcp14> check that the URI contained in the <tt>accessLocation</tt> exactly matches the URI contained in the <tt>uri</tt> leaf.
+          </t>
+        </section>
+
+      </section>
+
+      <section>
+        <name>CDR Validation</name>
+        <t>
+          To validate a CDR, the RPKI Relying Party (RP) <bcp14>MUST</bcp14> perform all the validation checks specified in <xref target="RFC6488"/> as well as the following additional CDR-specific validation steps:
+        </t>
+        <ul>
+          <li>
+            The Autonomous System Identifier Delegation Extension <xref target="RFC3779"/> <bcp14>MUST</bcp14> be present in the end-entity (EE) certificate (contained within the CDR), and the <tt>asID</tt> in the CDR eContent MUST match the <tt>ASId</tt> specified by the EE certificate's Autonomous System Identifier Delegation Extension.
+          </li>
+          <li>
+            The Autonomous System Identifier Delegation Extension <bcp14>MUST</bcp14> contain exactly one "id" element (<xref target="RFC3779" section="3.2.3.6"/>) and <bcp14>MUST NOT</bcp14> contain any "inherit" elements (<xref target="RFC3779" section="3.2.3.3"/>) or "range" elements (<xref target="RFC3779" section="3.2.3.7"/>).
+          </li>
+          <li>
+            The IP Address Delegation Extension <xref target="RFC3779"/> <bcp14>MUST</bcp14> be absent.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <name>CDR Publication Guidelines</name>
+        <t>
+          To avoid proliferation of CDRs in RPKI repositories, Certification Authorities (CAs) <bcp14>SHOULD</bcp14> maintain a single CDR object for a given Autonomous System for each YANG model revision supported by the CA.
+          RPs <bcp14>SHOULD</bcp14> pass on to consumer applications a deduplicated list of community definition locations annotated with revision identifiers for each Autonomous System.
+          CAs <bcp14>SHOULD</bcp14> anticipate RPs to impose an upper bound on the number of CDRs for a given Autonomous System and that if such thresholds are exceeded, RP implementations will treat all CDR objects related to the AS as invalid, i.e., not emit a partial list of community definition locations.
+        </t>
+        <t>
+          CAs are <bcp14>RECOMMENDED</bcp14> to generate a new key pair for each new CDR and only sign one CDR with each EE certificate.
+          This type of EE certificate is termed a "one-time-use" EE certificate (see <xref target="RFC6487" section="3"/>).
+        </t>
+        <t>
+          CAs are <bcp14>RECOMMENDED</bcp14> to follow the guidelines for naming CDR objects based on <xref target="RFC6481" section="2.2"/>, i.e., convert the 160-bit hash of the EE's public key value into a 27-character string using Base 64 Encoding with the URL and Filename Safe Alphabet (see <xref target="RFC4648" section="5"/>).
+          See <xref target="I-D.ietf-sidrops-publication-server-bcp" section="7.7"/> for more information and considerations.
+        </t>
+      </section>
+
+    </section>
+
     <section title="IANA considerations" anchor="iana">
 
       <section title="YANG Namespace Registration" anchor="iana.xml">
@@ -951,6 +1075,115 @@ YANG module name: ietf-bgp-communities
 Reference: RFC YYYY
 RFC-EDITOR: please update YYYY with this RFC ID
         </sourcecode>
+      </section>
+
+      <section>
+        <name>RPKI Identifiers</name>
+
+        <section title="SMI Security for S/MIME Module Identifier registry" toc="exclude">
+          <t>
+            IANA is requested to allocate in the "SMI Security for S/MIME Module Identifier (1.2.840.113549.1.9.16.0)" registry as follows:
+          </t>
+          <table>
+            <thead>
+              <tr><td>Decimal</td><td>Description</td><td>Specification</td></tr>
+            </thead>
+            <tbody>
+              <tr><td>TBD1</td><td>RPKI-CDR-2026</td><td>[RFC-to-be]</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section title="SMI Security for S/MIME CMS Content Type registry" toc="exclude">
+          <t>
+            IANA is requested to allocate in the "SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry as follows:
+          </t>
+          <table>
+            <thead>
+              <tr><td>Decimal</td><td>Description</td><td>Specification</td></tr>
+            </thead>
+            <tbody>
+              <tr><td>TBD2</td><td>id-ct-CDR</td><td>[RFC-to-be]</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section title="SMI Security for PKIX Access Descriptor" toc="exclude">
+          <t>
+            IANA is requested to allocate in the "SMI Security for PKIX Access Descriptor" registry as follows:
+          </t>
+          <table>
+            <thead>
+              <tr><td>Decimal</td><td>Description</td><td>Specification</td></tr>
+            </thead>
+            <tbody>
+              <tr><td>TBD3</td><td>id-ad-communityDefinition</td><td>[RFC-to-be]</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section title="RPKI Signed Object registry" toc="exclude">
+          <t>
+            IANA is requested to allocate in the "RPKI Signed Object" registry as follows:
+          </t>
+          <table>
+            <thead>
+              <tr><td>Name</td><td>OID</td><td>Specification</td></tr>
+            </thead>
+            <tbody>
+              <tr><td>Community Definition Reference</td><td>1.2.840.113549.1.9.16.1.TBD2</td><td>[RFC-to-be]</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section title="RPKI Repository Name Scheme registry" toc="exclude">
+          <t>
+            IANA is requested to register in the "RPKI Repository Name Scheme" registry <xref target="RFC6481"/> as follows:
+          </t>
+          <table>
+            <thead>
+              <tr><td>Filename Extension</td><td>RPKI Object</td><td>Reference</td></tr>
+            </thead>
+            <tbody>
+              <tr><td>.cdr</td><td>Community Definition Reference</td><td>[RFC-to-be]</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <section title="Media Type registry" toc="exclude">
+          <t>
+            The IANA is requested to register the media type <tt>application/rpki-cdr</tt> in the "Media Type" registry as follows:
+          </t>
+          <artwork>
+<![CDATA[
+   Type name: application
+   Subtype name: rpki-cdr
+   Required parameters: N/A
+   Optional parameters: N/A
+   Encoding considerations: binary
+   Security considerations: Carries an RPKI CDR [RFC-to-be].
+       This media type contains no active content. See
+       Section XYZ of [RFC-to-be] for further information.
+   Interoperability considerations: None
+   Published specification: [RFC-to-be]
+   Applications that use this media type: RPKI operators
+   Additional information:
+     Content: This media type is a signed object, as defined
+         in [RFC6488], which contains as payload a reference
+         to an online publication of a Community Definition
+         as defined in [RFC-to-be].
+     Magic number(s): None
+     File extension(s): .cdr
+     Macintosh file type code(s):
+   Person & email address to contact for further information:
+     Job Snijders <job@bsd.nl>
+   Intended usage: COMMON
+   Restrictions on usage: None
+   Change controller: IETF
+]]>
+          </artwork>
+        </section>
+
       </section>
 
     </section>
@@ -1031,7 +1264,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
       </section>
 
     </section>
-    
+
     <section title="Security considerations" anchor="security">
 
       <section title="Publishing considerations" anchor="security.publishing">
@@ -1095,13 +1328,32 @@ RFC-EDITOR: please update YYYY with this RFC ID
       &I-D.ietf-idr-bgp-model;
       &RFC1930;
       &RFC1997;
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.3779.xml"/>
       &RFC4360;
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.5652.xml"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6480.xml"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6481.xml"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6487.xml"/>
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6488.xml"/>
       &RFC7950;
       &RFC8092;
       &RFC8341;
       &RFC8349;
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9110.xml"/>
       &RFC9595;
       &RFC9911;
+
+      <reference anchor="X.680">
+        <front>
+          <title>Information technology - Abstract Syntax Notation One (ASN.1): Specification of basic notation</title>
+          <author>
+            <organization>ITU-T</organization>
+          </author>
+          <date year="2021"/>
+        </front>
+        <seriesInfo name="ITU-T" value="Recommendation X.680"/>
+      </reference>
 
     </references>
 
@@ -1125,6 +1377,8 @@ RFC-EDITOR: please update YYYY with this RFC ID
       &RFC8792;
       &RFC9000;
       &RFC9907;
+
+      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-sidrops-publication-server-bcp.xml"/>
 
     </references>
 
@@ -1283,6 +1537,9 @@ from the Fiji Islands",
 
       <t>
         The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog, Teun Vink, Tom Petch, Dale Carder, Mohamed Boucadair and Ladislav Lhotka for contributing ideas and feedback to this document.
+      </t>
+      <t>
+        The author would like to thank <contact fullname="Job Snijders"/> for specifying the CDR RPKI Signed Object profile.
       </t>
 
     </section>
