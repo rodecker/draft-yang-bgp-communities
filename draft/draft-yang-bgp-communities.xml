@@ -2,7 +2,6 @@
 
 <!DOCTYPE rfc [
 <!ENTITY I-D.ietf-idr-bgp-model PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-bgp-model-18.xml">
-<!ENTITY I-D.ietf-netmod-rfc6991-bis PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-netmod-rfc6991-bis-18.xml">
 <!ENTITY I-D.ietf-netmod-rfc8407bis PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-netmod-rfc8407bis-28.xml">
 <!ENTITY IEEE.1003-2.1992 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml6/reference.R.IEEE.1003-2.1992.xml">
 <!ENTITY RFC1912 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1912.xml">
@@ -29,6 +28,7 @@
 <!ENTITY RFC8792 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8792.xml">
 <!ENTITY RFC9000 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9000.xml">
 <!ENTITY RFC9595 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9595.xml">
+<!ENTITY RFC9911 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9911.xml">
 ]>
 
 <?rfc strict="yes" ?>
@@ -41,7 +41,7 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
      category="std"
-     docName="draft-ietf-grow-yang-bgp-communities-07"
+     docName="draft-ietf-grow-yang-bgp-communities-08"
      ipr="trust200902"
      xml:lang="en"
      submissionType="IETF"
@@ -51,7 +51,7 @@
 
     <title abbrev="BGP Community YANG">A YANG Data Model for BGP Communities</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-07"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-08"/>
 
     <author fullname="Martin Pels" initials="M" surname="Pels">
       <organization>RIPE NCC</organization>
@@ -214,12 +214,12 @@ module: ietf-bgp-communities
         This section contains the base YANG module for BGP community definitions.
       </t>
       <t>
-        Several elements in this module use data types from <xref target="I-D.ietf-netmod-rfc6991-bis"/>.
+        Several elements in this module use data types from <xref target="RFC9911"/>.
         These data types are represented with the prefix "inet".
       </t>
       <sourcecode>
 <![CDATA[
-<CODE BEGINS> file "ietf-bgp-communities@2025-08-26.yang"
+<CODE BEGINS> file "ietf-bgp-communities@2026-01-05.yang"
 
 module ietf-bgp-communities {
   yang-version 1.1;
@@ -230,7 +230,7 @@ module ietf-bgp-communities {
   import ietf-inet-types {
     prefix inet;
     reference
-      "draft-ietf-netmod-rfc6991-bis-18: Common YANG Data Types";
+      "RFC 9911: Common YANG Data Types";
   }
 
   organization
@@ -265,7 +265,7 @@ module ietf-bgp-communities {
 
   // RFC-EDITOR: please update YYYY with this RFC ID
 
-  revision 2025-08-26 {
+  revision 2026-01-05 {
     description
       "Initial revision.";
     reference
@@ -761,7 +761,7 @@ module ietf-bgp-communities {
       </t>
       <sourcecode>
 <![CDATA[
-<CODE BEGINS> file "ietf-bgp-communities-annotate@2025-08-26.yang"
+<CODE BEGINS> file "ietf-bgp-communities-annotate@2026-01-05.yang"
 
 module ietf-bgp-communities-annotate {
   yang-version 1.1;
@@ -772,7 +772,7 @@ module ietf-bgp-communities-annotate {
   import ietf-bgp-communities {
     prefix bgp-comm;
     reference
-      "draft-ietf-grow-yang-bgp-communities-07: A YANG Data
+      "draft-ietf-grow-yang-bgp-communities-08: A YANG Data
        Model for BGP Communities";
   }
   import ietf-routing {
@@ -821,7 +821,7 @@ module ietf-bgp-communities-annotate {
 
   // RFC-EDITOR: please update YYYY with this RFC ID
 
-  revision 2025-08-26 {
+  revision 2026-01-05 {
     description
       "Initial revision.";
     reference
@@ -994,12 +994,12 @@ RFC-EDITOR: please update YYYY with this RFC ID
             <tr>
               <td>197000</td>
               <td><eref target="https://web.admindns.ripe.net/draft-ietf-grow-yang-bgp-communities/as197000.json">as197000.json</eref></td>
-              <td>2025-08-26</td>
+              <td>2026-01-05</td>
             </tr>
             <tr>
               <td>25152</td>
               <td><eref target="https://web.admindns.ripe.net/draft-ietf-grow-yang-bgp-communities/as25152.json">as25152.json</eref></td>
-              <td>2025-08-26</td>
+              <td>2026-01-05</td>
             </tr>
           </tbody>
         </table>
@@ -1093,7 +1093,6 @@ RFC-EDITOR: please update YYYY with this RFC ID
     <references title="Normative References" anchor="normative">
 
       &I-D.ietf-idr-bgp-model;
-      &I-D.ietf-netmod-rfc6991-bis;
       &RFC1930;
       &RFC1997;
       &RFC4360;
@@ -1102,6 +1101,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
       &RFC8341;
       &RFC8349;
       &RFC9595;
+      &RFC9911;
 
     </references>
 
