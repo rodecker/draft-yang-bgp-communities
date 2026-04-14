@@ -19,7 +19,7 @@ module ietf-bgp-communities-annotate {
   import ietf-bgp {
     prefix bgp;
     reference
-      "draft-ietf-idr-bgp-model-18: YANG Model for Border
+      "draft-ietf-idr-bgp-model-19: YANG Model for Border
        Gateway Protocol (BGP-4)";
   }
 
@@ -56,7 +56,7 @@ module ietf-bgp-communities-annotate {
 
   // RFC-EDITOR: please update YYYY with this RFC ID
 
-  revision 2026-01-05 {
+  revision 2026-04-14 {
     description
       "Initial revision.";
     reference

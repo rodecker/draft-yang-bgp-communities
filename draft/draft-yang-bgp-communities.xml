@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="US-ASCII"?>
 
 <!DOCTYPE rfc [
-<!ENTITY I-D.ietf-idr-bgp-model PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-bgp-model-18.xml">
+<!ENTITY I-D.ietf-idr-bgp-model PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-bgp-model-19.xml">
 <!ENTITY I-D.ietf-sidrops-publication-server-bcp PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-sidrops-publication-server-bcp-07.xml">
 <!ENTITY IEEE.1003-2.1992 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml6/reference.R.IEEE.1003-2.1992.xml">
 <!ENTITY RFC1912 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1912.xml">
@@ -781,7 +781,7 @@ module ietf-bgp-communities {
       </t>
       <sourcecode>
 <![CDATA[
-<CODE BEGINS> file "ietf-bgp-communities-annotate@2026-01-05.yang"
+<CODE BEGINS> file "ietf-bgp-communities-annotate@2026-04-14.yang"
 
 module ietf-bgp-communities-annotate {
   yang-version 1.1;
@@ -804,7 +804,7 @@ module ietf-bgp-communities-annotate {
   import ietf-bgp {
     prefix bgp;
     reference
-      "draft-ietf-idr-bgp-model-18: YANG Model for Border
+      "draft-ietf-idr-bgp-model-19: YANG Model for Border
        Gateway Protocol (BGP-4)";
   }
 
@@ -841,7 +841,7 @@ module ietf-bgp-communities-annotate {
 
   // RFC-EDITOR: please update YYYY with this RFC ID
 
-  revision 2026-01-05 {
+  revision 2026-04-14 {
     description
       "Initial revision.";
     reference
