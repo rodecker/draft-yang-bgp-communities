@@ -2,17 +2,28 @@
 
 <!DOCTYPE rfc [
 <!ENTITY I-D.ietf-idr-bgp-model PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-idr-bgp-model-18.xml">
+<!ENTITY I-D.ietf-sidrops-publication-server-bcp PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.draft-ietf-sidrops-publication-server-bcp-07.xml">
 <!ENTITY IEEE.1003-2.1992 PUBLIC "" "https://bib.ietf.org/public/rfc/bibxml6/reference.R.IEEE.1003-2.1992.xml">
 <!ENTITY RFC1912 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1912.xml">
 <!ENTITY RFC1930 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1930.xml">
 <!ENTITY RFC1997 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.1997.xml">
 <!ENTITY RFC2119 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC3688 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3688.xml">
+<!ENTITY RFC3779 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3779.xml">
 <!ENTITY RFC4252 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4252.xml">
 <!ENTITY RFC4360 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4360.xml">
 <!ENTITY RFC4384 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4384.xml">
+<!ENTITY RFC4648 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml">
+<!ENTITY RFC5652 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5652.xml">
 <!ENTITY RFC6020 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6020.xml">
 <!ENTITY RFC6241 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6241.xml">
+<!ENTITY RFC6480 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6480.xml">
+<!ENTITY RFC6481 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6481.xml">
+<!ENTITY RFC6487 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6487.xml">
+<!ENTITY RFC6488 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6488.xml">
+<!ENTITY RFC6838 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.6838.xml">
+<!ENTITY RFC7107 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7107.xml">
+<!ENTITY RFC7299 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7299.xml">
 <!ENTITY RFC7942 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7942.xml">
 <!ENTITY RFC7950 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7950.xml">
 <!ENTITY RFC7951 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7951.xml">
@@ -26,6 +37,7 @@
 <!ENTITY RFC8446 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8446.xml">
 <!ENTITY RFC8792 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8792.xml">
 <!ENTITY RFC9000 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9000.xml">
+<!ENTITY RFC9110 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9110.xml">
 <!ENTITY RFC9595 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9595.xml">
 <!ENTITY RFC9907 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9907.xml">
 <!ENTITY RFC9911 PUBLIC "" "https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.9911.xml">
@@ -75,6 +87,9 @@
         Two YANG modules are defined in this document.
         The first is designed for stand-alone usage. The second is used to augment the "ietf-bgp" YANG module<xref target="I-D.ietf-idr-bgp-model"/> with BGP community annotations.
       </t>
+      <t>
+        Additionally, this document provides an optional discovery mechanism based on publishing of community definition locations through the Resource Public Key Infrastructure (RPKI).
+      </t>
     </abstract>
   </front>
 
@@ -92,6 +107,9 @@
       <t>
         <xref target="tree"/> and <xref target="module"/> describe the base module.
         <xref target="augment"/> describes a module which augments the "ietf-bgp" YANG module<xref target="I-D.ietf-idr-bgp-model"/> with BGP community annotations.
+      </t>
+      <t>
+        <xref target="rpki"/> describes an optional discovery mechanism based on publishing of community definition locations through the Resource Public Key Infrastructure (RPKI) <xref target="RFC6480"/>.
       </t>
 
     </section>
@@ -132,9 +150,10 @@
         This could be achieved automatically using external tooling to generate router configurations, or inside a router's command-line interface by importing the definitions and providing the CLI-user with available choices for manual configuration.
       </t>
       <t>
-        This document only describes a data model for the publishing format of community definitions.
-        The publishing location and publishing mechanism used are outside the scope of this specification.
+        This document describes a data model for the publishing format of community definitions.
         The data model does not make any assumption about the protocol used to publish/retrieve formatted data following the model.
+        <xref target="rpki"/> describes an optional discovery mechanism using the RPKI, which requires publishing at an HTTPS Uniform Resource Identifier (URI)<xref target="RFC9110"/>.
+        Other publishing locations and publishing mechanisms are outside the scope of this specification.
       </t>
 
     </section>
@@ -885,11 +904,11 @@ module ietf-bgp-communities-annotate {
 
       <section title="Publishing guidelines" anchor="recommendations.publishing">
         <t>
-          Operators SHOULD only publish BGP community definitions for networks they control.
+          Operators <bcp14>SHOULD</bcp14> only publish BGP community definitions for networks they control.
           This may include communities where the Global Administrator field contains a private ASN, if this community has a local meaning inside the network of the publisher.
         </t>
         <t>
-          When publishing community definitions with overlapping field patterns, these definitions MUST be ordered from most to least preferred.
+          When publishing community definitions with overlapping field patterns, these definitions <bcp14>MUST</bcp14> be ordered from most to least preferred.
           This ensures parsers can perform deterministic matching (see <xref target="recommendations.parsing"/>).
           For example, a definition for a single community "64500:123" needs to be specified before a definition that matches a covering range of communities "64500:*".
         </t>
@@ -901,7 +920,7 @@ module ietf-bgp-communities-annotate {
           If a received community matches multiple published community definitions, the first matching definition in the published order takes precedence.
         </t>
         <t>
-          Parsers that use published community definitions from multiple operators SHOULD NOT attempt to match received communities where the Global Administrator field contains a private ASN, unless they have some method to determine which published definition is the authoritative one.
+          Parsers that use published community definitions from multiple operators <bcp14>SHOULD NOT</bcp14> attempt to match received communities where the Global Administrator field contains a private ASN, unless they have some method to determine which published definition is the authoritative one.
         </t>
         <t>
           By default, communities are compared using the decimal representation of the fields. If "format" for a Local Administrator or Local Data Part is set to "binary", the fields in the received community are converted to strings of zeros and ones before comparison.
@@ -913,18 +932,18 @@ module ietf-bgp-communities-annotate {
 
     </section>
 
-    <section title="RPKI-based Community Definition References">
+    <section title="RPKI-based Community Definition References" anchor="rpki">
       <t>
         Autonomous System operators <bcp14>MAY</bcp14> publish the location of JSON encoded community definitions through the Resource Public Key Infrastructure (RPKI) <xref target="RFC6480"/>.
-        This section defines a Cryptographic Message Syntax (CMS) <xref target="RFC5652"/> protected content type, termed a Community Definition Reference (CDR), to facilitate discovery of online publication locations of BGP communitty definitions.
+        This section defines a Cryptographic Message Syntax (CMS) <xref target="RFC5652"/> protected content type, termed a Community Definition Reference (CDR), to facilitate discovery of online publication locations of BGP community definitions.
       </t>
 
-    <section title="ASN.1 Notation">
-      <t>
-        The eContent of a Community Definition Reference is formally defined using ASN.1 (<xref target="X.680"/>) as follows:
-      </t>
+      <section title="ASN.1 Notation" anchor="rpki.asn1">
+        <t>
+          The eContent of a Community Definition Reference is formally defined using ASN.1 (<xref target="X.680"/>) as follows:
+        </t>
 
-      <sourcecode type="asn.1" markers="false">
+        <sourcecode type="asn.1" markers="false">
 RPKI-CDR-2026
   { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
      pkcs-9(9) smime(16) modules(0) id-mod-rpki-cdr-2026(TBD1) }
@@ -957,68 +976,45 @@ CommunityDefinitionReference ::= SEQUENCE {
   yangRevision      IA5String (SIZE(10)) DEFAULT YangRevision,
   location          AccessDescription }
 
-YangRevision IA5String ::= "2025-08-26" -- From [RFCYYYY]
+YangRevision IA5String ::= "2026-01-05" -- From [RFCYYYY]
 
 END
         </sourcecode>
-<!-- XXX: RFC Editor, please replace RFCYYYY in the above section with the actual RFC number of this document -->
+<!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
 
-        <section toc="exclude">
-          <name>version</name>
+        <section title="version" anchor="rpki.asn1.version" toc="exclude">
           <t>
             The version field contains the format version for the <tt>CommunityDefinitionReference</tt> structure, in this version of the specification it <bcp14>MUST</bcp14> be 0.
           </t>
         </section>
 
-        <section toc="exclude">
-          <name>asID</name>
+        <section title="asID" anchor="rpki.asn1.asid" toc="exclude">
           <t>
             The <tt>asID</tt> field contains a positive integer that represents the Autonomous System number of the authorizing entity.
           </t>
           <t>
-            Consumers of the JSON encoded community definition referenced in <xref target="location"/> <bcp14>MUST</bcp14> check that the ASN contained in the <tt>asID</tt> field matches the ASN value in the <tt>autonomous-system-id</tt> leaf.
+            Consumers of the JSON encoded community definition referenced in <xref target="rpki.asn1.location"/> <bcp14>MUST</bcp14> check that the ASN contained in the <tt>asID</tt> field of the eContent matches the ASN value in the <tt>autonomous-system-id</tt> leaf of the community definition.
           </t>
         </section>
 
-        <section toc="exclude">
-          <name>yangRevision</name>
+        <section title="yangRevision" anchor="rpki.asn1.yangrevision" toc="exclude">
           <t>
-            The <tt>yangRevision</tt> field contains the revision identifier for the applicable YANG model, in this version of the specification it <bcp14>MUST</bcp14> be <tt>2025-08-26</tt>.
+            The <tt>yangRevision</tt> field contains the revision identifier for the applicable YANG model, in this version of the specification it <bcp14>MUST</bcp14> be <tt>2026-01-05</tt>.
           </t>
         </section>
 
-        <section toc="exclude" anchor="location">
-          <name>location</name>
+        <section title="location" anchor="rpki.asn1.location" toc="exclude">
           <t>
             The <tt>location</tt> field contains an instance of <tt>AccessDescription</tt> with an <tt>accessMethod</tt> of <tt>id-ad-communityDefinition</tt> and an <tt>accessLocation</tt> which <bcp14>MUST</bcp14> be an HTTPS Uniform Resource Identifier (URI) as defined in <xref target="RFC9110"/> that points to the JSON encoded BGP community definition for the Autonomous System identified in the <tt>asID</tt> field.
           </t>
           <t>
-            Consumers of the community definition <bcp14>MUST</bcp14> check that the URI contained in the <tt>accessLocation</tt> exactly matches the URI contained in the <tt>uri</tt> leaf.
+            Consumers of the community definition <bcp14>MUST</bcp14> check that the URI contained in the <tt>accessLocation</tt> of the eContent exactly matches the URI contained in the <tt>uri</tt> leaf of the community definition.
           </t>
         </section>
 
       </section>
 
-      <section>
-        <name>CDR Validation</name>
-        <t>
-          To validate a CDR, the RPKI Relying Party (RP) <bcp14>MUST</bcp14> perform all the validation checks specified in <xref target="RFC6488"/> as well as the following additional CDR-specific validation steps:
-        </t>
-        <ul>
-          <li>
-            The Autonomous System Identifier Delegation Extension <xref target="RFC3779"/> <bcp14>MUST</bcp14> be present in the end-entity (EE) certificate (contained within the CDR), and the <tt>asID</tt> in the CDR eContent MUST match the <tt>ASId</tt> specified by the EE certificate's Autonomous System Identifier Delegation Extension.
-          </li>
-          <li>
-            The Autonomous System Identifier Delegation Extension <bcp14>MUST</bcp14> contain exactly one "id" element (<xref target="RFC3779" section="3.2.3.6"/>) and <bcp14>MUST NOT</bcp14> contain any "inherit" elements (<xref target="RFC3779" section="3.2.3.3"/>) or "range" elements (<xref target="RFC3779" section="3.2.3.7"/>).
-          </li>
-          <li>
-            The IP Address Delegation Extension <xref target="RFC3779"/> <bcp14>MUST</bcp14> be absent.
-          </li>
-        </ul>
-      </section>
-
-      <section>
-        <name>CDR Publication Guidelines</name>
+      <section title="CDR publication guidelines" anchor="rpki.publication">
         <t>
           To avoid proliferation of CDRs in RPKI repositories, Certification Authorities (CAs) <bcp14>SHOULD</bcp14> maintain a single CDR object for a given Autonomous System for each YANG model revision supported by the CA.
           RPs <bcp14>SHOULD</bcp14> pass on to consumer applications a deduplicated list of community definition locations annotated with revision identifiers for each Autonomous System.
@@ -1030,8 +1026,25 @@ END
         </t>
         <t>
           CAs are <bcp14>RECOMMENDED</bcp14> to follow the guidelines for naming CDR objects based on <xref target="RFC6481" section="2.2"/>, i.e., convert the 160-bit hash of the EE's public key value into a 27-character string using Base 64 Encoding with the URL and Filename Safe Alphabet (see <xref target="RFC4648" section="5"/>).
-          See <xref target="I-D.ietf-sidrops-publication-server-bcp" section="7.7"/> for more information and considerations.
+          See <xref target="I-D.ietf-sidrops-publication-server-bcp" section="8.7"/> for more information and considerations.
         </t>
+      </section>
+
+      <section title="CDR validation guidelines" anchor="rpki.validation">
+        <t>
+          To validate a CDR, the RPKI Relying Party (RP) <bcp14>MUST</bcp14> perform all the validation checks specified in <xref target="RFC6488"/> as well as the following additional CDR-specific validation steps:
+        </t>
+        <ul>
+          <li>
+            The Autonomous System Identifier Delegation Extension <xref target="RFC3779"/> <bcp14>MUST</bcp14> be present in the end-entity (EE) certificate (contained within the CDR), and the <tt>asID</tt> in the CDR eContent <bcp14>MUST</bcp14> match the <tt>ASId</tt> specified by the EE certificate's Autonomous System Identifier Delegation Extension.
+          </li>
+          <li>
+            The Autonomous System Identifier Delegation Extension <bcp14>MUST</bcp14> contain exactly one "id" element (<xref target="RFC3779" section="3.2.3.6"/>) and <bcp14>MUST NOT</bcp14> contain any "inherit" elements (<xref target="RFC3779" section="3.2.3.3"/>) or "range" elements (<xref target="RFC3779" section="3.2.3.7"/>).
+          </li>
+          <li>
+            The IP Address Delegation Extension <xref target="RFC3779"/> <bcp14>MUST</bcp14> be absent.
+          </li>
+        </ul>
       </section>
 
     </section>
@@ -1059,9 +1072,9 @@ Name: ietf-bgp-communities
 Maintained by IANA? N
 Namespace: urn:ietf:params:xml:ns:yang:ietf-bgp-communities
 Prefix: bgp-comm
-Reference: RFC YYYY
-RFC-EDITOR: please update YYYY with this RFC ID
+Reference: RFCYYYY
         </sourcecode>
+<!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
       </section>
 
       <section title="YANG SID Allocation" anchor="iana.sid">
@@ -1072,87 +1085,97 @@ RFC-EDITOR: please update YYYY with this RFC ID
 SID range entry point: TBD
 SID range size: 100
 YANG module name: ietf-bgp-communities
-Reference: RFC YYYY
-RFC-EDITOR: please update YYYY with this RFC ID
+Reference: RFCYYYY
         </sourcecode>
+<!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
       </section>
 
-      <section>
-        <name>RPKI Identifiers</name>
+      <section title="RPKI Identifiers" anchor="iana.rpki">
 
         <section title="SMI Security for S/MIME Module Identifier registry" toc="exclude">
           <t>
-            IANA is requested to allocate in the "SMI Security for S/MIME Module Identifier (1.2.840.113549.1.9.16.0)" registry as follows:
+            This document registers the following entry in the "SMI Security for S/MIME Module Identifier (1.2.840.113549.1.9.16.0)" registry <xref target="RFC7107"/>:
           </t>
           <table>
+            <name>SMI Security for S/MIME Module Identifier</name>
             <thead>
-              <tr><td>Decimal</td><td>Description</td><td>Specification</td></tr>
+              <tr>
+                <th>Decimal</th><th>Description</th><th>Specification</th></tr>
             </thead>
             <tbody>
-              <tr><td>TBD1</td><td>RPKI-CDR-2026</td><td>[RFC-to-be]</td></tr>
+              <tr><td>TBD1</td><td>RPKI-CDR-2026</td><td>RFCYYYY</td></tr>
             </tbody>
           </table>
+<!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
         </section>
 
         <section title="SMI Security for S/MIME CMS Content Type registry" toc="exclude">
           <t>
-            IANA is requested to allocate in the "SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry as follows:
+            This document registers the following entry in the "SMI Security for S/MIME CMS Content Type (1.2.840.113549.1.9.16.1)" registry <xref target="RFC7107"/>:
           </t>
           <table>
+            <name>SMI Security for S/MIME CMS Content Type</name>
             <thead>
-              <tr><td>Decimal</td><td>Description</td><td>Specification</td></tr>
+              <tr><th>Decimal</th><th>Description</th><th>Specification</th></tr>
             </thead>
             <tbody>
-              <tr><td>TBD2</td><td>id-ct-CDR</td><td>[RFC-to-be]</td></tr>
+              <tr><td>TBD2</td><td>id-ct-CDR</td><td>RFCYYYY</td></tr>
             </tbody>
           </table>
+<!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
         </section>
 
         <section title="SMI Security for PKIX Access Descriptor" toc="exclude">
           <t>
-            IANA is requested to allocate in the "SMI Security for PKIX Access Descriptor" registry as follows:
+            This document registers the following entry in the "SMI Security for PKIX Access Descriptor" registry <xref target="RFC7299"/>:
           </t>
           <table>
+            <name>SMI Security for PKIX Access Descriptor</name>
             <thead>
-              <tr><td>Decimal</td><td>Description</td><td>Specification</td></tr>
+              <tr><th>Decimal</th><th>Description</th><th>Specification</th></tr>
             </thead>
             <tbody>
-              <tr><td>TBD3</td><td>id-ad-communityDefinition</td><td>[RFC-to-be]</td></tr>
+              <tr><td>TBD3</td><td>id-ad-communityDefinition</td><td>RFCYYYY</td></tr>
             </tbody>
           </table>
+<!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
         </section>
 
         <section title="RPKI Signed Object registry" toc="exclude">
           <t>
-            IANA is requested to allocate in the "RPKI Signed Object" registry as follows:
+            This document registers the following entry in the "RPKI Signed Object" registry <xref target="RFC6488"/>:
           </t>
           <table>
+            <name>RPKI Signed Object</name>
             <thead>
-              <tr><td>Name</td><td>OID</td><td>Specification</td></tr>
+              <tr><th>Name</th><th>OID</th><th>Specification</th></tr>
             </thead>
             <tbody>
-              <tr><td>Community Definition Reference</td><td>1.2.840.113549.1.9.16.1.TBD2</td><td>[RFC-to-be]</td></tr>
+              <tr><td>Community Definition Reference</td><td>1.2.840.113549.1.9.16.1.TBD2</td><td>RFCYYYY</td></tr>
             </tbody>
           </table>
+<!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
         </section>
 
         <section title="RPKI Repository Name Scheme registry" toc="exclude">
           <t>
-            IANA is requested to register in the "RPKI Repository Name Scheme" registry <xref target="RFC6481"/> as follows:
+            This document registers the following entry in the "RPKI Repository Name Scheme" registry <xref target="RFC6481"/>:
           </t>
           <table>
+            <name>RPKI Repository Name Scheme</name>
             <thead>
-              <tr><td>Filename Extension</td><td>RPKI Object</td><td>Reference</td></tr>
+              <tr><th>Filename Extension</th><th>RPKI Object</th><th>Reference</th></tr>
             </thead>
             <tbody>
-              <tr><td>.cdr</td><td>Community Definition Reference</td><td>[RFC-to-be]</td></tr>
+              <tr><td>.cdr</td><td>Community Definition Reference</td><td>RFCYYYY</td></tr>
             </tbody>
           </table>
+<!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
         </section>
 
         <section title="Media Type registry" toc="exclude">
           <t>
-            The IANA is requested to register the media type <tt>application/rpki-cdr</tt> in the "Media Type" registry as follows:
+            This document registers the the media type <tt>application/rpki-cdr</tt> in the "Media Type" registry <xref target="RFC6838"/>:
           </t>
           <artwork>
 <![CDATA[
@@ -1161,17 +1184,17 @@ RFC-EDITOR: please update YYYY with this RFC ID
    Required parameters: N/A
    Optional parameters: N/A
    Encoding considerations: binary
-   Security considerations: Carries an RPKI CDR [RFC-to-be].
+   Security considerations: Carries an RPKI CDR [RFCYYYY].
        This media type contains no active content. See
-       Section XYZ of [RFC-to-be] for further information.
+       Section XYZ of [RFCYYYY] for further information.
    Interoperability considerations: None
-   Published specification: [RFC-to-be]
+   Published specification: [RFCYYYY]
    Applications that use this media type: RPKI operators
    Additional information:
      Content: This media type is a signed object, as defined
          in [RFC6488], which contains as payload a reference
          to an online publication of a Community Definition
-         as defined in [RFC-to-be].
+         as defined in [RFCYYYY].
      Magic number(s): None
      File extension(s): .cdr
      Macintosh file type code(s):
@@ -1182,6 +1205,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
    Change controller: IETF
 ]]>
           </artwork>
+<!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
         </section>
 
       </section>
@@ -1189,10 +1213,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
     </section>
 
     <section title="Implementation status" anchor="implementation">
-
-      <t>
-        RFC-EDITOR: Please remove this section and the accompanying reference(s) before publication.
-      </t>
+<!-- XXX: RFC-EDITOR: Please remove this section and the accompanying reference(s) before publication. -->
 
      <t>
        This section records the status of known implementations of the protocol defined by this specification at the time of posting of this Internet-Draft, and is based on a proposal described in <xref target="RFC7942"/>.
@@ -1208,7 +1229,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
        It is up to the individual working groups to use this information as they see fit".
      </t>
 
-      <section title="Publishing implementations" anchor="implementation.publishing">
+     <section title="Publishing implementations" anchor="implementation.publishing">
 
         <t>
           The following networks are known to publish BGP community definitions according to this specification.
@@ -1263,6 +1284,14 @@ RFC-EDITOR: please update YYYY with this RFC ID
 
       </section>
 
+      <section title="CDR implementations" anchor="implementation.rpki">
+
+        <t>
+          No Community Definition Reference implementations are known at this time.
+        </t>
+
+      </section>
+
     </section>
 
     <section title="Security considerations" anchor="security">
@@ -1270,7 +1299,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
       <section title="Publishing considerations" anchor="security.publishing">
 
         <t>
-          This section is modeled after the template described in Section 3.7.1 of <xref target="RFC9907"/>.
+          This section is modeled after the template described in <xref target="RFC9907" section="3.7.1"/>.
         </t>
         <t>
           The "ietf-bgp-communities" YANG module defines a data model that is designed to be accessed via YANG-based management protocols, such as the Network Configuration Protocol (NETCONF) <xref target="RFC6241"/> and RESTCONF <xref target="RFC8040"/>.
@@ -1292,7 +1321,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
         </ul>
         <t>
           Disclosing this information may be misused, e.g., for tracking and data correlation.
-          Publishers MUST NOT populate these elements with Personally Identifiable Information (PII).
+          Publishers <bcp14>MUST NOT</bcp14> populate these elements with Personally Identifiable Information (PII).
           For example, these elements may be set with information that refers to generic contact information, not pointing to specific individuals.
         </t>
 
@@ -1302,17 +1331,29 @@ RFC-EDITOR: please update YYYY with this RFC ID
 
         <t>
           The YANG module described in this document may be used to specify BGP community definitions in different serialization formats, such as XML, JSON or CBOR.
-          Applications that parse these community definitions SHOULD reject objects that do not conform to the YANG model.
-          Furthermore, parsers SHOULD check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
+          Applications that parse these community definitions <bcp14>SHOULD</bcp14> reject objects that do not conform to the YANG model.
+          Furthermore, parsers <bcp14>SHOULD</bcp14> check that the sum of the specified Local Administrator or Local Data Part field lengths in each community definition does not exceed the local part size of the specified community type.
           For example, a Regular BGP community definition with format "decimal" containing a field of length 4 and a field of length 2 would be illegal, as the Local Administrator field has a maximum length of 65535 (5 digits).
         </t>
         <t>
           The "bgp-communities/contact-url" element may contain a link to an untrusted webpage.
-          Parsers MAY opt to render the URL as plain text rather than a clickable link, to prevent inadvertent exposure of information by users of the rendered output.
+          Parsers <bcp14>MAY</bcp14> opt to render the URL as plain text rather than a clickable link, to prevent inadvertent exposure of information by users of the rendered output.
         </t>
         <t>
           Several elements with the "string" data type may be used to display information in a web page or application.
           Parsers should take care that the appropriate escaping is performed to protect against cross-site scripting attacks.
+        </t>
+
+      </section>
+
+      <section title="CDR considerations" anchor="security.cdr">
+
+        <t>
+          Operators publishing CDRs in the RPKI <bcp14>MUST</bcp14> specify an <tt>accessLocation</tt> that points to a web object under their own control.
+        </t>
+        <t>
+          Applications retrieving the location of community definitions through the RPKI <bcp14>MUST</bcp14> perform all checks specified in <xref target="rpki.asn1"/> and <xref target="rpki.validation"/>.
+          When downloading a definition from this location via HTTPS, applications <bcp14>MUST</bcp14> perform HTTPS (TLS) validation.
         </t>
 
       </section>
@@ -1328,19 +1369,22 @@ RFC-EDITOR: please update YYYY with this RFC ID
       &I-D.ietf-idr-bgp-model;
       &RFC1930;
       &RFC1997;
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.3779.xml"/>
+      &RFC3779;
       &RFC4360;
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.4648.xml"/>
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.5652.xml"/>
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6480.xml"/>
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6481.xml"/>
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6487.xml"/>
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.6488.xml"/>
+      &RFC4648;
+      &RFC5652;
+      &RFC6480;
+      &RFC6481;
+      &RFC6487;
+      &RFC6488;
+      &RFC6838;
+      &RFC7107;
+      &RFC7299;
       &RFC7950;
       &RFC8092;
       &RFC8341;
       &RFC8349;
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml/reference.RFC.9110.xml"/>
+      &RFC9110;
       &RFC9595;
       &RFC9911;
 
@@ -1359,6 +1403,7 @@ RFC-EDITOR: please update YYYY with this RFC ID
 
     <references title="Informative References" anchor="informative">
 
+      &I-D.ietf-sidrops-publication-server-bcp;
       &IEEE.1003-2.1992;
       &RFC1912;
       &RFC2119;
@@ -1378,8 +1423,6 @@ RFC-EDITOR: please update YYYY with this RFC ID
       &RFC9000;
       &RFC9907;
 
-      <xi:include href="https://bib.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-sidrops-publication-server-bcp.xml"/>
-
     </references>
 
     <section title="JSON Examples" anchor="examples">
@@ -1389,9 +1432,9 @@ RFC-EDITOR: please update YYYY with this RFC ID
         The examples contain long lines that may be folded, as described in <xref target="RFC8792"/>.
       </t>
 
-      <section title="RFC8195 Selective NO_EXPORT definition" anchor="examples.rfc8195">
+      <section title="RFC8195 Selective NO_EXPORT definition" anchor="examples.rfc8195" toc="exclude">
         <t>
-          A JSON definition for the example Large BGP community described in <xref target="RFC8195"/>, Section 4.1.1 looks as follows.
+          A JSON definition for the example Large BGP community described in <xref target="RFC8195" section="4.1.1"/> looks as follows.
         </t>
         <sourcecode>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
@@ -1443,9 +1486,9 @@ NO_EXPORT",
         </sourcecode>
       </section>
 
-      <section title="RFC4384 Data Collection definition" anchor="examples.rfc4384">
+      <section title="RFC4384 Data Collection definition" anchor="examples.rfc4384" toc="exclude">
         <t>
-          A JSON definition for the example Regular and Extended BGP communities described in <xref target="RFC4384"/>, Section 4 looks as follows.
+          A JSON definition for the example Regular and Extended BGP communities described in <xref target="RFC4384" section="4"/> looks as follows.
         </t>
         <sourcecode>
 =============== NOTE: '\' line wrapping per RFC 8792 ================
