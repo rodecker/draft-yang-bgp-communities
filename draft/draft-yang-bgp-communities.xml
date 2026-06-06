@@ -965,7 +965,7 @@ IMPORTS
 
 id-ct-CDR OBJECT IDENTIFIER ::=
   { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-    pkcs-9(9) id-smime(16) id-ct(1) CDR(TBD2) }
+    pkcs-9(9) id-smime(16) id-ct(1) TBD2 }
 
 ct-CDR CONTENT-TYPE ::=
   { TYPE CommunityDefinitionReference IDENTIFIED BY id-ct-CDR }
@@ -973,10 +973,10 @@ ct-CDR CONTENT-TYPE ::=
 CommunityDefinitionReference ::= SEQUENCE {
   version       [0] INTEGER DEFAULT 0,
   asID              INTEGER (1..4294967295),
-  yangRevision      IA5String (SIZE(10)) DEFAULT YangRevision,
+  yangRevision      IA5String (SIZE(10)) DEFAULT yangRevision,
   location          AccessDescription }
 
-YangRevision IA5String ::= "2026-01-05" -- From [RFCYYYY]
+yangRevision IA5String ::= "2026-01-05" -- From [RFCYYYY]
 
 END
         </sourcecode>
@@ -1579,7 +1579,7 @@ from the Fiji Islands",
     <section title="Acknowledgements" anchor="acknowledgements">
 
       <t>
-        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog, Teun Vink, Tom Petch, Dale Carder, Mohamed Boucadair and Ladislav Lhotka for contributing ideas and feedback to this document.
+        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog, Teun Vink, Tom Petch, Dale Carder, Mohamed Boucadair, Ladislav Lhotka and Russ Housley for contributing ideas and feedback to this document.
       </t>
       <t>
         The author would like to thank <contact fullname="Job Snijders"/> for specifying the CDR RPKI Signed Object profile.
