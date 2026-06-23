@@ -1212,9 +1212,7 @@ Reference: RFCYYYY
 
     </section>
 
-    <section title="Implementation status" anchor="implementation">
-<!-- XXX: RFC-EDITOR: Please remove this section and the accompanying reference(s) before publication. -->
-
+    <section title="Implementation status" anchor="implementation" removeInRFC="true">
      <t>
        This section records the status of known implementations of the protocol defined by this specification at the time of posting of this Internet-Draft, and is based on a proposal described in <xref target="RFC7942"/>.
        The description of implementations in this section is intended to assist the IETF in its decision processes in progressing drafts to RFCs.
