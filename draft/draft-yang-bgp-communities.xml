@@ -1585,7 +1585,7 @@ from the Fiji Islands",
     <section title="Acknowledgements" anchor="acknowledgements">
 
       <t>
-        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog, Teun Vink, Tom Petch, Dale Carder, Mohamed Boucadair, Ladislav Lhotka and Russ Housley for contributing ideas and feedback to this document.
+        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog, Teun Vink, Tom Petch, Dale Carder, Mohamed Boucadair, Ladislav Lhotka, Russ Housley, and Sean Turner for contributing ideas and feedback to this document.
       </t>
       <t>
         The author would like to thank <contact fullname="Job Snijders"/> for specifying the CDR RPKI Signed Object profile.
