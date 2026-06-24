@@ -4,12 +4,12 @@
 
 Network Working Group                                            M. Pels
 Internet-Draft                                                  RIPE NCC
-Intended status: Standards Track                           14 April 2026
-Expires: 16 October 2026
+Intended status: Standards Track                            24 June 2026
+Expires: 26 December 2026
 
 
                  A YANG Data Model for BGP Communities
-                draft-ietf-grow-yang-bgp-communities-08
+                draft-ietf-grow-yang-bgp-communities-09
 
 Abstract
 
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 16 October 2026.
+   This Internet-Draft will expire on 26 December 2026.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Pels                     Expires 16 October 2026                [Page 1]
+Pels                    Expires 26 December 2026                [Page 1]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -85,14 +85,14 @@ Table of Contents
    9.  IANA considerations . . . . . . . . . . . . . . . . . . . . .  23
      9.1.  YANG Namespace Registration . . . . . . . . . . . . . . .  23
      9.2.  YANG Module Registration  . . . . . . . . . . . . . . . .  23
-     9.3.  YANG SID Allocation . . . . . . . . . . . . . . . . . . .  23
+     9.3.  YANG SID Allocation . . . . . . . . . . . . . . . . . . .  24
      9.4.  RPKI Identifiers  . . . . . . . . . . . . . . . . . . . .  24
    10. Implementation status . . . . . . . . . . . . . . . . . . . .  26
      10.1.  Publishing implementations . . . . . . . . . . . . . . .  27
      10.2.  Parser implementations . . . . . . . . . . . . . . . . .  27
      10.3.  CDR implementations  . . . . . . . . . . . . . . . . . .  27
    11. Security considerations . . . . . . . . . . . . . . . . . . .  27
-     11.1.  Publishing considerations  . . . . . . . . . . . . . . .  27
+     11.1.  Publishing considerations  . . . . . . . . . . . . . . .  28
      11.2.  Parsing considerations . . . . . . . . . . . . . . . . .  28
      11.3.  CDR considerations . . . . . . . . . . . . . . . . . . .  29
    12. Normative References  . . . . . . . . . . . . . . . . . . . .  29
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Pels                     Expires 16 October 2026                [Page 2]
+Pels                    Expires 26 December 2026                [Page 2]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026                [Page 3]
+Pels                    Expires 26 December 2026                [Page 3]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
    Routing Registry.  This makes it cumbersome to determine whether and
@@ -221,9 +221,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026                [Page 4]
+Pels                    Expires 26 December 2026                [Page 4]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
         |  +--ro description?    community-description
@@ -277,9 +277,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026                [Page 5]
+Pels                    Expires 26 December 2026                [Page 5]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
 5.  Base Module
@@ -333,9 +333,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026                [Page 6]
+Pels                    Expires 26 December 2026                [Page 6]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
         'MAY', and 'OPTIONAL' in this document are to be interpreted as
@@ -389,9 +389,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026                [Page 7]
+Pels                    Expires 26 December 2026                [Page 7]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
          }
@@ -445,9 +445,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026                [Page 8]
+Pels                    Expires 26 December 2026                [Page 8]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
        type string {
@@ -501,9 +501,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026                [Page 9]
+Pels                    Expires 26 December 2026                [Page 9]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
          ordered-by user;
@@ -557,9 +557,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 10]
+Pels                    Expires 26 December 2026               [Page 10]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
        leaf name {
@@ -613,9 +613,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 11]
+Pels                    Expires 26 December 2026               [Page 11]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
        leaf global-admin {
@@ -669,9 +669,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 12]
+Pels                    Expires 26 December 2026               [Page 12]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
             AS-Specific Extended Communities, 64 (0x40) for
@@ -725,9 +725,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 13]
+Pels                    Expires 26 December 2026               [Page 13]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
        }
@@ -781,9 +781,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 14]
+Pels                    Expires 26 December 2026               [Page 14]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
          }
@@ -837,9 +837,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 15]
+Pels                    Expires 26 December 2026               [Page 15]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
        list contact {
@@ -893,9 +893,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 16]
+Pels                    Expires 26 December 2026               [Page 16]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
          key "name";
@@ -949,9 +949,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 17]
+Pels                    Expires 26 December 2026               [Page 17]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
         WG List:  <mailto:grow@ietf.org>
@@ -1005,9 +1005,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 18]
+Pels                    Expires 26 December 2026               [Page 18]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
          uses bgp-comm:regular-community;
@@ -1061,9 +1061,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 19]
+Pels                    Expires 26 December 2026               [Page 19]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
    (see Section 7.2).  For example, a definition for a single community
@@ -1117,14 +1117,14 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 20]
+Pels                    Expires 26 December 2026               [Page 20]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
    RPKI-CDR-2026
      { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-        pkcs-9(9) smime(16) modules(0) id-mod-rpki-cdr-2026(TBD1) }
+        pkcs-9(9) smime(16) modules(0) id-mod-rpki-cdr-2026(89) }
 
    DEFINITIONS EXPLICIT TAGS ::=
    BEGIN
@@ -1139,11 +1139,19 @@ Internet-Draft             BGP Community YANG                 April 2026
      FROM PKIX1Implicit-2009 -- From [RFC5912]
        { iso(1) identified-organization(3) dod(6) internet(1)
          security(5) mechanisms(5) pkix(7) id-mod(0)
-         id-mod-pkix1-implicit-02(59) } ;
+         id-mod-pkix1-implicit-02(59) }
+
+     id-ad
+     FROM PKIX1Explicitt-2009 -- From [RFC5912]
+       { iso(1) identified-organization(3) dod(6) internet(1)
+         security(5) mechanisms(5) pkix(7) id-mod(0)
+         id-mod-pkix1-explicit-02(51) } ;
+
+   id-ad-communityDefinition OBJECT IDENTIFIER ::= { id-ad 15 }
 
    id-ct-CDR OBJECT IDENTIFIER ::=
      { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-       pkcs-9(9) id-smime(16) id-ct(1) CDR(TBD2) }
+       pkcs-9(9) id-smime(16) id-ct(1) 58 }
 
    ct-CDR CONTENT-TYPE ::=
      { TYPE CommunityDefinitionReference IDENTIFIED BY id-ct-CDR }
@@ -1151,12 +1159,24 @@ Internet-Draft             BGP Community YANG                 April 2026
    CommunityDefinitionReference ::= SEQUENCE {
      version       [0] INTEGER DEFAULT 0,
      asID              INTEGER (1..4294967295),
-     yangRevision      IA5String (SIZE(10)) DEFAULT YangRevision,
+     yangRevision      IA5String (SIZE(10)) DEFAULT yangRevision,
      location          AccessDescription }
 
-   YangRevision IA5String ::= "2026-01-05" -- From [RFCYYYY]
+   yangRevision IA5String ::= "2026-01-05" -- From [RFCYYYY]
 
    END
+
+
+
+
+
+
+
+
+Pels                    Expires 26 December 2026               [Page 21]
+
+Internet-Draft             BGP Community YANG                  June 2026
+
 
 8.1.1.  version
 
@@ -1168,15 +1188,6 @@ Internet-Draft             BGP Community YANG                 April 2026
 
    The asID field contains a positive integer that represents the
    Autonomous System number of the authorizing entity.
-
-
-
-
-
-Pels                     Expires 16 October 2026               [Page 21]
-
-Internet-Draft             BGP Community YANG                 April 2026
-
 
    Consumers of the JSON encoded community definition referenced in
    Section 8.1.4 MUST check that the ASN contained in the asID field of
@@ -1214,6 +1225,15 @@ Internet-Draft             BGP Community YANG                 April 2026
    all CDR objects related to the AS as invalid, i.e., not emit a
    partial list of community definition locations.
 
+
+
+
+
+Pels                    Expires 26 December 2026               [Page 22]
+
+Internet-Draft             BGP Community YANG                  June 2026
+
+
    CAs are RECOMMENDED to generate a new key pair for each new CDR and
    only sign one CDR with each EE certificate.  This type of EE
    certificate is termed a "one-time-use" EE certificate (see Section 3
@@ -1226,13 +1246,6 @@ Internet-Draft             BGP Community YANG                 April 2026
    [RFC4648]).  See Section 8.7 of
    [I-D.ietf-sidrops-publication-server-bcp] for more information and
    considerations.
-
-
-
-Pels                     Expires 16 October 2026               [Page 22]
-
-Internet-Draft             BGP Community YANG                 April 2026
-
 
 8.3.  CDR validation guidelines
 
@@ -1269,6 +1282,14 @@ Internet-Draft             BGP Community YANG                 April 2026
    This document registers the following YANG module in the "YANG Module
    Names" registry [RFC6020]:
 
+
+
+
+Pels                    Expires 26 December 2026               [Page 23]
+
+Internet-Draft             BGP Community YANG                  June 2026
+
+
    Name: ietf-bgp-communities
    Maintained by IANA? N
    Namespace: urn:ietf:params:xml:ns:yang:ietf-bgp-communities
@@ -1279,16 +1300,6 @@ Internet-Draft             BGP Community YANG                 April 2026
 
    This document registers the following entry in the "IETF YANG SID"
    registry [RFC9595]:
-
-
-
-
-
-
-Pels                     Expires 16 October 2026               [Page 23]
-
-Internet-Draft             BGP Community YANG                 April 2026
-
 
    SID range entry point: TBD
    SID range size: 100
@@ -1306,7 +1317,7 @@ Internet-Draft             BGP Community YANG                 April 2026
                 +=========+===============+===============+
                 | Decimal | Description   | Specification |
                 +=========+===============+===============+
-                | TBD1    | RPKI-CDR-2026 | RFCYYYY       |
+                | 89      | RPKI-CDR-2026 | RFCYYYY       |
                 +---------+---------------+---------------+
 
                   Table 1: SMI Security for S/MIME Module
@@ -1321,35 +1332,29 @@ Internet-Draft             BGP Community YANG                 April 2026
                  +=========+=============+===============+
                  | Decimal | Description | Specification |
                  +=========+=============+===============+
-                 | TBD2    | id-ct-CDR   | RFCYYYY       |
+                 | 58      | id-ct-CDR   | RFCYYYY       |
                  +---------+-------------+---------------+
 
                     Table 2: SMI Security for S/MIME CMS
                                 Content Type
+
+
+
+
+Pels                    Expires 26 December 2026               [Page 24]
+
+Internet-Draft             BGP Community YANG                  June 2026
+
 
 9.4.3.  SMI Security for PKIX Access Descriptor
 
    This document registers the following entry in the "SMI Security for
    PKIX Access Descriptor" registry [RFC7299]:
 
-
-
-
-
-
-
-
-
-
-Pels                     Expires 16 October 2026               [Page 24]
-
-Internet-Draft             BGP Community YANG                 April 2026
-
-
           +=========+===========================+===============+
           | Decimal | Description               | Specification |
           +=========+===========================+===============+
-          | TBD3    | id-ad-communityDefinition | RFCYYYY       |
+          | 15      | id-ad-communityDefinition | RFCYYYY       |
           +---------+---------------------------+---------------+
 
               Table 3: SMI Security for PKIX Access Descriptor
@@ -1359,13 +1364,13 @@ Internet-Draft             BGP Community YANG                 April 2026
    This document registers the following entry in the "RPKI Signed
    Object" registry [RFC6488]:
 
-       +============+==============================+===============+
-       | Name       | OID                          | Specification |
-       +============+==============================+===============+
-       | Community  | 1.2.840.113549.1.9.16.1.TBD2 | RFCYYYY       |
-       | Definition |                              |               |
-       | Reference  |                              |               |
-       +------------+------------------------------+---------------+
+   +======================+============================+===============+
+   | Name                 | OID                        | Specification |
+   +======================+============================+===============+
+   | Community            | 1.2.840.113549.1.9.16.1.58 | RFCYYYY       |
+   | Definition           |                            |               |
+   | Reference            |                            |               |
+   +----------------------+----------------------------+---------------+
 
                         Table 4: RPKI Signed Object
 
@@ -1392,14 +1397,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-
-
-
-
-
-Pels                     Expires 16 October 2026               [Page 25]
+Pels                    Expires 26 December 2026               [Page 25]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
       Type name: application
@@ -1430,6 +1430,8 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 10.  Implementation status
 
+   This section is to be removed before publishing as an RFC.
+
    This section records the status of known implementations of the
    protocol defined by this specification at the time of posting of this
    Internet-Draft, and is based on a proposal described in [RFC7942].
@@ -1443,20 +1445,25 @@ Internet-Draft             BGP Community YANG                 April 2026
    features.  Readers are advised to note that other implementations may
    exist.
 
+
+
+
+
+
+
+
+
+Pels                    Expires 26 December 2026               [Page 26]
+
+Internet-Draft             BGP Community YANG                  June 2026
+
+
    According to [RFC7942], "this will allow reviewers and working groups
    to assign due consideration to documents that have the benefit of
    running code, which may serve as evidence of valuable experimentation
    and feedback that have made the implemented protocols more mature.
    It is up to the individual working groups to use this information as
    they see fit".
-
-
-
-
-Pels                     Expires 16 October 2026               [Page 26]
-
-Internet-Draft             BGP Community YANG                 April 2026
-
 
 10.1.  Publishing implementations
 
@@ -1499,20 +1506,18 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 11.  Security considerations
 
+
+
+
+Pels                    Expires 26 December 2026               [Page 27]
+
+Internet-Draft             BGP Community YANG                  June 2026
+
+
 11.1.  Publishing considerations
 
    This section is modeled after the template described in Section 3.7.1
    of [RFC9907].
-
-
-
-
-
-
-Pels                     Expires 16 October 2026               [Page 27]
-
-Internet-Draft             BGP Community YANG                 April 2026
-
 
    The "ietf-bgp-communities" YANG module defines a data model that is
    designed to be accessed via YANG-based management protocols, such as
@@ -1557,18 +1562,15 @@ Internet-Draft             BGP Community YANG                 April 2026
    specified community type.  For example, a Regular BGP community
    definition with format "decimal" containing a field of length 4 and a
    field of length 2 would be illegal, as the Local Administrator field
-   has a maximum length of 65535 (5 digits).
 
 
 
-
-
-
-
-Pels                     Expires 16 October 2026               [Page 28]
+Pels                    Expires 26 December 2026               [Page 28]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
+
+   has a maximum length of 65535 (5 digits).
 
    The "bgp-communities/contact-url" element may contain a link to an
    untrusted webpage.  Parsers MAY opt to render the URL as plain text
@@ -1619,11 +1621,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-
-
-Pels                     Expires 16 October 2026               [Page 29]
+Pels                    Expires 26 December 2026               [Page 29]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
    [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
@@ -1677,9 +1677,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 30]
+Pels                    Expires 26 December 2026               [Page 30]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
    [RFC8092]  Heitz, J., Ed., Snijders, J., Ed., Patel, K., Bagdonas,
@@ -1733,9 +1733,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 31]
+Pels                    Expires 26 December 2026               [Page 31]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
    [IEEE.1003-2.1992]
@@ -1789,9 +1789,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 32]
+Pels                    Expires 26 December 2026               [Page 32]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
    [RFC8040]  Bierman, A., Bjorklund, M., and K. Watsen, "RESTCONF
@@ -1845,9 +1845,9 @@ A.1.  RFC8195 Selective NO_EXPORT definition
 
 
 
-Pels                     Expires 16 October 2026               [Page 33]
+Pels                    Expires 26 December 2026               [Page 33]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
    =============== NOTE: '\' line wrapping per RFC 8792 ================
@@ -1901,9 +1901,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 
 
 
-Pels                     Expires 16 October 2026               [Page 34]
+Pels                    Expires 26 December 2026               [Page 34]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
 A.2.  RFC4384 Data Collection definition
@@ -1957,9 +1957,9 @@ A.2.  RFC4384 Data Collection definition
 
 
 
-Pels                     Expires 16 October 2026               [Page 35]
+Pels                    Expires 26 December 2026               [Page 35]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
            "description": "A national route over a terrestrial link \
@@ -2003,8 +2003,9 @@ Internet-Draft             BGP Community YANG                 April 2026
 Appendix B.  Acknowledgements
 
    The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper
-   den Hertog, Teun Vink, Tom Petch, Dale Carder, Mohamed Boucadair and
-   Ladislav Lhotka for contributing ideas and feedback to this document.
+   den Hertog, Teun Vink, Tom Petch, Dale Carder, Mohamed Boucadair,
+   Ladislav Lhotka, Russ Housley, and Sean Turner for contributing ideas
+   and feedback to this document.
 
    The author would like to thank Job Snijders for specifying the CDR
    RPKI Signed Object profile.
@@ -2012,10 +2013,9 @@ Appendix B.  Acknowledgements
 
 
 
-
-Pels                     Expires 16 October 2026               [Page 36]
+Pels                    Expires 26 December 2026               [Page 36]
 
-Internet-Draft             BGP Community YANG                 April 2026
+Internet-Draft             BGP Community YANG                  June 2026
 
 
 Author's Address
@@ -2069,4 +2069,4 @@ Author's Address
 
 
 
-Pels                     Expires 16 October 2026               [Page 37]
+Pels                    Expires 26 December 2026               [Page 37]

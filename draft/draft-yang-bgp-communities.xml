@@ -53,7 +53,7 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
      category="std"
-     docName="draft-ietf-grow-yang-bgp-communities-08"
+     docName="draft-ietf-grow-yang-bgp-communities-09"
      ipr="trust200902"
      xml:lang="en"
      submissionType="IETF"
@@ -64,7 +64,7 @@
 
     <title abbrev="BGP Community YANG">A YANG Data Model for BGP Communities</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-08"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-09"/>
 
     <author fullname="Martin Pels" initials="M" surname="Pels">
       <organization>RIPE NCC</organization>
