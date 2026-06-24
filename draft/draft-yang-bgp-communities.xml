@@ -946,7 +946,7 @@ module ietf-bgp-communities-annotate {
         <sourcecode type="asn.1" markers="false">
 RPKI-CDR-2026
   { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-     pkcs-9(9) smime(16) modules(0) id-mod-rpki-cdr-2026(TBD1) }
+     pkcs-9(9) smime(16) modules(0) id-mod-rpki-cdr-2026(89) }
 
 DEFINITIONS EXPLICIT TAGS ::=
 BEGIN
@@ -969,11 +969,11 @@ IMPORTS
       security(5) mechanisms(5) pkix(7) id-mod(0)
       id-mod-pkix1-explicit-02(51) } ;
 
-id-ad-communityDefinition OBJECT IDENTIFIER ::= { id-ad TBD3 }
+id-ad-communityDefinition OBJECT IDENTIFIER ::= { id-ad 15 }
 
 id-ct-CDR OBJECT IDENTIFIER ::=
   { iso(1) member-body(2) us(840) rsadsi(113549) pkcs(1)
-    pkcs-9(9) id-smime(16) id-ct(1) TBD2 }
+    pkcs-9(9) id-smime(16) id-ct(1) 58 }
 
 ct-CDR CONTENT-TYPE ::=
   { TYPE CommunityDefinitionReference IDENTIFIED BY id-ct-CDR }
@@ -1111,7 +1111,7 @@ Reference: RFCYYYY
                 <th>Decimal</th><th>Description</th><th>Specification</th></tr>
             </thead>
             <tbody>
-              <tr><td>TBD1</td><td>RPKI-CDR-2026</td><td>RFCYYYY</td></tr>
+              <tr><td>89</td><td>RPKI-CDR-2026</td><td>RFCYYYY</td></tr>
             </tbody>
           </table>
 <!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
@@ -1127,7 +1127,7 @@ Reference: RFCYYYY
               <tr><th>Decimal</th><th>Description</th><th>Specification</th></tr>
             </thead>
             <tbody>
-              <tr><td>TBD2</td><td>id-ct-CDR</td><td>RFCYYYY</td></tr>
+              <tr><td>58</td><td>id-ct-CDR</td><td>RFCYYYY</td></tr>
             </tbody>
           </table>
 <!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
@@ -1143,7 +1143,7 @@ Reference: RFCYYYY
               <tr><th>Decimal</th><th>Description</th><th>Specification</th></tr>
             </thead>
             <tbody>
-              <tr><td>TBD3</td><td>id-ad-communityDefinition</td><td>RFCYYYY</td></tr>
+              <tr><td>15</td><td>id-ad-communityDefinition</td><td>RFCYYYY</td></tr>
             </tbody>
           </table>
 <!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
@@ -1159,7 +1159,7 @@ Reference: RFCYYYY
               <tr><th>Name</th><th>OID</th><th>Specification</th></tr>
             </thead>
             <tbody>
-              <tr><td>Community Definition Reference</td><td>1.2.840.113549.1.9.16.1.TBD2</td><td>RFCYYYY</td></tr>
+              <tr><td>Community Definition Reference</td><td>1.2.840.113549.1.9.16.1.58</td><td>RFCYYYY</td></tr>
             </tbody>
           </table>
 <!-- XXX: RFC-EDITOR, please replace RFCYYYY in the above section with the actual RFC number of this document -->
