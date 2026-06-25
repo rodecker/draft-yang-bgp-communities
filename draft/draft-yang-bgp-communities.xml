@@ -964,7 +964,7 @@ IMPORTS
       id-mod-pkix1-implicit-02(59) }
 
   id-ad
-  FROM PKIX1Explicitt-2009 -- From [RFC5912]
+  FROM PKIX1Explicit-2009 -- From [RFC5912]
     { iso(1) identified-organization(3) dod(6) internet(1)
       security(5) mechanisms(5) pkix(7) id-mod(0)
       id-mod-pkix1-explicit-02(51) } ;
@@ -981,10 +981,8 @@ ct-CDR CONTENT-TYPE ::=
 CommunityDefinitionReference ::= SEQUENCE {
   version       [0] INTEGER DEFAULT 0,
   asID              INTEGER (1..4294967295),
-  yangRevision      IA5String (SIZE(10)) DEFAULT yangRevision,
+  yangRevision      IA5String (SIZE(10)),
   location          AccessDescription }
-
-yangRevision IA5String ::= "2026-01-05" -- From [RFCYYYY]
 
 END
         </sourcecode>
