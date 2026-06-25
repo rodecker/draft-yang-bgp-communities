@@ -981,10 +981,8 @@ ct-CDR CONTENT-TYPE ::=
 CommunityDefinitionReference ::= SEQUENCE {
   version       [0] INTEGER DEFAULT 0,
   asID              INTEGER (1..4294967295),
-  yangRevision      IA5String (SIZE(10)) DEFAULT yangRevision,
+  yangRevision      IA5String (SIZE(10)),
   location          AccessDescription }
-
-yangRevision IA5String ::= "2026-01-05" -- From [RFCYYYY]
 
 END
         </sourcecode>
