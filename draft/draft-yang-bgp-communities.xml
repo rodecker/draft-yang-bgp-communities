@@ -53,7 +53,7 @@
 
 <rfc xmlns:xi="http://www.w3.org/2001/XInclude"
      category="std"
-     docName="draft-ietf-grow-yang-bgp-communities-09"
+     docName="draft-ietf-grow-yang-bgp-communities-10"
      ipr="trust200902"
      xml:lang="en"
      submissionType="IETF"
@@ -64,7 +64,7 @@
 
     <title abbrev="BGP Community YANG">A YANG Data Model for BGP Communities</title>
 
-    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-09"/>
+    <seriesInfo name="Internet-Draft" value="draft-ietf-grow-yang-bgp-communities-10"/>
 
     <author fullname="Martin Pels" initials="M" surname="Pels">
       <organization>RIPE NCC</organization>
@@ -239,7 +239,7 @@ module: ietf-bgp-communities
       </t>
       <sourcecode>
 <![CDATA[
-<CODE BEGINS> file "ietf-bgp-communities@2026-01-05.yang"
+<CODE BEGINS> file "ietf-bgp-communities@2026-06-29.yang"
 
 module ietf-bgp-communities {
   yang-version 1.1;
@@ -285,7 +285,7 @@ module ietf-bgp-communities {
 
   // RFC-EDITOR: please update YYYY with this RFC ID
 
-  revision 2026-01-05 {
+  revision 2026-06-29 {
     description
       "Initial revision.";
     reference
@@ -421,6 +421,13 @@ module ietf-bgp-communities {
     description
       "A group of subfields inside the Local Administrator/Local
        Data section of a BGP Community";
+    leaf format {
+      type local-admin-format;
+      default "decimal";
+      description
+        "Format used for parsing Local Administrator/Local Data
+         subfields";
+    }
     list field {
       key "name";
       ordered-by user;
@@ -528,12 +535,6 @@ module ietf-bgp-communities {
     container local-admin {
       description
         "Local Administrator Field";
-      leaf format {
-        type local-admin-format;
-        default "decimal";
-        description
-          "Format used for parsing Local Administrator subfields";
-      }
       uses local-admin-fields;
     }
     reference
@@ -608,12 +609,6 @@ module ietf-bgp-communities {
     container local-admin {
       description
         "Local Administrator Field";
-      leaf format {
-        type local-admin-format;
-        default "decimal";
-        description
-          "Format used for parsing Local Administrator subfields";
-      }
       uses local-admin-fields;
     }
     reference
@@ -647,23 +642,11 @@ module ietf-bgp-communities {
     container local-data-part-1 {
       description
         "Local Data Part 1 Field";
-      leaf format {
-        type local-admin-format;
-        default "decimal";
-        description
-          "Format used for parsing Local Data Part 1 subfields";
-      }
       uses local-admin-fields;
     }
     container local-data-part-2 {
       description
         "Local Data Part 2 Field";
-      leaf format {
-        type local-admin-format;
-        default "decimal";
-        description
-          "Format used for parsing Local Data Part 2 subfields";
-      }
       uses local-admin-fields;
     }
     reference
@@ -1584,7 +1567,7 @@ from the Fiji Islands",
     <section title="Acknowledgements" anchor="acknowledgements">
 
       <t>
-        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog, Teun Vink, Tom Petch, Dale Carder, Mohamed Boucadair, Ladislav Lhotka, Russ Housley, and Sean Turner for contributing ideas and feedback to this document.
+        The author would like to thank Jeffrey Haas, Luuk Hendriks, Jasper den Hertog, Teun Vink, Tom Petch, Dale Carder, Mohamed Boucadair, Ladislav Lhotka, Russ Housley, Sean Turner and Maria Matejka for contributing ideas and feedback to this document.
       </t>
       <t>
         The author would like to thank <contact fullname="Job Snijders"/> for specifying the CDR RPKI Signed Object profile.
