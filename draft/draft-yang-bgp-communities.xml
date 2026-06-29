@@ -1290,9 +1290,10 @@ Reference: RFCYYYY
 
       <section title="CDR implementations" anchor="implementation.rpki">
 
-        <t>
-          No Community Definition Reference implementations are known at this time.
-        </t>
+        <ul>
+          <li>An experimental CDR signer was provided by Job Snijders.</li>
+          <li>An experimental validator implementation based on <tt>rpki-client</tt> was provided by Job Snijders.</li>
+        </ul>
 
       </section>
 
